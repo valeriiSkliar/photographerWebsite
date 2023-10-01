@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
+@section('content')
 
-    <title>photographerWebsite</title>
+    CONTENT
+@endsection
 
-    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet"/>
-</head>
-<body class="antialiased">
-<div>
     {{--            @if (Route::has('login'))--}}
     {{--                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">--}}
     {{--                    @auth--}}
@@ -28,25 +19,3 @@
     {{--            @endif--}}
 
 
-    Тут находятся все views : <b class="text-amber-700">resources/views</b> в них можно писать разметку.
-    <br>
-    <b>resources/views/index.blade.php </b> Главная страница
-    <pre>
-        in php " ; " at the end of line is required!!!
-        Пример как писать ссылки:
-        a
-            href="{{ "route('some_path')"}} {{ " именованый роут" }}">
-        /a>
-        a
-            href="{{ "url('/dashboard')"}} {{ " относительная ссылка" }}">
-        /a>
-
-        scss path -> resources/scss/app.scss
-        js path -> resources/js/app.js
-    </pre>
-
-    <a href="{{ route('test') }}">TEST PAGE LINK</a>
-
-</div>
-</body>
-</html>
