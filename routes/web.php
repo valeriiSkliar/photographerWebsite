@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+Route::get('/test', [\App\Http\Controllers\TestController::class, '__invoke'])->name('test');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
