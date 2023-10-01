@@ -6,6 +6,7 @@
 
     <title>photographerWebsite</title>
 
+    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet"/>
@@ -39,6 +40,9 @@
         a
             href="{{ "url('/dashboard')"}} {{ " относительная ссылка" }}">
         /a>
+
+        scss path -> resources/scss/app.scss
+        js path -> resources/js/app.js
     </pre>
 
     <a href="{{ route('test') }}">TEST PAGE LINK</a>
