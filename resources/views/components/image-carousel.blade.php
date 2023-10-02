@@ -1,9 +1,9 @@
 @props(['images' => []])
 
 
-{{-- @push('carousel-style') --}}
+@push('custome-style')
     @vite(['resources/css/carousel.css'])
-{{-- @endpush --}}
+@endpush
 
 <section class="introSlider">
 	<div class="contentSlider">

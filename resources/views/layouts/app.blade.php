@@ -13,7 +13,7 @@
 
         <!-- Scripts -->
         @vite(['resources/scss/app.scss', 'resources/js/app.js'])
-        @stack('corusel-style')
+        @stack('custome-style')
     </head>
     <body class="font-sans antialiased">
 
