@@ -1,0 +1,232 @@
+:root {
+    --mainColor: #c7b299;
+    --primaryColor: #555555;
+    --secondaryColor: #8c8c8c;
+    --whiteColor: #ffff;
+    --buttonColor: #998675;
+}
+/* Size */
+:root {
+    --container: 1100px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: 0;
+    scroll-behavior: smooth;
+}
+
+::selection {
+    background-color: var(--mainColor);
+    color: var(--whiteColor);
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: var(--mainColor);
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+}
+
+a {
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+}
+ul {
+    list-style: none;
+}
+
+.btnStarter {
+    display: inline-block;
+    font-family: "Raleway", sans-serif;
+    margin: 0 auto;
+    margin-bottom: 3px;
+    padding: 12px 30px;
+    background-color: var(--buttonColor);
+    color: var(--whiteColor);
+    border: none;
+    text-transform: uppercase;
+    line-height: 1.6;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    box-shadow: inset 0 -3px #736359;
+    transition: 0.2s;
+    transform: scale(1.2);
+}
+
+.btnStarter:hover,
+.btnStarter:focus {
+    margin-top: 3px;
+    margin-bottom: 0;
+    box-shadow: inset 0 0px #736359;
+}
+.container {
+    margin: 0 auto;
+    max-width: var(--container);
+}
+
+.font-sizeScale_f34 {
+    font-size: 45px;
+}
+.font-sizeScale_f25 {
+    font-size: 40px;
+}
+
+.font-sizeScale_f21 {
+    font-size: calc(21px + (30 - 21) * ((100vw - 320px) / (1100 - 320)));
+}
+.font-sizeScale_14 {
+    font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1100 - 320)));
+}
+
+.introSlider {
+    position: relative;
+    height: 100vh;
+}
+
+.contentSlider::-webkit-scrollbar {
+    display: none;
+}
+
+.contentSlider {
+    position: relative;
+    -webkit-display: flex;
+    -ms-display: flex;
+    -moz-display: flex;
+    display: flex;
+
+    overflow-x: scroll;
+    -ms-scroll-snap-type: x mandatory;
+    -webkit-scroll-snap-type: x mandatory;
+    scroll-snap-type: x mandatory;
+    scroll-snap-align: center;
+    height: 100%;
+}
+
+.introSliderSvg {
+    position: absolute;
+    width: 5.5rem;
+    height: 57.6px;
+    text-align: center;
+    transform: translate(0, -50%);
+    top: 50%;
+    right: 20px;
+    fill: var(--mainColor);
+    pointer-events: none;
+    transition: 1s;
+}
+
+.introSliderSvg svg {
+    width: 100%;
+    height: 100%;
+}
+
+.leftSvg {
+    left: 20px;
+}
+
+.linksToEachPage {
+    width: 100%;
+    font-size: 16px;
+    position: absolute;
+    bottom: 4rem;
+    text-align: center;
+}
+
+.pointOfLink {
+    box-sizing: content-box;
+    display: inline-block;
+    margin: 0 0.2rem;
+    width: 0.7em;
+    height: 0.7em;
+    border-radius: 50%;
+    background-color: var(--secondaryColor);
+    transition: border 0.2s;
+}
+.linksToEachPage a:hover {
+    border: 0.2rem solid var(--mainColor);
+}
+
+.slide {
+    -webkit-scroll-snap-align: center;
+    -ms-scroll-snap-align: center;
+    -moz-scroll-snap-align: center;
+    scroll-snap-align: center;
+    -webkit-display: flex;
+    -ms-display: flex;
+    -moz-display: flex;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-align-items: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -ms-justify-content: space-between;
+    justify-content: space-between;
+    flex: 0 0 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+.btnSliderArrow {
+    padding: 0 20px;
+    width: 5.5rem;
+    height: 57.6px;
+    text-align: center;
+    font-size: 0;
+}
+
+.introSlider_prev {
+    margin-left: 20px;
+}
+
+.introSlider_next {
+    margin-right: 20px;
+}
+
+.introTxt {
+    padding: 0 calc(10px + (40 - 10) * ((100vw - 320px) / (1100 - 320)));
+}
+
+.mainText {
+    margin: 0 auto;
+    max-width: 650px;
+    color: var(--whiteColor);
+    text-align: center;
+    font-family: "Raleway", sans-serif;
+}
+
+.mainText h2 {
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.mainText h4 {
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.mainText p {
+    margin-bottom: 40px;
+    font-family: "Montserrat", sans-serif;
+    line-height: 1.5;
+}

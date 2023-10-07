@@ -2,9 +2,9 @@
 
 
 @push('custome-style')
-    @vite(['resources/css/carousel.css'])
+{{--    @vite(['resources/css/carousel.css'])--}}
 @endpush
-
+{{--<link rel="stylesheet" href="{{ asset('custom_styles.css') }}">--}}
 <section class="introSlider">
 	<div class="contentSlider">
     @foreach ($images as $key => $image)

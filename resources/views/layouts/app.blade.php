@@ -14,6 +14,7 @@
         <!-- Scripts -->
         @vite(['resources/scss/app.scss', 'resources/js/app.js'])
         @stack('custome-style')
+
     </head>
     <body class="font-sans antialiased">
 
