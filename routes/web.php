@@ -31,4 +31,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware'=> 'auth'],function () {
+   Route::get('/', [\App\Http\Controllers\Admin\AdminPanelController::class, '__invoke'])->name('index.dashboard');
+   Route::get('/dashboard', [\App\Http\Controllers\Admin\AdminPanelController::class, '__invoke'])->name('index.dashboard');
+});
+
 require __DIR__.'/auth.php';
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
