@@ -6,20 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Album extends Model
+class Image extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+    Use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-
-    public function images()
+    public function album()
     {
-        return $this->hasMany(Image::class);
-    }
-
-    public function coverImage()
-    {
-        return $this->belongsTo(Image::class, 'cover_image_id');
+        return $this->belongsTo(Album::class);
     }
 }

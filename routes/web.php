@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/albums', [\App\Http\Controllers\AlbumsController::class , '__invoke'])->name('getAllAlbums');
+Route::get('/albums/{id}', [\App\Http\Controllers\AlbumsController::class , 'show_album'])->name('show_album');
+
 Route::get('/', function () {
 
   $images = ['https://raw.githubusercontent.com/semklim/Waxom_ITStep_Landing/main/img/Slider/matterhorn.jpg', "https://raw.githubusercontent.com/semklim/Waxom_ITStep_Landing/main/img/Slider/water.jpg", "https://raw.githubusercontent.com/semklim/Waxom_ITStep_Landing/main/img/Slider/rocks_2.jpg", "https://raw.githubusercontent.com/semklim/Waxom_ITStep_Landing/main/img/Slider/mountain3.jpg"];
