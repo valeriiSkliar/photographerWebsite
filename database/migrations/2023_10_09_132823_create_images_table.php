@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('file_url');
             $table->integer('rank')->nullable();
             $table->string('page_id')->nullable();
+            $table->string('section_id')->nullable();
             $table->string('title')->nullable();
             $table->string('alt_text')->nullable();
             $table->text('metadata')->nullable();

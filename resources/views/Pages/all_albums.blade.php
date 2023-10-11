@@ -24,7 +24,8 @@
     }
 </style>
 <div class="albums-container">
-    @foreach($albums as $album)
+@foreach($albums as $album)
+{{--        {{ dd($album->images) }}--}}
         <a href="{{ route('show_album', ['id' => $album->id]) }}" class="album">
             <img src="{{  $album->coverImage->file_url }}" alt="Album 1 Title">
             <div>{{ $album->title }}</div>
