@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "vite",
+        "dev": "start /min php artisan serve & start chrome http://127.0.0.1:8000 & vite",
         "build": "vite build"
     },
     "devDependencies": {
