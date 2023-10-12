@@ -28,5 +28,8 @@ class AlbumsTableSeeder extends Seeder
                 $album->save();
             }
         }
+
+        \App\Models\Page::factory()->count(5)->create();
+
     }
 }
