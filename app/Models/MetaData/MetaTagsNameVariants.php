@@ -2,7 +2,6 @@
 
 namespace App\Models\MetaData;
 
-use App\Models\MetaTags;
 use Illuminate\Database\Eloquent\Model;
 
 class MetaTagsNameVariants extends Model

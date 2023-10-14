@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\MetaData;
 
 use App\Models\MetaData\MetaTagsPropertyVariants;
 use Illuminate\Database\Seeder;

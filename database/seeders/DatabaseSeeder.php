@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\MetaData\MetaTagsNameTableSeeder;
+use Database\Seeders\MetaData\MetaTagsPropertyTableSeeder;
+use Database\Seeders\MetaData\MetaTagsTableSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

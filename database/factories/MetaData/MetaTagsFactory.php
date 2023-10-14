@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\MetaData;
 
+use App\Models\MetaData\MetaTags;
 use App\Models\MetaData\MetaTagsNameVariants;
 use App\Models\MetaData\MetaTagsPropertyVariants;
-use App\Models\MetaTags;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MetaTagsFactory extends Factory

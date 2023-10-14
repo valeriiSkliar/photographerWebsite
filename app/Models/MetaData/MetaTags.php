@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\MetaData;
 
-use App\Models\MetaData\MetaTagsNameVariants;
-use App\Models\MetaData\MetaTagsPropertyVariants;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\MetaData;
 
 use App\Models\MetaData\MetaTagsNameVariants;
 use Illuminate\Database\Seeder;
