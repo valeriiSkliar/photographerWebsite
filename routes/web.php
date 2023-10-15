@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\Page\PageController;
+use App\Http\Controllers\Admin\Section\SectionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,9 +36,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::resource('sections', SectionController::class);
+
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware'=> 'auth'],function () {
-   Route::get('/', [\App\Http\Controllers\Admin\AdminPanelController::class, '__invoke'])->name('index.dashboard');
-   Route::get('/dashboard', [\App\Http\Controllers\Admin\AdminPanelController::class, '__invoke'])->name('index.dashboard');
+    Route::get('/', [\App\Http\Controllers\Admin\AdminPanelController::class, '__invoke'])->name('index.dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\AdminPanelController::class, '__invoke'])->name('index.dashboard');
+
+    Route::group(['prefix' => 'pages',],function () {
+        Route::get('/', [PageController::class, 'index'])->name('admin.page.index');
+        Route::get('/create', [PageController::class, 'create'])->name('admin.page.create');
+        Route::post('/', [PageController::class, 'store'])->name('admin.page.store');
+        Route::get('/{page}', [PageController::class, 'show'])->name('admin.pages.show');
+        Route::get('/{page}/edit', [PageController::class, 'edit'])->name('admin.pages.edit');
+        Route::patch('/{page}', [PageController::class, 'update'])->name('admin.pages.update');
+        Route::delete('/{page}', [PageController::class, 'destroy'])->name('admin.pages.destroy');
+    });
+
 });
 
 require __DIR__.'/auth.php';

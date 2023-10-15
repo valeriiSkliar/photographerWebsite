@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->string('type');
             $table->string('value')->nullable();
             $table->string('content');
-            $table->string('page_id');
+            $table->foreignId('page_id')->nullable()->constrained('pages')->onDelete('set null');
         });
     }
 

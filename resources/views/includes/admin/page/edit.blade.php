@@ -1,41 +1,49 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <h2>Pages</h2>
+{{--        {{ dd($page) }}--}}
+        <div class="col-md-8 offset-md-2">
+            <h2>Edit Page</h2>
 
-{{--            <a href="{{ route('pages.create') }}" class="btn btn-primary mb-3">Add New Page</a>--}}
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Slug</th>
-                    <th>Title</th>
-                    <th>Meta Data</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($pages as $page)
-                    <tr>
-                        <td>{{ $page->id }}</td>
-                        <td>{{ $page->name }}</td>
-                        <td>{{ $page->slug }}</td>
-                        <td>{{ $page->title }}</td>
-                        <td>{{ $page->meta_data }}</td>
-{{--                        <td>--}}
-{{--                            <a href="{{ route('pages.edit', $page->id) }}" class="btn btn-sm btn-warning">Edit</a>--}}
-{{--                            <form action="{{ route('pages.destroy', $page->id) }}" method="post" style="display: inline-block;">--}}
-{{--                                @csrf--}}
-{{--                                @method('DELETE')--}}
-{{--                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this page?')">Delete</button>--}}
-{{--                            </form>--}}
-{{--                        </td>--}}
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+            <form
+                action="{{ route('admin.pages.update', $page) }}"
+                method="POST"
+            >
+                @csrf
+                @method('PATCH')
+
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $page->name) }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="slug">Slug:</label>
+                    <input type="text" id="slug" name="slug" class="form-control" value="{{ old('slug', $page->slug) }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" class="form-control" value="{{ old('title', $page->title) }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="meta_data">Meta Data:</label>
+                    <input type="text" id="meta_data" name="meta_data" class="form-control" value="{{ old('meta_data', $page->meta_data) }}">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update Page</button>
+            </form>
+
         </div>
     </div>
 </div>
