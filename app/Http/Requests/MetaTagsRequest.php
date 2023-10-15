@@ -4,15 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MetaTagRequest extends FormRequest
+class MetaTagsRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'content' => ['required'],
-            'name' => ['nullable'],
-            'property' => ['nullable'],
-            'http-equiv' => ['nullable'],
+            'content' => [ 'required', 'string', 'max:255'],
+            'type' => ['required', 'string', 'max:255'],
+            'page_id' => ['required', 'string'],
         ];
     }
 

@@ -9,11 +9,11 @@ return new class extends Migration {
     {
         Schema::create('meta_tags', function (Blueprint $table) {
             $table->id();
-            $table->text('content');
-            $table->string('name')->nullable();
-            $table->string('property')->nullable();
-            $table->string('http-equiv')->nullable();
             $table->timestamps();
+            $table->string('type');
+            $table->string('value')->nullable();
+            $table->string('content');
+            $table->string('page_id');
         });
     }
 

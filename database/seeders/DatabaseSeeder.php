@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\MetaData\MetaTagsNameTableSeeder;
+use Database\Seeders\MetaData\MetaTagsPropertyTableSeeder;
+use Database\Seeders\MetaData\MetaTagsTableSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call(AlbumsTableSeeder::class);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call(MetaTagsNameTableSeeder::class);
+        $this->call(MetaTagsPropertyTableSeeder::class);
+        $this->call(MetaTagsTableSeeder::class);
+
     }
 }
