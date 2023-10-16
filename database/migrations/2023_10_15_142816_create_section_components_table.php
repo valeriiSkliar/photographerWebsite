@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->foreign('component_id')->references('id')->on('components')->onDelete('cascade');
 
-            // You may want to ensure unique section and component combinations
             $table->unique(['section_id', 'component_id']);
         });
     }

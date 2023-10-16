@@ -15,21 +15,21 @@ class AlbumsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $all_albums = Album::factory(10)
-            ->create();
-
-
-        $images = Image::factory(100)
-            ->create();
-
-        foreach ($all_albums as $album) {
-            if ($images->isNotEmpty()) {
-                $album->cover_image_id = Image::get()->random()->id;
-                $album->save();
-            }
-        }
-
-        \App\Models\Page::factory()->count(5)->create();
+//        $all_albums = Album::factory(10)
+//            ->create();
+//
+//
+//        $images = Image::factory(100)
+//            ->create();
+//
+//        foreach ($all_albums as $album) {
+//            if ($images->isNotEmpty()) {
+//                $album->cover_image_id = Image::get()->random()->id;
+//                $album->save();
+//            }
+//        }
+//
+//        \App\Models\Page::factory()->count(5)->create();
 
     }
 }

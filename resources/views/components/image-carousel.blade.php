@@ -1,8 +1,8 @@
 @props(['images' => []])
 
 
-@push('custome-style')
-{{--    @vite(['resources/css/carousel.css'])--}}
+@push('style')
+    @vite(['resources/scss/_carousel.scss'])
 @endpush
 {{--<link rel="stylesheet" href="{{ asset('custom_styles.css') }}">--}}
 <section class="introSlider">

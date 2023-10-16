@@ -12,22 +12,22 @@ return new class extends Migration
     public function up()
     {
         Schema::table('images', function (Blueprint $table) {
-            $table->foreignId('album_id')->constrained()->onDelete('cascade');
+//            $table->foreignId('album_id')->nullable()->constrained()->onDelete('set null');
         });
 
         Schema::table('albums', function (Blueprint $table) {
-            $table->foreignId('cover_image_id')->nullable()->constrained('images')->onDelete('set null');
+//            $table->foreignId('cover_image_id')->nullable()->constrained('images')->onDelete('set null');
         });
     }
 
     public function down()
     {
         Schema::table('images', function (Blueprint $table) {
-            $table->dropForeign(['album_id']);
+//            $table->dropForeign(['album_id']);
         });
 
         Schema::table('albums', function (Blueprint $table) {
-            $table->dropForeign(['cover_image_id']);
+//            $table->dropForeign(['cover_image_id']);
         });
     }
 };

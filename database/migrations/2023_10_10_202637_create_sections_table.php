@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('page_id');
+            //TODO add visabillity flag :vs
             $table->string('name');
             $table->integer('order')->default(0);
             $table->timestamps();

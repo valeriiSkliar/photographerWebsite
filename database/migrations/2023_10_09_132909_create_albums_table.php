@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('albums', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('sub_text');
+            $table->string('title')->default('New album');
+            $table->string('sub_text')->default('Add your sub text!');
             $table->text('description')->nullable();
 
             $table->softDeletes();

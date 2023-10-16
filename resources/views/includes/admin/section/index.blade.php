@@ -20,6 +20,17 @@
             <td>
                 <a href="{{ route('sections.edit', $section->id) }}">Edit</a> |
                 <a href="{{ route('sections.show', $section->id) }}">View</a>
+                <form
+                    action="{{ route('sections.destroy', $section->id) }}"
+                    method="post"
+                    style="display: inline-block;">
+                    @csrf
+                    @method('DELETE')
+                    <button
+                        type="submit"
+                        class="btn btn-sm btn-danger"
+                        onclick="return confirm('Are you sure you want to delete this section?')">Delete</button>
+                </form>
             </td>
         </tr>
     @endforeach

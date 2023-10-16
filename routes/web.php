@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\Component\ComponentController;
 use App\Http\Controllers\Admin\Page\PageController;
 use App\Http\Controllers\Admin\Section\SectionController;
+use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/albums', [\App\Http\Controllers\AlbumsController::class , '__invoke'])->name('getAllAlbums');
 Route::get('/albums/{id}', [\App\Http\Controllers\AlbumsController::class , 'show_album'])->name('show_album');
+
+Route::post('/upload', [ImageUploadController::class, 'uploadMethod']);
+Route::post('/create-album', [ImageUploadController::class, 'createAlbum']);
 
 Route::get('/', function () {
 
@@ -37,6 +42,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('sections', SectionController::class);
+Route::resource('components', ComponentController::class);
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware'=> 'auth'],function () {
     Route::get('/', [\App\Http\Controllers\Admin\AdminPanelController::class, '__invoke'])->name('index.dashboard');

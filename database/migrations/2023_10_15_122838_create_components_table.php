@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('components', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type', ['standard', 'custom']);
-            $table->text('content');
+            $table->string('type');
+
+//            $table->enum('type', ['standard', 'custom']);
+            $table->foreignId('section_id')->constrained('sections')->onDelete('cascade');
+            $table->foreignId('album_id')->nullable()->constrained('albums')->onDelete('set null');
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }

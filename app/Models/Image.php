@@ -11,9 +11,10 @@ class Image extends Model
     use HasFactory;
     Use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
-    public function album()
-    {
-        return $this->belongsTo(Album::class);
-    }
+    protected $guarded =[];
+
+//    public function album()
+//    {
+//        return $this->belongsTo(Album::class);
+//    }
 }
