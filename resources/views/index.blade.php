@@ -1,9 +1,17 @@
 @extends('layouts.app')
 @section('content')
 
+@php
+//$section = $index_page->sections;
+@endphp
 {{--    {{ debug($index_page) }}--}}
-    {{ debug($index_page->sections) }}
-
+{{--    {{ debug($index_page->sections) }}--}}
+    @foreach($index_page->sections as $section)
+        @foreach($section->components as $component)
+            {{ $component->album }}
+{{--            {{ dd($component) }}--}}
+        @endforeach
+    @endforeach
 {{--    <x-image-carousel :images="$images" />--}}
 @endsection
 
