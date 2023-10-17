@@ -2,14 +2,15 @@
 @section('content')
 
 @php
-//$section = $index_page->sections;
+$sections = $index_page->sections;
+$component = $sections[0]->components[1]->load('album');
 @endphp
 {{--    {{ debug($index_page) }}--}}
 {{--    {{ debug($index_page->sections) }}--}}
     @foreach($index_page->sections as $section)
-        @foreach($section->components as $component)
-            {{ $component->album }}
-{{--            {{ dd($component) }}--}}
+        @foreach($component->album->load('images')->images as $image)
+            <img width="100" src="{{ asset($image->file_url) }}" alt="">
+{{--            {{ dd($component->album->load('images')->images) }}--}}
         @endforeach
     @endforeach
 {{--    <x-image-carousel :images="$images" />--}}

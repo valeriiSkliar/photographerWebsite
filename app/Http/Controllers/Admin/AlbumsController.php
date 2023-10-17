@@ -36,7 +36,7 @@ class AlbumsController extends Controller
 
     public function update(Request $request, Album $album)
     {
-        $album->update($request->all());
+        $album->update($request->only(['title', 'sub_text', 'description']));
 
         // Handle any image updates, additions, or deletions here
 
