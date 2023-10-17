@@ -9,5 +9,13 @@
         <li><strong>{{ $detail->key }}</strong>: {{ $detail->value }}</li>
     @endforeach
 </ul>
-{{--{{ dd($component) }}--}}
-<a href="{{ route('components.edit', $component) }}">Edit</a>
+@if($component->album)
+{{--    {{dd($component->album->images)}}--}}
+    @foreach($component->album->images as $image)
+        <img src="{{ asset($image->file_url) }}" alt="" style="max-width: 100px">
+    @endforeach
+@endif
+<br>
+<a href="{{ route('components.edit', $component) }}">
+    <button>Edit</button>
+</a>

@@ -71,6 +71,8 @@ class ComponentController extends Controller
      */
     public function show(Component $component)
     {
+        $component->load('album');
+
         return view('includes.admin.component.show', compact('component'));
     }
 

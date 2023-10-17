@@ -15,15 +15,11 @@ class Album extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->belongsToMany(Image::class, 'album_images');
     }
     public function components()
     {
         return $this->hasMany(\App\Models\Component\Component::class);
     }
 
-//    public function coverImage()
-//    {
-//        return $this->belongsTo(Image::class, 'cover_image_id');
-//    }
 }

@@ -1,7 +1,6 @@
 <h1>Add Component</h1>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.js"></script>
-
 <form method="POST" action="{{ route('components.store') }}">
     @csrf
 
@@ -64,10 +63,11 @@
 {{--        <label>--}}
 {{--            Album Cover: <input type="file" name="new_album_cover" accept="image/*">--}}
 {{--        </label>--}}
+        <br>
+        <button type="submit">Save</button>
     </div>
 
-    <br>
-    <button type="submit">Save</button>
+
 </form>
 
 <script>
@@ -97,8 +97,6 @@
 
                     document.querySelector('form').appendChild(hiddenInput);
 
-                    // Show album creation fields
-                    document.getElementById('newAlbumFields').style.display = 'block';
                 }
             });
     }

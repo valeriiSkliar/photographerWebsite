@@ -2,6 +2,7 @@
 
 namespace App\Models\Section;
 
+use App\Models\Album;
 use App\Models\Component\Component;
 use App\Models\Page;
 use App\Models\SectionContent;
@@ -26,5 +27,9 @@ class Section extends Model
     public function components()
     {
         return $this->hasMany(Component::class);
+    }
+    public function albums()
+    {
+        return $this->hasMany(Album::class);
     }
 }

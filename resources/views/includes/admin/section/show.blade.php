@@ -22,7 +22,6 @@
     <p>Description: {{ $section->sectionContent->description }}</p>
     <p>Content Text: {{ $section->sectionContent->content_text }}</p>
 @endif
-
 @if($section->components)
     components
     <br>
@@ -32,4 +31,4 @@
     @endforeach
 @endif
 <br>
-<a href="{{ route('sections.edit', $section->id) }}">Edit Section</a>
+<a href="{{ route('sections.edit', $section->id) }}"><button>Edit Section</button></a>

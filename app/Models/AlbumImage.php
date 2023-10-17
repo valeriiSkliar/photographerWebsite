@@ -9,5 +9,16 @@ class AlbumImage extends Model
 {
     use HasFactory;
 
+    protected $table = 'album_images';
     protected $guarded = [];
+
+    public function album()
+    {
+        return $this->belongsTo(Album::class);
+    }
+
+    public function image()
+    {
+        return $this->belongsTo(Image::class);
+    }
 }

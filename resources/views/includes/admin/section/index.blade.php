@@ -1,5 +1,5 @@
 <h1>Sections</h1>
-<a href="{{ route('sections.create') }}">Create New Section</a>
+<a href="{{ route('sections.create') }}"><button>Create New Section</button></a>
 <table>
     <thead>
     <tr>
@@ -18,8 +18,8 @@
             <td>{{ $section->page->name }}</td>
             <td>{{ $section->order }}</td>
             <td>
-                <a href="{{ route('sections.edit', $section->id) }}">Edit</a> |
-                <a href="{{ route('sections.show', $section->id) }}">View</a>
+                <a href="{{ route('sections.edit', $section->id) }}"><button>Edit</button></a> |
+                <a href="{{ route('sections.show', $section->id) }}"><button>View</button></a>
                 <form
                     action="{{ route('sections.destroy', $section->id) }}"
                     method="post"

@@ -27,8 +27,4 @@ class Component extends Model
     {
         return $this->belongsTo(Album::class);
     }
-    public function album1()
-    {
-        return $this->hasOne(Album::class);
-    }
 }

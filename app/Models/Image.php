@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Image extends Model
 {
     use HasFactory;
-    Use SoftDeletes;
+    use SoftDeletes;
 
-    protected $guarded =[];
+    protected $guarded = [];
 
-//    public function album()
-//    {
-//        return $this->belongsTo(Album::class);
-//    }
+    public function albums()
+    {
+        return $this->belongsToMany(Album::class, 'album_images');
+    }
 }

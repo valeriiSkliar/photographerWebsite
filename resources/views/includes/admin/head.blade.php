@@ -11,4 +11,5 @@
         <link rel="stylesheet" href={{asset("AdminLTE/dist/css/adminlte.min.css")}}>
         <!-- overlayScrollbars -->
         <link rel="stylesheet" href={{asset("AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.css" />
     </head>
