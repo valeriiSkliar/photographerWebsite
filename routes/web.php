@@ -22,6 +22,23 @@ Route::get('/', function () {
   $images = ['https://raw.githubusercontent.com/semklim/Waxom_ITStep_Landing/main/img/Slider/matterhorn.jpg', "https://raw.githubusercontent.com/semklim/Waxom_ITStep_Landing/main/img/Slider/water.jpg", "https://raw.githubusercontent.com/semklim/Waxom_ITStep_Landing/main/img/Slider/rocks_2.jpg", "https://raw.githubusercontent.com/semklim/Waxom_ITStep_Landing/main/img/Slider/mountain3.jpg"];
     return view('index', compact('images'));
 });
+
+Route::get('/about', function () {
+    return view('about',);
+});
+
+Route::get('/portfolio', function () {
+    return view('portfolio',);
+});
+
+Route::get('/work', function () {
+    return view('work',);
+});
+
+Route::get('/contact', function () {
+    return view('contact',);
+});
+
 Route::get('/test', [\App\Http\Controllers\TestController::class, '__invoke'])->name('test');
 
 Route::get('/dashboard', function () {
