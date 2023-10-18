@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-    <x-image-carousel :images="$images" />
+{{--    <x-image-carousel :images="$images" />--}}
 @endsection
 
     {{--            @if (Route::has('login'))--}}

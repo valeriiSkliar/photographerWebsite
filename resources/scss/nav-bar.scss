@@ -1,0 +1,38 @@
+.navbar a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.navbar {
+    top: 0;
+    position: fixed;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%);
+    height: var(--navbar-heigh);
+    color: var(--navbar-links-color);
+    font-family: var(--navbar-font);
+    font-size: 16px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+
+.navbar .links__list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.active__link {
+    color: #a9a9a9;
+}
+
+@media (max-width: 900px) {
+
+}
