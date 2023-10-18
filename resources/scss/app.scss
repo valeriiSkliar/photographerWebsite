@@ -1,4 +1,15 @@
-@use "carousel";
-html, body {
-    background-color: #dee3f5;
+@use "variables/global";
+@use "normalize";
+@use "nav-bar";
+
+//.font-sizeScale_f21 {
+//    font-size: calc(21px + (30 - 21) * ((100vw - 320px) / (1100 - 320)));
+//}
+//.font-sizeScale_14 {
+//    font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1100 - 320)));
+//}
+
+body {
+    background-color: #0a0e14;
+    color: white;
 }

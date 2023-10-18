@@ -1,22 +1,9 @@
 @extends('layouts.app')
-@section('content')
     @section('metaData')
-        <x-meta-data page_id="1"/>
+        <x-meta-data page_id="$index_page"/>
     @endsection
-
-    @php
-        $sections = $index_page->sections;
-        $component = $sections[0]->components[1]->load('album');
-    @endphp
-    {{--    {{ debug($index_page) }}--}}
-    {{--    {{ debug($index_page->sections) }}--}}
-    @foreach($index_page->sections as $section)
-        @foreach($component->album->load('images')->images as $image)
-            <img width="100" src="{{ asset($image->file_url) }}" alt="">
-            {{--            {{ dd($component->album->load('images')->images) }}--}}
-        @endforeach
-    @endforeach
-    {{--    <x-image-carousel :images="$images" />--}}
+@section('content')
+    <h1>Home Page</h1>
 @endsection
 
 {{--            @if (Route::has('login'))--}}
