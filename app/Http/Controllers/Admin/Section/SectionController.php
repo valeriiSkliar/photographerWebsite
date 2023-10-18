@@ -18,7 +18,7 @@ class SectionController extends Controller
     public function index()
     {
 
-        $sections = Section::all();
+        $sections = Section::with('components.album.images')->get();
         return view('includes.admin.section.index', compact('sections'));
     }
 

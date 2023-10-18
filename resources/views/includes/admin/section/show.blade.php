@@ -1,37 +1,51 @@
 @extends('layouts.iframe')
-@section('admin.content')
-<h1>Section Details</h1>
-<p>ID: {{ $section->id }}</p>
-<p>Name: {{ $section->name }}</p>
-<p>Page: {{ $section->page->name }}</p>
-<p>Order: {{ $section->order }}</p>
-{{--{{ dd($section->sectionContent) }}--}}
-<!-- Displaying details for section_content -->
-@if($section->sectionContent)
 
-    <h2>Content Details</h2>
-    <p>Font: {{ $section->sectionContent->font }}</p>
-    <p>Font Color: {{ $section->sectionContent->font_color }}</p>
-    <p>Background Color: {{ $section->sectionContent->background_color }}</p>
-    <p>Background Image:
-        <img
-            src="{{ asset('/storage/backgrounds' . $section->sectionContent->background_image) }}"
-            alt="Background Image"
-            width="100"
-        >
-    </p>
-    <p>Title: {{ $section->sectionContent->title }}</p>
-    <p>Description: {{ $section->sectionContent->description }}</p>
-    <p>Content Text: {{ $section->sectionContent->content_text }}</p>
-@endif
-@if($section->components)
-    components
-    <br>
-    @foreach($section->components as $component)
-        {{ $component->type }}
-        {{ $component->details[0]['value'] }}
-    @endforeach
-@endif
-<br>
-<a href="{{ route('sections.edit', $section->id) }}"><button>Edit Section</button></a>
+@section('admin.content')
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>Section Details</h1>
+            </div>
+            <div class="col-md-4 text-right">
+                <a href="{{ route('sections.edit', $section->id) }}" class="btn btn-warning">Edit Section</a>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>ID:</strong> {{ $section->id }}</li>
+                <li class="list-group-item"><strong>Name:</strong> {{ $section->name }}</li>
+                <li class="list-group-item"><strong>Page:</strong> {{ $section->page->name }}</li>
+                <li class="list-group-item"><strong>Order:</strong> {{ $section->order }}</li>
+            </ul>
+        </div>
+
+        @if($section->sectionContent)
+            <h2 class="mt-4">Content Details</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Font:</strong> {{ $section->sectionContent->font }}</li>
+                <li class="list-group-item"><strong>Font Color:</strong> {{ $section->sectionContent->font_color }}</li>
+                <li class="list-group-item"><strong>Background Color:</strong> {{ $section->sectionContent->background_color }}</li>
+                <li class="list-group-item">
+                    <strong>Background Image:</strong><br>
+                    <img src="{{ asset($section->sectionContent->background_image) }}" alt="Background Image" width="200" class="img-thumbnail">
+                </li>
+                <li class="list-group-item"><strong>Title:</strong> {{ $section->sectionContent->title }}</li>
+                <li class="list-group-item"><strong>Description:</strong> {{ $section->sectionContent->description }}</li>
+                <li class="list-group-item"><strong>Content Text:</strong> {{ $section->sectionContent->content_text }}</li>
+            </ul>
+        @endif
+
+        @if($section->components)
+            <h2 class="mt-4">Components</h2>
+            <ul class="list-group">
+                @foreach($section->components as $component)
+                    <li class="list-group-item">
+                        <strong>Type:</strong> {{ $component->type }}<br>
+                        <strong>Details:</strong> {{ $component->details[0]['value'] }}
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+    </div>
 @endsection

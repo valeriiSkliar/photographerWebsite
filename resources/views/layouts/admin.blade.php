@@ -12,7 +12,7 @@
     <!-- Content Wrapper. Contains page content -->
     @include('includes.admin.content')
     <!-- /.content-wrapper -->
-    @include('includes.admin.footer')
+{{--    @include('includes.admin.footer')--}}
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">

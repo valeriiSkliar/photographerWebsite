@@ -34,19 +34,12 @@
                     </div>
                 </div>
 
-
-
-
                 <h2 class="my-4">Albums</h2>
                 <div class="row">
                     @foreach($albums as $album)
-                        @php
-                            $album->load('images')
-                        @endphp
-                        {{--                {{ dd($album->images[0]) }}--}}
                         <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
                             <div class="card">
-                                <img src="{{ $album->images[0]->file_url }}" alt="{{ $album->title }}" title="{{ $album->title }}"
+                                <img src="{{ $album->images->first()->file_url ?? '' }}" alt="{{ $album->title }}" title="{{ $album->title }}"
                                      class="card-img-top">
                                 <div class="card-img-overlay d-flex justify-content-center align-items-center">
                                     <a

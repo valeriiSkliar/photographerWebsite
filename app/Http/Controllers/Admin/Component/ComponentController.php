@@ -16,7 +16,8 @@ class ComponentController extends Controller
      */
     public function index()
     {
-        $components  = Component::all();
+        $components  = Component::with('album.images')
+            ->get();
         return view('includes.admin.component.index', compact('components'));
     }
 
@@ -25,8 +26,9 @@ class ComponentController extends Controller
      */
     public function create()
     {
+        $albums = Album::all();
         $sections = Section::all();
-        return view('includes.admin.component.create', compact('sections'));
+        return view('includes.admin.component.create', compact('sections', 'albums'));
     }
 
     /**
@@ -81,8 +83,9 @@ class ComponentController extends Controller
      */
     public function edit(Request $request, Component $component)
     {
+        $albums = Album::all();
         $sections = Section::all();
-        return view('includes.admin.component.edit', compact('component', 'sections'));
+        return view('includes.admin.component.edit', compact('component', 'sections', 'albums'));
     }
 
     /**
