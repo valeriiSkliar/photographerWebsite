@@ -9,5 +9,5 @@ class ComponentDetail extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['component_id', 'key', 'value'];
+    protected $guarded = [];
 }

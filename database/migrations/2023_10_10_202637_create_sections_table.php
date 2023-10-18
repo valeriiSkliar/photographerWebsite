@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('page_id');
             //TODO add visabillity flag :vs
+//            $table->boolean('is_hidden');
             $table->string('name');
             $table->integer('order')->default(0);
             $table->timestamps();

@@ -4,6 +4,17 @@
     @endsection
 @section('content')
     <h1>Home Page</h1>
+    @if($page->sections)
+        @foreach($page->sections as $section)
+            {{ $section->name }}
+            <br>
+            @if($section->components)
+                @foreach($section->components as $component)
+                    <h1>{{ $component->name }}</h1>
+                @endforeach
+            @endif
+        @endforeach
+    @endif
 @endsection
 
 {{--            @if (Route::has('login'))--}}

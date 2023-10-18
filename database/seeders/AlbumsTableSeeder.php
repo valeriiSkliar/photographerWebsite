@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Album;
+use App\Models\AlbumImage;
 use App\Models\Image;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,21 +16,13 @@ class AlbumsTableSeeder extends Seeder
      */
     public function run(): void
     {
-//        $all_albums = Album::factory(10)
-//            ->create();
-//
-//
-//        $images = Image::factory(100)
-//            ->create();
-//
-//        foreach ($all_albums as $album) {
-//            if ($images->isNotEmpty()) {
-//                $album->cover_image_id = Image::get()->random()->id;
-//                $album->save();
-//            }
-//        }
-//
-//        \App\Models\Page::factory()->count(5)->create();
+        Album::factory(5)
+            ->create();
 
+        Image::factory(100)
+            ->create();
+
+        AlbumImage::factory(50)
+            ->create();
     }
 }

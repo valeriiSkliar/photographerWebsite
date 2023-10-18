@@ -49,7 +49,14 @@
                                 <img src="{{ $album->images[0]->file_url }}" alt="{{ $album->title }}" title="{{ $album->title }}"
                                      class="card-img-top">
                                 <div class="card-img-overlay d-flex justify-content-center align-items-center">
-                                    <a href="{{ route('albums.edit', $album) }}" class="btn btn-primary">Edit</a>
+                                    <a
+                                        href="{{ route('albums.edit', $album) }}"
+                                        class="btn btn-primary"
+{{--                                        //TODO add opasity for edit button :vs--}}
+{{--                                        style="--bs-text-opacity: .5;"--}}
+                                    >
+                                        Edit
+                                    </a>
                                     {{-- Other album controls like delete, etc. --}}
                                 </div>
                             </div>

@@ -17,6 +17,34 @@
                 @endforeach
             @endif
     @endforeach
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+
+
+        const mainSliderSwiper = new Swiper('.swiper', {
+            spaceBetween: 30,
+            centeredSlides: true,
+            effect: 'fade',
+            slidesPerView: 1,
+            speed: 800,
+            direction: 'horizontal',
+            loop: true,
+            autoplay: {
+                delay: 2000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                type: 'bullets',
+                el: '.swiper-pagination',
+                clickable: true,
+                dynamicBullets: true,
+            },
+            navigation: {
+                // nextEl: "swiper-button-next",
+                // prevEl: "swiper-button-prev"
+            },
+        });
 {{--    {{ debug($components) }}--}}
 {{--    {{ dd($album->images) }}--}}
 {{--    @foreach($index_page->sections as $section)--}}

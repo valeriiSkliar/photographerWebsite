@@ -3,12 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Album;
+use App\Models\Image;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Image>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AlbumImage>
  */
-class ImageFactory extends Factory
+class AlbumImageFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,10 +19,8 @@ class ImageFactory extends Factory
     public function definition(): array
     {
         return [
-            'file_url' => fake()->imageUrl(),
-            'rank' => fake()->randomNumber(2),
-            'alt_text' => fake()->sentence(2),
-            'title' => fake()->sentence(2),
+            'album_id' => Album::get()->random()->id,
+            'image_id' => Image::get()->random()->id,
         ];
     }
 }
