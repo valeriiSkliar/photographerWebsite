@@ -1,3 +1,5 @@
+@extends('layouts.iframe')
+@section('admin.content')
 <h1>Section Details</h1>
 <p>ID: {{ $section->id }}</p>
 <p>Name: {{ $section->name }}</p>
@@ -32,3 +34,4 @@
 @endif
 <br>
 <a href="{{ route('sections.edit', $section->id) }}"><button>Edit Section</button></a>
+@endsection

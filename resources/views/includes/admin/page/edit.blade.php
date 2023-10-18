@@ -1,3 +1,5 @@
+@extends('layouts.iframe')
+@section('admin.content')
 <div class="container">
     <div class="row">
 {{--        {{ dd($page) }}--}}
@@ -47,3 +49,4 @@
         </div>
     </div>
 </div>
+@endsection

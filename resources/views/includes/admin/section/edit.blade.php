@@ -1,3 +1,5 @@
+@extends('layouts.iframe')
+@section('admin.content')
 <h1>Edit Section</h1>
 <form action="{{ route('sections.update', $section->id) }}" method="post" enctype="multipart/form-data">
     @csrf
@@ -51,3 +53,4 @@
     <br>
     <input type="submit" value="Update">
 </form>
+@endsection

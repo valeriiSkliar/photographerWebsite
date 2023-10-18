@@ -1,3 +1,5 @@
+@extends('layouts.iframe')
+@section('admin.content')
 <h1>Page Details</h1>
 <p>ID: {{ $page->id }}</p>
 <p>Name: {{ $page->name }}</p>
@@ -10,4 +12,4 @@
     {{ $section->name }}
 @endforeach
 
-@yield('page_section')
+@endsection

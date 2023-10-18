@@ -1,3 +1,6 @@
+@extends('layouts.iframe')
+@section('admin.content')
+
 <h1>Edit Component</h1>
 @php
     $start_coun_details = $component->details->last()->id ?? 1;
@@ -82,4 +85,4 @@
         });
     });
 </script>
-
+@endsection

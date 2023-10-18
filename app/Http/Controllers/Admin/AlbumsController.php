@@ -12,7 +12,9 @@ class AlbumsController extends Controller
     public function index()
     {
         $albums = Album::all();
-        return view('includes.admin.gallery.album.index', compact('albums'));
+        $images = Image::all();
+
+        return view('includes.admin.gallery.index', compact('albums', 'images'));
     }
 
     public function create()
@@ -22,9 +24,14 @@ class AlbumsController extends Controller
 
     public function store(Request $request)
     {
+        $album = null;
+
+        if (!$request->album_id) {
+            $album = Album::create();
+            return response(['success' => true, 'album_id' => $album->id]);
+        }
         $album = Album::find($request->album_id);
         $album->update($request->only(['title', 'sub_text', 'description']));
-
 
         return redirect()->route('albums.index')->with('success', 'Album created successfully.');
     }

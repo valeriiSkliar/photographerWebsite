@@ -1,3 +1,5 @@
+@extends('layouts.iframe')
+@section('admin.content')
 <h1>Components</h1>
 
 <a href="{{ route('components.create') }}">Add New Component</a>
@@ -30,3 +32,4 @@
     @endforeach
     </tbody>
 </table>
+@endsection

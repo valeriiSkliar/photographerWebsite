@@ -1,3 +1,5 @@
+@extends('layouts.iframe')
+@section('admin.content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.js"></script>
 <div class="container">
@@ -116,3 +118,4 @@
         <button type="submit" class="btn btn-danger">Удалить Альбом</button>
     </form>
 </div>
+@endsection

@@ -1,3 +1,5 @@
+@extends('layouts.iframe')
+@section('admin.content')
 <h1>Component {{ $component->type }}</h1>
 <p>Component belong to <b>{{ $component->section->name }}</b> section</p>
 
@@ -19,3 +21,4 @@
 <a href="{{ route('components.edit', $component) }}">
     <button>Edit</button>
 </a>
+@endsection
