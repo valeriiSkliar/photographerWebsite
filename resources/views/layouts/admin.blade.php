@@ -21,6 +21,7 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
 @include('includes.admin.connected_js')
 </body>
 </html>

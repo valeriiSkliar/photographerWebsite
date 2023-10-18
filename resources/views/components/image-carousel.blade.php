@@ -1,5 +1,6 @@
 @props(['images' => []])
 
+{{--{{ dd($images) }}--}}
 
 @push('style')
     @vite(['resources/scss/_carousel.scss'])
@@ -8,7 +9,7 @@
 <section class="introSlider">
 	<div class="contentSlider">
     @foreach ($images as $key => $image)
-    <div class="slide" id="{{'introSlider_slide'.$loop->index}}" style="{{'background-image: url('.$image.');'}}">
+    <div class="slide" id="{{'introSlider_slide'.$loop->index}}" style="{{'background-image: url('.$image->file_url.');'}}">
       @if ($loop->index == 0)
       <a class="btnSliderArrow introSlider_prev" href="{{'#introSlider_slide'.($loop->count - 1)}}">
         Goto last slide

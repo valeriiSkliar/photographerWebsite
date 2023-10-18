@@ -10,7 +10,21 @@ class IndexController extends Controller
 {
     public function index(Request $request)
     {
-        $index_page = Page::find(1);
-        return view('index', compact('index_page'));
+        $pageSlug = $request->route()->uri;
+
+        if ($pageSlug == '/') {
+            $page = Page::find(1);
+            return view('index', compact('page'));
+        }
+
+        $page = Page::with('sections.components.album.images')
+            ->where('slug', $pageSlug)
+            ->first();
+
+        if (!$page) {
+            abort(404, 'Page not found');
+        }
+
+        return view('index', compact('page'));
     }
 }

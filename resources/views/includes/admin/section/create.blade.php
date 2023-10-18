@@ -1,3 +1,5 @@
+@extends('layouts.iframe')
+@section('admin.content')
 <h1>Create Section</h1>
 <form
     action="{{ route('sections.store') }}"
@@ -59,3 +61,4 @@
 
     <input type="submit" value="Create">
 </form>
+@endsection

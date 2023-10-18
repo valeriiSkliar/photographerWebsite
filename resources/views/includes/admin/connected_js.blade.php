@@ -15,4 +15,4 @@
 <!-- AdminLTE for demo purposes -->
 <script src={{asset("AdminLTE/dist/js/demo.js")}}></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.js"></script>
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.js"></script>--}}

@@ -7,9 +7,11 @@ use App\Http\Controllers\Admin\Page\PageController;
 use App\Http\Controllers\Admin\Section\SectionController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IframeController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Page;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +25,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', [IndexController::class, 'index'])->name('index.page');
+
+$pages = Page::all();
+
+foreach ($pages as $page) {
+    Route::get($page->slug, [IndexController::class, 'index'])->name('page.' . $page->slug);
+}
 
 Route::get('/albumsooo', [AlbumsController::class , '__invoke'])->name('getAllAlbums');
 Route::get('/albums/{id}', [AlbumsController::class , 'show_album'])->name('show_album');
@@ -47,6 +55,8 @@ Route::resource('sections', SectionController::class);
 Route::resource('components', ComponentController::class);
 
 Route::group(['prefix' => 'admin', 'middleware'=> 'auth'],function () {
+    Route::get('/iframe-content', [IframeController::class , 'show'])->name('iframe.content');
+
     Route::get('/', [AdminPanelController::class, '__invoke'])->name('index.dashboard');
     Route::get('/dashboard', [AdminPanelController::class, '__invoke'])->name('index.dashboard');
 
