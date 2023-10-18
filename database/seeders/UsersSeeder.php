@@ -29,9 +29,9 @@ class UsersSeeder extends Seeder
                 'remember_token' => \Illuminate\Support\Str::random(10),
             ],
             [
-                'name' => 'Bob Builder',
+                'name' => 'Bob',
                 'email' => 'bob.builder@example.com',
-                'password' => bcrypt('password'),
+                'password' => 'Roma1234',
                 'email_verified_at' => now(),
                 'remember_token' => \Illuminate\Support\Str::random(10),
             ]
