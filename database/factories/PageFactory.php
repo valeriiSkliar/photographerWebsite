@@ -2,15 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Page;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Page>
  */
-class PagesFactory extends Factory
+class PageFactory extends Factory
 {
-    protected $model = Page::class;
     /**
      * Define the model's default state.
      *

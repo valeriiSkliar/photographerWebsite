@@ -13,6 +13,7 @@ class IndexController extends Controller
         $pageSlug = $request->route()->uri;
 
         if ($pageSlug == '/') {
+//            dd('test');
             $page = Page::find(1);
             return view('index', compact('page'));
         }
@@ -25,6 +26,6 @@ class IndexController extends Controller
             abort(404, 'Page not found');
         }
 
-        return view('index', compact('page'));
+        return view($pageSlug, compact('page'));
     }
 }

@@ -27,21 +27,22 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index'])->name('index.page');
 
-Route::get('/about', function () {
-    return view('about',);
-});
+//Route::get('/about', function () {
+//    return view('about',);
+//});
 
-Route::get('/portfolio', function () {
-    return view('portfolio',);
-});
+//Route::get('/portfolio', function () {
+//    return view('portfolio',);
+//});
 
-Route::get('/work', function () {
-    return view('work',);
-});
+//Route::get('/work', function () {
+//    return view('work',);
+//});
 
-Route::get('/contact', function () {
-    return view('contact',);
-});
+//Route::get('/contact', function () {
+//    return view('contact',);
+//});
+
 $pages = Page::all();
 
 foreach ($pages as $page) {

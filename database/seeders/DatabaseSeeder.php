@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(AlbumsTableSeeder::class);
+        $this->call(PagesSeeder::class);
+//        $this->call(AlbumsTableSeeder::class);
 
         $this->call(MetaTagsNameTableSeeder::class);
         $this->call(MetaTagsPropertyTableSeeder::class);
