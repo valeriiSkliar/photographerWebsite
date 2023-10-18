@@ -5,19 +5,20 @@
 
 .navbar {
     top: 0;
-    position: fixed;
+    position: sticky;
     display: flex;
-    justify-content: space-evenly;
     width: 100%;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%);
-    height: var(--navbar-heigh);
+    height: var(--navbar-height);
     color: var(--navbar-links-color);
     font-family: var(--navbar-font);
     font-size: 16px;
 }
 
 .container {
+    width: 100%;
     display: flex;
+    justify-content: space-evenly;
     align-items: center;
 }
 
