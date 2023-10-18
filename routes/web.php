@@ -1,5 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminPanelController;
+use App\Http\Controllers\Admin\AlbumsController;
+use App\Http\Controllers\Admin\Component\ComponentController;
+use App\Http\Controllers\Admin\Page\PageController;
+use App\Http\Controllers\Admin\Section\SectionController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,14 +23,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/albums', [\App\Http\Controllers\AlbumsController::class , '__invoke'])->name('getAllAlbums');
-Route::get('/albums/{id}', [\App\Http\Controllers\AlbumsController::class , 'show_album'])->name('show_album');
-
-Route::get('/', function () {
-
-  $images = ['https://raw.githubusercontent.com/semklim/Waxom_ITStep_Landing/main/img/Slider/matterhorn.jpg', "https://raw.githubusercontent.com/semklim/Waxom_ITStep_Landing/main/img/Slider/water.jpg", "https://raw.githubusercontent.com/semklim/Waxom_ITStep_Landing/main/img/Slider/rocks_2.jpg", "https://raw.githubusercontent.com/semklim/Waxom_ITStep_Landing/main/img/Slider/mountain3.jpg"];
-    return view('index', compact('images'));
-});
+Route::get('/', [IndexController::class, 'index'])->name('index.page');
 
 Route::get('/about', function () {
     return view('about',);
@@ -39,6 +41,13 @@ Route::get('/contact', function () {
     return view('contact',);
 });
 
+Route::get('/albumsooo', [AlbumsController::class , '__invoke'])->name('getAllAlbums');
+Route::get('/albums/{id}', [AlbumsController::class , 'show_album'])->name('show_album');
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+
+Route::post('/upload', [ImageUploadController::class, 'uploadMethod']);
+Route::post('/create-album', [ImageUploadController::class, 'createAlbum']);
+
 Route::get('/test', [\App\Http\Controllers\TestController::class, '__invoke'])->name('test');
 
 Route::get('/dashboard', function () {
@@ -51,13 +60,29 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware'=> 'auth'],function () {
-   Route::get('/', [\App\Http\Controllers\Admin\AdminPanelController::class, '__invoke'])->name('index.dashboard');
-   Route::get('/dashboard', [\App\Http\Controllers\Admin\AdminPanelController::class, '__invoke'])->name('index.dashboard');
+Route::resource('sections', SectionController::class);
+Route::resource('components', ComponentController::class);
+
+Route::group(['prefix' => 'admin', 'middleware'=> 'auth'],function () {
+    Route::get('/', [AdminPanelController::class, '__invoke'])->name('index.dashboard');
+    Route::get('/dashboard', [AdminPanelController::class, '__invoke'])->name('index.dashboard');
+
+    Route::resource('/albums', AlbumsController::class);
+
+    Route::group(['prefix' => 'pages',],function () {
+        Route::get('/', [PageController::class, 'index'])->name('admin.page.index');
+        Route::get('/create', [PageController::class, 'create'])->name('admin.page.create');
+        Route::post('/', [PageController::class, 'store'])->name('admin.page.store');
+        Route::get('/{page}', [PageController::class, 'show'])->name('admin.pages.show');
+        Route::get('/{page}/edit', [PageController::class, 'edit'])->name('admin.pages.edit');
+        Route::patch('/{page}', [PageController::class, 'update'])->name('admin.pages.update');
+        Route::delete('/{page}', [PageController::class, 'destroy'])->name('admin.pages.destroy');
+    });
+
 });
 
 require __DIR__.'/auth.php';
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
