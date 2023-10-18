@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section('metaData')
+    <x-meta-data page_id="1" />
+@endsection
+
 @section('content')
 
 {{--    <x-image-carousel :images="$images" />--}}
