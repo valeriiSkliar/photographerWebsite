@@ -10,6 +10,13 @@ use Illuminate\Http\Request;
 
 class ComponentDetailController extends Controller
 {
+    public function album_disconnect($component_id)
+    {
+        $component = Component::findOrFail($component_id);
+        $component->update(['album_id' => null]);
+
+        return response()->json(['message' => 'Component album disconnected successfully']);
+    }
     public function destroy($id)
     {
         $detail = ComponentDetail::findOrFail($id);
