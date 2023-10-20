@@ -1,173 +1,229 @@
 @extends('layouts.iframe')
 @section('admin.content')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-@php
+
+    @php
         $start_coun_details = $component->details->last()->id ?? 1;
-@endphp
-<div class="container mt-5">
-    <h1 class="mb-4">Edit Component</h1>
+    @endphp
 
-    <form method="POST" action="{{ route('components.update', $component->id) }}">
-        @csrf
+    <div class="container mt-5">
+        <h3 class="mb-4">Edit Component</h3>
 
-        <div class="form-group">
-            <label for="section_id">Section:</label>
-            <select class="form-control" id="section_id" name="section_id" required>
-                @foreach($sections as $section)
-                    <option
-                        {{ $component->section_id == $section->id ? 'selected'  : ''}}
-                        value="{{ $section->id }}">{{ $section->name }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="type">Type:</label>
-            <input
-                type="text"
-                class="form-control"
-                id="type"
-                name="type"
-                value="{{ $component->type }}"
-                required>
-        </div>
-
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input
-                type="text"
-                class="form-control"
-                id="name"
-                name="name"
-                value="{{ $component->name }}"
-            >
-        </div>
-
-        <h2 class="my-4">Component Details</h2>
-        @foreach($component->details as $detail)
-            <div id="component-details">
-                <div class="form-row component-detail">
-                    <div class="form-group col-md-6">
-                        <label
-                            for="details[{{ $detail->id }}][key]"
-                        >Key:
-                        </label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="details[{{ $detail->id }}][key]"
-                            name="details[{{ $detail->id }}][key]"
-                            value="{{ $detail->key }}"
-                            required
-                        >
+        <form method="POST" action="{{ route('components.update', $component->id) }}">
+            @csrf
+            @method('PATCH')
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="section_id">Section:</label>
+                        <select class="form-control" id="section_id" name="section_id" required>
+                            @foreach($sections as $section)
+                                <option
+                                    {{ $component->section_id == $section->id ? 'selected' : ''}} value="{{ $section->id }}">{{ $section->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label
-                            for="details[{{ $detail->id }}][value]"
-                        >
-                            Value:
-                        </label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="details[{{ $detail->id }}][value]"
-                            name="details[{{ $detail->id }}][value]"
-                            value="{{ $detail->value }}"
-                            required
-                        >
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="type">Type:</label>
+                        <input type="text" class="form-control" id="type" name="type" value="{{ $component->type }}"
+                               required>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ $component->name }}">
                     </div>
                 </div>
             </div>
-        @endforeach
 
-        <button type="button" class="btn btn-secondary mb-3" id="addComponentDetail">Add Another Detail</button>
-
-        @if(isset($component->album))
-            <h2 class="my-4">Connected Album</h2>
-            <div class="row">
-                @foreach ($component->album->images as $image)
-                    <div class="col-1 mx-2">
-                        <img
-                            style="max-width: 100px"
-                            class="img-fluid"
-                            src="{{ $image->file_url }}" alt="{{ $image->alt_text }}">
+            <h5 class="my-4">Component Details</h5>
+            <div id="component-details">
+                @foreach($component->details as $detail)
+                    <div id="component-details-{{$detail->id}}">
+                        <div class="form-row component-detail">
+                            <div class="form-group col-md-5">
+                                <label for="details[{{ $detail->id }}][key]">Key:</label>
+                                <input type="text" class="form-control" id="details[{{ $detail->id }}][key]"
+                                       name="details[{{ $detail->id }}][key]" value="{{ $detail->key }}" required>
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="details[{{ $detail->id }}][value]">Value:</label>
+                                <input type="text" class="form-control" id="details[{{ $detail->id }}][value]"
+                                       name="details[{{ $detail->id }}][value]" value="{{ $detail->value }}" required>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center">
+                                <a href="javascript:void(0);" class="btn btn-danger" onclick="deleteComponentDetail({{ $detail->id }})">x</a>
+                            </div>
+                        </div>
                     </div>
                 @endforeach
             </div>
-        @endif
 
-        @if(isset($albums))
-            <div class="mt-4 form-group">
-                <label for="album_id">Existing Albums:</label>
-                <select class="form-control" id="album_id" name="album_id">
-                    <option value="">Select another album</option>
-                    @foreach ($albums as $album)
-                        <option value="{{ $album->id }}">{{ $album->title }}</option>
-                    @endforeach
-                </select>
+            <button type="button" class="btn btn-secondary mb-3" id="addComponentDetail">Add Another Detail</button>
+            <h5 class="my-4">Connected Album</h5>
+            <div class="row">
+                @if(isset($component->album))
+                    <div class="col-6">
+                        <div class="row" id="imageContainer">
+                            @foreach ($component->album->images as $image)
+                                <div class="col-1 mx-2">
+                                    <img style="max-width: 100px" class="img-fluid" src="{{ asset($image->file_url) }}"
+                                         alt="{{ $image->alt_text }}">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+                @if(isset($albums))
+                    <div class="col-6 form-group">
+                        <label for="album_id">Existing Albums:</label>
+                        <select class="form-control" id="album_id" name="album_id">
+                            <option value="">Select another album</option>
+                            @foreach ($albums as $album)
+                                <option value="{{ $album->id }}">{{ $album->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endif
+
             </div>
-        @endif
 
-        <a href="javascript:void(0);" class="btn btn-secondary d-block my-3" onclick="createNewAlbum()">Create New Album:</a>
+            <a href="javascript:void(0);" class="btn btn-secondary d-block my-3" onclick="createNewAlbum()">Create New
+                Album:</a>
 
-        <div id="newAlbumFields" style="display: none;">
-            <div id="my-dropzone" class="dropzone mb-3"></div>
+            <div id="newAlbumFields" style="display: none;">
+                <div id="my-dropzone" class="dropzone mb-3"></div>
 
-            <div class="form-group">
-                <label for="title">Album Title:</label>
-                <input type="text" class="form-control" id="title" name="title">
+                <div class="form-group">
+                    <label for="title">Album Title:</label>
+                    <input type="text" class="form-control" id="title" name="title">
+                </div>
+
+                <div class="form-group">
+                    <label for="sub_text">Album sub_text:</label>
+                    <textarea class="form-control" id="sub_text" name="sub_text"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Album Description:</label>
+                    <textarea class="form-control" id="description" name="description"></textarea>
+                </div>
             </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const componentDetailsContainer = document.getElementById('component-details');
+            const addComponentDetailButton = document.getElementById('addComponentDetail');
 
-            <div class="form-group">
-                <label for="sub_text">Album sub_text:</label>
-                <textarea class="form-control" id="sub_text" name="sub_text"></textarea>
-            </div>
+            let detailCount = {{ $start_coun_details == 1 ? $start_coun_details : $start_coun_details + 1 }};
 
-            <div class="form-group">
-                <label for="description">Album Description:</label>
-                <textarea class="form-control" id="description" name="description"></textarea>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
+            addComponentDetailButton.addEventListener('click', function () {
+                const newDetailDiv = document.createElement('div');
+                newDetailDiv.className = 'component-detail';
 
-</div>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const componentDetailsContainer = document.getElementById('component-details');
-        const addComponentDetailButton = document.getElementById('addComponentDetail');
+                const keyLabel = document.createElement('label');
+                keyLabel.textContent = 'Key:';
+                const keyInput = document.createElement('input');
+                keyInput.type = 'text';
+                keyInput.name = `details[${detailCount}][key]`;
+                keyInput.required = true;
 
-        let detailCount = {{ $start_coun_details == 1 ? $start_coun_details : $start_coun_details + 1 }};
+                const valueLabel = document.createElement('label');
+                valueLabel.textContent = 'Value:';
+                const valueInput = document.createElement('input');
+                valueInput.type = 'text';
+                valueInput.name = `details[${detailCount}][value]`;
+                valueInput.required = true;
 
-        addComponentDetailButton.addEventListener('click', function() {
-            const newDetailDiv = document.createElement('div');
-            newDetailDiv.className = 'component-detail';
+                newDetailDiv.appendChild(keyLabel);
+                newDetailDiv.appendChild(keyInput);
+                newDetailDiv.appendChild(valueLabel);
+                newDetailDiv.appendChild(valueInput);
 
-            const keyLabel = document.createElement('label');
-            keyLabel.textContent = 'Key:';
-            const keyInput = document.createElement('input');
-            keyInput.type = 'text';
-            keyInput.name = `details[${detailCount}][key]`;
-            keyInput.required = true;
+                componentDetailsContainer.appendChild(newDetailDiv);
 
-            const valueLabel = document.createElement('label');
-            valueLabel.textContent = 'Value:';
-            const valueInput = document.createElement('input');
-            valueInput.type = 'text';
-            valueInput.name = `details[${detailCount}][value]`;
-            valueInput.required = true;
-
-            newDetailDiv.appendChild(keyLabel);
-            newDetailDiv.appendChild(keyInput);
-            newDetailDiv.appendChild(valueLabel);
-            newDetailDiv.appendChild(valueInput);
-
-            componentDetailsContainer.appendChild(newDetailDiv);
-
-            detailCount++;
+                detailCount++;
+            });
         });
-    });
-</script>
+
+
+        document.getElementById('album_id').addEventListener('change', function() {
+            const selectedAlbumId = this.value;
+
+            console.log(selectedAlbumId)
+            console.log({{ $component->id }})
+            const additionalData = {
+                component_id: '{{ $component->id }}',
+                album_id: selectedAlbumId,
+            };
+
+            if (selectedAlbumId) {
+                fetch(`/api/component-album/${selectedAlbumId}`, {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': `{{ csrf_token() }}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(additionalData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.images) {
+                            updateAlbumImages(data.images);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching album images:', error);
+                    });
+            }
+        });
+
+        function deleteComponentDetail(id) {
+            fetch(`/api/component-detail/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': `{{ csrf_token() }}`
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert(data.message);
+                        const componentDetail = document.getElementById(`component-details-${id}`)
+                        console.log('test')
+                        componentDetail.remove();
+                    }
+                });
+        }
+
+        function updateAlbumImages(images) {
+            const imageContainer = document.getElementById('imageContainer');
+            imageContainer.innerHTML = '';
+
+            images.forEach(image => {
+                const imageDiv = document.createElement('div');
+                imageDiv.className = 'col-1 mx-2';
+
+                const imgElement = document.createElement('img');
+                imgElement.style.maxWidth = '100px';
+                imgElement.classList.add('img-fluid');
+                imgElement.src = `{{ asset('${image.file_url}') }}`;
+                imgElement.alt = image.alt_text;
+
+                imageDiv.appendChild(imgElement);
+                imageContainer.appendChild(imageDiv);
+            });
+        }
+    </script>
 @endsection

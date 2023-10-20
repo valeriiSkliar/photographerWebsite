@@ -1,4 +1,5 @@
-
+@extends('layouts.iframe')
+@section('admin.content')
 <h1>Gallery</h1>
 
 <form method="POST" action="{{ route('albums.store') }}">
@@ -76,3 +77,4 @@
     });
 
 </script>
+@endsection

@@ -14,6 +14,7 @@ $maxWidth = [
 ][$maxWidth];
 @endphp
 
+{{ $show }}
 <div
     x-data="{
         show: @js($show),

@@ -56,7 +56,12 @@
                     </div>
                     <div class="form-group col-12">
                         <label for="description">Description:</label>
-                        <textarea name="description" id="description" class="form-control" required></textarea>
+                        <textarea
+                            style="min-height: 150px; height: fit-content"
+                            name="description"
+                            id="description"
+                            class="form-control"
+                            required></textarea>
                     </div>
                     <div class="form-group col-12">
                         <label for="content_text">Content Text:</label>

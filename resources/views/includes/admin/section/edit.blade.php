@@ -62,7 +62,12 @@
 
                     <div class="form-group col-12">
                         <label for="description">Description:</label>
-                        <textarea name="description" id="description" class="form-control" required>{{ $section->sectionContent->description }}</textarea>
+                        <textarea
+                            style="min-height: 150px; height: fit-content"
+                            name="description"
+                            id="description"
+                            class="form-control"
+                            required>{{ $section->sectionContent->description }}</textarea>
                     </div>
 
                     <div class="form-group col-12">
