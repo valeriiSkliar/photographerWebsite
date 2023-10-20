@@ -33,8 +33,7 @@
                         </div>
                     </div>
                 </div>
-
-                <h2 class="my-4">Albums</h2>
+                <h4 class="my-4">Albums</h4>
                 <div class="row">
                     @foreach($albums as $album)
                         <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
@@ -56,19 +55,41 @@
                         </div>
                     @endforeach
                 </div>
+                <div class="row m-4">
+                    <div class="col-3">
+                        <h1 class="my-4">All Photos</h1>
+                    </div>
+                    <div class="col-3 d-flex justify-content-center align-items-center">
+                        <a
+                            style="max-height: 80px"
+                            href="{{ route('images.create') }}" class="btn btn-primary">Add New Image</a>
+                    </div>
+                </div>
 
-                <h2 class="my-4">All Photos</h2>
+
+
+
                 <div class="row px-3">
                     @foreach($images as $image)
-                        <div class="col-lg-1 col-md-3 col-sm-4 mb-4">
+                        <div class="col-lg-2 col-md-3 col-sm-4 mb-4">
                             <div class="card">
                                 <img
                                     src="{{ $image->file_url }}"
                                     alt="{{ $image->alt_text }}"
                                     title="{{ $image->title }}"
                                     class="card-img-top">
-                                <div class="card-img-overlay d-flex justify-content-center align-items-center">
-                                    {{-- Image controls like edit, delete, etc. --}}
+                                <div tabindex="0" data-toggle="tooltip" title="Rank: {{ $image->rank }} | Alt: {{ $image->alt_text }} | Status: {{ $image->status }} | Visibility: {{ $image->visibility }}" data-placement="bottom" style="position: absolute; bottom: 5px; right: 5px;">
+                                    <i class="fa fa-info-circle"></i>
+                                </div>
+
+                                <!-- Controls -->
+                                <div class="image-controls" style="position: absolute; top: 5px; right: 5px;">
+                                    <a href="{{ route('images.edit', $image) }}" class="btn btn-sm btn-warning mr-1">Edit</a>
+                                    <form action="{{ route('images.destroy', $image) }}" method="POST" class="d-inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this image?')">Delete</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Section\SectionController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IframeController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
@@ -68,8 +69,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('sections', SectionController::class);
-Route::resource('components', ComponentController::class);
+
+Route::resource('/sections', SectionController::class);
+Route::resource('/components', ComponentController::class);
 
 Route::group(['prefix' => 'admin', 'middleware'=> 'auth'],function () {
     Route::get('/iframe-content', [IframeController::class , 'show'])->name('iframe.content');
@@ -77,7 +79,10 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'auth'],function () {
     Route::get('/', [AdminPanelController::class, '__invoke'])->name('index.dashboard');
     Route::get('/dashboard', [AdminPanelController::class, '__invoke'])->name('index.dashboard');
 
+
+
     Route::resource('/albums', AlbumsController::class);
+    Route::resource('/images', ImageController::class);
 
     Route::group(['prefix' => 'pages',],function () {
         Route::get('/', [PageController::class, 'index'])->name('admin.page.index');

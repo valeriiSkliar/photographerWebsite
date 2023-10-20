@@ -94,8 +94,27 @@ class ComponentController extends Controller
     public function update(Request $request, Component $component)
     {
 
+
         $componentData = $request->only([ 'section_id','name', 'type']);
         $details = $request->get('details');
+
+        $existingDetailIds = $component->details->pluck('id')->toArray();
+        $submittedDetailIds = array_column($details, 'id');
+
+        foreach ($existingDetailIds as $id) {
+            if (!in_array($id, $submittedDetailIds)) {
+                $component->details()->where('id', $id)->delete();
+            }
+        }
+
+        foreach ($details as $detail) {
+            if (isset($detail['id'])) {
+                $component->details()->where('id', $detail['id'])->update($detail);
+            } else {
+                $component->details()->create($detail);
+            }
+        }
+
         $component->update($componentData);
         $component->details()->delete();
 
