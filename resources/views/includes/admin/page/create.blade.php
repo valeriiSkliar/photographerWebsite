@@ -1,9 +1,9 @@
 @extends('layouts.iframe')
 @section('admin.content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <h2>Create New Page</h2>
+<div class="container-fluid">
+    <div class=" ml-2 mt-2 row">
+        <div class="col-md-3">
+            <h5>Create New Page</h5>
 
             @if($errors->any())
                 <div class="alert alert-danger">
@@ -43,5 +43,17 @@
 
         </div>
     </div>
+    <div class=" ml-2 mt-2 row">
+        <div class="col-md-3"></div>
+        <a
+            id="add_meta_tegs_btn"
+            href="javascript:void(0);" class="btn-success btn d-block my-3">Add meta teg:</a>
+    </div>
+
 </div>
+    <script>
+
+
+    </script>
 @endsection
+{{--@include('/includes/admin/section/index')--}}

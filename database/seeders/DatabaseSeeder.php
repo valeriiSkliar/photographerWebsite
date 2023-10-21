@@ -3,10 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\ComponentDetail\ComponentDetail;
 use Database\Seeders\MetaData\MetaTagsNameTableSeeder;
 use Database\Seeders\MetaData\MetaTagsPropertyTableSeeder;
 use Database\Seeders\MetaData\MetaTagsTableSeeder;
+use Database\Seeders\MetaData\MetaTagTypeSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ComponentDetailSeeder::class);
         $this->call(UsersSeeder::class);
 
+        $this->call(MetaTagTypeSeeder::class);
         $this->call(MetaTagsNameTableSeeder::class);
         $this->call(MetaTagsPropertyTableSeeder::class);
         $this->call(MetaTagsTableSeeder::class);

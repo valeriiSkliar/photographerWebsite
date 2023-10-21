@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create('meta_tags', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('type');
+            $table->foreignId('type_id')->nullable()->constrained('meta_teg_types')->onDelete('set null');
             $table->string('value')->nullable();
             $table->string('content');
             $table->foreignId('page_id')->nullable()->constrained('pages')->onDelete('set null');

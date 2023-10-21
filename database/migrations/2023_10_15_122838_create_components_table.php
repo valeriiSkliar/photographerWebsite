@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
+//            $table->enum('type', ['album', 'form', 'custom']);
 
 //            $table->enum('type', ['standard', 'custom']);
             $table->foreignId('section_id')->constrained('sections')->onDelete('cascade');

@@ -24,7 +24,7 @@
     <link rel="stylesheet" href={{asset("AdminLTE/plugins/summernote/summernote-bs4.min.css")}}>
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href={{asset("AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
-
+    @vite('resources/js/admin.js')
     @stack('iframe.style')
 
 </head>
