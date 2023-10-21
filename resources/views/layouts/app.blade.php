@@ -43,6 +43,7 @@
     <main class="py-4">
         @yield('content')
     </main>
+    <x-footer />
 </div>
 @stack('custom-script')
 </body>
