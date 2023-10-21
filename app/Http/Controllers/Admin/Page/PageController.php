@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Page;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class PageController extends Controller
 {
@@ -32,7 +33,16 @@ class PageController extends Controller
             'meta_data' => 'required|string|max:255',
         ]);
 
-        Page::create($data);
+        $page = Page::create($data);
+
+        $filePath = resource_path('views/' . $page->slug . '.blade.php');
+        $fileContent = "@extends('layouts.app')\n\n@section('content')\n";
+        $fileContent .= "    <h1>{{ \$name }}</h1>\n";
+        $fileContent .= "    <meta name=\"description\" content=\"{{ \$metadata }}\">\n";
+        $fileContent .= "@endsection";
+
+        File::put($filePath, $fileContent);
+
         return redirect()->route('admin.page.index')->with('success', 'Page created successfully.');
     }
 

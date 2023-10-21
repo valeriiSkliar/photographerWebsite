@@ -2,11 +2,10 @@
 
 namespace App\Models\MetaData;
 
-use App\Models\Page;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MetaTags extends Model
+class MetaTegType extends Model
 {
     use HasFactory;
 
@@ -18,10 +17,5 @@ class MetaTags extends Model
     public function propertyVariant()
     {
         return $this->belongsTo(MetaTagsPropertyVariants::class, 'type');
-    }
-
-    public function page()
-    {
-        return $this->belongsTo(Page::class);
     }
 }

@@ -50,6 +50,8 @@ class SectionController extends Controller
             'content_text' => 'nullable|string',
         ]);
 
+//        dd($data);
+
         if ($request->hasFile('background_image')) {
             $image = $request->file('background_image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
