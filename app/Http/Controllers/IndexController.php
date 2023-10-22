@@ -23,10 +23,12 @@ class IndexController extends Controller
             ->where('slug', $pageSlug)
             ->first();
 
+        $all_pages = Page::all();
+
         if (!$page) {
             abort(404, 'Page not found');
         }
 
-        return view($pageSlug, compact('page'));
+        return view($pageSlug, compact('page', 'all_pages'));
     }
 }
