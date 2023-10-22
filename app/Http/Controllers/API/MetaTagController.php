@@ -8,6 +8,7 @@ use App\Http\Requests\StoreMetaTagsRequest;
 use App\Http\Requests\UpdateMetaTagsRequest;
 use App\Models\MetaData\MetaTagsNameVariants;
 use App\Models\MetaData\MetaTagsPropertyVariants;
+use App\Models\MetaData\MetaTegType;
 
 class MetaTagController extends Controller
 {
@@ -18,12 +19,14 @@ class MetaTagController extends Controller
     {
 //        return MetaTags::find(3);
         $names = MetaTagsNameVariants::all();
-        $propertys = MetaTagsPropertyVariants::all();
+        $properties = MetaTagsPropertyVariants::all();
+        $types = MetaTegType::all();
 
         return response()->json([
-            'meta_tags' => MetaTags::with('page')->get(),
-            'names' => $names,
-            'properties' => $propertys,
+//            'meta_tags' => MetaTags::with('page')->get(),
+            'name' => $names,
+            'property' => $properties,
+            'types' => $types,
         ]);
     }
 
@@ -32,6 +35,7 @@ class MetaTagController extends Controller
      */
     public function store(StoreMetaTagsRequest $request)
     {
+//        dd($request);
         $data = $request->validate([
             'type' => 'required|string|max:255',
             'value' => 'nullable|string|max:255',

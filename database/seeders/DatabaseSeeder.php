@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SectionSeeder::class);
         $this->call(ComponentSeeder::class);
         $this->call(ComponentDetailSeeder::class);
+        $this->call(UserSeeder::class);
 
         $this->call(MetaTagTypeSeeder::class);
         $this->call(MetaTagsNameTableSeeder::class);
