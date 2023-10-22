@@ -58,7 +58,8 @@
                                        name="details[{{ $detail->id }}][value]" value="{{ $detail->value }}" required>
                             </div>
                             <div class="col-md-2 d-flex align-items-center">
-                                <a href="javascript:void(0);" class="btn btn-danger" onclick="deleteComponentDetail({{ $detail->id }})">x</a>
+                                <a href="javascript:void(0);" class="btn btn-danger"
+                                   onclick="deleteComponentDetail({{ $detail->id }})">x</a>
                             </div>
                         </div>
                     </div>
@@ -66,19 +67,34 @@
             </div>
 
             <button type="button" class="btn btn-secondary mb-3" id="addComponentDetail">Add Another Detail</button>
-            <h5 class="my-4">Connected Album</h5>
+
             <div class="row">
-                @if(isset($component->album))
-                    <div class="col-6">
-                        <div class="row" id="imageContainer">
+                <div class="col-4">
+                    <h5 class="my-4">Connected Album</h5>
+                </div>
+                    <div class="col-2">
+                        <a
+                            style="display: {{ $component->album ? 'block' : 'none' }}"
+                            id="disconnect_btn"
+                            href="javascript:void(0);" class="btn btn-danger" disabled
+                            onclick="disconnectAlbum({{ $component->id }})">
+                            Disconnect album
+                        </a>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="row" id="imageContainer">
+                        @if(isset($component->album))
                             @foreach ($component->album->images as $image)
                                 <div class="col-1 mx-2">
-                                    <img style="max-width: 100px" class="img-fluid" src="{{ asset($image->file_url) }}"
+                                    <img style="max-width: 100px" class="img-fluid"
+                                         src="{{ asset($image->file_url) }}"
                                          alt="{{ $image->alt_text }}">
                                 </div>
                             @endforeach
-                        </div>
                     </div>
+                </div>
                 @endif
 
                 @if(isset($albums))
@@ -95,8 +111,10 @@
 
             </div>
 
-            <a href="javascript:void(0);" class="btn btn-secondary d-block my-3" onclick="createNewAlbum()">Create New
-                Album:</a>
+            <a href="javascript:void(0);" class="btn btn-secondary d-block my-3" onclick="createNewAlbum()">Create
+                New
+                Album:
+            </a>
 
             <div id="newAlbumFields" style="display: none;">
                 <div id="my-dropzone" class="dropzone mb-3"></div>
@@ -120,6 +138,29 @@
         </form>
     </div>
     <script>
+        const imageContainer = document.getElementById('imageContainer');
+        const disconnect_btn = document.getElementById('disconnect_btn');
+        function disconnectAlbum(component_id) {
+            fetch(`/api/component-album-disconnect/${component_id}`, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': `{{ csrf_token() }}`
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert(data.message);
+                        imageContainer.innerHTML = '';
+                        disconnect_btn.disabled = true;
+                        // const componentDetail = document.getElementById(`component-details-${id}`)
+                        // console.log('test')
+                        // componentDetail.remove();
+                    }
+                });
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             const componentDetailsContainer = document.getElementById('component-details');
             const addComponentDetailButton = document.getElementById('addComponentDetail');
@@ -156,11 +197,9 @@
         });
 
 
-        document.getElementById('album_id').addEventListener('change', function() {
+        document.getElementById('album_id').addEventListener('change', function () {
             const selectedAlbumId = this.value;
 
-            console.log(selectedAlbumId)
-            console.log({{ $component->id }})
             const additionalData = {
                 component_id: '{{ $component->id }}',
                 album_id: selectedAlbumId,
@@ -208,7 +247,10 @@
         }
 
         function updateAlbumImages(images) {
-            const imageContainer = document.getElementById('imageContainer');
+            disconnect_btn.style.display = 'block';
+
+            disconnect_btn.disabled = false;
+
             imageContainer.innerHTML = '';
 
             images.forEach(image => {

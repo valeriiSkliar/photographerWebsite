@@ -1,6 +1,7 @@
 @use "variables/global";
 @use "normalize";
 @use "nav-bar";
+@use "footer";
 
 //.font-sizeScale_f21 {
 //    font-size: calc(21px + (30 - 21) * ((100vw - 320px) / (1100 - 320)));
@@ -12,7 +13,7 @@
 body {
     background-color: #0a0e14;
     color: white;
-    
+
 // =======
 // @use "carousel";
 // @tailwind base;

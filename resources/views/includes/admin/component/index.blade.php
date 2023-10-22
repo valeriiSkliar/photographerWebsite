@@ -27,7 +27,7 @@
                     <td>{{ $component->type }}</td>
                     <td>{{ $component->name }}</td>
                     <td>{{ $component->section->name }}</td>
-                    <td>{{ $component->album->title }}</td>
+                    <td>{{ $component->album ? $component->album->title : ' - ' }}</td>
                     <td>
                         <a href="{{ route('components.show', $component) }}" class="btn btn-info btn-sm">Show</a>
                         <a href="{{ route('components.edit', $component) }}" class="btn btn-warning btn-sm">Edit</a>

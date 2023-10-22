@@ -1,0 +1,46 @@
+.container_footer {
+    width: 100%;
+    height: 150px;
+    background-image: linear-gradient(#0a0e14 0%, #e9e7f530 50%, #0a0e14 100%);
+    display: flex;
+    color: #ffffffd0;
+    font-family: var(--navbar-font);
+}
+
+.data_footer {
+    width: 40%;
+    height: 100%;
+    text-align: center;
+}
+
+.logo_footer {
+    width: 20%;
+    height: 100%;
+}
+
+.text_footer {
+    height: 50px;
+    font-size: 20px;
+}
+
+.name_footer {
+    font-family: var(--font-allison);
+    font-size: 100px;
+    height: 100px;
+    line-height: 1.1em;
+}
+
+.address_footer {
+    font-size: 24px;
+    line-height: 6em;
+    height: 95px;
+}
+
+.link_logo {
+    display: block;
+    width: 90px;
+    height: 60px;
+    margin: auto;
+    margin-top: 50px;
+}
+
