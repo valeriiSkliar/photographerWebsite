@@ -1,14 +1,16 @@
-<link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
-/>
-<style>
-    .swiper {
-        width: 600px;
-        height: 300px;
-    }
-</style>
+@pushonce('custom-style')
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+    <style>
+        .swiper {
+            width: 600px;
+            height: 300px;
+        }
+    </style>
 
+@endpushonce
 <!-- Slider main container -->
 <div class="swiper_{{$component->album->id}}">
     <!-- Additional required wrapper -->
@@ -31,29 +33,35 @@
 {{--    <div class="swiper-scrollbar"></div>--}}
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<script>
+@pushonce('custom-script')
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+@endpushonce
+
+@push('custom-script')
+    <script>
         const mainSliderSwiper{{$component->album->id}} = new Swiper('.swiper_{{$component->album->id}}', {
-        spaceBetween: 30,
-        centeredSlides: true,
-        effect: 'fade',
-        slidesPerView: 1,
-        speed: 800,
-        direction: 'horizontal',
-        loop: true,
-        autoplay: {
-            delay: 2000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            type: 'bullets',
-            el: '.swiper-pagination',
-            clickable: true,
-            dynamicBullets: true,
-        },
-        navigation: {
-            // nextEl: "swiper-button-next",
-            // prevEl: "swiper-button-prev"
-        },
-    });
-</script>
+            spaceBetween: 30,
+            centeredSlides: true,
+            effect: 'fade',
+            slidesPerView: 1,
+            speed: 800,
+            direction: 'horizontal',
+            loop: true,
+            autoplay: {
+                delay: 2000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                type: 'bullets',
+                el: '.swiper-pagination',
+                clickable: true,
+                dynamicBullets: true,
+            },
+            navigation: {
+                // nextEl: "swiper-button-next",
+                // prevEl: "swiper-button-prev"
+            },
+        });
+    </script>
+@endpush

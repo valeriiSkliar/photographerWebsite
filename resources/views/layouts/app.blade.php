@@ -39,7 +39,10 @@
 </head>
 <body>
 <div id="app">
-    <x-nav-bar/>
+{{--    {{dd($all_pages)}}--}}
+    <x-nav-bar :all_pages="$all_pages" />
+{{--    <x-nav-bar />--}}
+    @include('includes.header')
     <main class="py-4">
         @yield('content')
     </main>
