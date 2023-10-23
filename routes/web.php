@@ -84,15 +84,13 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'auth'],function () {
     Route::resource('/albums', AlbumsController::class);
     Route::resource('/images', ImageController::class);
 
-    Route::group(['prefix' => 'pages',],function () {
-        Route::get('/', [PageController::class, 'index'])->name('admin.page.index');
-        Route::get('/create', [PageController::class, 'create'])->name('admin.page.create');
-        Route::post('/', [PageController::class, 'store'])->name('admin.page.store');
-        Route::get('/{page}', [PageController::class, 'show'])->name('admin.pages.show');
-        Route::get('/{page}/edit', [PageController::class, 'edit'])->name('admin.pages.edit');
-        Route::patch('/{page}', [PageController::class, 'update'])->name('admin.pages.update');
-        Route::delete('/{page}', [PageController::class, 'destroy'])->name('admin.pages.destroy');
-    });
+        Route::get('/pages/', [PageController::class, 'index'])->name('admin.page.index');
+        Route::get('/pages/create', [PageController::class, 'create'])->name('admin.page.create');
+        Route::post('/pages/', [PageController::class, 'store'])->name('admin.page.store');
+        Route::get('/pages/{page}', [PageController::class, 'show'])->name('admin.pages.show');
+        Route::get('/pages/{page}/edit', [PageController::class, 'edit'])->name('admin.pages.edit');
+        Route::patch('/pages/{page}', [PageController::class, 'update'])->name('admin.pages.update');
+        Route::delete('/pages/{page}', [PageController::class, 'destroy'])->name('admin.pages.destroy');
 
 });
 

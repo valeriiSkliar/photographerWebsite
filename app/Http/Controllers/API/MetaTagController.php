@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateMetaTagsRequest;
 use App\Models\MetaData\MetaTagsNameVariants;
 use App\Models\MetaData\MetaTagsPropertyVariants;
 use App\Models\MetaData\MetaTegType;
+use Illuminate\Http\Request;
 
 class MetaTagController extends Controller
 {
@@ -33,7 +34,7 @@ class MetaTagController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMetaTagsRequest $request)
+    public function store(Request $request)
     {
 //        dd($request);
         $data = $request->validate([

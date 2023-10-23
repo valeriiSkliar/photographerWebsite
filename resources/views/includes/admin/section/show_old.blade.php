@@ -1,3 +1,6 @@
+@extends('layouts.iframe')
+
+@section('admin.content')
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-8">
@@ -92,3 +95,4 @@
 
         </div>
     </div>
+@endsection

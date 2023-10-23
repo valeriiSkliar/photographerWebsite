@@ -18,12 +18,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        'eloquent.saved: App\Models\Page' => [
-            'App\Listeners\ClearRouteCacheListener',
-        ],
-        'eloquent.deleted: App\Models\Page' => [
-            'App\Listeners\ClearRouteCacheListener',
-        ],
+//        'eloquent.saved: App\Models\Page' => [
+//            'App\Listeners\ClearRouteCacheListener',
+//        ],
+//        'eloquent.deleted: App\Models\Page' => [
+//            'App\Listeners\ClearRouteCacheListener',
+//        ],
     ];
 
     /**

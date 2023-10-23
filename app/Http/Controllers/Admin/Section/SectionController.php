@@ -8,10 +8,29 @@ use App\Models\Section\Section;
 use App\Models\SectionContent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class SectionController extends Controller
 {
+
+    public function createSection($data)
+    {
+
+        $sectionData = Arr::only($data[0], ['page_id', 'name', 'order']);
+//        dd($data);
+//        dd($sectionData, $data);
+        Log::info('Before Section create');
+        $section = Section::create($sectionData);
+        Log::info('After Section create');
+
+        $sectionContentData = Arr::only($data[0], ['background_color', 'title', 'description', 'content_text']);
+        Log::info('Before SectionContent create');
+
+        SectionContent::create(array_merge($sectionContentData, ['section_id' => $section->id]));
+        Log::info('After SectionContent create');
+
+    }
     /**
      * Display a listing of the resource.
      */

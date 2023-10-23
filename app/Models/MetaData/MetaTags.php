@@ -10,15 +10,13 @@ class MetaTags extends Model
 {
     use HasFactory;
 
-    public function nameVariant()
+    protected $guarded = [];
+
+    public function type()
     {
-        return $this->belongsTo(MetaTagsNameVariants::class, 'type');
+        return $this->belongsTo(MetaTegType::class, 'type_id');
     }
 
-    public function propertyVariant()
-    {
-        return $this->belongsTo(MetaTagsPropertyVariants::class, 'type');
-    }
 
     public function page()
     {

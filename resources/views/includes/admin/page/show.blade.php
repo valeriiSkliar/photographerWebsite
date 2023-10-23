@@ -21,11 +21,20 @@
             </ul>
         </div>
 
-        @if($page->sections && count($page->sections) > 0)
+        @if($page->meta_tags && count($page->meta_tags) > 0)
+            Meta teg list: <br>
+            @foreach($page->meta_tags as $meta_tag)
+                {{ $meta_tag->type->type  }}: - {{ $meta_tag->value }} -- {{ $meta_tag->content }}
+                <br>
+            @endforeach
+        @endif
+
+            @if($page->sections && count($page->sections) > 0)
             <h2 class="mt-4">Sections</h2>
             <ul class="list-group">
                 @foreach($page->sections as $section)
-                    <li class="list-group-item">{{ $section->name }}</li>
+                    @include('includes.admin.section.show')
+{{--                    <li class="list-group-item">{{ $section->name }}</li>--}}
                 @endforeach
             </ul>
         @else

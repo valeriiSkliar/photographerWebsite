@@ -22,6 +22,6 @@ class ClearRouteCacheListener
      */
     public function handle($event): void
     {
-        Artisan::call('route:clear');
+//        Artisan::call('route:clear');
     }
 }
