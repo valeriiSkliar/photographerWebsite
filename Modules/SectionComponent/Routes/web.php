@@ -12,7 +12,10 @@
 */
 
 
+use Modules\SectionComponent\Http\Controllers\MarkupController;
+
 Route::group(['prefix' => 'admin'], function() {
+    Route::get('/generate-html', [MarkupController::class, 'generate']);
     Route::group(['prefix' => 'sectioncomponent', 'middleware' => ['web']], function() {
         Route::get('/{id}/pars', 'SectionComponentController@parsFrontendTemplate')->name('pars.frontend.template');
         Route::get('/', 'SectionComponentController@index')->name('sections_component.index');
