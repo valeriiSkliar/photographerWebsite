@@ -13,10 +13,8 @@ class IndexController extends Controller
         $pageSlug = $request->route()->uri;
 
         if ($pageSlug == '/') {
-//            dd('test');
             $pageSlug = 'main';
-//            $page = Page::find(1);
-//            return view('index', compact('page'));
+
         }
 
         $page = Page::with('sections.components.album.images')
@@ -26,7 +24,7 @@ class IndexController extends Controller
         if (!$page) {
             abort(404, 'Page not found');
         }
-
-        return view($pageSlug, compact('page'));
+        $test = 'span';
+        return view($pageSlug, compact(['page', 'test']));
     }
 }

@@ -89,6 +89,34 @@
                     </div>
                 </div>
             @endif
+            @if($section->sectionComponents)
+{{--                {{ $section->sectionComponents }}--}}
+{{--                <div class="card">--}}
+{{--                    <div class="card-header" id="componentsHeading">--}}
+{{--                        <h5 class="mb-0">--}}
+{{--                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"--}}
+{{--                                    data-target="#components" aria-expanded="false" aria-controls="components">--}}
+{{--                                Components--}}
+{{--                            </button>--}}
+{{--                        </h5>--}}
+{{--                    </div>--}}
+{{--                    <div id="components" class="collapse" aria-labelledby="componentsHeading"--}}
+{{--                         data-parent="#mainAccordion">--}}
+{{--                        <div class="card-body">--}}
+                            @foreach($section->sectionComponents as $component)
+                                <li class="list-group-item">
+                                    <strong>Name:</strong> {{ $component->name }}<br>
+{{--                                    <strong>Details:</strong> {{ $component->details[0]['value'] }}--}}
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Type:</strong> {{ $component->type }}<br>
+{{--                                    <strong>Details:</strong> {{ $component->details[0]['value'] }}--}}
+                                </li>
+                            @endforeach
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+            @endif
 
         </div>
     </div>

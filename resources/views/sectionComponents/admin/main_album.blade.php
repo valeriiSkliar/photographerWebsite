@@ -1,0 +1,1 @@
+<h1> Admin template for editing main_album </h1>

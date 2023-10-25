@@ -8,6 +8,7 @@ use App\Models\Page;
 use App\Models\SectionContent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\SectionComponent\Entities\SectionsComponent;
 
 class Section extends Model
 {
@@ -27,6 +28,10 @@ class Section extends Model
     public function components()
     {
         return $this->hasMany(Component::class);
+    }
+    public function sectionComponents()
+    {
+        return $this->hasMany(SectionsComponent::class);
     }
     public function albums()
     {
