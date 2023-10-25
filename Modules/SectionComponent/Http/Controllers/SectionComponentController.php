@@ -45,7 +45,7 @@ class SectionComponentController extends BaseController
             'data' => 'nullable',
             'section_id' => 'required|exists:sections,id',
         ]);
-        $componentName = strtolower($data['name']);
+        $componentName = slugify($data['name']);
         $data = array_merge($data, ['template_name' => $componentName]);
         switch ($data['type']) {
             case 'standard': {
@@ -69,7 +69,6 @@ class SectionComponentController extends BaseController
             }
 
         }
-//    dd($data);
         SectionsComponent::create($data);
 
 
@@ -116,9 +115,12 @@ class SectionComponentController extends BaseController
             'data' => 'nullable',
             'section_id' => 'nullable|exists:sections,id',
         ]);
+        $data = $request->all();
+        $componentName = slugify($data['name']);
+        $data = array_merge($data, ['template_name' => $componentName]);
 
         $component = SectionsComponent::findOrFail($id);
-        $component->update($request->all());
+        $component->update($data);
 
         return redirect()->route('sections_component.index')->with('success', 'Component updated successfully.');
     }
@@ -133,7 +135,7 @@ class SectionComponentController extends BaseController
         $component = SectionsComponent::findOrFail($id);
 
         if ($component->type == 'standard') {
-            $componentName = strtolower($component->name);
+            $componentName = $component->template_name;
             $frontendPath = resource_path("views/sectionComponents/frontend/$componentName.blade.php");
             $adminPath = resource_path("views/sectionComponents/admin/$componentName.blade.php");
 
@@ -152,7 +154,7 @@ class SectionComponentController extends BaseController
         $component = SectionsComponent::findOrFail($id);
 
         if ($component->type == 'standard') {
-            $componentName = strtolower($component->name);
+            $componentName = $component->template_name;
             $frontendPath = resource_path("views/sectionComponents/frontend/$componentName.blade.php");
             $adminPath = resource_path("views/sectionComponents/admin/$componentName.blade.php");
 
