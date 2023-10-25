@@ -1,5 +1,3 @@
 {
-    "Blog": true,
-    "FormBilder": true,
-    "FormBuilder": true
+    "SectionComponent": true
 }
