@@ -48,7 +48,7 @@ class SectionComponentController extends BaseController
             'data' => 'nullable',
             'section_id' => 'required|exists:sections,id',
         ]);
-        $componentName = strtolower($data['name']);
+        $componentName = slugify($data['name']);
         $data = array_merge($data, ['template_name' => $componentName]);
         switch ($data['type']) {
             case 'standard':
@@ -73,7 +73,6 @@ class SectionComponentController extends BaseController
             }
 
         }
-//    dd($data);
         SectionsComponent::create($data);
 
 
@@ -133,31 +132,11 @@ class SectionComponentController extends BaseController
                 'exists:sections,id',
             ],
         ]);
+        $data = $request->all();
+        $componentName = slugify($data['name']);
+        $data = array_merge($data, ['template_name' => $componentName]);
 
         $component = SectionsComponent::findOrFail($id);
-
-        // Check if the name field is changed
-        if ($component->name !== $data['name']) {
-            // Update the template_name when the name changes
-            $componentName = strtolower($data['name']);
-            $component->template_name = $componentName;
-
-            // Update the frontend and admin template file names if it's a standard component
-            if ($component->type === 'standard') {
-                $frontendPath = resource_path("views/sectionComponents/frontend/{$componentName}.blade.php");
-                $adminPath = resource_path("views/sectionComponents/admin/{$componentName}.blade.php");
-
-                // Rename the template files
-                if (File::exists($frontendPath)) {
-                    File::move($frontendPath, resource_path("views/sectionComponents/frontend/{$component->template_name}.blade.php"));
-                }
-                if (File::exists($adminPath)) {
-                    File::move($adminPath, resource_path("views/sectionComponents/admin/{$component->template_name}.blade.php"));
-                }
-            }
-        }
-
-        // Update the component's data
         $component->update($data);
 
         return redirect()->route('sections_component.index')->with('success', 'Component updated successfully.');

@@ -1,0 +1,1 @@
+<h1> Frontend template for get-quality-products-from-a-to-z-at-coolorca-global-store </h1>
