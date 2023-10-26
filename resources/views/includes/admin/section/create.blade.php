@@ -61,6 +61,9 @@
                     {{--                    </div>--}}
                 </div>
             </div>
+            <div class="col-4 mt-4">
+                <input type="submit" value="Create" class="btn btn-primary">
+            </div>
         </div>
 
     </div>

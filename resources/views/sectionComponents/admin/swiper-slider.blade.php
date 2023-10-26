@@ -1,0 +1,1 @@
+<h1> Admin template for editing swiper-slider </h1>

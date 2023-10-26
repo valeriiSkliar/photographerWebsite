@@ -1,0 +1,1 @@
+<h1> Admin template for editing section-thoughts </h1>
