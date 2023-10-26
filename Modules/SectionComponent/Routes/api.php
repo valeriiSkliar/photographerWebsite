@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\SectionComponent\Http\Controllers\ComponentDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,4 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/sectioncomponent', function (Request $request) {
     return $request->user();
 });
+Route::apiResource('/component-data', ComponentDataController::class);

@@ -14,7 +14,11 @@
 
 use Modules\SectionComponent\Http\Controllers\MarkupController;
 
+Route::get('form', [\App\Http\Controllers\SongsController::class, 'create'])->name('song.create');
+Route::get('form/t', [\App\Http\Controllers\SongsController::class, 'create'])->name('song.store');
+
 Route::group(['prefix' => 'admin'], function() {
+
     Route::get('/generate-html', [MarkupController::class, 'generate']);
     Route::group(['prefix' => 'sectioncomponent', 'middleware' => ['web']], function() {
         Route::get('/{id}/pars', 'SectionComponentController@parsFrontendTemplate')->name('pars.frontend.template');

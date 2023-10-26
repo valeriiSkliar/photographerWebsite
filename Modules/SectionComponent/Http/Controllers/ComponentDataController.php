@@ -2,9 +2,12 @@
 
 namespace Modules\SectionComponent\Http\Controllers;
 
+use App\Models\Album;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Kris\LaravelFormBuilder\FormBuilder;
+use Modules\SectionComponent\Entities\ComponentData;
 
 class ComponentDataController extends BaseController
 {
@@ -14,7 +17,9 @@ class ComponentDataController extends BaseController
      */
     public function index()
     {
-        return view('sectioncomponent::index');
+        $sectionComponentsData = ComponentData::all();
+
+        return view('sectioncomponent::index', compact(['sectionComponentsData']));
     }
 
     /**
@@ -23,17 +28,31 @@ class ComponentDataController extends BaseController
      */
     public function create()
     {
+
         return view('sectioncomponent::create');
     }
 
     /**
      * Store a newly created resource in storage.
      * @param Request $request
-     * @return Renderable
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, FormBuilder $formBuilder)
     {
-        //
+        $data = $request->all();
+//        dd($data);
+        if ($data['album_id']) {
+            $album = Album::find($data['album_id']);
+            $componentData = ComponentData::create($request->all());
+            $album->componentData()->save($componentData);
+        }
+//        dd();
+
+
+//        dd($componentData);
+//        app(SectionComponentController::class)->edit($componentData->sections_components_id, $formBuilder);
+
+        return redirect()->back()->with(json_encode($componentData));
     }
 
     /**
@@ -43,7 +62,8 @@ class ComponentDataController extends BaseController
      */
     public function show($id)
     {
-        return view('sectioncomponent::show');
+
+        return view('sectioncomponent::CRUD.show');
     }
 
     /**
@@ -51,7 +71,7 @@ class ComponentDataController extends BaseController
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($id, FormBuilder $formBuilder)
     {
         return view('sectioncomponent::edit');
     }
@@ -70,10 +90,15 @@ class ComponentDataController extends BaseController
     /**
      * Remove the specified resource from storage.
      * @param int $id
-     * @return Renderable
+     * @return false|string
      */
     public function destroy($id)
     {
-        //
+//        dd($id);
+        $data = ComponentData::findOrFail($id);
+
+        $data->delete();
+
+        return response()->json(ComponentData::all());
     }
 }

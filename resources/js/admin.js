@@ -23,10 +23,12 @@ function renderMetaTagFormTemplate() {
     metaTagForm.appendChild(clone);
 }
 
-addNewRow.addEventListener('click', (e) => {
-    e.preventDefault();
-    renderMetaTagFormTemplate();
-})
+if (addNewRow){
+    addNewRow.addEventListener('click', (e) => {
+        e.preventDefault();
+        renderMetaTagFormTemplate();
+    })
+}
 
 function displayValueSelectOptions(selectElement, fetchedValues = []) {
     selectElement.innerHTML = '';
@@ -49,7 +51,9 @@ async function typeSelectChangeDetectFunction({target}) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    typeSelect.addEventListener('change', typeSelectChangeDetectFunction);
+    if (typeSelect){
+        typeSelect.addEventListener('change', typeSelectChangeDetectFunction);
+    }
 })
 
 function loadMetaValueData() {

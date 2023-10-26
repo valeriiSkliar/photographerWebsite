@@ -36,7 +36,42 @@
 
             <button type="submit" class="btn btn-primary">Update Component</button>
         </form>
-
+        d
+        @if($component->componentData)
+        @foreach($component->componentData as $data)
+            <div class="row">
+                <div class="col-3">
+                    <span class="text-white">{{ $data->field_name }}</span>
+                </div>
+                <div class="col-6">
+                    @if($ableData)
+                        @foreach($ableData->images as $image)
+                            <img src="{{ $image->file_url }}" width="50" alt="">
+                        @endforeach
+                    @endif
+                </div>
+                <div class="col-3">
+                    <button
+                        id="{{$data->id}}"
+                        onclick="event.preventDefault();"
+                        class="btn-danger btn deleteComponentData"
+                    >delete</button>
+                </div>
+            </div>
+        @endforeach
+        @endif
+        {!! form($form) !!}
 {{--        <a href="{{ route('pars.frontend.template', $component->id) }}" class="btn btn-danger">Pars frontend template</a>--}}
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded',() => {
+            document.querySelectorAll('.deleteComponentData').forEach(item => {
+                item.addEventListener('click', deleteData);
+            })
+            async function deleteData({target}) {
+                console.log(target)
+            }
+        })
+
+    </script>
 @endsection

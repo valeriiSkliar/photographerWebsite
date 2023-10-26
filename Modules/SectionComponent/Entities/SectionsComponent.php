@@ -11,6 +11,8 @@ class SectionsComponent extends Model
     use HasFactory;
 
     protected $fillable = ['type', 'name', 'data', 'section_id', 'template_name'];
+//    protected $guarded = [];
+
 
     protected static function newFactory()
     {
@@ -19,7 +21,12 @@ class SectionsComponent extends Model
 
     public function componentData()
     {
-        return $this->hasMany(ComponentData::class, 'component_id');
+        return $this->hasMany(ComponentData::class, 'sections_components_id');
+    }
+
+    public function componentDataAble()
+    {
+        return $this->morphMany(ComponentData::class, 'dataable');
     }
 
     public function section()

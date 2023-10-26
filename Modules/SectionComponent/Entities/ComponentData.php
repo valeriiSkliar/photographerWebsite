@@ -11,7 +11,7 @@ class ComponentData extends Model
 
     protected $table = 'component_data';
 
-    protected $fillable = ['field_name', 'field_value'];
+    protected $fillable = ['field_name', 'field_value', 'sections_components_id'];
 
     protected static function newFactory()
     {

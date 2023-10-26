@@ -5,6 +5,7 @@ namespace Modules\SectionComponent\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Kris\LaravelFormBuilder\FormBuilder;
 use Modules\SectionComponent\Services\AdminTemplateGenerator;
 use Modules\SectionComponent\Services\ParserService;
 
@@ -42,7 +43,7 @@ class BaseController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, FormBuilder $formBuilder)
     {
         //
     }
@@ -62,7 +63,7 @@ class BaseController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($id, FormBuilder $formBuilder)
     {
         return view('sectioncomponent::edit');
     }

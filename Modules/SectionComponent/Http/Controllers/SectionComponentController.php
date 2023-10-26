@@ -2,12 +2,15 @@
 
 namespace Modules\SectionComponent\Http\Controllers;
 
+use App\Models\Album;
 use App\Models\Section\Section;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\File;
+use Kris\LaravelFormBuilder\FormBuilder;
 use Modules\SectionComponent\Entities\SectionsComponent;
+use function Webmozart\Assert\Tests\StaticAnalysis\null;
 
 class SectionComponentController extends BaseController
 {
@@ -36,7 +39,7 @@ class SectionComponentController extends BaseController
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, FormBuilder $formBuilder)
     {
 
         $data = $request->validate([
@@ -48,8 +51,8 @@ class SectionComponentController extends BaseController
         $componentName = strtolower($data['name']);
         $data = array_merge($data, ['template_name' => $componentName]);
         switch ($data['type']) {
-            case 'standard': {
-
+            case 'standard':
+            {
 
 
                 $frontendPath = resource_path("views/sectionComponents/frontend/$componentName.blade.php");
@@ -62,7 +65,8 @@ class SectionComponentController extends BaseController
                 File::put($adminPath, "<h1> Admin template for editing $componentName </h1>");
                 break;
             }
-            case 'custom': {
+            case 'custom':
+            {
 
                 dd('custom');
                 break;
@@ -71,8 +75,6 @@ class SectionComponentController extends BaseController
         }
 //    dd($data);
         SectionsComponent::create($data);
-
-
 
 
         return redirect()->route('sections_component.index')->with('success', 'Component created successfully.');
@@ -95,11 +97,23 @@ class SectionComponentController extends BaseController
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($id, FormBuilder $formBuilder)
     {
+        $form = $formBuilder->create('App\Forms\ComponentData', [
+            'method' => 'POST',
+            'url' => route('component-data.store', ['sections_components_id' => $id])
+        ]);
         $sections = Section::all();
         $component = SectionsComponent::findOrFail($id);
-        return view('sectioncomponent::CRUD.edit', compact('component', 'sections'));
+        $ableData = null;
+        if ($component->componentData) {
+            $ableData = $this->getAbleData($component)->first();
+        }
+
+        return view(
+            'sectioncomponent::CRUD.edit',
+            compact(['component', 'sections', 'form', 'ableData'])
+        );
     }
 
     /**
@@ -110,15 +124,41 @@ class SectionComponentController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'type' => 'required|in:standard,custom',
+        $data = $request->validate([
             'name' => 'required|unique:sections_components,name,' . $id,
             'data' => 'nullable',
-            'section_id' => 'nullable|exists:sections,id',
+            'section_id' => [
+                'nullable',
+                'sometimes',
+                'exists:sections,id',
+            ],
         ]);
 
         $component = SectionsComponent::findOrFail($id);
-        $component->update($request->all());
+
+        // Check if the name field is changed
+        if ($component->name !== $data['name']) {
+            // Update the template_name when the name changes
+            $componentName = strtolower($data['name']);
+            $component->template_name = $componentName;
+
+            // Update the frontend and admin template file names if it's a standard component
+            if ($component->type === 'standard') {
+                $frontendPath = resource_path("views/sectionComponents/frontend/{$componentName}.blade.php");
+                $adminPath = resource_path("views/sectionComponents/admin/{$componentName}.blade.php");
+
+                // Rename the template files
+                if (File::exists($frontendPath)) {
+                    File::move($frontendPath, resource_path("views/sectionComponents/frontend/{$component->template_name}.blade.php"));
+                }
+                if (File::exists($adminPath)) {
+                    File::move($adminPath, resource_path("views/sectionComponents/admin/{$component->template_name}.blade.php"));
+                }
+            }
+        }
+
+        // Update the component's data
+        $component->update($data);
 
         return redirect()->route('sections_component.index')->with('success', 'Component updated successfully.');
     }
@@ -133,7 +173,7 @@ class SectionComponentController extends BaseController
         $component = SectionsComponent::findOrFail($id);
 
         if ($component->type == 'standard') {
-            $componentName = strtolower($component->name);
+            $componentName = $component->template_name;
             $frontendPath = resource_path("views/sectionComponents/frontend/$componentName.blade.php");
             $adminPath = resource_path("views/sectionComponents/admin/$componentName.blade.php");
 
@@ -152,7 +192,7 @@ class SectionComponentController extends BaseController
         $component = SectionsComponent::findOrFail($id);
 
         if ($component->type == 'standard') {
-            $componentName = strtolower($component->name);
+            $componentName = $component->template_name;
             $frontendPath = resource_path("views/sectionComponents/frontend/$componentName.blade.php");
             $adminPath = resource_path("views/sectionComponents/admin/$componentName.blade.php");
 
@@ -169,7 +209,15 @@ class SectionComponentController extends BaseController
         }
 
 
-
         return view('sectioncomponent::CRUD.show', compact(['component']));
+    }
+
+    private function getAbleData($componentData)
+    {
+        if ($componentData->componentData->first()->dataable_type === 'App\Models\Album') {
+            return $album = Album::with('images')
+                ->where('id', $componentData->componentData->first()->dataable_id)
+                ->get();
+        }
     }
 }
