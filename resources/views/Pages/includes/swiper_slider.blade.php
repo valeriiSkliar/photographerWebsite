@@ -12,11 +12,11 @@
 
 @endpushonce
 <!-- Slider main container -->
-<div class="swiper_{{$component->album->id}}">
+<div class="swiper_{{$album->id}}">
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
         <!-- Slides -->
-        @foreach($component->album->images as $image)
+        @foreach($album->images as $image)
         <div class="swiper-slide">
                 <img src="{{ asset($image->file_url) }}" alt="">
         </div>
@@ -40,7 +40,7 @@
 
 @push('custom-script')
     <script>
-        const mainSliderSwiper{{$component->album->id}} = new Swiper('.swiper_{{$component->album->id}}', {
+        const mainSliderSwiper{{$album->id}} = new Swiper('.swiper_{{$album->id}}', {
             spaceBetween: 30,
             centeredSlides: true,
             effect: 'fade',

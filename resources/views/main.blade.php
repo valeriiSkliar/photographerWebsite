@@ -2,10 +2,13 @@
 
 @section('content')
     @foreach($page->sections as $section)
-        @if($section->sectionComponents)
-            @foreach($section->sectionComponents as $component)
-                @include('sectionComponents.frontend.' . $component->template_name)
-                @if($component->album)
+        @if($section->components)
+            @foreach($section->components as ['name'=>$name, 'album'=>$album, 'details'=>$details])
+                @if($album)
+                    @include('pages.includes.swiper_slider')
+                @endif
+                @if($name === 'Thoughts')
+                    @include('Pages.includes.section_thoughts')
                 @endif
             @endforeach
         @endif
