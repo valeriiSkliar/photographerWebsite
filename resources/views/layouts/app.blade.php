@@ -39,9 +39,6 @@
 </head>
 <body>
 <div id="app">
-{{--    {{dd($all_pages)}}--}}
-    <x-nav-bar :all_pages="$all_pages" />
-{{--    <x-nav-bar />--}}
     @include('includes.header')
     <main class="py-4">
         @yield('content')

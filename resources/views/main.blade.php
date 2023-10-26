@@ -1,15 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    main
     @foreach($page->sections as $section)
-        {{ $section->name }}
-        <br>
         @if($section->components)
-            @foreach($section->components as $component)
-                <h1>{{ $component->name }}</h1>
-                @if($component->album)
+            @foreach($section->components as ['name'=>$name, 'album'=>$album, 'details'=>$details])
+                @if($album)
                     @include('pages.includes.swiper_slider')
+                @endif
+                @if($name === 'Thoughts')
+                    @include('Pages.includes.section_thoughts')
                 @endif
             @endforeach
         @endif

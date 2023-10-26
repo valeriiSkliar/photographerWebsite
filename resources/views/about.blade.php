@@ -3,5 +3,10 @@
     <x-meta-data page_id="{{$page->id}}" />
 @endsection
 @section('content')
-    <h1>About</h1>
+
+    @foreach($page->sections as $section)
+        {{ $section->name }}
+        <br>
+
+    @endforeach
 @endsection
