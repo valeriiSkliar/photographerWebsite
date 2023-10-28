@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 @section('metaData')
     <x-meta-data page_id="{{$page->id}}" />
 @endsection
@@ -13,7 +13,20 @@
             @endforeach
         @endif
     @endforeach
-@endsection
+@endsection --}}
 {{--@section('content')--}}
-{{--    @include('pages.includes.first_section_about')--}}
+{{--  @include('sectionComponents.frontend.'.$name)  --}}
 {{--@endsection--}}
+@extends('layouts.app')
+
+@section('content')
+
+
+@foreach($page->sections as $section)
+    @if($section->components)
+        @foreach($section->components as ['name'=>$name, 'album'=>$album, 'details'=>$details])
+                @include('pages.includes.first_section_about')
+        @endforeach
+    @endif
+@endforeach
+@endsection

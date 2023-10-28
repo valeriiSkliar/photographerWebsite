@@ -3,7 +3,7 @@
         rel="stylesheet"
         href="{{ asset('swiper/swiper-bundle.min.css') }}"
     />
-    @vite('resources/scss/swiper.scss')
+    {{-- @vite('resources/scss/swiper.scss') --}}
 @endpushonce
 <!-- Slider main container -->
 <section class="slider">
