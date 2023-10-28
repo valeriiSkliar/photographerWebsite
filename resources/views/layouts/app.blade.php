@@ -40,7 +40,7 @@
 <body>
 <div id="app">
     @include('includes.header')
-    <main class="py-4">
+    <main>
         @yield('content')
     </main>
     <x-footer />

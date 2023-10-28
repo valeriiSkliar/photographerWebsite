@@ -9,3 +9,7 @@ return [
         'Portfolio' => 'Portfolio'
     ]
 ];
+ua
+{
+    "Work": "Робота"
+}
