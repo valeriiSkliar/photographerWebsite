@@ -52,11 +52,9 @@
             centeredSlides: true,
             slidesPerView: 3,
             spaceBetween: 200,
-
-            {{--loopedSlides: {{ count($album->images) - 1}},--}}
-            speed: 3000,
+            speed: 500,
             autoplay: {
-                delay: 3000,
+                delay: 5000,
                 disableOnInteraction: false,
             }
         };
