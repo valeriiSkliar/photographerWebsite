@@ -1,5 +1,5 @@
 <section class="thoughts relative mt-14">
-    <img class="w-full h-full object-cover" src="{{ asset('assets/Section thoughts.png') }}" alt="Photo">
+    <img class="w-full h-full object-cover" src="{{ asset('assets/about_s_2.jpg') }}" alt="Photo">
     <h1 class="credo absolute">
         {{$details[0]->value}}
 
