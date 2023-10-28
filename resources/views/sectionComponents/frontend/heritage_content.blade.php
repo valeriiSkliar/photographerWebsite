@@ -1,4 +1,5 @@
-<div class="about_section section_3">
+<div class="about_section">
+    <img class="w-full h-full object-cover" src="{{ asset('assets/about_s_3.jpg') }}" alt="Photo">
     <div class="about_title title_3">
         {{$details[0]->value}}
     </div>

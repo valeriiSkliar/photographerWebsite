@@ -1,5 +1,6 @@
 <div class="name_page">ABOUT MY CONCEPTS</div>
-<div class="about_section section_1">
+<div class="about_section">
+    <img class="w-full h-full object-cover" src="{{ asset('assets/about_s_1.jpg') }}" alt="Photo">
     <div class="about_title title_1">
         {{$details[0]->value}}
     </div>
