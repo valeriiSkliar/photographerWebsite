@@ -61,6 +61,17 @@
         };
         var galleryThumbs = new Swiper('.gallery-thumbs', {
             ...option,
+            on: {
+                'tap': function () {
+                    const slide = this.clickedSlide.classList[1];
+                    if (slide === 'swiper-slide-prev') {
+                        galleryTop.slidePrev();
+                    }
+                    if (slide === 'swiper-slide-next') {
+                        galleryTop.slideNext();
+                    }
+                }
+            }
         });
 
         var galleryTop = new Swiper('.gallery-top', {
@@ -69,41 +80,29 @@
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
-            // thumbs: {
-            //     swiper: galleryThumbs,
-            //     autoScrollOffset: (slidesPerView - 1) / 2, //Allows to set on which thumbs active slide from edge it should automatically move scroll thumbs. For example, if set to 1 and last visible thumb will be activated (1 from edge) it will auto scroll thumbs
-
-            //     multipleActiveThumbs: false, // When enabled multiple thumbnail slides may get activated
-            // },
+            on: {
+                'navigationNext': function () {
+                    galleryThumbs.slideNext();
+                },
+                'navigationPrev' : function () {
+                    galleryThumbs.slidePrev();
+                },
+                'touchStart': function (){
+                    this.autoplay.stop();
+                    galleryThumbs.autoplay.stop();
+                },
+                'touchEnd': function () {
+                    this.autoplay.start();
+                    galleryThumbs.autoplay.start();
+                },
+                'slidePrevTransitionStart': function () {
+                    galleryThumbs.slidePrev();
+                },
+                'slideNextTransitionStart': function () {
+                    galleryThumbs.slideNext();
+                }
+            },
             ...option,
         });
-
-        galleryTop.on('navigationNext', function () {
-            galleryThumbs.slideNext();
-        });
-
-        galleryTop.on('navigationPrev', function () {
-            galleryThumbs.slidePrev();
-        });
-
-        galleryTop.on('touchStart', function (){
-            this.autoplay.stop();
-            galleryThumbs.autoplay.stop();
-        });
-
-        galleryTop.on('touchEnd', function () {
-            this.autoplay.start();
-            galleryThumbs.autoplay.start();
-        });
-
-        galleryTop.on('slidePrevTransitionStart', function () {
-            galleryThumbs.slidePrev();
-        });
-        galleryTop.on('slideNextTransitionStart', function () {
-            galleryThumbs.slideNext();
-        });
-
-
-        galleryThumbs.detachEvents();
     </script>
 @endpush
