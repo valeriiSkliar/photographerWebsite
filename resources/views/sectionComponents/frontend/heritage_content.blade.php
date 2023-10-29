@@ -1,5 +1,5 @@
 <div class="about_section">
-    <img class="w-full h-full object-cover" src="{{ asset($album->images[1]->file_url) }}" alt="Photo">
+    <img class="w-full h-full object-cover" src="{{ asset($album->images[0]->file_url) }}" alt="Photo">
     <div class="about_title title_3">
         {{$details[0]->value}}
     </div>
