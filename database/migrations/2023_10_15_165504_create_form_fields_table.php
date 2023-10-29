@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('form_fields', function (Blueprint $table) {
             $table->id();
             $table->string('label');
-            $table->string('type');
-            $table->string('placeholder');
+            $table->string('name');
+            $table->string('type')->default('text');
+            $table->string('value')->nullable();
+            $table->string('placeholder')->nullable();
             $table->foreignId('form_id')->constrained('forms')->onDelete('cascade');
             $table->timestamps();
         });

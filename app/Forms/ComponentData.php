@@ -15,6 +15,10 @@ class ComponentData extends Form
         $this
             ->add('field_name')
             ->add('field_value')
+            ->add('add_form', 'checkbox', [
+                'value' => 'add',
+                'checked' => false
+            ])
             ->add('album_id', 'select', [
                 'choices' => $allAlbums,
                 'empty_value' => '=== Select album ==='

@@ -12,10 +12,10 @@
 */
 
 
+use App\Http\Controllers\FormController;
 use Modules\SectionComponent\Http\Controllers\MarkupController;
 
-Route::get('form', [\App\Http\Controllers\SongsController::class, 'create'])->name('song.create');
-Route::get('form/t', [\App\Http\Controllers\SongsController::class, 'create'])->name('song.store');
+
 
 Route::group(['prefix' => 'admin'], function() {
 

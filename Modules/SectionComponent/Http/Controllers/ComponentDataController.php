@@ -40,17 +40,20 @@ class ComponentDataController extends BaseController
     public function store(Request $request, FormBuilder $formBuilder)
     {
         $data = $request->all();
-//        dd($data);
+//        dd($data['add_form']);
+        if ($data['add_form']) {
+//            $form = $formBuilder->create('App\Forms\ApplicationForm', [
+//                'method' => 'POST',
+//                'url' => route('component-data.index')
+//            ]);
+        }
         if ($data['album_id']) {
             $album = Album::find($data['album_id']);
             $componentData = ComponentData::create($request->all());
             $album->componentData()->save($componentData);
+        } else {
+            $componentData = ComponentData::create($request->all());
         }
-//        dd();
-
-
-//        dd($componentData);
-//        app(SectionComponentController::class)->edit($componentData->sections_components_id, $formBuilder);
 
         return redirect()->back()->with(json_encode($componentData));
     }

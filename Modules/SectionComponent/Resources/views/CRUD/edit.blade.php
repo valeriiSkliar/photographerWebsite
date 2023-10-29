@@ -36,17 +36,24 @@
 
             <button type="submit" class="btn btn-primary">Update Component</button>
         </form>
-        d
+
         @if($component->componentData)
         @foreach($component->componentData as $data)
+{{--            {{ $data->dataable_type }}--}}
             <div class="row">
                 <div class="col-3">
                     <span class="text-white">{{ $data->field_name }}</span>
                 </div>
                 <div class="col-6">
-                    @if($ableData)
-                        @foreach($ableData->images as $image)
-                            <img src="{{ $image->file_url }}" width="50" alt="">
+{{--                    @dd($ableData)--}}
+                    @if ($ableData)
+                        @foreach ($ableData as $item)
+{{--                            @dd($item)--}}
+                            @if($data->dataable_id == $item->id)
+                                @foreach($item->images as $image)
+                                    <img src="{{ $image->file_url }}" width="50" alt="">
+                                @endforeach
+                            @endif
                         @endforeach
                     @endif
                 </div>
@@ -63,6 +70,10 @@
         {!! form($form) !!}
 {{--        <a href="{{ route('pars.frontend.template', $component->id) }}" class="btn btn-danger">Pars frontend template</a>--}}
     </div>
+    <input type="submit" label="Submit" value="Test">
+    <input type="submit" label="Submit" value="Test">
+    <input type="submit" label="Submit" value="Test">
+    <input type="submit" label="Submit" value="Test">
     <script>
         document.addEventListener('DOMContentLoaded',() => {
             document.querySelectorAll('.deleteComponentData').forEach(item => {

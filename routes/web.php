@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AlbumsController;
 use App\Http\Controllers\Admin\Component\ComponentController;
 use App\Http\Controllers\Admin\Page\PageController;
 use App\Http\Controllers\Admin\Section\SectionController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IframeController;
@@ -74,6 +75,9 @@ Route::resource('/sections', SectionController::class);
 Route::resource('/components', ComponentController::class);
 
 Route::group(['prefix' => 'admin', 'middleware'=> 'auth'],function () {
+
+    Route::resource('forms', FormController::class);
+
     Route::get('/iframe-content', [IframeController::class , 'show'])->name('iframe.content');
 
     Route::get('/', [AdminPanelController::class, '__invoke'])->name('index.dashboard');

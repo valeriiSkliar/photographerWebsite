@@ -53,14 +53,9 @@ class SectionComponentController extends BaseController
         switch ($data['type']) {
             case 'standard':
             {
-
-
                 $frontendPath = resource_path("views/sectionComponents/frontend/$componentName.blade.php");
                 $adminPath = resource_path("views/sectionComponents/admin/$componentName.blade.php");
 
-                // Create frontend and admin templates
-//                File::put($frontendPath, "");
-//                File::put($adminPath, "");
                 File::put($frontendPath, "<h1> Frontend template for $componentName </h1>");
                 File::put($adminPath, "<h1> Admin template for editing $componentName </h1>");
                 break;
@@ -104,9 +99,12 @@ class SectionComponentController extends BaseController
         ]);
         $sections = Section::all();
         $component = SectionsComponent::findOrFail($id);
-        $ableData = null;
-        if ($component->componentData) {
-            $ableData = $this->getAbleData($component)->first();
+        $ableData = [];
+
+        foreach ($component->componentData as $data) {
+            if ($data->dataable_id) {
+                $ableData[$data->field_name] = $this->getAbleData($data);
+            }
         }
 
         return view(
@@ -132,11 +130,10 @@ class SectionComponentController extends BaseController
                 'exists:sections,id',
             ],
         ]);
-        $data = $request->all();
-        $componentName = slugify($data['name']);
-        $data = array_merge($data, ['template_name' => $componentName]);
 
         $component = SectionsComponent::findOrFail($id);
+        $component->name = $data['name'];
+        $component->template_name = slugify($data['name']);
         $component->update($data);
 
         return redirect()->route('sections_component.index')->with('success', 'Component updated successfully.');
@@ -193,10 +190,9 @@ class SectionComponentController extends BaseController
 
     private function getAbleData($componentData)
     {
-        if ($componentData->componentData->first()->dataable_type === 'App\Models\Album') {
-            return $album = Album::with('images')
-                ->where('id', $componentData->componentData->first()->dataable_id)
-                ->get();
+        if ($componentData && $componentData->dataable_type === 'App\Models\Album') {
+            return Album::with('images')->find($componentData->dataable_id);
         }
+        return null;
     }
 }
