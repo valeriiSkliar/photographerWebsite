@@ -39,8 +39,8 @@
 </head>
 <body>
 <div id="app">
-    <x-nav-bar/>
-    <main class="py-4">
+    @include('includes.header')
+    <main>
         @yield('content')
     </main>
     <x-footer />

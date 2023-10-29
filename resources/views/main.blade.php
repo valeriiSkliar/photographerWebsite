@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    @foreach($page->sections as $section)
-        @if($section->sectionComponents)
-            @foreach($section->sectionComponents as $component)
-                @include('sectionComponents.frontend.' . $component->template_name)
-                @if($component->album)
-                @endif
-            @endforeach
-        @endif
-    @endforeach
+
+
+@foreach($page->sections as $section)
+    @if($section->components)
+        @foreach($section->components as ['name'=>$name, 'album'=>$album, 'details'=>$details])
+                @include('sectionComponents.frontend.'.$name)
+        @endforeach
+    @endif
+@endforeach
 @endsection

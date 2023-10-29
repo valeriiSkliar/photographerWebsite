@@ -1,1 +1,0 @@
-<h1> Frontend template for main_album </h1>
