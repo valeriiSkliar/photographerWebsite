@@ -43,7 +43,7 @@
     <main>
         @yield('content')
     </main>
-    <x-footer />
+    @include('includes.footer')
 </div>
 @stack('custom-script')
 </body>
