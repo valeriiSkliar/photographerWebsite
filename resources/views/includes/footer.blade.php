@@ -14,3 +14,12 @@
     </div>
 </div>
 
+
+
+{{-- @foreach($page->sections as $section)
+    @if($section->components)
+        @foreach($section->components as ['name'=>$name, 'album'=>$album, 'details'=>$details])
+                @include('sectionComponents.frontend.footer_components')
+        @endforeach
+    @endif
+@endforeach --}}
