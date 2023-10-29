@@ -6,8 +6,9 @@
     @vite('resources/scss/swiper-thumbs.scss')
 @endpushonce
 <!-- Slider main container -->
-<section class="slider">
-    <div class="swiper gallery-top">
+<section class="main__slider relative">
+    <h1 class="watter__mark absolute opacity-50 z-10" tabindex="-1">Olena Yavorska</h1>
+    <div class="swiper-container gallery-top">
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
             <!-- Slides -->
@@ -54,6 +55,7 @@
             slidesPerView: slidesPerView,
             spaceBetween: 200,
             speed: 500,
+            keyboard: true,
             autoplay: {
                 delay: 5000,
                 disableOnInteraction: false,
@@ -75,6 +77,7 @@
         });
 
         var galleryTop = new Swiper('.gallery-top', {
+            ...option,
             effect: 'fade',
             navigation: {
                 nextEl: '.swiper-button-next',
@@ -102,7 +105,6 @@
                     galleryThumbs.slideNext();
                 }
             },
-            ...option,
         });
     </script>
 @endpush
