@@ -20,8 +20,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        view()->composer(['includes.header', 'sectionComponents.frontend.section_page_thumbnail'], function ($view){
-            $view->with('all_pages', Page::all());
+        view()->composer([
+            'includes.header',
+            'sectionComponents.frontend.section_page_thumbnail',
+            'includes.admin.*'
+        ], function ($view){
+            $view->with('pages', Page::all());
         });
 
         view()->composer(['includes.header'], function ($view) {

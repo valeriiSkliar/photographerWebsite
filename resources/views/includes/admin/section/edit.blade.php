@@ -40,45 +40,45 @@
 
             <div class="col-7">
                 <div class="row">
-                    <div class="form-group col-3">
-                        <label for="font">Font:</label>
-                        <input type="text" name="font" id="font" class="form-control" value="{{ $section->sectionContent->font }}" required>
-                    </div>
+{{--                    <div class="form-group col-3">--}}
+{{--                        <label for="font">Font:</label>--}}
+{{--                        <input type="text" name="font" id="font" class="form-control" value="{{ $section->sectionContent->font }}" required>--}}
+{{--                    </div>--}}
 
-                    <div class="form-group col-3">
-                        <label for="font_color">Font Color:</label>
-                        <input type="color" name="font_color" id="font_color" class="form-control" value="{{ $section->sectionContent->font_color }}" required>
-                    </div>
+{{--                    <div class="form-group col-3">--}}
+{{--                        <label for="font_color">Font Color:</label>--}}
+{{--                        <input type="color" name="font_color" id="font_color" class="form-control" value="{{ $section->sectionContent->font_color }}" required>--}}
+{{--                    </div>--}}
 
-                    <div class="form-group col-3">
-                        <label for="background_color">Background Color:</label>
-                        <input type="color" name="background_color" id="background_color" class="form-control" value="{{ $section->sectionContent->background_color }}" required>
-                    </div>
+{{--                    <div class="form-group col-3">--}}
+{{--                        <label for="background_color">Background Color:</label>--}}
+{{--                        <input type="color" name="background_color" id="background_color" class="form-control" value="{{ $section->sectionContent->background_color }}" required>--}}
+{{--                    </div>--}}
 
                     <div class="form-group col-3">
                         <label for="title">Title:</label>
                         <input type="text" name="title" id="title" class="form-control" value="{{ $section->sectionContent->title }}" required>
                     </div>
 
-                    <div class="form-group col-12">
-                        <label for="description">Description:</label>
-                        <textarea
-                            style="min-height: 150px; height: fit-content"
-                            name="description"
-                            id="description"
-                            class="form-control"
-                            required>{{ $section->sectionContent->description }}</textarea>
-                    </div>
+{{--                    <div class="form-group col-12">--}}
+{{--                        <label for="description">Description:</label>--}}
+{{--                        <textarea--}}
+{{--                            style="min-height: 150px; height: fit-content"--}}
+{{--                            name="description"--}}
+{{--                            id="description"--}}
+{{--                            class="form-control"--}}
+{{--                            required>{{ $section->sectionContent->description }}</textarea>--}}
+{{--                    </div>--}}
 
-                    <div class="form-group col-12">
-                        <label for="content_text">Content Text:</label>
-                        <textarea name="content_text" id="content_text" class="form-control">{{ $section->sectionContent->content_text }}</textarea>
-                    </div>
+{{--                    <div class="form-group col-12">--}}
+{{--                        <label for="content_text">Content Text:</label>--}}
+{{--                        <textarea name="content_text" id="content_text" class="form-control">{{ $section->sectionContent->content_text }}</textarea>--}}
+{{--                    </div>--}}
 
-                    <div class="form-group col-12">
-                        <label for="background_image">Background Image:</label>
-                        <input type="file" name="background_image" id="background_image" class="form-control-file" accept="image/*">
-                    </div>
+{{--                    <div class="form-group col-12">--}}
+{{--                        <label for="background_image">Background Image:</label>--}}
+{{--                        <input type="file" name="background_image" id="background_image" class="form-control-file" accept="image/*">--}}
+{{--                    </div>--}}
                 </div>
             </div>
 

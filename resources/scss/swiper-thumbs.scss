@@ -1,3 +1,12 @@
+.watter__mark {
+    top: 0;
+    right: 5%;
+    font-family: var(--font-allison);
+    color: white;
+    font-size: 70px;
+    white-space: nowrap;
+}
+
 .swiper-slide {
     text-align: center;
     font-size: 18px;
@@ -7,7 +16,8 @@
     align-items: center;
 }
 
-.swiper {
+.swiper,
+.swiper-container {
     text-rendering: auto;
 }
 
@@ -18,7 +28,8 @@
     object-fit: cover;
 }
 
-.swiper {
+.swiper,
+.swiper-container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;

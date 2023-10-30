@@ -28,7 +28,7 @@
 <section class="mt-14 w-full">
     <div class="grid grid-cols-3 grid-rows-2 gap-0">
 {{--        @dd($imageMap)--}}
-{{--        @foreach($all_pages as $page)--}}
+{{--        @foreach($pages as $page)--}}
 {{--            @if($imageMap->has($page->name))--}}
 {{--                <div class="{{ $page->name === 'Portfolio' ? 'grid_container row-span-2' : 'grid_container'}}">--}}
 {{--                    <a class="relative" href="{{route('page.about')}}">--}}

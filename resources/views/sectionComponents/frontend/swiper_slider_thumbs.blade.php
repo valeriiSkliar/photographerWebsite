@@ -3,11 +3,12 @@
         rel="stylesheet"
         href="{{ asset('swiper/swiper-bundle.min.css') }}"
     />
-    {{-- @vite('resources/scss/swiper.scss') --}}
+    @vite('resources/scss/swiper-thumbs.scss')
 @endpushonce
 <!-- Slider main container -->
-<section class="slider">
-    <div class="swiper gallery-top">
+<section class="main__slider relative">
+    <h1 class="watter__mark absolute opacity-50 z-10" tabindex="-1">Olena Yavorska</h1>
+    <div class="swiper-container gallery-top">
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
             <!-- Slides -->
@@ -47,42 +48,63 @@
 
 @push('custom-script')
     <script >
+        const slidesPerView = 3;
         const option = {
             loop: true,
             centeredSlides: true,
-            slidesPerView: 3,
+            slidesPerView: slidesPerView,
             spaceBetween: 200,
             speed: 500,
+            keyboard: true,
             autoplay: {
                 delay: 5000,
                 disableOnInteraction: false,
-            }
+            },
         };
         var galleryThumbs = new Swiper('.gallery-thumbs', {
             ...option,
+            on: {
+                'tap': function () {
+                    const slide = this.clickedSlide.classList[1];
+                    if (slide === 'swiper-slide-prev') {
+                        galleryTop.slidePrev();
+                    }
+                    if (slide === 'swiper-slide-next') {
+                        galleryTop.slideNext();
+                    }
+                }
+            }
         });
 
         var galleryTop = new Swiper('.gallery-top', {
+            ...option,
             effect: 'fade',
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
-            thumbs: {
-                swiper: galleryThumbs,
+            on: {
+                'navigationNext': function () {
+                    galleryThumbs.slideNext();
+                },
+                'navigationPrev' : function () {
+                    galleryThumbs.slidePrev();
+                },
+                'touchStart': function (){
+                    this.autoplay.stop();
+                    galleryThumbs.autoplay.stop();
+                },
+                'touchEnd': function () {
+                    this.autoplay.start();
+                    galleryThumbs.autoplay.start();
+                },
+                'slidePrevTransitionStart': function () {
+                    galleryThumbs.slidePrev();
+                },
+                'slideNextTransitionStart': function () {
+                    galleryThumbs.slideNext();
+                }
             },
-            ...option,
         });
-
-        galleryTop.on('navigationNext', function () {
-            galleryThumbs.slideNext();
-        });
-
-        galleryTop.on('navigationPrev', function () {
-            galleryThumbs.slidePrev();
-        });
-
-        // galleryTop.controller.controls = galleryThumbs;
-
     </script>
 @endpush

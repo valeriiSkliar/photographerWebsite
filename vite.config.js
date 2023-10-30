@@ -6,7 +6,7 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/scss/app.scss',
-                'resources/scss/swiper.scss',
+                'resources/scss/swiper-thumbs.scss',
                 'resources/js/app.js',
             ],
             refresh: true,
