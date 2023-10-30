@@ -3,6 +3,7 @@
 namespace Modules\SectionComponent\Http\Controllers;
 
 use App\Models\Album;
+use App\Models\Form;
 use App\Models\Section\Section;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -129,7 +130,13 @@ class SectionComponentController extends BaseController
                 'sometimes',
                 'exists:sections,id',
             ],
+            'form_id' => [
+                'nullable',
+                'sometimes',
+                'exists:forms,id',
+            ],
         ]);
+//        dd($data);
 
         $component = SectionsComponent::findOrFail($id);
         $component->name = $data['name'];
@@ -192,6 +199,9 @@ class SectionComponentController extends BaseController
     {
         if ($componentData && $componentData->dataable_type === 'App\Models\Album') {
             return Album::with('images')->find($componentData->dataable_id);
+        }
+        if ($componentData && $componentData->dataable_type === 'App\Models\Form') {
+            return Form::with('form_fields')->find($componentData->dataable_id);
         }
         return null;
     }

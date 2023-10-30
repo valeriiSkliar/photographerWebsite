@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Form;
 use App\Models\FormField;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ class FormFieldController extends Controller
 
     public function show(Form $form, FormField $field)
     {
+
         return view('form_fields.show', compact('form', 'field'));
     }
 

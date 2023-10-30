@@ -38,24 +38,32 @@
         </form>
 
         @if($component->componentData)
+            Attach
         @foreach($component->componentData as $data)
-{{--            {{ $data->dataable_type }}--}}
-            <div class="row">
+            @if($data->dataable_type == 'App\Models\Form')
+{{--                            @dd($data->dataable_type)--}}
+            {{ 'form' }}
+            @endif
+            @if($data->dataable_type == 'App\Models\Album')
+            {{'Album'}}
+            @endif
+                {{--            {{ $data->dataable_type }}--}}
+                <div class="row">
                 <div class="col-3">
                     <span class="text-white">{{ $data->field_name }}</span>
                 </div>
                 <div class="col-6">
-{{--                    @dd($ableData)--}}
-                    @if ($ableData)
-                        @foreach ($ableData as $item)
+{{--                    @if ($ableData)--}}
+{{--                        @foreach ($ableData as $item)--}}
+{{--                            {{ $item->name }}--}}
 {{--                            @dd($item)--}}
-                            @if($data->dataable_id == $item->id)
-                                @foreach($item->images as $image)
-                                    <img src="{{ $image->file_url }}" width="50" alt="">
-                                @endforeach
-                            @endif
-                        @endforeach
-                    @endif
+{{--                            @if($data->dataable_id == $item->id)--}}
+{{--                                @foreach($item->images as $image)--}}
+{{--                                    <img src="{{ $image->file_url }}" width="50" alt="">--}}
+{{--                                @endforeach--}}
+{{--                            @endif--}}
+{{--                        @endforeach--}}
+{{--                    @endif--}}
                 </div>
                 <div class="col-3">
                     <button
@@ -70,10 +78,6 @@
         {!! form($form) !!}
 {{--        <a href="{{ route('pars.frontend.template', $component->id) }}" class="btn btn-danger">Pars frontend template</a>--}}
     </div>
-    <input type="submit" label="Submit" value="Test">
-    <input type="submit" label="Submit" value="Test">
-    <input type="submit" label="Submit" value="Test">
-    <input type="submit" label="Submit" value="Test">
     <script>
         document.addEventListener('DOMContentLoaded',() => {
             document.querySelectorAll('.deleteComponentData').forEach(item => {

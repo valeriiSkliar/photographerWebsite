@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Forms\ApplicationForm;
 use App\Models\Form;
 use App\Http\Controllers\Controller;
 use App\Models\FormField;
 use Illuminate\Http\Request;
+use Kris\LaravelFormBuilder\FormBuilder;
 
 class FormController extends Controller
 {
@@ -29,18 +31,24 @@ class FormController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request )
     {
-        $form = Form::create($request->all());
-
-        // Automatically add a submit button if not added by the user.
-        if (!$form->fields()->where('type', 'submit')->exists()) {
-            FormField::create([
-                'label' => 'Submit',
-                'name' => 'submit',
-                'type' => 'submit',
-                'form_id' => $form->id,
-            ]);
+//        dd($request);
+        $data = $request->validate([
+            'name'=> 'required|string|max:255',
+            'component_id' => 'nullable|exists:sections_components,id',
+        ]);
+        $form = Form::create($data);
+//        dd($request->fields);
+        if ($request->fields){
+            foreach ($request->fields as $field) {
+                FormField::create([
+                    'label' => $field['label'],
+                    'name' => $field['name'],
+                    'type' => $field['type'],
+                    'form_id' => $form->id,
+                ]);
+            }
         }
 
         return redirect()->route('forms.index')->with('success', 'Form created successfully.');
@@ -49,9 +57,13 @@ class FormController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Form $form)
+    public function show(Form $form, FormBuilder $formBuilder)
     {
-        return view('forms.show', compact('form'));
+        $formTemplate = $formBuilder->create(ApplicationForm::class, [
+            'data' => ['formId' => $form->id]
+        ]);
+
+        return view('forms.show', compact('form', 'formTemplate'));
     }
 
     /**

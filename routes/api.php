@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('/meta-tags', MetaTagController::class);
 Route::group([], function () {
     Route::delete('/component-detail/{id}', [App\Http\Controllers\API\ComponentDetailController::class, 'destroy']);
+    Route::post('/component-form/{id}', [App\Http\Controllers\API\ComponentDetailController::class, 'attach_form']);
     Route::post('/component-album/{id}', [App\Http\Controllers\API\ComponentDetailController::class, 'change_album']);
     Route::post('/component-album-disconnect/{id}', [App\Http\Controllers\API\ComponentDetailController::class, 'album_disconnect']);
 });

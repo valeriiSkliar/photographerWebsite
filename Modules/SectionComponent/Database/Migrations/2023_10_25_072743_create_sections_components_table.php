@@ -19,7 +19,11 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('template_name')->unique();
             $table->text('data')->nullable();
-            $table->foreignId('section_id')->nullable()->constrained('sections')->onDelete('set null');
+            $table->foreignId('section_id')
+                ->nullable()
+                ->default(null)
+                ->constrained('sections')
+                ->onDelete('set null');
             $table->timestamps();
         });
     }

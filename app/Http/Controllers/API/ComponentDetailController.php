@@ -40,7 +40,10 @@ class ComponentDetailController extends Controller
                 'images' => $component->album->images
             ]);
         }
+    }
 
-
+    public function attach_form(Request $request)
+    {
+        dd($request);
     }
 }

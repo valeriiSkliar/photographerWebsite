@@ -30,24 +30,24 @@
     <script>
         function addField() {
             const container = document.getElementById('fieldsContainer');
-
+            console.dir(container)
             const fieldDiv = document.createElement('div');
             fieldDiv.className = 'mb-3';
 
             const labelInput = document.createElement('input');
             labelInput.setAttribute('type', 'text');
-            labelInput.setAttribute('name', 'fields[][label]');
+            labelInput.setAttribute('name', `fields[${container.children.length}][label]`);
             labelInput.className = 'form-control mb-2';
             labelInput.placeholder = 'Field Label';
 
             const nameInput = document.createElement('input');
             nameInput.setAttribute('type', 'text');
-            nameInput.setAttribute('name', 'fields[][name]');
+            nameInput.setAttribute('name', `fields[${container.children.length}][name]`);
             nameInput.className = 'form-control mb-2';
             nameInput.placeholder = 'Field Name';
 
             const typeSelect = document.createElement('select');
-            typeSelect.setAttribute('name', 'fields[][type]');
+            typeSelect.setAttribute('name', `fields[${container.children.length}][type]`);
             typeSelect.className = 'form-control mb-2';
             ['text', 'number', 'date', 'submit'].forEach(type => {
                 const option = document.createElement('option');

@@ -11,17 +11,22 @@ class ComponentData extends Form
     {
 
         $allAlbums =  Album::getIdNameArray();
+        $availableForms =  \App\Models\Form::getIdNameArray();
 
         $this
             ->add('field_name')
             ->add('field_value')
-            ->add('add_form', 'checkbox', [
-                'value' => 'add',
-                'checked' => false
-            ])
+//            ->add('add_form', 'checkbox', [
+//                'value' => 'add',
+//                'checked' => false
+//            ])
             ->add('album_id', 'select', [
                 'choices' => $allAlbums,
                 'empty_value' => '=== Select album ==='
+            ])
+            ->add('form_id', 'select', [
+                'choices' => $availableForms,
+                'empty_value' => '=== Select form ==='
             ])
             ->add('submit', 'submit', ['label' => 'Add']);
     }
