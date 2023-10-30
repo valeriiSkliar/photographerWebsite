@@ -92,7 +92,7 @@
             </div>
 
             {{--  Add Sections  --}}
-            @include('includes.admin.section.create')
+{{--            @include('includes.admin.section.create')--}}
             {{--  END Add Sections  --}}
             <button type="submit" class="btn btn-primary">Create Page</button>
         </form>

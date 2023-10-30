@@ -57,34 +57,28 @@ class SectionController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'page_id' => 'required|integer|exists:pages,id',
+            'page_id' => 'integer|exists:pages,id',
             'order' => 'required|integer',
-
-            'font' => 'required|string|max:255',
-            'font_color' => 'required|string|max:7',
-            'background_color' => 'required|string|max:7',
-            'background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'content_text' => 'nullable|string',
+
+//            'font' => 'required|string|max:255',
+//            'font_color' => 'required|string|max:7',
+//            'background_color' => 'required|string|max:7',
+//            'background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//            'content_text' => 'nullable|string',
         ]);
-
+        $data += [
+            'font' => 'Lora',
+            'font_color'=> '',
+            'background_color' => '',
+            'background_image' => null,
+            'content_text' => null,
+        ];
 //        dd($data);
-
-        if ($request->hasFile('background_image')) {
-            $image = $request->file('background_image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-
-            Storage::disk('public')->put('backgrounds' . $filename, file_get_contents($image));
-
-            $data['background_image'] = $filename;
-        }
-
-
         $section = Section::create($data);
 
         $sectionContentData =  Arr::except($data, ['name', 'page_id', 'order']);
-//        dd($sectionContentData);
         SectionContent::create(array_merge($sectionContentData, ['section_id' => $section->id]));
 
         return redirect()->route('sections.index')->with('success', 'Section and content created successfully.');
