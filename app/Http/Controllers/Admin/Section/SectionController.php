@@ -46,8 +46,7 @@ class SectionController extends Controller
      */
     public function create()
     {
-        $pages = Page::all();
-        return view('includes.admin.section.create', compact('pages'));
+        return view('includes.admin.section.create');
     }
 
     /**
@@ -97,11 +96,9 @@ class SectionController extends Controller
      */
     public function edit(Section $section)
     {
-        $pages = Page::all();
-
         $sectionContent = $section->content;
 
-        return view('includes.admin.section.edit', compact('section', 'pages', 'sectionContent'));
+        return view('includes.admin.section.edit', compact('section', 'sectionContent'));
     }
 
     /**
