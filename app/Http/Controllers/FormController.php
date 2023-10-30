@@ -93,4 +93,11 @@ class FormController extends Controller
 
         return redirect()->route('forms.index')->with('success', 'Form deleted successfully.');
     }
+
+    public function getFormTemplate ($formId, FormBuilder $formBuilder) {
+
+        return $formTemplate = $formBuilder->create(ApplicationForm::class, [
+            'data' => ['formId' => $formId]
+        ]);
+    }
 }

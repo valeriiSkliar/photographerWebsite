@@ -14,7 +14,9 @@ use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Page;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,10 +53,22 @@ Route::get('language/{locale}', function ($locale) {
 //    return view('contact',);
 //});
 
-$pages = Page::all();
+try {
+    $connection = DB::connection()->getPdo();
+    $databaseExists = DB::select("SHOW DATABASES LIKE 'photographerwebsite'");
 
-foreach ($pages as $page) {
-    Route::get($page->slug, [IndexController::class, 'index'])->name('page.' . $page->slug);
+    if ($databaseExists) {
+        DB::statement('USE photographerwebsite');
+        if (Schema::hasTable('pages')) {
+            $pages = Page::all();
+            foreach ($pages as $page) {
+                Route::get($page->slug, [IndexController::class, 'index'])->name('page.' . $page->slug);
+            }
+        }
+    }
+
+} catch (\Exception $e) {
+
 }
 
 Route::get('/albumsooo', [AlbumsController::class , '__invoke'])->name('getAllAlbums');

@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Forms\ApplicationForm;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kris\LaravelFormBuilder\FormBuilder;
 use Modules\SectionComponent\Entities\ComponentData;
 
 /**
@@ -27,5 +29,12 @@ class Form extends Model
     public static function getIdNameArray()
     {
         return self::pluck('name', 'id')->toArray();
+    }
+
+    public static function getFormTemplate ($formId, FormBuilder $formBuilder) {
+
+        return $formTemplate = $formBuilder->create(ApplicationForm::class, [
+            'data' => ['formId' => $formId]
+        ]);
     }
 }
