@@ -1,5 +1,4 @@
 <header>
-{{--    @dd($available_locales)--}}
     <nav class="navbar">
         <div class="container">
             <div class="navbar__links__list">
@@ -11,7 +10,7 @@
                     </li>
                     <!-- Hamburger -->
 
-                    @foreach($all_pages as ['name'=>$name, 'slug'=>$slug])
+                    @foreach($pages as ['name'=>$name, 'slug'=>$slug])
                         @continue($name === 'Main')
                         <li class="links__list__link">
                             <a href="{{  route('page.'.$slug) }}">{{__('nav-bar.links.'.$name)}}</a>
