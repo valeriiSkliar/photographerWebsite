@@ -67,14 +67,7 @@ class SectionController extends Controller
 //            'background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 //            'content_text' => 'nullable|string',
         ]);
-        $data += [
-            'font' => 'Lora',
-            'font_color'=> '',
-            'background_color' => '',
-            'background_image' => null,
-            'content_text' => null,
-        ];
-//        dd($data);
+
         $section = Section::create($data);
 
         $sectionContentData =  Arr::except($data, ['name', 'page_id', 'order']);

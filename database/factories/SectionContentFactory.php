@@ -26,7 +26,7 @@ class SectionContentFactory extends Factory
 //            'background_image' => $this->faker->imageUrl(640, 480, 'nature'),
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
-            'content_text' => $this->faker->optional()->paragraphs(3, true),
+//            'content_text' => $this->faker->optional()->paragraphs(3, true),
         ];
     }
 }
