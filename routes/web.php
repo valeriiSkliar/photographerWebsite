@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AlbumsController;
 use App\Http\Controllers\Admin\Component\ComponentController;
 use App\Http\Controllers\Admin\Page\PageController;
 use App\Http\Controllers\Admin\Section\SectionController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IframeController;
@@ -33,30 +34,13 @@ Route::get('language/{locale}', function ($locale) {
     session()->put('locale', $locale);
     return redirect()->back();
 });
-
-//Route::get('/about', function () {
-//    return view('about',);
-//});
-
-//Route::get('/portfolio', function () {
-//    return view('portfolio',);
-//});
-
-//Route::get('/work', function () {
-//    return view('work',);
-//});
-
-//Route::get('/contact', function () {
-//    return view('contact',);
-//});
-
 $pages = Page::all();
 
 foreach ($pages as $page) {
     Route::get($page->slug, [IndexController::class, 'index'])->name('page.' . $page->slug);
 }
 
-Route::get('/albumsooo', [AlbumsController::class , '__invoke'])->name('getAllAlbums');
+Route::get('/albums', [AlbumsController::class , '__invoke'])->name('getAllAlbums');
 Route::get('/albums/{id}', [AlbumsController::class , 'show_album'])->name('show_album');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
 
@@ -75,6 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::resource('/contacts', ContactController::class);
 
 Route::resource('/sections', SectionController::class);
 Route::resource('/components', ComponentController::class);
