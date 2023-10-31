@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
                     return $value !== null && !in_array($key, $excludedFields);
                 }, ARRAY_FILTER_USE_BOTH);
 
-                $view->with('contact', $filteredFields);
+                $view->with('contact', $contact);
             } else {
                 $view->with('contact', []);
             }

@@ -8,11 +8,15 @@
 }
 
 .about_section {
-    width: calc(100vw - 40px);
-    height: calc(56.25vw - 22.5px);
+    width: 0px;
+    height: 0px;
+    transform: rotateZ(0deg);
     margin-top: 60px;
     margin-left: 9px;
     position: relative;
+    animation-name: test;
+    animation-duration: 10s;
+    animation-fill-mode: forwards;
 }
 
 .about_title {
@@ -61,4 +65,27 @@
     color: #ffffffd0;
     top: 350px;
     left: 900px;
+}
+
+@keyframes test {
+    0% { width: 0px;
+         height: 0px;
+         transform: rotateZ(0deg);
+        }
+    // 25% { width: calc(20vw - 40px);
+    //     height: calc(11.25vw - 22.5px);
+    //     transform: rotateZ(90deg);
+    //     }
+    // 50% { width: calc(40vw - 40px);
+    //     height: calc(22.5vw - 22.5px);
+    //     transform: rotateZ(180deg);
+    //     }
+    // 75% { width: calc(80vw - 40px);
+    //     height: calc(45vw - 22.5px);
+    //     transform: rotateZ(270deg);
+    //     }
+    100% { width: calc(100vw - 40px);
+        height: calc(56.25vw - 22.5px);
+        transform: rotateZ(360deg);
+        }
 }
