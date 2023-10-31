@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Component\Component;
-use App\Models\ComponentDetail\ComponentDetail;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ComponentSeeder extends Seeder
@@ -14,6 +12,6 @@ class ComponentSeeder extends Seeder
      */
     public function run(): void
     {
-        Component::factory(10)->create();
+        Component::factory(2)->create();
     }
 }

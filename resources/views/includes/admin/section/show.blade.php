@@ -2,6 +2,7 @@
     <div class="row">
         <div class="col-md-8">
             <h1>Section {{ $section->name }}</h1>
+
         </div>
         <div class="col-md-4 text-right">
             <a href="{{ route('sections.edit', $section->id) }}" class="btn btn-warning">Edit
@@ -13,14 +14,15 @@
         <div class="card">
             <div class="card-header" id="sectionDetailsHeading">
                 <h5 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#sectionDetails"
+                    <button class="btn btn-link" type="button" data-toggle="collapse"
+                            data-target="#sectionDetails_{{$section->id}}"
                             aria-expanded="true" aria-controls="sectionDetails">
                         Section Details
                     </button>
                 </h5>
             </div>
 
-            <div id="sectionDetails" class="collapse show" aria-labelledby="sectionDetailsHeading"
+            <div id="sectionDetails_{{$section->id}}" class="collapse show" aria-labelledby="sectionDetailsHeading"
                  data-parent="#mainAccordion">
                 <div class="card-body">
                     <ul class="list-group">
@@ -38,26 +40,27 @@
                 <div class="card-header" id="contentDetailsHeading">
                     <h5 class="mb-0">
                         <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                data-target="#contentDetails" aria-expanded="false" aria-controls="contentDetails">
+                                data-target="#contentDetails_{{$section->id}}" aria-expanded="false"
+                                aria-controls="contentDetails">
                             Content Details
                         </button>
                     </h5>
                 </div>
-                <div id="contentDetails" class="collapse" aria-labelledby="contentDetailsHeading"
+                <div id="contentDetails_{{$section->id}}" class="collapse" aria-labelledby="contentDetailsHeading"
                      data-parent="#mainAccordion">
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item"><strong>Font:</strong> {{ $section->sectionContent->font }}</li>
-                            <li class="list-group-item"><strong>Font
-                                    Color:</strong> {{ $section->sectionContent->font_color }}</li>
-                            <li class="list-group-item"><strong>Background
-                                    Color:</strong> {{ $section->sectionContent->background_color }}</li>
-                            <li class="list-group-item">
-                                <strong>Background Image:</strong><br>
-                                <img src="{{ asset($section->sectionContent->background_image) }}"
-                                     alt="Background Image"
-                                     width="200" class="img-thumbnail">
-                            </li>
+                            {{--                            <li class="list-group-item"><strong>Font:</strong> {{ $section->sectionContent->font }}</li>--}}
+                            {{--                            <li class="list-group-item"><strong>Font--}}
+                            {{--                                    Color:</strong> {{ $section->sectionContent->font_color }}</li>--}}
+                            {{--                            <li class="list-group-item"><strong>Background--}}
+                            {{--                                    Color:</strong> {{ $section->sectionContent->background_color }}</li>--}}
+                            {{--                            <li class="list-group-item">--}}
+                            {{--                                <strong>Background Image:</strong><br>--}}
+                            {{--                                <img src="{{ asset($section->sectionContent->background_image) }}"--}}
+                            {{--                                     alt="Background Image"--}}
+                            {{--                                     width="200" class="img-thumbnail">--}}
+                            {{--                            </li>--}}
                             <li class="list-group-item"><strong>Title:</strong> {{ $section->sectionContent->title }}
                             </li>
                             <li class="list-group-item">
@@ -77,12 +80,13 @@
                 <div class="card-header" id="componentsHeading">
                     <h5 class="mb-0">
                         <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                data-target="#components" aria-expanded="false" aria-controls="components">
+                                data-target="#components_{{$section->id}}" aria-expanded="false"
+                                aria-controls="components">
                             Components
                         </button>
                     </h5>
                 </div>
-                <div id="components" class="collapse" aria-labelledby="componentsHeading"
+                <div id="components_{{$section->id}}" class="collapse" aria-labelledby="componentsHeading"
                      data-parent="#mainAccordion">
                     <div class="card-body">
                         @foreach($section->components as $component)
