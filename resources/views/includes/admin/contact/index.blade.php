@@ -14,7 +14,7 @@
     @if(session('success_message'))
         <script>
             Swal.fire({
-                position: 'top-end',
+                position: 'bottom-end',
                 icon: 'success',
                 title: 'Success',
                 text: '{{ session('success_message') }}',
@@ -32,14 +32,14 @@
         <script>
 
             Swal.fire({
-                position: 'top-end',
+                position: 'bottom-end',
                 icon: 'error',
                 title: 'Error',
                 text: '{{ session('error_message') }}',
                 showConfirmButton: false,
                 timer: 3000,
                 toast: true,
-                background: 'rgba(0,0,0,0)',
+                background: '#dc3545',
                 padding: '0.5rem',
                 border: 'none',
             });

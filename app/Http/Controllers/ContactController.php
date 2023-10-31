@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateContactRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
+use mysql_xdevapi\Exception;
 
 class ContactController extends Controller
 {
@@ -18,7 +19,7 @@ class ContactController extends Controller
     {
         $contact = Contact::all();
         if ($contact->isEmpty()) {
-            $contact = Contact::create();
+            $contact = Contact::create()->first();
         } else {
             $contact = $contact->first();
         }
@@ -39,7 +40,6 @@ class ContactController extends Controller
         try {
             // Validation passed, create a new contact
             $contact = Contact::create($request->validated());
-
             // Set success flash message
             Session::flash('success_message', 'Contact created successfully');
         } catch (QueryException $e) {
