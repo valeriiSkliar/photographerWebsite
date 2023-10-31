@@ -103,14 +103,14 @@ class SectionController extends Controller
             'name' => 'required|string|max:255',
             'page_id' => 'required|integer|exists:pages,id',
             'order' => 'required|integer',
-
-            'font' => 'required|string|max:255',
-            'font_color' => 'required|string|max:7',
-            'background_color' => 'required|string|max:7',
-            'background_image' => 'nullable|string',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'content_text' => 'nullable|string',
+
+//            'background_image' => 'nullable|string',
+//            'font' => 'required|string|max:255',
+//            'font_color' => 'required|string|max:7',
+//            'background_color' => 'required|string|max:7',
+//            'content_text' => 'nullable|string',
         ]);
 
 
