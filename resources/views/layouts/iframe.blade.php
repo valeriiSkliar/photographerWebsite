@@ -22,11 +22,11 @@
     <link rel="stylesheet" href={{asset("AdminLTE/dist/css/adminlte.min.css")}}>
     <link rel="stylesheet" href={{asset("AdminLTE/plugins/daterangepicker/daterangepicker.css")}}>
     <link rel="stylesheet" href={{asset("AdminLTE/plugins/summernote/summernote-bs4.min.css")}}>
+    <link rel="stylesheet" href="{{ asset("AdminLTE/dist/css/custom.css") }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href={{asset("AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
     @vite('resources/js/admin.js')
     @stack('iframe.style')
-
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed dark-mode" data-panel-auto-height-mode="height">

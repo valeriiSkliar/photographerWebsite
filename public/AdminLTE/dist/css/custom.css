@@ -1,0 +1,22 @@
+.light-mode input:-webkit-autofill,
+.light-mode input:-webkit-autofill:hover,
+.light-mode input:-webkit-autofill:focus,
+.light-mode input:-webkit-autofill:active{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #000000;
+    -webkit-box-shadow: 0 0 0 30px var(--light) inset !important;
+    border-color: green !important;
+}
+
+.dark-mode input:-webkit-autofill,
+.dark-mode input:-webkit-autofill:hover,
+.dark-mode input:-webkit-autofill:focus,
+.dark-mode input:-webkit-autofill:active{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #ffffff;
+    -webkit-box-shadow: 0 0 0 30px var(--dark) inset !important;
+    border-color: green !important;
+    font-weight: bolder !important;
+}
+
+

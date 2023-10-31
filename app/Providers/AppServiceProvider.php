@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Contact;
 use App\Models\Page;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,6 +21,23 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        view()->composer('includes.footer', function ($view) {
+            $contact = Contact::find(1);
+
+            if ($contact) {
+                $excludedFields = ['id', 'created_at', 'updated_at'];
+
+                $filteredFields = array_filter($contact->toArray(), function ($value, $key) use ($excludedFields) {
+                    return $value !== null && !in_array($key, $excludedFields);
+                }, ARRAY_FILTER_USE_BOTH);
+
+                $view->with('contact', $filteredFields);
+            } else {
+                $view->with('contact', []);
+            }
+        });
+
+
         view()->composer([
             'includes.header',
             'sectionComponents.frontend.section_page_thumbnail',
