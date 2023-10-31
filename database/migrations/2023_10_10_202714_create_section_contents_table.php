@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('section_contents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('section_id')->constrained('sections')->onDelete('cascade');
-            $table->string('font')->nullable();
-            $table->string('font_color')->nullable();
-            $table->string('background_color')->nullable();
-            $table->string('background_image')->nullable();
+//            $table->string('font')->nullable();
+//            $table->string('font_color')->nullable();
+//            $table->string('background_color')->nullable();
+//            $table->string('background_image')->nullable();
             $table->string('title');
             $table->text('description');
             $table->text('content_text')->nullable();

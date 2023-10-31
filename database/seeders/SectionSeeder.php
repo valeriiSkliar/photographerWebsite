@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Section\Section;
 use App\Models\SectionContent;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SectionSeeder extends Seeder
@@ -14,8 +13,8 @@ class SectionSeeder extends Seeder
      */
     public function run(): void
     {
-        Section::factory(10)->create();
+        Section::factory(2)->create();
 
-        SectionContent::factory(10)->create();
+        SectionContent::factory(2)->create();
     }
 }
