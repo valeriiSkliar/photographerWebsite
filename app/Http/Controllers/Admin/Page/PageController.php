@@ -31,7 +31,6 @@ class PageController extends Controller
         $page = null;
         $request->except(['_token', '_method']);
         DB::beginTransaction();
-        Log::info('Before validate');
         try {
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
@@ -42,26 +41,14 @@ class PageController extends Controller
                 'metaData.*.type_id' => 'required|exists:meta_teg_types,id',
                 'metaData.*.value' => 'required|string|max:255',
                 'metaData.*.content' => 'required|string|max:255',
-//                'sectionData' => 'nullable|array',
-//                'sectionData.*.name' => 'required|string|max:255',
-//                'sectionData.*.order' => 'required|integer',
-//                'sectionData.*.background_color' => 'required|string|max:7',
-//                'sectionData.*.title' => 'required|string|max:255',
-//                'sectionData.*.description' => 'required|string',
-//                'sectionData.*.content_text' => 'nullable|string',
-//                'sectionData.*.background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-            Log::info('After validate');
-            Log::info('Before page create');
             $page = Page::create([
                 'name' => $validatedData['name'],
                 'slug' => $validatedData['slug'],
                 'title' => $validatedData['title'],
                 'meta_data' => $validatedData['meta_data'],
             ]);
-            Log::info('After page create');
 
-            Log::info('Before MetaTags create');
             if (isset($validatedData['metaData'])) {
                 foreach ($validatedData['metaData'] as $meta) {
                     MetaTags::create([
@@ -72,22 +59,15 @@ class PageController extends Controller
                     ]);
                 }
             }
-            Log::info('After MetaTags create');
 
-            Log::info('Before sectionData create');
             if (isset($validatedData['sectionData'])) {
                 $validatedData['sectionData'][0]['page_id'] = $page->id;
-//                dd($validatedData['sectionData']);
                 app(SectionController::class)->createSection($validatedData['sectionData']);
             }
-            Log::info('After sectionData create');
 
-            Log::info('Before commit');
             DB::commit();
-            Log::info('After commit');
 
         } catch (\Exception $e) {
-            Log::error('Error after commit: ' . $e->getMessage());
             DB::rollback();
             if ($page) {
                 $this->deleteTemplateFile($page->slug);
@@ -96,7 +76,8 @@ class PageController extends Controller
 
         }
         $this->createTemplate($page->slug);
-        return redirect()->route('admin.page.index')->with('success', 'Page and meta tags created successfully.');
+
+        return view('includes.admin.section.create')->with('success', 'Page and meta tags created successfully.');
     }
 
     public function show(Page $page)

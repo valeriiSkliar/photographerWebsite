@@ -16,13 +16,13 @@ class AlbumsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Album::factory(5)
+        Album::factory(1)
             ->create();
 
-        Image::factory(100)
+        Image::factory(10)
             ->create();
 
-        AlbumImage::factory(50)
+        AlbumImage::factory(10)
             ->create();
     }
 }

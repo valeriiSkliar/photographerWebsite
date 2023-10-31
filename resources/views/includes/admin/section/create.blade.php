@@ -15,7 +15,7 @@
 
                         <div class="form-group col-12">
                             <label for="page_id">Page_id:</label>
-                            <input type="text" name="page_id" id="page_id" class="form-control" value="1" required>
+                            <input type="text" name="page_id" id="page_id" class="form-control" value="{{ $page->id ?? 1}}" required>
                         </div>
 
                         <div class="form-group col-12">
