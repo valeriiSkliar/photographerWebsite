@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ImageController extends Controller
 {
@@ -71,8 +72,11 @@ class ImageController extends Controller
 
     public function destroy(Image $image)
     {
-//        dd($image);
+        if (file_exists(public_path($image->file_url))) {
+            unlink(public_path($image->file_url));
+        }
         $image->delete();
+        Session::flash('success_message','Image deleted successfully.');
 
         return redirect()->back()->with('success', 'Image deleted successfully.');
     }

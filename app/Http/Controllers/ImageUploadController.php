@@ -19,21 +19,18 @@ class ImageUploadController extends Controller
             return response()->json(['error' => 'No images provided'], 400);
         }
 
-        // Retrieve the image file paths before deleting the records from the database.
         $filePaths = Image::whereIn('id', $imageIds)->pluck('file_url')->toArray();
 
         // Delete images from the database.
         $deleted = Image::destroy($imageIds);
 
         if ($deleted) {
-            // Remove the image files from storage.
             foreach ($filePaths as $path) {
                 if (file_exists(public_path($path))) {
                     unlink(public_path($path));
                 }
             }
 
-            // If there are relations with album_images, you may need to delete them too.
             AlbumImage::whereIn('image_id', $imageIds)->delete();
 
             return response()->json(['success' => true, 'message' => 'Images deleted successfully']);
@@ -45,9 +42,11 @@ class ImageUploadController extends Controller
     {
         $album = Album::create();
 
+        session(['pending_album_id' => $album->id]);
+
         return response()->json([
             'success' => true,
-            'message' => 'Album created, add images',
+            'message' => 'Add images',
             'album_id' => $album->id]);
     }
 
@@ -61,7 +60,6 @@ class ImageUploadController extends Controller
             $albumId = $request->album_id;
         }
 
-//        dd($albumId);
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = time() . '.' . $file->getFilename() . '.webp';
@@ -72,10 +70,18 @@ class ImageUploadController extends Controller
             $image->save(public_path($filePath));
             $imageModel  = Image::create(['file_url' => $filePath]);
 
-                $albumImage = AlbumImage::create([
+            $pendingAlbumId = session('pending_album_id', null);
+            if($pendingAlbumId) {
+                AlbumImage::create([
+                    'album_id' => $pendingAlbumId ?? $imageModel->id ?? $albumId,
+                    'image_id' => $imageModel->id
+                ]);
+            } else {
+                AlbumImage::create([
                     'album_id' => $albumId,
                     'image_id' => $imageModel->id
                 ]);
+            }
 
             return response()->json(['success' => true, 'image' => json_encode($imageModel)]);
         }

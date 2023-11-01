@@ -6,12 +6,12 @@
 @pushonce('iframe.script')
     @if(session('success_message'))
         <script>
-
+            Swal.fire(sweetAlertConfigs.success("{{ session('success_message') }}"));
         </script>
     @endif
     @if(session('error_message'))
         <script>
-
+            Swal.fire(sweetAlertConfigs.error("{{ session('error_message') }}"));
         </script>
     @endif
     <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
@@ -46,6 +46,7 @@
                                         <textarea name="description" class="form-control"></textarea>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" class="btn btn-warning">Cansel</button>
                                 </div>
                             </form>
                         </div>
@@ -93,7 +94,7 @@
 
                 <div class="actions mt-4">
                     <button class="btn btn-danger" onclick="deleteSelectedImages()">Delete Selected</button>
-                    <button class="btn btn-primary" onclick="addToAlbum()">Add to Album</button>
+                    <button class="btn btn-primary" disabled onclick="addToAlbum()">Add to Album</button>
                 </div>
 
 
@@ -246,6 +247,32 @@
 
                         document.getElementById('newAlbumFields').style.display = 'block';
                     }
+                    if (data.success) {
+                        Swal.fire({
+                            position: 'bottom-end',
+                            icon: 'success',
+                            title: 'Success',
+                            text: data.message,
+                            showConfirmButton: false,
+                            timer: 3000,
+                            toast: true,
+                            background: 'rgba(0,0,0,1)',
+                            padding: '0.5rem',
+                        });
+
+                    } else {
+                        Swal.fire({
+                            position: 'bottom-end',
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.message ?? 'Failed to create album',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            toast: true,
+                            background: 'rgba(0,0,0,1)',
+                            padding: '0.5rem',
+                        });
+                    }
                 });
         }
 
@@ -293,7 +320,7 @@
                     imageControlsDiv.style.right = "5px";
 
                     const editBtn = document.createElement('a');
-                    editBtn.href = `/admin/images/edit/${imageResponse.id}`;
+                    editBtn.href = `/admin/images/${imageResponse.id}/edit`;
                     editBtn.classList.add('btn', 'btn-sm', 'btn-warning', 'mr-1');
                     editBtn.textContent = 'Edit';
                     imageControlsDiv.appendChild(editBtn);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Album;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class AlbumsController extends Controller
 {
@@ -24,16 +25,32 @@ class AlbumsController extends Controller
 
     public function store(Request $request)
     {
-        $album = null;
-//        dd($request);
-        if (!$request->album_id) {
-            $album = Album::create();
-            return response(['success' => true, 'album_id' => $album->id]);
-        }
-        $album = Album::find($request->album_id);
-        $album->update($request->only(['title', 'sub_text', 'description']));
+        $pendingAlbumId = session('pending_album_id', null);
 
-        return redirect()->route('albums.index')->with('success', 'Album created successfully.');
+        if(!$pendingAlbumId) {
+            return response()->json(['error' => 'No pending album found'], 400);
+        }
+        $album = Album::find($pendingAlbumId);
+        if (!$album->images->count()) {
+            Session::flash('error_message','Album creating canceled!.');
+            $album->delete();
+
+            return redirect()->route('gallery.index');
+        } else {
+            $request->session()->forget('pending_album_id');
+            $album->update($request->only(['title', 'sub_text', 'description']));
+            Session::flash('success_message','Album creating complete successfully!.');
+        }
+//        $album = null;
+//        dd($request->album_id);
+//        if (!$request->album_id) {
+//            $album = Album::create();
+//            return response(['success' => true, 'album_id' => $album->id]);
+//        }
+//        $album = Album::find($request->album_id);
+//        $album->update($request->only(['title', 'sub_text', 'description']));
+
+        return redirect()->route('gallery.index')->with('success', 'Album created successfully.');
     }
 
     public function edit(Album $album)
