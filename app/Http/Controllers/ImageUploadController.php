@@ -71,17 +71,17 @@ class ImageUploadController extends Controller
             $imageModel  = Image::create(['file_url' => $filePath]);
 
             $pendingAlbumId = session('pending_album_id', null);
-            if($pendingAlbumId) {
+//            if($pendingAlbumId) {
                 AlbumImage::create([
                     'album_id' => $pendingAlbumId ?? $imageModel->id ?? $albumId,
                     'image_id' => $imageModel->id
                 ]);
-            } else {
-                AlbumImage::create([
-                    'album_id' => $albumId,
-                    'image_id' => $imageModel->id
-                ]);
-            }
+//            } else {
+//                AlbumImage::create([
+//                    'album_id' => $albumId,
+//                    'image_id' => $imageModel->id
+//                ]);
+//            }
 
             return response()->json([
                 'success' => true,

@@ -114,7 +114,7 @@
                                                style="position: absolute; top: 5px; left: 5px;">
 
                                         <img
-                                            src="{{ $image->file_url }}"
+                                            src="{{ asset($image->file_url) }}"
                                             alt="{{ $image->alt_text }}"
                                             title="{{ $image->title }}"
                                             class="card-img-top">
