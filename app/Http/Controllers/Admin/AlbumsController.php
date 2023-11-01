@@ -70,7 +70,8 @@ class AlbumsController extends Controller
     public function destroy(Album $album)
     {
         $album->delete();
-        return redirect()->route('albums.index')->with('success', 'Album deleted successfully.');
+        Session::flash('success_message','Album successfully delete!.');
+        return redirect()->route('albums.index');
     }
 
     public function __invoke(Request $request)
