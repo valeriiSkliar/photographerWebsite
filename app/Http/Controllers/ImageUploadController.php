@@ -107,10 +107,10 @@ class ImageUploadController extends Controller
                     'image_id' => $imageModel->id
                 ]);
             } else {
-                AlbumImage::create([
-                    'album_id' => $albumId,
-                    'image_id' => $imageModel->id
-                ]);
+//                AlbumImage::create([
+//                    'album_id' => $albumId,
+//                    'image_id' => $imageModel->id
+//                ]);
             }
 
             return response()->json([
