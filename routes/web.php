@@ -64,6 +64,7 @@ Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index
 Route::post('/upload', [ImageUploadController::class, 'uploadMethod']);
 Route::post('/create-album', [ImageUploadController::class, 'createAlbum']);
 Route::post('/delete-selected-images', [ImageUploadController::class, 'deleteSelectedImages']);
+Route::post('/add-selected-images', [ImageUploadController::class, 'addSelectedImagesToAlbum']);
 
 Route::get('/test', [\App\Http\Controllers\TestController::class, '__invoke'])->name('test');
 

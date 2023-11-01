@@ -94,7 +94,14 @@
 
                 <div class="actions mt-4">
                     <button class="btn btn-danger" onclick="deleteSelectedImages()">Delete Selected</button>
-                    <button class="btn btn-primary" disabled onclick="addToAlbum()">Add to Album</button>
+                    <button class="btn btn-primary" onclick="addToAlbum()">Add to Album</button>
+                    <select id="albumSelect">
+                        <option value="">=== Select album ===</option>
+                        {{--                            @dd($album)--}}
+                        @foreach($albums as $album)
+                            <option value="{{ $album->id }}">{{ $album->title }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
 
@@ -105,7 +112,7 @@
                             All</label>
                     </div>
 
-                    <div class="col-md-12 mb-4" >
+                    <div class="col-md-12 mb-4">
                         <div class="row" id="images">
                             @foreach($images as $image)
                                 <div class="col-md-2">
@@ -186,15 +193,13 @@
                                 padding: '0.5rem',
                             });
 
-                            // Remove deleted images from the DOM
                             selectedImageCheckboxes.forEach(checkbox => {
-                                const parentCard = checkbox.closest('.col-md-2'); // Assuming the direct parent container of checkbox is '.col-md-2'
+                                const parentCard = checkbox.closest('.col-md-2');
                                 if (parentCard) {
                                     parentCard.remove();
                                 }
                             });
                         } else {
-                            // Handle the error (you can add a Swal alert or any other way to display an error)
                             Swal.fire({
                                 position: 'bottom-end',
                                 icon: 'error',
@@ -212,10 +217,49 @@
         }
 
         function addToAlbum() {
+            const albumSelect = document.getElementById('albumSelect');
             const selectedImages = [...document.querySelectorAll('.image-checkbox:checked')].map(checkbox => checkbox.dataset.imageId);
             if (selectedImages.length) {
-                // Make an AJAX request to add the selected images to an album.
-                // This might require another interface for the user to select which album to add the images to.
+                fetch('/add-selected-images', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        images: selectedImages,
+                        album_id: albumSelect.value
+                    })
+                })
+                    .then(response => response.json())
+                    .then(response => {
+                        if (response.success) {
+                            Swal.fire({
+                                position: 'bottom-end',
+                                icon: 'success',
+                                title: 'Success',
+                                text: response.message,
+                                showConfirmButton: false,
+                                timer: 3000,
+                                toast: true,
+                                background: 'rgba(0,0,0,0)',
+                                padding: '0.5rem',
+                            });
+
+                        } else {
+                            Swal.fire({
+                                position: 'bottom-end',
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Failed to delete selected images',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                toast: true,
+                                background: 'rgba(0,0,0,0)',
+                                padding: '0.5rem',
+                            });
+                        }
+                    })
             }
         }
 
@@ -298,7 +342,7 @@
                         background: 'rgba(0,0,0,1)',
                         padding: '0.5rem',
                     });
-                } else if(response.error) {
+                } else if (response.error) {
                     Swal.fire({
                         position: 'bottom-end',
                         icon: 'error',

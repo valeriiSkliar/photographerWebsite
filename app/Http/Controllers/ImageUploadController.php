@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image as ImageIntervention;
 use App\Models\Album;
 use App\Models\AlbumImage;
@@ -11,6 +12,32 @@ use Illuminate\Http\Request;
 
 class ImageUploadController extends Controller
 {
+    public function addSelectedImagesToAlbum(Request $request)
+    {
+        $imageIds = $request->input('images');
+
+        if (!$imageIds || !is_array($imageIds)) {
+            return response()->json(['error' => 'No images provided'], 400);
+        }
+
+        $albumId = $request->input('album_id');
+        $album = Album::find($albumId);
+        if (!$albumId) {
+            return response()->json(['error' => 'No album ID provided'], 400);
+        }
+
+        foreach ($imageIds as $imageId) {
+            AlbumImage::create([
+                'album_id' => $albumId,
+                'image_id' => $imageId
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Images added to album ' . $album->title
+
+        ]);
+    }
     public function deleteSelectedImages(Request $request)
     {
         $imageIds = $request->input('images');
@@ -33,7 +60,10 @@ class ImageUploadController extends Controller
 
             AlbumImage::whereIn('image_id', $imageIds)->delete();
 
-            return response()->json(['success' => true, 'message' => 'Images deleted successfully']);
+            return response()->json([
+                'success' => true,
+                'message' => 'Images deleted successfully'
+            ]);
         } else {
             return response()->json(['error' => 'Failed to delete images'], 500);
         }

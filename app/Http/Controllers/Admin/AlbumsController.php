@@ -62,7 +62,6 @@ class AlbumsController extends Controller
     {
         $album->update($request->only(['title', 'sub_text', 'description']));
 
-        // Handle any image updates, additions, or deletions here
 
         return redirect()->route('albums.index')->with('success', 'Album updated successfully.');
     }
