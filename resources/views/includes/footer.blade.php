@@ -3,17 +3,20 @@
     {{-- @foreach($contact as $key => $value)
         {{ $key }}: {{ $value }} <br>
     @endforeach --}}
-    {{-- @if(isset($contact['name']))
-    <div>
-        {{$contact['name']}}
-    </div>
-    @endif --}}
     {{-- @dd($contact->name) --}}
 {{--    --}}
 
     <div class="data_footer">
-        <div class="text_footer name_footer">Olena Yavorska</div>
-        <div class="text_footer">phone: +380961234578</div>
+        @if(isset($contact['name']) && isset($contact['surname']))
+        <div class="text_footer name_footer">
+            {{$contact['name'].' '.$contact['surname']}}
+        </div>
+        @endif
+        @if(isset($contact['phone']))
+        <div class="text_footer">
+            {{'phone: '.$contact['phone']}}
+        </div>
+        @endif
     </div>
     <div class="logo_footer">
         <a href="{{ url('/') }}" class="link_logo">
@@ -21,8 +24,16 @@
         </a>
     </div>
     <div class="data_footer">
-        <div class="text_footer address_footer">Odesa city, Deribasivka str., 18</div>
-        <div class="text_footer">e-mail: yavorskaphotografy@gmail.com</div>
+        @if(isset($contact['city']) && isset($contact['address']))
+        <div class="text_footer address_footer">
+            {{$contact['city'].', '.$contact['address']}}
+        </div>
+        @endif
+        @if(isset($contact['email']))
+        <div class="text_footer">
+            {{'e-mail: '.$contact['email']}}
+        </div>
+        @endif
     </div>
 </div>
 

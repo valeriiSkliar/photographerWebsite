@@ -8,15 +8,15 @@
 }
 
 .about_section {
-    width: 0px;
-    height: 0px;
-    transform: rotateZ(0deg);
+    width: calc(100vw - 40px);
+    height: calc(56.25vw - 22.5px);
+   // transform: rotateZ(0deg);
     margin-top: 60px;
     margin-left: 9px;
     position: relative;
-    animation-name: test;
-    animation-duration: 10s;
-    animation-fill-mode: forwards;
+    // animation-name: test;
+    // animation-duration: 10s;
+    // animation-fill-mode: forwards;
 }
 
 .about_title {
@@ -67,11 +67,11 @@
     left: 900px;
 }
 
-@keyframes test {
-    0% { width: 0px;
-         height: 0px;
-         transform: rotateZ(0deg);
-        }
+// @keyframes test {
+//     0% { width: 0px;
+//          height: 0px;
+//          transform: rotateZ(0deg);
+//         }
     // 25% { width: calc(20vw - 40px);
     //     height: calc(11.25vw - 22.5px);
     //     transform: rotateZ(90deg);
@@ -84,8 +84,8 @@
     //     height: calc(45vw - 22.5px);
     //     transform: rotateZ(270deg);
     //     }
-    100% { width: calc(100vw - 40px);
-        height: calc(56.25vw - 22.5px);
-        transform: rotateZ(360deg);
-        }
-}
+//     100% { width: calc(100vw - 40px);
+//         height: calc(56.25vw - 22.5px);
+//         transform: rotateZ(360deg);
+//         }
+// }
