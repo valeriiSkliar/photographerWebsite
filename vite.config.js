@@ -8,6 +8,7 @@ export default defineConfig({
                 'resources/scss/app.scss',
                 'resources/scss/swiper-thumbs.scss',
                 'resources/js/app.js',
+                'resources/js/admin_gallery.js',
             ],
             refresh: true,
         }),

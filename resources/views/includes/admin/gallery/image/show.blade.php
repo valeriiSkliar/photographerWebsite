@@ -1,6 +1,6 @@
 @extends('layouts.iframe')
 
-@section('content')
+@section('admin.content')
     <div class="container mt-4">
         <div class="row">
             <div class="col-12">

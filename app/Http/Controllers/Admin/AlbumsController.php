@@ -25,7 +25,7 @@ class AlbumsController extends Controller
     public function store(Request $request)
     {
         $album = null;
-
+//        dd($request);
         if (!$request->album_id) {
             $album = Album::create();
             return response(['success' => true, 'album_id' => $album->id]);

@@ -76,8 +76,9 @@ Route::get('/albumsooo', [AlbumsController::class , '__invoke'])->name('getAllAl
 Route::get('/albums/{id}', [AlbumsController::class , 'show_album'])->name('show_album');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
 
-//Route::post('/upload', [ImageUploadController::class, 'uploadMethod']);
-Route::post('/create-album', [ImageManagerController::class, 'createAlbum']);
+Route::post('/upload', [ImageUploadController::class, 'uploadMethod']);
+Route::post('/create-album', [ImageUploadController::class, 'createAlbum']);
+Route::post('/delete-selected-images', [ImageUploadController::class, 'deleteSelectedImages']);
 
 Route::get('/test', [\App\Http\Controllers\TestController::class, '__invoke'])->name('test');
 

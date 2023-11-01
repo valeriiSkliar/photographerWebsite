@@ -71,6 +71,7 @@ class ImageController extends Controller
 
     public function destroy(Image $image)
     {
+//        dd($image);
         $image->delete();
 
         return redirect()->back()->with('success', 'Image deleted successfully.');
