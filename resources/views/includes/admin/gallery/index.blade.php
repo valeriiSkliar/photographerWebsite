@@ -251,7 +251,7 @@
                                 position: 'bottom-end',
                                 icon: 'error',
                                 title: 'Error',
-                                text: 'Failed to delete selected images',
+                                text: 'Failed add images to album',
                                 showConfirmButton: false,
                                 timer: 3000,
                                 toast: true,
