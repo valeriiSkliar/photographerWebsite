@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AlbumsController;
 use App\Http\Controllers\Admin\Component\ComponentController;
 use App\Http\Controllers\Admin\Page\PageController;
 use App\Http\Controllers\Admin\Section\SectionController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
@@ -37,22 +38,6 @@ Route::get('language/{locale}', function ($locale) {
     session()->put('locale', $locale);
     return redirect()->back();
 });
-
-//Route::get('/about', function () {
-//    return view('about',);
-//});
-
-//Route::get('/portfolio', function () {
-//    return view('portfolio',);
-//});
-
-//Route::get('/work', function () {
-//    return view('work',);
-//});
-
-//Route::get('/contact', function () {
-//    return view('contact',);
-//});
 
 try {
     $connection = DB::connection()->getPdo();
@@ -92,7 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+Route::resource('/contacts', ContactController::class);
 Route::resource('/sections', SectionController::class);
 Route::resource('/components', ComponentController::class);
 

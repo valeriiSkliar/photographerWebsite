@@ -1,4 +1,16 @@
 <div class="container_footer">
+{{--    Ось так можеш користуватися контактами. На фронт ти отримуєш нільки ті поля які заповнені в базі даних--}}
+    {{-- @foreach($contact as $key => $value)
+        {{ $key }}: {{ $value }} <br>
+    @endforeach --}}
+    {{-- @if(isset($contact['name']))
+    <div>
+        {{$contact['name']}}
+    </div>
+    @endif --}}
+    {{-- @dd($contact->name) --}}
+{{--    --}}
+
     <div class="data_footer">
         <div class="text_footer name_footer">Olena Yavorska</div>
         <div class="text_footer">phone: +380961234578</div>

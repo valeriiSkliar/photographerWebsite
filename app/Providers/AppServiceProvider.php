@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Contact;
 use App\Models\Page;
+use App\Services\SessionMessageService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +22,27 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->app->singleton(SessionMessageService::class, function ($app) {
+            return new SessionMessageService();
+        });
+
+        view()->composer('includes.footer', function ($view) {
+            $contact = Contact::find(1);
+
+            if ($contact) {
+                $excludedFields = ['id', 'created_at', 'updated_at'];
+
+                $filteredFields = array_filter($contact->toArray(), function ($value, $key) use ($excludedFields) {
+                    return $value !== null && !in_array($key, $excludedFields);
+                }, ARRAY_FILTER_USE_BOTH);
+
+                $view->with('contact', $contact);
+            } else {
+                $view->with('contact', []);
+            }
+        });
+
+
         view()->composer([
             'includes.header',
             'sectionComponents.frontend.section_page_thumbnail',

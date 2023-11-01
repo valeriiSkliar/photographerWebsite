@@ -22,11 +22,13 @@
     <link rel="stylesheet" href={{asset("AdminLTE/dist/css/adminlte.min.css")}}>
     <link rel="stylesheet" href={{asset("AdminLTE/plugins/daterangepicker/daterangepicker.css")}}>
     <link rel="stylesheet" href={{asset("AdminLTE/plugins/summernote/summernote-bs4.min.css")}}>
+    <link rel="stylesheet" href="{{ asset("AdminLTE/dist/css/custom.css") }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href={{asset("AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.css') }}">
     @vite('resources/js/admin.js')
     @stack('iframe.style')
-
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed dark-mode" data-panel-auto-height-mode="height">
@@ -52,8 +54,8 @@
     <!-- AdminLTE for demo purposes -->
 {{--    <script src={{asset("AdminLTE/dist/js/demo.js")}}></script>--}}
 {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.js"></script>--}}
-
-
+    <script src="{{ asset('sweetalert/configs.js') }}"></script>
+    <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     @stack('iframe.script')
 
 </body>
