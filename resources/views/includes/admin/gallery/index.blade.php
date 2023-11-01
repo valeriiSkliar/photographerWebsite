@@ -286,6 +286,31 @@
                 formData.append("album_id", albumId);
             },
             success: function (file, response) {
+                if (response.success) {
+                    Swal.fire({
+                        position: 'bottom-end',
+                        icon: 'success',
+                        title: 'Success',
+                        text: response.message,
+                        showConfirmButton: false,
+                        timer: 3000,
+                        toast: true,
+                        background: 'rgba(0,0,0,1)',
+                        padding: '0.5rem',
+                    });
+                } else if(response.error) {
+                    Swal.fire({
+                        position: 'bottom-end',
+                        icon: 'error',
+                        title: 'Error',
+                        text: response.message,
+                        showConfirmButton: false,
+                        timer: 3000,
+                        toast: true,
+                        background: 'rgba(0,0,0,1)',
+                        padding: '0.5rem',
+                    });
+                }
                 if (response.success && response.image) {
                     const albumBlock = document.getElementById('images');
 

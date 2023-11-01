@@ -83,9 +83,15 @@ class ImageUploadController extends Controller
                 ]);
             }
 
-            return response()->json(['success' => true, 'image' => json_encode($imageModel)]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Image uploaded',
+                'image' => json_encode($imageModel)]);
         }
 
-        return response()->json(['error' => 'No file uploaded'], 400);
+        return response()->json([
+            'error' => true,
+            'message' => 'No file uploaded',
+            ], 400);
     }
 }
