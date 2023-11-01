@@ -20,13 +20,13 @@ class PageFactory extends Factory
 
         $title = $this->faker->sentence(4);
         $name = $this->faker->unique()->randomElement($pages);
-        $slug = strtolower(str_replace(' ', '-', $name));
+        $slug = slugify(str_replace(' ', '-', $name));
 
         return [
             'name' => $name,
             'slug' => $slug,
             'title' => $title . ' ' . $name,
-            'meta_data' => 'meta_data',
+//            'meta_data' => 'meta_data',
         ];
     }
 }

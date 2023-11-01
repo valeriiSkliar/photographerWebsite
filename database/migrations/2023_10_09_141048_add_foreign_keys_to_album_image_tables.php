@@ -16,7 +16,7 @@ return new class extends Migration
         });
 
         Schema::table('albums', function (Blueprint $table) {
-//            $table->foreignId('cover_image_id')->nullable()->constrained('images')->onDelete('set null');
+            $table->foreignId('cover_image_id')->nullable()->constrained('images')->onDelete('set null');
         });
     }
 
@@ -27,7 +27,7 @@ return new class extends Migration
         });
 
         Schema::table('albums', function (Blueprint $table) {
-//            $table->dropForeign(['cover_image_id']);
+            $table->dropForeign(['cover_image_id']);
         });
     }
 };
