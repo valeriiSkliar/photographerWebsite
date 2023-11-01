@@ -1,48 +1,14 @@
 @extends('layouts.iframe')
-
-@if(session('success_message') || session('error_message'))
-    @pushonce('iframe.style')
-        <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.css') }}">
-    @endpushonce
-
-    @pushonce('iframe.script')
-        <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-    @endpushonce
-@endif
-
 @pushonce('iframe.script')
     @if(session('success_message'))
         <script>
-            Swal.fire({
-                position: 'bottom-end',
-                icon: 'success',
-                title: 'Success',
-                text: '{{ session('success_message') }}',
-                showConfirmButton: false,
-                timer: 3000,
-                toast: true,
-                background: 'rgba(0,0,0,0)',
-                padding: '0.5rem',
-                border: 'none',
-            });
+            Swal.fire(sweetAlertConfigs.success("{{ session('success_message') }}"));
         </script>
     @endif
 
     @if(session('error_message'))
         <script>
-
-            Swal.fire({
-                position: 'bottom-end',
-                icon: 'error',
-                title: 'Error',
-                text: '{{ session('error_message') }}',
-                showConfirmButton: false,
-                timer: 3000,
-                toast: true,
-                background: '#dc3545',
-                padding: '0.5rem',
-                border: 'none',
-            });
+            Swal.fire(sweetAlertConfigs.error("{{ session('error_message') }}"));
         </script>
     @endif
 @endpushonce

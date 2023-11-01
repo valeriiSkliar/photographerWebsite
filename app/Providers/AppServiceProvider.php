@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Contact;
 use App\Models\Page;
+use App\Services\SessionMessageService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->app->singleton(SessionMessageService::class, function ($app) {
+            return new SessionMessageService();
+        });
+
         view()->composer('includes.footer', function ($view) {
             $contact = Contact::find(1);
 

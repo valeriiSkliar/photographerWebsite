@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use App\Http\Requests\StoreContactRequest;
 use App\Http\Requests\UpdateContactRequest;
+use App\Services\SessionMessageService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
@@ -12,6 +13,12 @@ use mysql_xdevapi\Exception;
 
 class ContactController extends Controller
 {
+    protected SessionMessageService $messageService;
+    public function __construct(SessionMessageService $messageService)
+    {
+        $this->messageService = $messageService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -41,10 +48,10 @@ class ContactController extends Controller
             // Validation passed, create a new contact
             $contact = Contact::create($request->validated());
             // Set success flash message
-            Session::flash('success_message', 'Contact created successfully');
+            $this->messageService->setSuccessMessage('Contact created successfully');
         } catch (QueryException $e) {
             // Set error flash message for database query exception
-            Session::flash('error_message', 'Error creating contact. Please try again.');
+            $this->messageService->setErrorMessage('Error creating contact. Please try again.');
         }
 
         return redirect()->route('contacts.index');
@@ -69,13 +76,16 @@ class ContactController extends Controller
             $contact->update($request->validated());
 
             // Set success flash message
-            Session::flash('success_message', 'Contact updated successfully');
+            $this->messageService->setSuccessMessage('Contact updated successfully');
+
         } catch (ModelNotFoundException $e) {
             // Set error flash message for model not found exception
             Session::flash('error_message', 'Contact not found.');
+            $this->messageService->setErrorMessage('Contact not found.');
         } catch (QueryException $e) {
             // Set error flash message for database query exception
-            Session::flash('error_message', 'Error updating contact. Please try again.');
+            $this->messageService->setErrorMessage('Error updating contact. Please try again.');
+
         }
 
         return redirect()->route('contacts.index');
