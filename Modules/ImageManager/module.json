@@ -1,0 +1,11 @@
+{
+    "name": "ImageManager",
+    "alias": "imagemanager",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ImageManager\\Providers\\ImageManagerServiceProvider"
+    ],
+    "files": []
+}

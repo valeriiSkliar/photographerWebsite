@@ -17,6 +17,7 @@ use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
+use Modules\ImageManager\Http\Controllers\ImageManagerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,8 +76,8 @@ Route::get('/albumsooo', [AlbumsController::class , '__invoke'])->name('getAllAl
 Route::get('/albums/{id}', [AlbumsController::class , 'show_album'])->name('show_album');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
 
-Route::post('/upload', [ImageUploadController::class, 'uploadMethod']);
-Route::post('/create-album', [ImageUploadController::class, 'createAlbum']);
+//Route::post('/upload', [ImageUploadController::class, 'uploadMethod']);
+Route::post('/create-album', [ImageManagerController::class, 'createAlbum']);
 
 Route::get('/test', [\App\Http\Controllers\TestController::class, '__invoke'])->name('test');
 

@@ -1,3 +1,3 @@
 @extends('layouts.iframe')
 
-@yield('content')
+@yield('admin.content')

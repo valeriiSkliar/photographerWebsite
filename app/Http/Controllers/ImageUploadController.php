@@ -14,7 +14,10 @@ class ImageUploadController extends Controller
     {
         $album = Album::create();
 
-        return response()->json(['success' => true, 'album_id' => $album->id]);
+        return response()->json([
+            'success' => true,
+            'message' => 'Album created, add images',
+            'album_id' => $album->id]);
     }
 
     public function uploadMethod(Request $request)
@@ -27,7 +30,7 @@ class ImageUploadController extends Controller
             $filename = time() . '.' . $file->getFilename() . '.' . $file->getClientOriginalExtension();
             $filePath = 'uploads/' . $filename;
             $file->move(public_path('uploads'), $filename);
-
+//            dd(1111);
             $image = Image::create(['file_url' => $filePath]);
 
             if ($request->album_id) {

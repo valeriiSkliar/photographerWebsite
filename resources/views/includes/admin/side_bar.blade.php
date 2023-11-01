@@ -66,6 +66,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('imagemanager.index') }}" class="nav-link">
+                        <i class="nav-icon far fa-image"></i>
+                        <p>
+                            ImageManager
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('images.index') }}" class="nav-link">
                         <i class="nav-icon far fa-image"></i>
                         <p>
