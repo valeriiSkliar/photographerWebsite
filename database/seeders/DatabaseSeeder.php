@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(PagesSeeder::class);
-        $this->call(AlbumsTableSeeder::class);
-        $this->call(SectionSeeder::class);
-        $this->call(ComponentSeeder::class);
-        $this->call(ComponentDetailSeeder::class);
+//        $this->call(AlbumsTableSeeder::class);
+//        $this->call(SectionSeeder::class);
+//        $this->call(ComponentSeeder::class);
+//        $this->call(ComponentDetailSeeder::class);
         $this->call(UserSeeder::class);
 
         $this->call(MetaTagTypeSeeder::class);

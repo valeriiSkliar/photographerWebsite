@@ -13,10 +13,14 @@ class Page extends Model
 
     protected $fillable = ['name', 'slug', 'title', 'meta_data'];
 
-    public function sections()
+    public function components()
     {
-        return $this->hasMany(Section::class, 'page_id');
+        return $this->belongsTo(\App\Models\Component\Component::class);
     }
+//    public function sections()
+//    {
+//        return $this->hasMany(Section::class, 'page_id');
+//    }
 
     public function meta_tags()
     {

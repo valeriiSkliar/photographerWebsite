@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('title');
-            $table->string('meta_data');
+//            $table->string('meta_data');
             $table->timestamps();
         });
     }

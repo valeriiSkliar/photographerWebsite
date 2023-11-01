@@ -77,7 +77,7 @@ class PageController extends Controller
         }
         $this->createTemplate($page->slug);
 
-        return view('includes.admin.section.create')->with('success', 'Page and meta tags created successfully.');
+        return view('includes.admin.component.create')->with('success', 'Page and meta tags created successfully.');
     }
 
     public function show(Page $page)
