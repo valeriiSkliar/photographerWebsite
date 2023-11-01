@@ -32,6 +32,8 @@ class ImageUploadController extends Controller
                 'image_id' => $imageId
             ]);
         }
+//        Session::flash('success_message','Images added to album ' . $album->title);
+//        return redirect()->route('albums.index');
         return response()->json([
             'success' => true,
             'message' => 'Images added to album ' . $album->title
