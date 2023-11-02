@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Album;
 use App\Models\Contact;
 use App\Models\Page;
 use App\Services\SessionMessageService;
@@ -49,6 +50,12 @@ class AppServiceProvider extends ServiceProvider
             'includes.admin.*'
         ], function ($view){
             $view->with('pages', Page::all());
+        });
+
+        view()->composer([
+            'includes.admin.*'
+        ], function ($view){
+            $view->with('albums', Album::all());
         });
 
         view()->composer(['includes.header'], function ($view) {

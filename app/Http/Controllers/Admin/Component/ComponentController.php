@@ -9,6 +9,7 @@ use App\Models\Page;
 use App\Models\Section\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Session;
 
 class ComponentController extends Controller
 {
@@ -37,6 +38,7 @@ class ComponentController extends Controller
      */
     public function store(Request $request)
     {
+        $page = null;
         $componentData = $request->validate([
             'name' => 'string|max:255',
             'album_id' => 'integer|nullable|exists:albums,id',
@@ -60,7 +62,7 @@ class ComponentController extends Controller
 
 
         if ($request->ajax()) {
-            $markup = view('includes.admin.component.ajax.component_list.row', compact('component'))->render();
+            $markup = view('includes.admin.component.ajax.component_list.row', compact('component', 'page'))->render();
             return response()->json([
                 'success' => true,
                 'component' => $component,
@@ -92,15 +94,15 @@ class ComponentController extends Controller
         $sections = Section::all();
 
         if ($request->ajax()) {
-            $markup = view('includes.admin.component.ajax.edit-form', compact('page','component'))->render();
+            $markup = view('includes.admin.component.ajax.edit-form', compact('page', 'component'))->render();
             return response()->json([
                 'success' => true,
                 'component' => $component,
                 'markup' => $markup,
                 'message' => 'Component created successfully'
             ], 201);
-        }else {
-            return view('includes.admin.component.edit', compact('page','component', 'sections', 'albums'));
+        } else {
+            return view('includes.admin.component.edit', compact('page', 'component', 'sections', 'albums'));
         }
 
     }
@@ -111,11 +113,15 @@ class ComponentController extends Controller
     public function update(Request $request, Component $component, $id)
     {
 
+//        dd($request);
         if (!$component->id) {
             $component = Component::find($id);
         }
+        $page = $component->pages->first();
         $componentData = $request->validate([
-            'name' => 'string|max:255'
+            'name' => 'string|max:255',
+            'album_id' => 'integer|nullable|exists:albums,id',
+//            'page_id' => 'integer|nullable|exists:pages,id',
         ]);
         $details = $request->get('details');
 
@@ -144,14 +150,18 @@ class ComponentController extends Controller
         }
 
         if ($request->ajax()) {
-            $markup = view('includes.admin.component.ajax.component_list.row', compact('component'))->render();
+            $markup = view(
+                'includes.admin.component.ajax.component_list.row',
+                compact(
+                    'component', 'page'
+                ))->render();
             return response()->json([
                 'success' => true,
                 'component' => $component,
                 'markup' => $markup,
                 'message' => 'Component updated successfully'
             ], 201);
-        }else {
+        } else {
             return redirect()->route('components.index')->with('success', 'Component updated successfully');
         }
     }
@@ -159,11 +169,25 @@ class ComponentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Component $component)
+    public function destroy(Request $request, Component $component)
     {
-        $component->details()->delete();
+//        dd($request);
+        $page = Page::with('components')
+            ->where('id', $request->page_id)
+            ->first();        $component->details()->delete();
         $component->delete();
-        return redirect()->route('components.index')->with('success', 'Component deleted successfully');
+        if ($request->ajax()) {
+//            $markup = view('includes.admin.component.ajax.component_list.row', compact('component'))->render();
+            return response()->json([
+                'success' => true,
+//                'id' => $id,
+//                'markup' => $markup,
+                'message' => 'Component deleted successfully'
+            ], 201);
+        } else {
+            Session::flash('success_message','Component deleted successfully.');
+            return redirect()->route('admin.pages.show', ['page' => $page->id]);
+        }
     }
 
     public function getFormMarkup($id)

@@ -1,5 +1,20 @@
 @extends('layouts.iframe')
+@pushonce('iframe.style')
+    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.css') }}">
+@endpushonce
 
+@pushonce('iframe.script')
+    @if(session('success_message'))
+        <script>
+            Swal.fire(sweetAlertConfigs.success("{{ session('success_message') }}"));
+        </script>
+    @endif
+    @if(session('error_message'))
+        <script>
+            Swal.fire(sweetAlertConfigs.error("{{ session('error_message') }}"));
+        </script>
+    @endif
+@endpushonce
 @section('admin.content')
     <div class="container-fluid mt-4">
         <div class="row">

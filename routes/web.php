@@ -84,6 +84,7 @@ Route::resource('/sections', SectionController::class);
 Route::resource('/components', ComponentController::class);
 Route::get('/get-component-form/{id}', [ComponentController::class, 'getFormMarkup']);
 Route::post('/components/{id}/update', [ComponentController::class, 'update']);
+Route::post('/components/{id}/destroy', [ComponentController::class, 'destroy']);
 
 
 Route::group(['prefix' => 'admin', 'middleware'=> 'auth'],function () {

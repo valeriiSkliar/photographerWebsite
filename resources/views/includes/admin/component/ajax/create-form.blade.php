@@ -30,7 +30,6 @@
 
 
             @if(isset($albums))
-                <h5 class="my-4">Album</h5>
                 <div class="form-group">
                     <label for="album_id">Connect Album:</label>
                     <select class="form-control" id="album_id" name="album_id">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Component\Component;
 use App\Models\Page;
 use Illuminate\Http\Request;
 
@@ -13,17 +14,15 @@ class IndexController extends Controller
         $pageSlug = $request->route()->uri;
 
         if ($pageSlug == '/') {
-//            dd('test');
             $pageSlug = 'main';
-//            $page = Page::find(1);
-//            return view('index', compact('page'));
+
         }
 
         $page = Page::with('components.album.images')
             ->where('slug', $pageSlug)
             ->first();
 
-
+//        dd($page);
         if (!$page) {
             abort(404, 'Page not found');
         }
