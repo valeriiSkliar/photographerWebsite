@@ -15,7 +15,7 @@ class Page extends Model
 
     public function components()
     {
-        return $this->belongsTo(\App\Models\Component\Component::class);
+        return $this->belongsToMany(Component::class);
     }
 //    public function sections()
 //    {

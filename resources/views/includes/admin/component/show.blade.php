@@ -4,7 +4,7 @@
 
     <div class="container mt-5">
         <h4>Component {{ $component->type }}</h4>
-        <p><span class="font-weight-bold">{{ $component->section->name }}</span> section</p>
+{{--        <p><span class="font-weight-bold">{{ $component->section->name }}</span> section</p>--}}
         <p class="mt-3">Order: <span class="font-weight-bold">{{ $component->order }}</span></p>
 
         <div class="accordion" id="componentDetailsAccordion">

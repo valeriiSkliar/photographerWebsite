@@ -19,7 +19,7 @@ class IndexController extends Controller
 //            return view('index', compact('page'));
         }
 
-        $page = Page::with('sections.components.album.images')
+        $page = Page::with('components.album.images')
             ->where('slug', $pageSlug)
             ->first();
 

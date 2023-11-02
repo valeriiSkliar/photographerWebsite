@@ -82,6 +82,10 @@ class PageController extends Controller
 
     public function show(Page $page)
     {
+        $page = Page::with('components')
+            ->where('id', $page->id)
+            ->first();
+
         return view('includes.admin.page.show', compact('page'));
     }
 
