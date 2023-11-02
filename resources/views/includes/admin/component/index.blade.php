@@ -15,7 +15,6 @@
                 <th>ID</th>
                 <th>Type</th>
                 <th>Name</th>
-                <th>Section name</th>
                 <th>Connected album</th>
                 <th>Actions</th>
             </tr>
@@ -26,7 +25,7 @@
                     <td>{{ $component->id }}</td>
                     <td>{{ $component->type }}</td>
                     <td>{{ $component->name }}</td>
-                    <td>{{ $component->section->name }}</td>
+{{--                    <td>{{ $component->section->name }}</td>--}}
                     <td>{{ $component->album ? $component->album->title : ' - ' }}</td>
                     <td>
                         <a href="{{ route('components.show', $component) }}" class="btn btn-info btn-sm">Show</a>

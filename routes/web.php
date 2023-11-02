@@ -80,7 +80,11 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('/contacts', ContactController::class);
 Route::resource('/sections', SectionController::class);
+//Components
 Route::resource('/components', ComponentController::class);
+Route::get('/get-component-form/{id}', [ComponentController::class, 'getFormMarkup']);
+Route::post('/components/{id}/update', [ComponentController::class, 'update']);
+
 
 Route::group(['prefix' => 'admin', 'middleware'=> 'auth'],function () {
 

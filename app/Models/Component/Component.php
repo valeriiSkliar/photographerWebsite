@@ -12,11 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 class Component extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
     public function pages()
     {
-        return $this->belongsTo(Page::class);
+        return $this->belongsToMany(Page::class);
     }
     public function details()
     {
