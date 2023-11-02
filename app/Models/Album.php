@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Component\Component;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,7 +31,7 @@ class Album extends Model
     }
     public function components()
     {
-        return $this->hasMany(\App\Models\Component\Component::class);
+        return $this->hasMany(Component::class);
     }
 
     public static function getIdNameArray()

@@ -8,7 +8,8 @@
      });
  }
 export function clearFormContainer() {
-    $('#formContainer').html('')
+    $('#addComponentForm').off('submit', submitForm);
+    $('#formContainer').off('click').html('');
 }
  function fildsCounter () {
      let detailCount = 0
@@ -74,17 +75,41 @@ export function clearFormContainer() {
      $('#component_list_table_body').on('click', '.componentRow', function(event) {
 
          const componentId = $(this).data('componentid');
-         console.log('Row clicked! Component ID: ' + componentId);
          getEditComponentForm(componentId);
      });
  }
  export function addListenerToLastChildOfTbody() {
      $('#component_list_table_body tr:last-child').on('click', function(event) {
          const componentId = $(this).data('componentid');
-         console.log('Last row clicked! Component ID: ' + componentId);
          getEditComponentForm(componentId);
      });
  }
+
+ // export  function submitDestroyComponentForm(id) {
+ // //     destroyComponentForm
+ //     let formData = $('#destroyComponentForm').serialize();
+ //     $.ajax({
+ //         url: `/components/${id}/destroy`,
+ //         type: 'POST',
+ //         data: formData,
+ //         success: function(response) {
+ //             $(`[data-componentid="${response.id}"`).remove();
+ //             // $('#component_list_table_body').append(response.markup);
+ //             clearFormContainer();
+ //             // addListenerToLastChildOfTbody()
+ //             new Swal(response.message);
+ //         },
+ //         error: function(xhr, status, error) {
+ //             // console.error('An error occurred:', error);
+ //             const errorMessage = xhr.status + ': ' + xhr.statusText;
+ //             new Swal('Error - ' + errorMessage);
+ //         }
+ //     });
+ //     $('#formContainer').off('submit', '#destroyComponentForm').on('submit', '#destroyComponentForm', function (e) {
+ //         e.preventDefault();
+ //         $(`[data-componentid="${response.component.id}"`).replaceWith(response.markup)
+ //     });
+ // }
 
  export function getEditComponentForm(id) {
      $.ajax({
@@ -93,14 +118,13 @@ export function clearFormContainer() {
          success: function (response) {
              $('#formContainer').html(response.markup);
 
-             // Удалить предыдущие обработчики, чтобы избежать повторных вызовов
+             $('#formContainer').off('click', '#addComponentDetail').on('click', '#addComponentDetail', addDetailFields);
+
              $('#formContainer').off('submit', '#updateComponentForm').on('submit', '#updateComponentForm', function (e) {
                  e.preventDefault();
-                 console.log(e); // Используйте 'e', который является актуальным объектом события
-                 submitUpdateComponentForm(id); // Убедитесь, что функция не нуждается в дополнительных параметрах
+                 submitUpdateComponentForm(id);
              });
 
-             // Убедитесь, что обработчик клика не назначается повторно, если это динамический элемент
              $('#disconnect_btn').off('click').on('click', function () {
                  disconnectAlbum(id);
              });
@@ -119,6 +143,7 @@ export function clearFormContainer() {
              new Swal(response.message);
              $('#imageContainer').html('')
              $('#connectedAlbumContainer').remove();
+             $('#albumsSelect').css('display', 'block');
          },
      })
  }
@@ -146,6 +171,9 @@ export function clearFormContainer() {
  }
 
 
-
+ export function submitForm(e) {
+     e.preventDefault();
+     submitComponentForm();
+ }
 
 
