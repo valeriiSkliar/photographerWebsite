@@ -7,9 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{--    <title>{{ app()->config('app.name') . ' ' . 'admin panel'}}</title>--}}
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet"
-          href="{{asset('AdminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
-    <link rel="stylesheet" href="{{asset('AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+{{--    <link rel="stylesheet"--}}
+{{--          href="{{asset('AdminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">--}}
+{{--    <link rel="stylesheet" href="{{asset('AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">--}}
+    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/bootstrap5/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{asset('AdminLTE/plugins/jqvmap/jqvmap.min.css')}}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -45,7 +46,8 @@
         $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
-    <script src={{ asset("AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js")}}></script>
+{{--    <script src={{ asset("AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js")}}></script>--}}
+    <script src="{{ asset('AdminLTE/plugins/bootstrap5/js/bootstrap.bundle.min.js') }}"></script>
     <!-- overlayScrollbars -->
     <script src={{asset("AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
     <!-- AdminLTE App -->
