@@ -4,7 +4,8 @@ import {
     addDetailFields,
     clearFormContainer,
     initialListenersTbody,
-    submitForm
+    submitForm,
+    editMetaTagsForm
 
 } from './functions.js'
 import Swal from "sweetalert2";
@@ -12,9 +13,44 @@ import Swal from "sweetalert2";
 window.Swal = Swal;
 
 
-
 document.addEventListener('DOMContentLoaded', () => {
+
     const addComponent = document.getElementById('showAddComponentForm');
+
+    $('#showMetaTagsForm').on('click', function () {
+        let test = Swal.fire({
+            template: '#my-template',
+            imageWidth: 1800,
+            imageHeight: 600,
+            didOpen: function(popup) {
+                // editMetaTagsForm(popup)
+            },
+            willClose:function (popup) {
+                // console.log(popup)
+                const form = popup.querySelector('form');
+                const serializedData = $(form).serialize();
+                $.ajax({
+                    url: '/api/meta-tags-group',
+                    type: 'POST',
+                    data: serializedData,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        console.log(response)
+                    },
+                    error: function(error) {
+                        // Handle error
+                    }
+                });
+            }
+        }).then(data => {
+            console.log(data)
+
+        })
+
+    })
+
 
     $('#showAddComponentForm').on('click', function () {
         $.ajax({

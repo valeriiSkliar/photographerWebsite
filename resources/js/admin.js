@@ -1,4 +1,6 @@
-import axios from "axios";
+// import axios from "axios";
+import './bootstrap.js'
+
 let metaTagFormId = 0;
 let fetchedData = null;
 let metaValues = null;

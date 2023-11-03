@@ -10,6 +10,7 @@ use App\Models\MetaData\MetaTagsNameVariants;
 use App\Models\MetaData\MetaTagsPropertyVariants;
 use App\Models\MetaData\MetaTegType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class MetaTagController extends Controller
 {
@@ -62,6 +63,7 @@ class MetaTagController extends Controller
      */
     public function update(UpdateMetaTagsRequest $request, MetaTags $metaTags)
     {
+        dd($metaTags, $request);
         $data = $request->validate([
             'type' => 'required|string|max:255',
             'value' => 'nullable|string|max:255',
@@ -72,6 +74,44 @@ class MetaTagController extends Controller
         $metaTags->update($data);
 
         return response()->json($metaTags);
+    }
+
+    public function updateMetaTagsGroup(Request $request, MetaTags $metaTags)
+    {
+//        dd($metaTags, $request);
+        $validatedData = $request->validate([
+            'page_id' => 'required|exists:pages,id',
+            'metaData' => 'nullable|array',
+            'metaData.*.teg_id' => 'required|exists:meta_tags,id',
+            'metaData.*.type_id' => 'required|exists:meta_teg_types,id',
+            'metaData.*.value' => 'required|string|max:255',
+            'metaData.*.content' => 'required|string|max:255',
+        ]);
+
+        if (isset($validatedData['metaData'])) {
+            $ids = Arr::pluck($validatedData['metaData'], 'teg_id');
+            $metaTags = MetaTags::findMany($ids)->keyBy('id');
+
+            foreach ($validatedData['metaData'] as $meta) {
+                if (!$metaTags->has($meta['teg_id'])) {
+                    continue;
+                }
+
+                $metaTag = $metaTags->get($meta['teg_id']);
+
+                unset($meta['teg_id']);
+
+                $metaTag->update([
+                    'page_id' => $validatedData['page_id'], 
+                    'type_id' => $meta['type_id'],
+                    'value' => $meta['value'],
+                    'content' => $meta['content']
+                ]);
+            }
+        }
+        $updatedMetaTags = MetaTags::findMany($ids)->keyBy('id');
+
+        return response()->json($updatedMetaTags);
     }
 
     /**

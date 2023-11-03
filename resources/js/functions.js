@@ -176,4 +176,20 @@ export function clearFormContainer() {
      submitComponentForm();
  }
 
+ export function editMetaTagsForm(popup) {
+     console.log('click')
+     const form = popup.querySelector('form');
+     console.dir(form)
+     // Логика для обработки формы редактирования мета-тегов.
+     // `popup` - это ссылка на DOM-элемент всплывающего окна SweetAlert2.
+
+     // Пример работы с формой:
+     // const form = popup.querySelector('form');
+     // form.addEventListener('submit', function(event) {
+     //     event.preventDefault();
+     //     // Обрабатываем данные формы, например, отправляем AJAX-запрос.
+     // });
+
+     // Вы можете также взаимодействовать с другими элементами модального окна.
+ }
 
