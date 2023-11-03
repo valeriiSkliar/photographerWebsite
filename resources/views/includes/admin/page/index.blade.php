@@ -30,16 +30,16 @@
                                         </button>
                                     </form>
                                 <a href="{{ route('admin.pages.show', $page->id) }}"
-                                   class="text-decoration-none text-white">
+                                   class="text-decoration-none text-white" title="Show the page">
                                     <div class="card @if($key % 2 == 0) bg-dark @else bg-secondary @endif text-light">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $page->name }}</h5>
                                             <p class="card-text"><strong>Slug:</strong> {{ $page->slug }}</p>
                                             <div class="mt-5">
                                                 <a href="{{ route('admin.pages.edit', $page->id) }}"
-                                                   class="btn btn-info" role="button">Page <i class="fas fa-edit"></i></a>
+                                                   class="btn btn-info mb-md-2 mb-lg-auto mr-1" role="button">Page <i class="fas fa-edit"></i></a>
                                                 <a href="{{ route('admin.pages.edit', $page->id) }}"
-                                                   class="btn btn-warning" role="button">MetaTags <i class="fas fa-edit"></i></a>
+                                                   class="btn btn-warning mb-md-2 mb-lg-auto" role="button">MetaTags <i class="fas fa-edit"></i></a>
                                             </div>
                                         </div>
                                     </div>
