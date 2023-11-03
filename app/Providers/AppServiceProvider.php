@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use App\Models\Album;
 use App\Models\Contact;
+use App\Models\MetaData\MetaTagsNameVariants;
+use App\Models\MetaData\MetaTagsPropertyVariants;
+use App\Models\MetaData\MetaTegType;
 use App\Models\Page;
 use App\Services\SessionMessageService;
 use Illuminate\Support\ServiceProvider;
@@ -56,6 +59,14 @@ class AppServiceProvider extends ServiceProvider
             'includes.admin.*'
         ], function ($view){
             $view->with('albums', Album::all());
+        });
+
+        view()->composer([
+            'includes.admin.*'
+        ], function ($view){
+            $view->with('metaTagTypes', MetaTegType::all());
+            $view->with('meta_tags_properties', MetaTagsPropertyVariants::all());
+            $view->with('meta_tags_names', MetaTagsNameVariants::all());
         });
 
         view()->composer(['includes.header'], function ($view) {

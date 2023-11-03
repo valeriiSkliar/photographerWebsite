@@ -16,6 +16,59 @@
     @endif
 @endpushonce
 @section('admin.content')
+    <style>
+        .swal2-popup {
+            min-width: 80%;
+            min-height: 95%;
+            padding: 2%;
+        }
+        .swal2-html-container {
+            /*!*width: 90%;*!*/
+            /*padding: 10px;*/
+        }
+        .meta-tags-container {
+            margin: auto;
+            width: 95%;
+            padding: 10px;
+        }
+    </style>
+
+    <template
+        style="min-width: 1200px"
+        id="my-template">
+        <swal-title>
+            Edit / Delete / Add meta tags!
+        </swal-title>
+        <swal-html>
+            <form method="POST">
+                <input type="hidden" name="page_id" value="{{ $page->id }}">
+                @csrf
+                @include('includes.admin.component.ajax.metaTags.edit-meta-form')
+            </form>
+            {{--            @include('includes.admin.component.ajax.metaTags.create-meta-form')--}}
+        </swal-html>
+        {{--        <swal-icon type="warning" color="red"></swal-icon>--}}
+        <swal-button
+            id="test"
+            type="confirm">
+            Save
+        </swal-button>
+
+        <swal-button type="cancel">
+            Cancel
+        </swal-button>
+        <swal-param name="allowEscapeKey" value="false"/>
+        <swal-param
+            name="customClass"
+            value='{ "popup": "my-popup" }'/>
+        <swal-function-param
+            name="willClose"
+            value="popup => popup"/>
+        <swal-function-param
+            name="didOpen"
+            value="popup => popup"/>
+    </template>
+
     <div class="container-fluid mt-4">
         <div class="row">
             <div class="col-md-6">
@@ -34,25 +87,33 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-8">
-                @if($page->meta_tags && count($page->meta_tags) > 0)
-                    <h2>Meta tag list:</h2>
-                    @foreach($page->meta_tags as $meta_tag)
-                        {{ $meta_tag->type->type  }}: - {{ $meta_tag->value }} -- {{ $meta_tag->content }}
-                        <br>
-                    @endforeach
-                @endif
-            </div>
+
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="col-md-6 text-left">
-                    <!-- Add Component Button -->
-                    <button
-                        data-page="{{$page->id}}"
-                        id="showAddComponentForm"
-                        onclick="event.preventDefault()" class="btn btn-primary">Add Component</button>
+                <div class="row">
+                    <div class="col-md-3 text-left">
+                        <!-- Add Component Button -->
+                        <button
+                            data-page="{{$page->id}}"
+                            id="showAddComponentForm"
+                            onclick="event.preventDefault()" class="btn btn-primary"
+                        >
+                            Add Component
+                        </button>
+                    </div>
+                    <div class="col-md-3 text-left">
+                        <!-- Manage meta tags -->
+                        <button
+                            data-page="{{$page->id}}"
+                            id="showMetaTagsForm"
+                            onclick="event.preventDefault()" class="btn btn-primary"
+                        >
+                            Manage meta tags
+                        </button>
+                    </div>
                 </div>
+
             </div>
             <div
                 class="col-8"
