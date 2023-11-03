@@ -1,9 +1,16 @@
-import { defineConfig } from 'vite';
+import {defineConfig} from 'vite';
 import laravel from 'laravel-vite-plugin';
 import arr from "./viteGeneratorFilePaths/file-paths.js";
 // console.log(arr);
+// import inject from "@rollup/plugin-inject"
+import { esbuildCommonjs } from '@originjs/vite-plugin-commonjs'
+
 export default defineConfig({
     plugins: [
+        // inject({
+        //     $: 'jquery',
+        //     jQuery: 'jquery',
+        // }),
         laravel({
             input: [
                 // 'resources/scss/app.scss',
@@ -15,4 +22,11 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    optimizeDeps:{
+        esbuildOptions:{
+            plugins:[
+                esbuildCommonjs(['jquery','jquery-ui-dist/jquery-ui'])
+            ]
+        }
+    }
 });
