@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "concurrently \"php artisan serve\" \"vite\" \"start chrome http://localhost:8000\"",
-        "build": "vite build"
+        "build": "node viteGeneratorFilePaths/generateListOfFiles.js && vite build",
+        "genFiles": "node viteGeneratorFilePaths/generateListOfFiles.js"
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
