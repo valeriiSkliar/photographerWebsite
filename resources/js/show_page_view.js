@@ -69,3 +69,4 @@ document.addEventListener('DOMContentLoaded', () => {
     initialListenersTbody();
     // addComponent.addEventListener('click' , loadAddComponentInterface)
 });
+

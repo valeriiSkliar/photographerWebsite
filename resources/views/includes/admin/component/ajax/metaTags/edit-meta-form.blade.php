@@ -40,9 +40,9 @@
                     <option value="">Select value</option>
                     @foreach($selectOptions as $selectOption)
                         <option
-                            data-type="{{ $selectOption[$meta_tag->type->type] }}"
+{{--                            data-type="{{ $selectOption[$meta_tag->type->type] }}"--}}
                             {{ $selectOption[$meta_tag->type->type] == $meta_tag->value ? 'selected' : ''}}
-                            value="{{ $selectOption->id }}">{{ $selectOption[$meta_tag->type->type] }}</option>
+                            value="{{ $selectOption[$meta_tag->type->type] }}">{{ $selectOption[$meta_tag->type->type] }}</option>
                     @endforeach
                 </select>
             </div>

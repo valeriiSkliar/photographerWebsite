@@ -125,5 +125,7 @@
             </div>
         </div>
     </div>
-    @vite('resources/js/show_page_view.js')
+    @push('iframe.script')
+        @vite('resources/js/show_page_view.js')
+    @endpush
 @endsection
