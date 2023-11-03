@@ -9,7 +9,6 @@ import {
 
 } from './functions.js'
 import Swal from "sweetalert2";
-
 window.Swal = Swal;
 
 
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addComponent = document.getElementById('showAddComponentForm');
 
     $('#showMetaTagsForm').on('click', function () {
-        let test = Swal.fire({
+        Swal.fire({
             template: '#my-template',
             imageWidth: 1800,
             imageHeight: 600,
@@ -27,8 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             willClose:function (popup) {
                 // console.log(popup)
-                const form = popup.querySelector('form');
-                const serializedData = $(form).serialize();
+
+            }
+        }).then(result => {
+            const popup = Swal.getPopup();
+            const form = popup.querySelector('form');
+            const serializedData = $(form).serialize();
+            // console.log(serializedData)
+            if (result.isConfirmed) {
                 $.ajax({
                     url: '/api/meta-tags-group',
                     type: 'POST',
@@ -40,12 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.log(response)
                     },
                     error: function(error) {
-                        // Handle error
+                        console.error('Error:', error);
                     }
                 });
             }
-        }).then(data => {
-            console.log(data)
 
         })
 

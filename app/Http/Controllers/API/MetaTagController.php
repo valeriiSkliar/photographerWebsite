@@ -78,7 +78,6 @@ class MetaTagController extends Controller
 
     public function updateMetaTagsGroup(Request $request, MetaTags $metaTags)
     {
-//        dd($metaTags, $request);
         $validatedData = $request->validate([
             'page_id' => 'required|exists:pages,id',
             'metaData' => 'nullable|array',
@@ -102,7 +101,7 @@ class MetaTagController extends Controller
                 unset($meta['teg_id']);
 
                 $metaTag->update([
-                    'page_id' => $validatedData['page_id'], 
+                    'page_id' => $validatedData['page_id'],
                     'type_id' => $meta['type_id'],
                     'value' => $meta['value'],
                     'content' => $meta['content']

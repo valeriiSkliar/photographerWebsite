@@ -19,7 +19,7 @@ export default defineConfig({
                 // 'resources/js/admin_gallery.js',
                 ...arr,
             ],
-            refresh: true,
+            refresh: ['resources/views/**', "resources/scss/**", "resources/js/**"],
         }),
     ],
     optimizeDeps:{
