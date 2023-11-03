@@ -1,10 +1,6 @@
 
-.btn-group > .btn.btn-primary {
-    border-top-left-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
-}
-
-.btn-group .btn.btn-delete{
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+.btn-delete {
+    top: 10px;
+    right: 20px;
+    z-index: 100;
 }
