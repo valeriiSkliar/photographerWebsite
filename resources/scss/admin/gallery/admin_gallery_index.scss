@@ -1,0 +1,26 @@
+.image-controls {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.image-controls .btn-outline-warning {
+    padding: 0 3.5px !important;
+    border-radius: 0.2rem !important;
+}
+
+.image-controls i {
+    color: inherit;
+}
+
+.image-controls .btn-delete {
+    background: unset;
+    border: unset;
+    color: inherit;
+}
+
+.image-controls .btn-delete:hover,
+.image-controls .dropdown-menu form.dropdown-item:hover {
+    background: unset;
+    color: #dc1e1e;
+}
