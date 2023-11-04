@@ -7,6 +7,5 @@ export default [
 "resources/js/admin.js",
 "resources/js/admin_gallery.js",
 "resources/js/app.js",
-"resources/js/functions.js",
 "resources/js/show_page_view.js"
 ];
