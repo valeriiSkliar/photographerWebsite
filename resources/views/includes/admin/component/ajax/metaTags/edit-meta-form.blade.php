@@ -1,14 +1,18 @@
-<div class="meta-tags-container row">
-    @if($page->meta_tags && count($page->meta_tags) > 0)
-        @foreach($page->meta_tags as $meta_tag)
+@php
+$meta_tags = isset($page) ? $page->meta_tags : $updatedMetaTags;
+@endphp
+
+    @if($meta_tags && count($meta_tags) > 0)
+        @foreach($meta_tags as $meta_tag)
             <input value="{{ $meta_tag->id }}"
                    name="metaData[{{$loop->index}}][teg_id]"
                    type="hidden">
-            <div class="col-3 mb-2">
+            <div class="col-2 mb-2">
                 <label
                     for="typeSelect-{{ $loop->index }}"
                     class="form-label"> Meta type:</label>
                 <select
+                    disabled
                     name="metaData[{{ $loop->index }}][type_id]"
                     id="typeSelect-{{ $loop->index }}"
                     class="typeSelect form-control">
@@ -26,6 +30,7 @@
 
             <div class="col-3 mb-2">
                 <label
+
                     class="form-label"
                     for="valueSelect-{{ $loop->index }}">
                     Meta value:
@@ -34,9 +39,12 @@
                 @php
                 $selectOptions = $meta_tag->type->type == 'name' ? $meta_tags_names : $meta_tags_properties;
                 @endphp
-                <select name="metaData[{{$loop->index}}][value]"
-                        id="valueSelect-{{ $loop->index }}"
-                        class="valueSelect form-control">
+                <select
+                    disabled
+
+                    name="metaData[{{$loop->index}}][value]"
+                    id="valueSelect-{{ $loop->index }}"
+                    class="valueSelect form-control">
                     <option value="">Select value</option>
                     @foreach($selectOptions as $selectOption)
                         <option
@@ -60,8 +68,22 @@
                        placeholder="Input content here!"
                        type="text">
             </div>
-
+            <!-- Delete button for the row -->
+            <div class="col-1 mb-2 d-flex align-items-end">
+                <button type="button" class="btn btn-danger delete-meta-tag" data-meta-tag-id="{{ $meta_tag->id }}">
+                    x
+                </button>
+            </div>
         @endforeach
     @endif
-</div>
+        <!-- Button to add new row -->
+        <div class="col-12 mt-3">
+            <button
+                type="button"
+                class="btn btn-primary"
+                id="add-meta-tag">
+                Add New Row
+            </button>
+        </div>
+
 

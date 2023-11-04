@@ -5,7 +5,7 @@ import {
     clearFormContainer,
     initialListenersTbody,
     submitForm,
-    editMetaTagsForm
+    addMetaTagRow,
 
 } from './functions.js'
 import Swal from "sweetalert2";
@@ -13,6 +13,10 @@ window.Swal = Swal;
 
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    let updatedMarkup = null;
+
+    $('#add-meta-tag').on('click', addMetaTagRow);
 
     const addComponent = document.getElementById('showAddComponentForm');
 
@@ -22,10 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
             imageWidth: 1800,
             imageHeight: 600,
             didOpen: function(popup) {
+                if (updatedMarkup) {
+                    const metaTagsContainer = $(popup).find('#meta-tags-container');
+                    $(metaTagsContainer).html(updatedMarkup);
+                }
                 // editMetaTagsForm(popup)
+                $('#add-meta-tag').off('click').on('click', addMetaTagRow);
+
             },
             willClose:function (popup) {
-                // console.log(popup)
+                $('#add-meta-tag').off('click')
 
             }
         }).then(result => {
@@ -34,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const serializedData = $(form).serialize();
             // console.log(serializedData)
             if (result.isConfirmed) {
+
                 $.ajax({
                     url: '/api/meta-tags-group',
                     type: 'POST',
@@ -42,7 +53,22 @@ document.addEventListener('DOMContentLoaded', () => {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
-                        console.log(response)
+                        updatedMarkup = response.markup;
+                        if (response.success) {
+                            Swal.fire({
+                                position: 'bottom-end',
+                                icon: 'success',
+                                title: 'Success',
+                                text: response.message,
+                                showConfirmButton: false,
+                                timer: 3000,
+                                toast: true,
+                                background: 'rgba(0,0,0,0)',
+                                padding: '0.5rem',
+                                width: 400,
+                                height:200
+                            });
+                        }
                     },
                     error: function(error) {
                         console.error('Error:', error);

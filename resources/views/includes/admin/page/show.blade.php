@@ -43,7 +43,11 @@
             <form method="POST">
                 <input type="hidden" name="page_id" value="{{ $page->id }}">
                 @csrf
-                @include('includes.admin.component.ajax.metaTags.edit-meta-form')
+                <div
+                    id="meta-tags-container"
+                    class="meta-tags-container row">
+                        @include('includes.admin.component.ajax.metaTags.edit-meta-form')
+                </div>
             </form>
             {{--            @include('includes.admin.component.ajax.metaTags.create-meta-form')--}}
         </swal-html>

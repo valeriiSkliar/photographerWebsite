@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('component_details', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
-            $table->string('value');
+            $table->string('key')->nullable();
+            $table->string('value')->nullable();
             $table->foreignId('component_id')->constrained('components')->onDelete('cascade');
             $table->timestamps();
         });

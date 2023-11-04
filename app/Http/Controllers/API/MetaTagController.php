@@ -82,8 +82,8 @@ class MetaTagController extends Controller
             'page_id' => 'required|exists:pages,id',
             'metaData' => 'nullable|array',
             'metaData.*.teg_id' => 'required|exists:meta_tags,id',
-            'metaData.*.type_id' => 'required|exists:meta_teg_types,id',
-            'metaData.*.value' => 'required|string|max:255',
+            'metaData.*.type_id' => 'nullable|exists:meta_teg_types,id',
+            'metaData.*.value' => 'nullable|string|max:255',
             'metaData.*.content' => 'required|string|max:255',
         ]);
 
@@ -102,15 +102,24 @@ class MetaTagController extends Controller
 
                 $metaTag->update([
                     'page_id' => $validatedData['page_id'],
-                    'type_id' => $meta['type_id'],
-                    'value' => $meta['value'],
+//                    'type_id' => $meta['type_id'],
+//                    'value' => $meta['value'],
                     'content' => $meta['content']
                 ]);
             }
         }
         $updatedMetaTags = MetaTags::findMany($ids)->keyBy('id');
-
-        return response()->json($updatedMetaTags);
+        $markup = view(
+            'includes.admin.component.ajax.metaTags.edit-meta-form',
+            compact(
+                'updatedMetaTags'
+            ))->render();
+        return response()->json([
+            'success' => true,
+            'updatedMetaTags' =>$updatedMetaTags,
+            'markup' => $markup,
+            'message' => 'Meta tags updated successfully'
+        ]);
     }
 
     /**
@@ -122,4 +131,6 @@ class MetaTagController extends Controller
 
         return response()->json(null, 204);
     }
+
+
 }
