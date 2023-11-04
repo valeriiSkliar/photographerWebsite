@@ -110,12 +110,21 @@
 
                 <div class="row">
 
-                    <div class="col-12 mb-2">
-                        <input type="checkbox" id="selectAll" onchange="selectAllImages()"> <label for="selectAll">Select
-                            All</label>
+                    <div class="checkbox icheck-success col-12 mb-2">
+                        <input type="checkbox" class="image-checkbox"  id="imgAllSelector" onchange="selectAllImages()">
+                        <label for="imgAllSelector" class="user-select-none">Select All</label>
                     </div>
+
+{{--                    <div class="col-12 mb-2">--}}
+{{--                        <input type="checkbox" id="selectAll" onchange="selectAllImages()"> <label for="selectAll">Select--}}
+{{--                            All</label>--}}
+{{--                    </div>--}}
                     @foreach($images as $image)
                         <div class="col-sm-6 col-md-4 mb-3">
+                            <div class="checkbox icheck-success" style="position: absolute; top: 5px; left: 18px;">
+                                <input type="checkbox" class="image-checkbox" data-image-id="{{ $image->id }}" id="imgSelector{{ $image->id }}" name="success{{ $image->id }}">
+                                <label for="imgSelector{{ $image->id }}"></label>
+                            </div>
                             <a href="{{ asset($image->file_url) }}" data-lightbox="all-images"
                                data-title="Best title ever">
                                 <img src="{{ asset($image->file_url) }}" class="fluid img-thumbnail"
@@ -161,8 +170,8 @@
                     {{--                                                @foreach($images as $image)--}}
                     {{--                                                    <div class="col-md-2">--}}
                     {{--                                                        <div class="card">--}}
-                    {{--                                                            <input type="checkbox" class="image-checkbox" data-image-id="{{ $image->id }}"--}}
-                    {{--                                                                   style="position: absolute; top: 5px; left: 5px;">--}}
+                                                                                <input type="checkbox" class="image-checkbox" data-image-id="{{ $image->id }}"
+                                                                                       style="position: absolute; top: 5px; left: 5px;">
 
                     {{--                                                            <img--}}
                     {{--                                                                src="{{ asset($image->file_url) }}"--}}
