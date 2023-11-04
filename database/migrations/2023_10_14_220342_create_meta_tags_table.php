@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->timestamps();
             $table->foreignId('type_id')->nullable()->constrained('meta_teg_types')->onDelete('set null');
             $table->string('value')->nullable();
-            $table->string('content');
+            $table->string('content')->nullable();
             $table->foreignId('page_id')->nullable()->constrained('pages')->onDelete('set null');
         });
     }

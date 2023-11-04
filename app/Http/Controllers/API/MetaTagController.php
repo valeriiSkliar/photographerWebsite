@@ -11,6 +11,8 @@ use App\Models\MetaData\MetaTagsPropertyVariants;
 use App\Models\MetaData\MetaTegType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+use function Laravel\Prompts\error;
 
 class MetaTagController extends Controller
 {
@@ -63,7 +65,7 @@ class MetaTagController extends Controller
      */
     public function update(UpdateMetaTagsRequest $request, MetaTags $metaTags)
     {
-        dd($metaTags, $request);
+//        dd($metaTags, $request);
         $data = $request->validate([
             'type' => 'required|string|max:255',
             'value' => 'nullable|string|max:255',
@@ -78,48 +80,60 @@ class MetaTagController extends Controller
 
     public function updateMetaTagsGroup(Request $request, MetaTags $metaTags)
     {
-        $validatedData = $request->validate([
-            'page_id' => 'required|exists:pages,id',
-            'metaData' => 'nullable|array',
-            'metaData.*.teg_id' => 'required|exists:meta_tags,id',
-            'metaData.*.type_id' => 'nullable|exists:meta_teg_types,id',
-            'metaData.*.value' => 'nullable|string|max:255',
-            'metaData.*.content' => 'required|string|max:255',
-        ]);
+//        dd($request);
+        try {
+            $validatedData = $request->validate([
+                'page_id' => 'required|exists:pages,id',
+                'metaData' => 'nullable|array',
+                'metaData.*.teg_id' => 'required|exists:meta_tags,id',
+                'metaData.*.type_id' => 'required|exists:meta_teg_types,id',
+                'metaData.*.value' => 'required|string|max:255',
+                'metaData.*.content' => 'required|string|max:255',
+            ]);
 
-        if (isset($validatedData['metaData'])) {
-            $ids = Arr::pluck($validatedData['metaData'], 'teg_id');
-            $metaTags = MetaTags::findMany($ids)->keyBy('id');
+            if (isset($validatedData['metaData'])) {
+                $ids = Arr::pluck($validatedData['metaData'], 'teg_id');
+                $metaTags = MetaTags::findMany($ids)->keyBy('id');
 
-            foreach ($validatedData['metaData'] as $meta) {
-                if (!$metaTags->has($meta['teg_id'])) {
-                    continue;
+                foreach ($validatedData['metaData'] as $meta) {
+                    if (!$metaTags->has($meta['teg_id'])) {
+                        continue;
+                    }
+//                    dd($meta);
+                    $metaTag = $metaTags->get($meta['teg_id']);
+
+                    unset($meta['teg_id']);
+
+                    $metaTag->update([
+                        'page_id' => $validatedData['page_id'],
+                        'type_id' => $meta['type_id'],
+                        'value' => $meta['value'],
+                        'content' => $meta['content']
+                    ]);
+
                 }
-
-                $metaTag = $metaTags->get($meta['teg_id']);
-
-                unset($meta['teg_id']);
-
-                $metaTag->update([
-                    'page_id' => $validatedData['page_id'],
-//                    'type_id' => $meta['type_id'],
-//                    'value' => $meta['value'],
-                    'content' => $meta['content']
-                ]);
             }
+            $updatedMetaTags = MetaTags::findMany($ids)->keyBy('id');
+            $markup = view(
+                'includes.admin.component.ajax.metaTags.edit-meta-form',
+                compact(
+                    'updatedMetaTags'
+                ))->render();
+            return response()->json([
+                'success' => true,
+                'updatedMetaTags' => $updatedMetaTags,
+                'markup' => $markup,
+                'message' => 'Meta tags updated successfully'
+            ]);
+
+        } catch (\Exception $e) {
+            return response(
+                [
+                    'error' => true,
+                    'message' => 'Meta tags update error!' . $e->getMessage()
+                ], 500
+            );
         }
-        $updatedMetaTags = MetaTags::findMany($ids)->keyBy('id');
-        $markup = view(
-            'includes.admin.component.ajax.metaTags.edit-meta-form',
-            compact(
-                'updatedMetaTags'
-            ))->render();
-        return response()->json([
-            'success' => true,
-            'updatedMetaTags' =>$updatedMetaTags,
-            'markup' => $markup,
-            'message' => 'Meta tags updated successfully'
-        ]);
     }
 
     /**
@@ -132,5 +146,41 @@ class MetaTagController extends Controller
         return response()->json(null, 204);
     }
 
+
+    public function addNewRow(Request $request)
+    {
+        $type = $request['type'];
+        $typeId = $request['type_id'];
+        $pageId = $request['page_id'];
+        try {
+            $meta_tag = MetaTags::create([
+                'type_id' => $typeId,
+                'page_id' => $pageId
+            ]);
+            $meta_tags = MetaTags::where('page_id', $pageId)->get();
+
+
+            $markup = view(
+                'includes.admin.component.ajax.metaTags.create-meta-form',
+                compact(
+                    'type', 'meta_tags', 'meta_tag'
+                ))->render();
+
+            return response()->json([
+                'success' => true,
+//                'updatedMetaTags' =>$updatedMetaTags,
+                'markup' => $markup,
+                'message' => 'Meta tags updated successfully'
+            ]);
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return response(
+                [
+                    'error' => true,
+                    'message' => 'Error during add new row!' . $exception->getMessage()
+                ], 500
+            );
+        }
+    }
 
 }

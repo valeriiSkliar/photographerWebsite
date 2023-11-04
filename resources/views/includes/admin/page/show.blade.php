@@ -17,15 +17,15 @@
 @endpushonce
 @section('admin.content')
     <style>
-        .swal2-popup {
-            min-width: 80%;
-            min-height: 95%;
-            padding: 2%;
-        }
-        .swal2-html-container {
-            /*!*width: 90%;*!*/
-            /*padding: 10px;*/
-        }
+        /*.swal2-popup {*/
+        /*    min-width: 80%;*/
+        /*    min-height: 95%;*/
+        /*    padding: 2%;*/
+        /*}*/
+        /*.swal2-html-container {*/
+        /*    !*!*width: 90%;*!*!*/
+        /*    !*padding: 10px;*!*/
+        /*}*/
         .meta-tags-container {
             margin: auto;
             width: 95%;
@@ -41,7 +41,9 @@
         </swal-title>
         <swal-html>
             <form method="POST">
-                <input type="hidden" name="page_id" value="{{ $page->id }}">
+                <input
+                    id="currentPageId"
+                    type="hidden" name="page_id" value="{{ $page->id }}">
                 @csrf
                 <div
                     id="meta-tags-container"
@@ -49,9 +51,45 @@
                         @include('includes.admin.component.ajax.metaTags.edit-meta-form')
                 </div>
             </form>
+            <!-- Button to add new row -->
+            <div
+                role="group"
+                aria-label="Button group"
+                class="btn-group">
+                <button
+                    aria-expanded="false"
+                    data-bs-toggle="dropdown"
+                    onclick="event.preventDefault()"
+                    type="button"
+                    class="btn btn-warning dropdown-toggle"
+                >
+                    Add new meta tag.
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <button
+                            data-action="name"
+                            data-type_id="2"
+                            type="button"
+                            class="dropdown-item btn btn-primary"
+                            id="meta-tags-add-name">
+                            Add Name
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            data-action="property"
+                            data-type_id="1"
+                            type="button"
+                            class="dropdown-item btn btn-primary"
+                            id="meta-tags-add-property">
+                            Add Property
+                        </button>
+                    </li>
+                </ul>
+            </div>
             {{--            @include('includes.admin.component.ajax.metaTags.create-meta-form')--}}
         </swal-html>
-        {{--        <swal-icon type="warning" color="red"></swal-icon>--}}
         <swal-button
             id="test"
             type="confirm">

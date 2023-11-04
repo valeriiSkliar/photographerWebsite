@@ -23,15 +23,19 @@ document.addEventListener('DOMContentLoaded', () => {
     $('#showMetaTagsForm').on('click', function () {
         Swal.fire({
             template: '#my-template',
-            imageWidth: 1800,
-            imageHeight: 600,
+            width: '90%',
+            height: 'fit-content',
             didOpen: function(popup) {
+                $('#meta-tags-add-property').off('click').on('click', addMetaTagRow);
+                $('#meta-tags-add-name').off('click').on('click', addMetaTagRow);
+
                 if (updatedMarkup) {
                     const metaTagsContainer = $(popup).find('#meta-tags-container');
                     $(metaTagsContainer).html(updatedMarkup);
+                    // console.log($(popup).find('#meta-tags-add-property'))
                 }
                 // editMetaTagsForm(popup)
-                $('#add-meta-tag').off('click').on('click', addMetaTagRow);
+                // $('#add-meta-tag').off('click').on('click', addMetaTagRow);
 
             },
             willClose:function (popup) {
@@ -70,8 +74,24 @@ document.addEventListener('DOMContentLoaded', () => {
                             });
                         }
                     },
-                    error: function(error) {
-                        console.error('Error:', error);
+                    error: function({responseJSON}) {
+                        console.log(responseJSON)
+
+                        if (responseJSON.error) {
+                            Swal.fire({
+                                position: 'bottom-end',
+                                icon: 'error',
+                                title: 'Error',
+                                text: responseJSON.message,
+                                showConfirmButton: false,
+                                timer: 5000,
+                                toast: true,
+                                background: 'rgba(0,0,0,0)',
+                                padding: '0.5rem',
+                                width: 400,
+                                height:200
+                            });
+                        }
                     }
                 });
             }

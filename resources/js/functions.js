@@ -177,47 +177,30 @@ export function clearFormContainer() {
  }
 
 
- export function addMetaTagRow() {
-     // Get the container where meta tags are held
-     const container = document.querySelector('.meta-tags-container');
+ export function addMetaTagRow({target}) {
+     console.log(target.dataset.type_id)
+     $.ajax({
+         url: `/api/meta-tags-add-${target.dataset.action}`,
+         type: 'POST',
+         data: {
+             type_id: target.dataset.type_id,
+             type: target.dataset.action,
+             page_id:$('#currentPageId')[0].value
+         },
+         success: function(response) {
+             console.log(response)
+             $('#meta-tags-container').append(response.markup);
+             // $(`[data-componentid="${response.component.id}"`).replaceWith(response.markup)
+             // // $('#component_list_table_body').append(response.markup);
+             // clearFormContainer();
+             // // addListenerToLastChildOfTbody()
+             // new Swal(response.message);
+         },
+         error: function(xhr, status, error) {
+             console.error('An error occurred:', error);
+             // const errorMessage = xhr.status + ': ' + xhr.statusText;
+             // new Swal('Error - ' + errorMessage);
+         }
+     });
 
-     // Find the last index used in the name attributes (or -1 if there are no current meta tags)
-     const lastMetaTagIndex = Array.from(container.querySelectorAll('input[name^="metaData["]'))
-         .reduce((lastIndex, input) => {
-             const matches = input.name.match(/\[(\d+)\]/);
-             return matches ? Math.max(lastIndex, parseInt(matches[1], 10)) : lastIndex;
-         }, -1);
-
-     // The index for the new meta tag will be one more than the last index
-     const newIndex = lastMetaTagIndex + 1;
-
-     // Create the new row HTML (adjust according to your needs, especially the names array indexing)
-     const newRowHtml = `
-        <div class="row meta-tag-row">
-            <input value="" name="metaData[${newIndex}][teg_id]" type="hidden">
-            <div class="col-2 mb-2">
-                <!-- Meta type select -->
-                <!-- Repeat your meta tag type select structure here, adjusting the index -->
-            </div>
-            <div class="col-3 mb-2">
-                <!-- Meta value select -->
-                <!-- Repeat your meta tag value select structure here, adjusting the index -->
-            </div>
-            <div class="col-6 mb-2">
-                <!-- Meta content input -->
-                <input class="form-control"
-                       name="metaData[${newIndex}][content]"
-                       placeholder="Input content here!"
-                       type="text">
-            </div>
-            <div class="col-1 mb-2 d-flex align-items-end">
-                <button type="button" class="btn btn-danger delete-meta-tag" data-meta-tag-id="">
-                    x
-                </button>
-            </div>
-        </div>
-    `;
-
-     // Append the new row to the container
-     container.insertAdjacentHTML('beforeend', newRowHtml);
  }

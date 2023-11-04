@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('/meta-tags', MetaTagController::class);
 Route::post('/meta-tags-group', [MetaTagController::class, 'updateMetaTagsGroup']);
+Route::post('/meta-tags-add-{type}', [MetaTagController::class, 'addNewRow']);
 
 Route::group([], function () {
     Route::delete('/component-detail/{id}', [App\Http\Controllers\API\ComponentDetailController::class, 'destroy']);
