@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Bob Builder',
                 'email' => 'bob.builder@example.com',
-                'password' => bcrypt('password'),
+                'password' => 'Roma1234',
                 'email_verified_at' => now(),
                 'remember_token' => \Illuminate\Support\Str::random(10),
             ]

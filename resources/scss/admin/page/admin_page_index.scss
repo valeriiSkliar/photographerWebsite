@@ -1,0 +1,14 @@
+
+.btn-delete {
+    top: 10px;
+    right: 20px;
+    z-index: 100;
+}
+.card {
+    transition: 0.5s;
+}
+
+.card:hover {
+    background-color: #3e2e3f;
+    transform: scale(1.05);
+}

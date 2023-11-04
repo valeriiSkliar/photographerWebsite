@@ -13,14 +13,14 @@
         </div>
         @endif
         @if(isset($contact['phone']))
-        <div class="text_footer">
+        <div class="text_footer phone_mail">
             {{'phone: '.$contact['phone']}}
         </div>
         @endif
     </div>
     <div class="logo_footer">
         <a href="{{ url('/') }}" class="link_logo">
-            <img src="assets/logo/logo_nav.svg" width="90px" height="60px" alt="site name" title="site name">
+            <img src="assets/logo/logo_nav.svg" width="100%" height="100%" alt="site name" title="site name">
         </a>
     </div>
     <div class="data_footer">
@@ -30,7 +30,7 @@
         </div>
         @endif
         @if(isset($contact['email']))
-        <div class="text_footer">
+        <div class="text_footer phone_mail">
             {{'e-mail: '.$contact['email']}}
         </div>
         @endif
