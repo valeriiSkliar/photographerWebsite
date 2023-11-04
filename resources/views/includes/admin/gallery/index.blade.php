@@ -2,7 +2,7 @@
 @pushonce('iframe.style')
     <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="{{asset('AdminLTE/plugins/lightbox2/css/lightbox.min.css')}}">
-    @vite(['resources/scss/admin/gallery/admin_gallery_index.scss']);
+    @vite(['resources/scss/admin/gallery/admin_gallery_index.scss'])
 @endpushonce
 
 @pushonce('iframe.script')
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <h4 class="my-4">Albums</h4>
-                <div class="row">
+                <div class="row position-relative">
                     @foreach($albums as $album)
                         <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
                             <div class="card">
@@ -95,32 +95,28 @@
                     </div>
                 </div>
 
-                <div class="actions mt-4">
+                <div class="d-flex align-items-center form-group actions mt-4" style="gap: 10px">
                     <button class="btn btn-danger" onclick="deleteSelectedImages()">Delete Selected</button>
                     <button class="btn btn-primary" onclick="addToAlbum()">Add to Album</button>
-                    <select id="albumSelect">
-                        <option value="">=== Select album ===</option>
-                        {{--                            @dd($album)--}}
-                        @foreach($albums as $album)
-                            <option value="{{ $album->id }}">{{ $album->title }}</option>
-                        @endforeach
-                    </select>
+
+                        <select class="form-control col-2" id="albumSelect">
+                            <option selected value="">Choose album</option>
+                            @foreach($albums as $album)
+                                <option value="{{ $album->id }}">{{ $album->title }}</option>
+                            @endforeach
+                        </select>
                 </div>
 
 
                 <div class="row">
 
                     <div class="checkbox icheck-success col-12 mb-2">
-                        <input type="checkbox" class="image-checkbox"  id="imgAllSelector" onchange="selectAllImages()">
-                        <label for="imgAllSelector" class="user-select-none">Select All</label>
+                        <input type="checkbox" id="selectAll" onchange="selectAllImages()">
+                        <label for="selectAll" class="user-select-none">Select All</label>
                     </div>
 
-{{--                    <div class="col-12 mb-2">--}}
-{{--                        <input type="checkbox" id="selectAll" onchange="selectAllImages()"> <label for="selectAll">Select--}}
-{{--                            All</label>--}}
-{{--                    </div>--}}
                     @foreach($images as $image)
-                        <div class="col-sm-6 col-md-4 mb-3">
+                        <div class="col-sm-6 col-md-4 mb-3 image_from_all_heaps">
                             <div class="checkbox icheck-success" style="position: absolute; top: 5px; left: 18px;">
                                 <input type="checkbox" class="image-checkbox" data-image-id="{{ $image->id }}" id="imgSelector{{ $image->id }}" name="success{{ $image->id }}">
                                 <label for="imgSelector{{ $image->id }}"></label>
@@ -161,48 +157,8 @@
                                     </form>
                                 </div>
                             </div>
-
-
                         </div>
                     @endforeach
-                    {{--                                        <div class="col-md-12 mb-4">--}}
-                    {{--                                            <div class="row" id="images">--}}
-                    {{--                                                @foreach($images as $image)--}}
-                    {{--                                                    <div class="col-md-2">--}}
-                    {{--                                                        <div class="card">--}}
-                                                                                <input type="checkbox" class="image-checkbox" data-image-id="{{ $image->id }}"
-                                                                                       style="position: absolute; top: 5px; left: 5px;">
-
-                    {{--                                                            <img--}}
-                    {{--                                                                src="{{ asset($image->file_url) }}"--}}
-                    {{--                                                                alt="{{ $image->alt_text }}"--}}
-                    {{--                                                                title="{{ $image->title }}"--}}
-                    {{--                                                                class="card-img-top">--}}
-                    {{--                                                            <div tabindex="0" data-toggle="tooltip"--}}
-                    {{--                                                                 title="Rank: {{ $image->rank }} | Alt: {{ $image->alt_text }} | Status: {{ $image->status }} | Visibility: {{ $image->visibility }}"--}}
-                    {{--                                                                 data-placement="bottom"--}}
-                    {{--                                                                 style="position: absolute; bottom: 5px; right: 5px;">--}}
-                    {{--                                                                <i class="fa fa-info-circle"></i>--}}
-                    {{--                                                            </div>--}}
-
-                    {{--                                                            <!-- Controls -->--}}
-                    {{--                                                            <div class="image-controls" style="position: absolute; top: 5px; right: 5px;">--}}
-                    {{--                                                                <a href="{{ route('images.edit', $image) }}"--}}
-                    {{--                                                                   class="btn btn-sm btn-warning mr-1">Edit</a>--}}
-                    {{--                                                                <form action="{{ route('images.destroy', $image) }}" method="POST"--}}
-                    {{--                                                                      class="d-inline-block">--}}
-                    {{--                                                                    @csrf--}}
-                    {{--                                                                    @method('DELETE')--}}
-                    {{--                                                                    <button type="submit" class="btn btn-sm btn-danger">--}}
-                    {{--                                                                        Delete--}}
-                    {{--                                                                    </button>--}}
-                    {{--                                                                </form>--}}
-                    {{--                                                            </div>--}}
-                    {{--                                                        </div>--}}
-                    {{--                                                    </div>--}}
-                    {{--                                                @endforeach--}}
-                    {{--                                            </div>--}}
-                    {{--                                        </div>--}}
                 </div>
             </div>
         </div>
@@ -242,12 +198,12 @@
                                 showConfirmButton: false,
                                 timer: 3000,
                                 toast: true,
-                                background: 'rgba(0,0,0,0)',
+                                background: '#151515',
                                 padding: '0.5rem',
                             });
 
                             selectedImageCheckboxes.forEach(checkbox => {
-                                const parentCard = checkbox.closest('.col-md-2');
+                                const parentCard = checkbox.closest('.image_from_all_heaps');
                                 if (parentCard) {
                                     parentCard.remove();
                                 }
@@ -261,7 +217,7 @@
                                 showConfirmButton: false,
                                 timer: 3000,
                                 toast: true,
-                                background: 'rgba(0,0,0,0)',
+                                background: '#151515',
                                 padding: '0.5rem',
                             });
                         }
@@ -295,7 +251,7 @@
                                 showConfirmButton: false,
                                 timer: 3000,
                                 toast: true,
-                                background: 'rgba(0,0,0,0)',
+                                background: '#151515',
                                 padding: '0.5rem',
                             });
 
@@ -308,7 +264,7 @@
                                 showConfirmButton: false,
                                 timer: 3000,
                                 toast: true,
-                                background: 'rgba(0,0,0,0)',
+                                background: '#151515',
                                 padding: '0.5rem',
                             });
                         }
@@ -366,7 +322,7 @@
                             showConfirmButton: false,
                             timer: 3000,
                             toast: true,
-                            background: 'rgba(0,0,0,1)',
+                            background: '#151515',
                             padding: '0.5rem',
                         });
                     }
@@ -392,7 +348,7 @@
                         showConfirmButton: false,
                         timer: 3000,
                         toast: true,
-                        background: 'rgba(0,0,0,1)',
+                        background: '#151515',
                         padding: '0.5rem',
                     });
                 } else if (response.error) {
@@ -404,7 +360,7 @@
                         showConfirmButton: false,
                         timer: 3000,
                         toast: true,
-                        background: 'rgba(0,0,0,1)',
+                        background: '#151515',
                         padding: '0.5rem',
                     });
                 }
