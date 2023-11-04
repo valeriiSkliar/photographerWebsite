@@ -4,7 +4,7 @@ const sweetAlertConfigs = {
         showConfirmButton: false,
         timer: 3000,
         toast: true,
-        background: 'rgba(0,0,0,0)',
+        background: '#151515',
         padding: '0.5rem',
     },
     modalGlobal: {
