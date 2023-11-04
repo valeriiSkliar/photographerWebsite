@@ -10,5 +10,6 @@
                 @include('sectionComponents.frontend.'.$name)
 {{--        @endforeach--}}
 {{--    @endif--}}
+
 @endforeach
 @endsection
