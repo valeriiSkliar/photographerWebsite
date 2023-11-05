@@ -17,15 +17,6 @@
 @endpushonce
 @section('admin.content')
     <style>
-        /*.swal2-popup {*/
-        /*    min-width: 80%;*/
-        /*    min-height: 95%;*/
-        /*    padding: 2%;*/
-        /*}*/
-        /*.swal2-html-container {*/
-        /*    !*!*width: 90%;*!*!*/
-        /*    !*padding: 10px;*!*/
-        /*}*/
         .meta-tags-container {
             margin: auto;
             width: 95%;
@@ -47,6 +38,7 @@
                 @csrf
                 <div
                     id="meta-tags-container"
+                    style="display: none"
                     class="meta-tags-container row">
                         @include('includes.admin.component.ajax.metaTags.edit-meta-form')
                 </div>

@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::apiResource('/meta-tags', MetaTagController::class);
+Route::post('/get-meta-list-markup', [MetaTagController::class, 'getMarkUp']);
 Route::post('/meta-tags-group', [MetaTagController::class, 'updateMetaTagsGroup']);
 Route::post('/meta-tags-add-{type}', [MetaTagController::class, 'addNewRow']);
 

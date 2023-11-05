@@ -8,6 +8,7 @@ import {
     addMetaTagRow,
     deleteMetaTag,
     afterModalCloseCheck,
+    getMetaListMarkUp,
 
 } from './functions.js'
 import Swal from "sweetalert2";
@@ -24,19 +25,23 @@ document.addEventListener('DOMContentLoaded', () => {
         Swal.fire({
             template: '#my-template',
             width: '90%',
-            height: 'fit-content',
-            didOpen: function(popup) {
+            // height: 'fit-content',
+            didOpen: async function(popup) {
+                Swal.showLoading();
+                updatedMarkup = await getMetaListMarkUp($('#showMetaTagsForm').data('page'));
+                const metaTagsContainer = $(popup).find('#meta-tags-container');
+                $(metaTagsContainer).html(updatedMarkup.markup);
+                metaTagsContainer.css('display', 'block');
+                Swal.hideLoading();
                 $('#meta-tags-add-property').off('click').on('click', addMetaTagRow);
                 $('#meta-tags-add-name').off('click').on('click', addMetaTagRow);
 
-                if (updatedMarkup) {
-                    const metaTagsContainer = $(popup).find('#meta-tags-container');
-                    $(metaTagsContainer).html(updatedMarkup);
-                    updatedMarkup = null;
-                }else {
+                // if (updatedMarkup) {
+                // getMetaListMarkUp($('#showMetaTagsForm').data('page'));
+                // }else {
                     // const metaTagsContainer = $(popup).find('#meta-tags-container');
                     // if (updatedMarkup) metaTagsContainer.html(updatedMarkup);
-                }
+                // }
                 $(document).off('click').on('click', '.delete-meta-tag', function (event){
                     deleteMetaTag( event, function (htmlContent) {
                         if (htmlContent) {
@@ -50,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             willClose:function (popup) {
                 $('#add-meta-tag').off('click')
                 const metaTagsContainer = $(popup).find('#meta-tags-container');
+                // $(metaTagsContainer).html(updatedMarkup);
                 afterModalCloseCheck(metaTagsContainer);
 
             }
@@ -59,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const serializedData = $(form).serialize();
             if (!result.isConfirmed || result.isConfirmed) {
+                console.log('cansel')
                 const metaTagsContainer = $(popup).find('#meta-tags-container');
                 updatedMarkup = metaTagsContainer.html();
             }
@@ -71,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
+                        console.log(response.updatedMetaTags)
                         updatedMarkup = response.markup;
                         if (response.success) {
                             Swal.fire({
@@ -91,6 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         updatedMarkup = $(metaTagsContainer).html();
                     },
                     error: function({responseJSON}) {
+                        const metaTagsContainer = $(popup).find('#meta-tags-container');
+                        updatedMarkup = metaTagsContainer.html();
                         if (responseJSON.error) {
                             Swal.fire({
                                 position: 'bottom-end',

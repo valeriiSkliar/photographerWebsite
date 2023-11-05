@@ -11,14 +11,11 @@ use App\Models\MetaData\MetaTagsPropertyVariants;
 use App\Models\MetaData\MetaTegType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\error;
 
 class MetaTagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
 //        return MetaTags::find(3);
@@ -34,9 +31,6 @@ class MetaTagController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
 //        dd($request);
@@ -52,20 +46,13 @@ class MetaTagController extends Controller
         return response()->json($metaTag, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(MetaTags $metaTags)
     {
         return response()->json($metaTags);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateMetaTagsRequest $request, MetaTags $metaTags)
     {
-//        dd($metaTags, $request);
         $data = $request->validate([
             'type' => 'required|string|max:255',
             'value' => 'nullable|string|max:255',
@@ -78,9 +65,8 @@ class MetaTagController extends Controller
         return response()->json($metaTags);
     }
 
-    public function updateMetaTagsGroup(Request $request, MetaTags $metaTags)
+    public function updateMetaTagsGroup(Request $request)
     {
-//        dd($request);
         try {
             $validatedData = $request->validate([
                 'page_id' => 'required|exists:pages,id',
@@ -136,12 +122,8 @@ class MetaTagController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-//        dd($id);
         try {
             $metaTag = MetaTags::findOrFail($id);
             if ($metaTag) {
@@ -154,7 +136,7 @@ class MetaTagController extends Controller
                 ], 200
             );
 
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             return response(
                 [
                     'error' => true,
@@ -166,6 +148,31 @@ class MetaTagController extends Controller
 
     }
 
+    public function getMarkUp(Request $request)
+    {
+//
+        $pageId = $request['page_id'];
+//        dd($pageId);
+        $updatedMetaTags = MetaTags::where('page_id', $pageId)->get();
+
+        try {
+            $markup = view(
+                'includes.admin.component.ajax.metaTags.edit-meta-form',
+                compact(
+                    'updatedMetaTags'
+                ))->render();
+            return response()->json([
+                'success' => true,
+                'updatedMetaTags' => $updatedMetaTags,
+                'markup' => $markup,
+                'message' => 'Edit meta tags '
+            ]);
+
+
+        }catch (\Exception $exception) {
+
+        }
+    }
 
     public function addNewRow(Request $request)
     {
@@ -190,10 +197,9 @@ class MetaTagController extends Controller
                 'success' => true,
 //                'updatedMetaTags' =>$updatedMetaTags,
                 'markup' => $markup,
-                'message' => 'Meta tags updated successfully'
+                'message' => 'Add meta tag, input value and content'
             ]);
         } catch (\Exception $exception) {
-            DB::rollBack();
             return response(
                 [
                     'error' => true,

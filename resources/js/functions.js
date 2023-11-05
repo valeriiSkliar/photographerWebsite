@@ -1,4 +1,17 @@
 import Swal from "sweetalert2";
+export function getMetaListMarkUp (page_id) {
+    return $.ajax({
+        url: '/api/get-meta-list-markup',
+        type: 'POST',
+        data: {page_id},
+        success: function(response) {
+            console.log(response)
+        },
+        error: function(xhr, status, error) {
+            console.log(error)
+        }
+    });
+}
 export function loadAddComponentInterface () {
          $('#showAddComponentForm').on('click', function() {
              $.get('/get-component-form', function(data) {
@@ -247,5 +260,5 @@ export function clearFormContainer() {
  }
 
  export function afterModalCloseCheck (form) {
-     console.log(form)
+     // console.log(form)
 }
