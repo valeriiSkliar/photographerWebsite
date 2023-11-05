@@ -9,10 +9,9 @@ import {
     deleteMetaTag,
     afterModalCloseCheck,
     getMetaListMarkUp,
+    formValidation,
 
 } from './functions.js'
-import Swal from "sweetalert2";
-window.Swal = Swal;
 
 
 let updatedMarkup = null;
@@ -23,9 +22,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#showMetaTagsForm').on('click', function () {
         Swal.fire({
+            showCloseButton: false,
+            showCancelButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            focusConfirm: false,
+            preConfirm:() => {
+                const htmlContainer = Swal.getHtmlContainer();
+                const form = $(htmlContainer).find('form');
+                const validation = formValidation(form);
+                if (!validation) {
+                    Swal.showValidationMessage('All fields is required!');
+                    return false;
+                }
+            },
             template: '#my-template',
             width: '90%',
-            // height: 'fit-content',
             didOpen: async function(popup) {
                 Swal.showLoading();
                 updatedMarkup = await getMetaListMarkUp($('#showMetaTagsForm').data('page'));
@@ -33,15 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 $(metaTagsContainer).html(updatedMarkup.markup);
                 metaTagsContainer.css('display', 'block');
                 Swal.hideLoading();
-                $('#meta-tags-add-property').off('click').on('click', addMetaTagRow);
-                $('#meta-tags-add-name').off('click').on('click', addMetaTagRow);
+                $('.add-meta-tags-row').off('click').on('click', addMetaTagRow)
 
-                // if (updatedMarkup) {
-                // getMetaListMarkUp($('#showMetaTagsForm').data('page'));
-                // }else {
-                    // const metaTagsContainer = $(popup).find('#meta-tags-container');
-                    // if (updatedMarkup) metaTagsContainer.html(updatedMarkup);
-                // }
                 $(document).off('click').on('click', '.delete-meta-tag', function (event){
                     deleteMetaTag( event, function (htmlContent) {
                         if (htmlContent) {
@@ -55,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
             willClose:function (popup) {
                 $('#add-meta-tag').off('click')
                 const metaTagsContainer = $(popup).find('#meta-tags-container');
-                // $(metaTagsContainer).html(updatedMarkup);
                 afterModalCloseCheck(metaTagsContainer);
 
             }
@@ -78,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
-                        console.log(response.updatedMetaTags)
                         updatedMarkup = response.markup;
                         if (response.success) {
                             Swal.fire({

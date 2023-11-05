@@ -1,4 +1,21 @@
 import Swal from "sweetalert2";
+
+export function formValidation(form) {
+    let isValid = true;
+
+    $(form).find(':input').each(function() {
+        if ((this.type === "text" || this.type === "textarea" || this.type === "password" || this.type === "email") && !this.value.trim()) {
+            isValid = false;
+            $(this).addClass('is-invalid');
+        }
+
+        if (this.tagName === "SELECT" && !this.value) {
+            isValid = false;
+            $(this).addClass('is-invalid');
+        }
+    });
+
+    return isValid;}
 export function getMetaListMarkUp (page_id) {
     return $.ajax({
         url: '/api/get-meta-list-markup',
@@ -197,19 +214,7 @@ export function clearFormContainer() {
              target.closest('.meta-tag-item').remove();
              const metaTagsContainer = $('#meta-tags-container');
              if (response.success) {
-                 Swal.fire({
-                     position: 'bottom-end',
-                     icon: 'success',
-                     title: 'Success',
-                     text: response.message,
-                     showConfirmButton: false,
-                     timer: 3000,
-                     toast: true,
-                     background: 'rgba(0,0,0,0)',
-                     padding: '0.5rem',
-                     width: 400,
-                     height:200
-                 });
+
              }
              if (typeof callback === 'function') {
                  callback(metaTagsContainer.html());

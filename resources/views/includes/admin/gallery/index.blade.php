@@ -108,7 +108,7 @@
                 </div>
 
 
-                <div class="row">
+                <div id="images" class="row">
 
                     <div class="checkbox icheck-success col-12 mb-2">
                         <input type="checkbox" id="selectAll" onchange="selectAllImages()">

@@ -85,13 +85,13 @@
                 </div>
                 <!-- Delete button for the row -->
                 <div class="col-1 mb-2 d-flex align-items-end justify-content-center">
-                    <button
+                    <p
                         onclick="event.preventDefault()"
                         type="button"
                         class="btn btn-danger delete-meta-tag"
                         data-meta_tag_id="{{ $meta_tag->id }}">
                         x
-                    </button>
+                    </p>
                 </div>
             </div>
         </div>
