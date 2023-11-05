@@ -1,11 +1,9 @@
 import Swal from "sweetalert2";
 export function loadAddComponentInterface () {
-     // $(document).ready(function() {
          $('#showAddComponentForm').on('click', function() {
              $.get('/get-component-form', function(data) {
                  $('#formContainer').html(data.markup);
              });
-         // });
      });
  }
 export function clearFormContainer() {
@@ -162,7 +160,6 @@ export function clearFormContainer() {
              new Swal(response.message);
          },
          error: function(xhr, status, error) {
-             // console.error('An error occurred:', error);
              const errorMessage = xhr.status + ': ' + xhr.statusText;
              new Swal('Error - ' + errorMessage);
          }
@@ -181,7 +178,7 @@ export function clearFormContainer() {
          url: `/api/meta-tags/${metaTagId}`,
          type: 'DELETE',
          headers: {
-             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token, if needed
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
          },
          success: function(response) {
              target.closest('.meta-tag-item').remove();
