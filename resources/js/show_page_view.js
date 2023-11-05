@@ -6,17 +6,19 @@ import {
     initialListenersTbody,
     submitForm,
     addMetaTagRow,
+    deleteMetaTag,
+    afterModalCloseCheck,
 
 } from './functions.js'
 import Swal from "sweetalert2";
 window.Swal = Swal;
 
 
+let updatedMarkup = null;
+
 document.addEventListener('DOMContentLoaded', () => {
 
-    let updatedMarkup = null;
-
-    $('#add-meta-tag').on('click', addMetaTagRow);
+    // $('#add-meta-tag').on('click', addMetaTagRow);
 
     const addComponent = document.getElementById('showAddComponentForm');
 
@@ -32,23 +34,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (updatedMarkup) {
                     const metaTagsContainer = $(popup).find('#meta-tags-container');
                     $(metaTagsContainer).html(updatedMarkup);
-                    // console.log($(popup).find('#meta-tags-add-property'))
+                    updatedMarkup = null;
                 }
+                $(document).off('click').on('click', '.delete-meta-tag', function (event){
+                    const deletionResult = deleteMetaTag( event, function (htmlContent) {
+                        // console.log(htmlContent)
+                        if (htmlContent) {
+                            updatedMarkup = htmlContent;
+                        }
+                    });
+
+                });
                 // editMetaTagsForm(popup)
                 // $('#add-meta-tag').off('click').on('click', addMetaTagRow);
 
             },
             willClose:function (popup) {
                 $('#add-meta-tag').off('click')
+                const metaTagsContainer = $(popup).find('#meta-tags-container');
+                afterModalCloseCheck(metaTagsContainer);
 
             }
         }).then(result => {
             const popup = Swal.getPopup();
             const form = popup.querySelector('form');
-            const serializedData = $(form).serialize();
-            // console.log(serializedData)
-            if (result.isConfirmed) {
 
+            const serializedData = $(form).serialize();
+            console.log(serializedData)
+            if (!result.isConfirmed) {
+                const metaTagsContainer = $(popup).find('#meta-tags-container');
+                updatedMarkup = metaTagsContainer.html();
+            }
+            if (result.isConfirmed) {
                 $.ajax({
                     url: '/api/meta-tags-group',
                     type: 'POST',
@@ -75,8 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     },
                     error: function({responseJSON}) {
-                        console.log(responseJSON)
-
                         if (responseJSON.error) {
                             Swal.fire({
                                 position: 'bottom-end',

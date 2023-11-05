@@ -139,11 +139,31 @@ class MetaTagController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MetaTags $metaTags)
+    public function destroy($id)
     {
-        $metaTags->delete();
+//        dd($id);
+        try {
+            $metaTag = MetaTags::findOrFail($id);
+            if ($metaTag) {
+                $metaTag->delete();
+            }
+            return response(
+                [
+                    'success' => true,
+                    'message' => 'Meta tag delete successfully!'
+                ], 200
+            );
 
-        return response()->json(null, 204);
+        }catch (\Exception $exception) {
+            return response(
+                [
+                    'error' => true,
+                    'message' => 'Meta tag delete error!' . $exception->getMessage()
+                ], 204
+            );
+        }
+
+
     }
 
 

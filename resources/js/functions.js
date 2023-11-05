@@ -1,4 +1,5 @@
- export function loadAddComponentInterface () {
+import Swal from "sweetalert2";
+export function loadAddComponentInterface () {
      // $(document).ready(function() {
          $('#showAddComponentForm').on('click', function() {
              $.get('/get-component-form', function(data) {
@@ -157,9 +158,7 @@ export function clearFormContainer() {
          data: formData,
          success: function(response) {
              $(`[data-componentid="${response.component.id}"`).replaceWith(response.markup)
-             // $('#component_list_table_body').append(response.markup);
              clearFormContainer();
-             // addListenerToLastChildOfTbody()
              new Swal(response.message);
          },
          error: function(xhr, status, error) {
@@ -176,9 +175,60 @@ export function clearFormContainer() {
      submitComponentForm();
  }
 
+ export function deleteMetaTag({target}, callback) {
+     const metaTagId = $(target).data('meta_tag_id');
+     return $.ajax({
+         url: `/api/meta-tags/${metaTagId}`,
+         type: 'DELETE',
+         headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token, if needed
+         },
+         success: function(response) {
+             target.closest('.meta-tag-item').remove();
+             const metaTagsContainer = $('#meta-tags-container');
+             if (response.success) {
+                 Swal.fire({
+                     position: 'bottom-end',
+                     icon: 'success',
+                     title: 'Success',
+                     text: response.message,
+                     showConfirmButton: false,
+                     timer: 3000,
+                     toast: true,
+                     background: 'rgba(0,0,0,0)',
+                     padding: '0.5rem',
+                     width: 400,
+                     height:200
+                 });
+             }
+             if (typeof callback === 'function') {
+                 callback(metaTagsContainer.html());
+             }
+         },
+         error: function(xhr, status, error) {
+             if (error) {
+                 Swal.fire({
+                     position: 'bottom-end',
+                     icon: 'error',
+                     title: 'Error',
+                     text: error,
+                     showConfirmButton: false,
+                     timer: 5000,
+                     toast: true,
+                     background: 'rgba(0,0,0,0)',
+                     padding: '0.5rem',
+                     width: 400,
+                     height:200
+                 });
+             }
+             if (typeof callback === 'function') {
+                 callback(null);
+             }
+         }
+     });
+ }
 
  export function addMetaTagRow({target}) {
-     console.log(target.dataset.type_id)
      $.ajax({
          url: `/api/meta-tags-add-${target.dataset.action}`,
          type: 'POST',
@@ -188,19 +238,17 @@ export function clearFormContainer() {
              page_id:$('#currentPageId')[0].value
          },
          success: function(response) {
-             console.log(response)
              $('#meta-tags-container').append(response.markup);
-             // $(`[data-componentid="${response.component.id}"`).replaceWith(response.markup)
-             // // $('#component_list_table_body').append(response.markup);
-             // clearFormContainer();
-             // // addListenerToLastChildOfTbody()
-             // new Swal(response.message);
+
          },
          error: function(xhr, status, error) {
              console.error('An error occurred:', error);
-             // const errorMessage = xhr.status + ': ' + xhr.statusText;
-             // new Swal('Error - ' + errorMessage);
+
          }
      });
 
  }
+
+ export function afterModalCloseCheck (form) {
+     console.log(form)
+}
