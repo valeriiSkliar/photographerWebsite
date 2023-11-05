@@ -3,7 +3,7 @@
     <div class="about_title title_3">
         {{$details[0]->value}}
     </div>
-    <div class="about_text text_1">
+    <div class="about_text text_3">
         @foreach($details as $text)
             @continue($loop->first)
             <p>
