@@ -18,8 +18,6 @@ let updatedMarkup = null;
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // $('#add-meta-tag').on('click', addMetaTagRow);
-
     const addComponent = document.getElementById('showAddComponentForm');
 
     $('#showMetaTagsForm').on('click', function () {
@@ -35,18 +33,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     const metaTagsContainer = $(popup).find('#meta-tags-container');
                     $(metaTagsContainer).html(updatedMarkup);
                     updatedMarkup = null;
+                }else {
+                    // const metaTagsContainer = $(popup).find('#meta-tags-container');
+                    // if (updatedMarkup) metaTagsContainer.html(updatedMarkup);
                 }
                 $(document).off('click').on('click', '.delete-meta-tag', function (event){
-                    const deletionResult = deleteMetaTag( event, function (htmlContent) {
-                        // console.log(htmlContent)
+                    deleteMetaTag( event, function (htmlContent) {
                         if (htmlContent) {
                             updatedMarkup = htmlContent;
                         }
                     });
 
                 });
-                // editMetaTagsForm(popup)
-                // $('#add-meta-tag').off('click').on('click', addMetaTagRow);
 
             },
             willClose:function (popup) {
@@ -60,8 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const form = popup.querySelector('form');
 
             const serializedData = $(form).serialize();
-            console.log(serializedData)
-            if (!result.isConfirmed) {
+            if (!result.isConfirmed || result.isConfirmed) {
                 const metaTagsContainer = $(popup).find('#meta-tags-container');
                 updatedMarkup = metaTagsContainer.html();
             }
@@ -90,6 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 height:200
                             });
                         }
+                        const metaTagsContainer = $('#meta-tags-container');
+                        updatedMarkup = $(metaTagsContainer).html();
                     },
                     error: function({responseJSON}) {
                         if (responseJSON.error) {
@@ -131,6 +130,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     initialListenersTbody();
-    // addComponent.addEventListener('click' , loadAddComponentInterface)
 });
 
