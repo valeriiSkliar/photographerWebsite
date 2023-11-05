@@ -99,16 +99,16 @@
                     <button class="btn btn-danger" onclick="deleteSelectedImages()">Delete Selected</button>
                     <button class="btn btn-primary" onclick="addToAlbum()">Add to Album</button>
 
-                        <select class="form-control col-2" id="albumSelect">
-                            <option selected value="">Choose album</option>
-                            @foreach($albums as $album)
-                                <option value="{{ $album->id }}">{{ $album->title }}</option>
-                            @endforeach
-                        </select>
+                    <select class="form-control col-2" id="albumSelect">
+                        <option selected value="">Choose album</option>
+                        @foreach($albums as $album)
+                            <option value="{{ $album->id }}">{{ $album->title }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
 
-                <div id="images" class="row">
+                <div class="row" id="images">
 
                     <div class="checkbox icheck-success col-12 mb-2">
                         <input type="checkbox" id="selectAll" onchange="selectAllImages()">
@@ -118,7 +118,8 @@
                     @foreach($images as $image)
                         <div class="col-sm-6 col-md-4 mb-3 image_from_all_heaps">
                             <div class="checkbox icheck-success" style="position: absolute; top: 5px; left: 18px;">
-                                <input type="checkbox" class="image-checkbox" data-image-id="{{ $image->id }}" id="imgSelector{{ $image->id }}" name="success{{ $image->id }}">
+                                <input type="checkbox" class="image-checkbox" data-image-id="{{ $image->id }}"
+                                       id="imgSelector{{ $image->id }}" name="success{{ $image->id }}">
                                 <label for="imgSelector{{ $image->id }}"></label>
                             </div>
                             <a href="{{ asset($image->file_url) }}" data-lightbox="all-images"
@@ -142,8 +143,8 @@
                                      style="min-width: auto; background-color: unset; border: unset; box-shadow: unset;">
                                     <a
                                         href="{{ route('images.edit', $image) }}"
-                                       class="dropdown-item text-center m-0 p-0"
-                                       style="background-color: unset; border: unset"
+                                        class="dropdown-item text-center m-0 p-0"
+                                        style="background-color: unset; border: unset"
                                     >
                                         <i class="fas fa-edit"></i>
                                     </a>
@@ -426,11 +427,56 @@
                     deleteBtn.textContent = 'Delete';
                     deleteForm.appendChild(deleteBtn);
 
-                    imageControlsDiv.appendChild(deleteForm);
-                    cardDiv.appendChild(imageControlsDiv);
+                    // imageControlsDiv.appendChild(deleteForm);
+                    // cardDiv.appendChild(imageControlsDiv);
+                    //
+                    // newImageBlock.appendChild(cardDiv);
+                    // albumBlock.appendChild(newImageBlock);
 
-                    newImageBlock.appendChild(cardDiv);
-                    albumBlock.appendChild(newImageBlock);
+                    albumBlock.insertAdjacentHTML('beforeend', `
+                        <div class="col-sm-6 col-md-4 mb-3 image_from_all_heaps">
+                            <div class="checkbox icheck-success" style="position: absolute; top: 5px; left: 18px;">
+                                <input type="checkbox" class="image-checkbox" data-image-id="${imageResponse.id}" id="imgSelector${imageResponse.id}" name="success${imageResponse.id}">
+                                <label for="imgSelector${imageResponse.id}"></label>
+                            </div>
+                            <a href="${imageResponse.file_url}" data-lightbox="all-images"
+                               data-title="Best title ever">
+                                <img src="${imageResponse.file_url}" class="fluid img-thumbnail"
+                                     alt="${imageResponse.alt_text}" title="${imageResponse.title}">
+                            </a>
+                            <!-- Controls -->
+                            <div class="btn-group image-controls">
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-warning p-0"
+                                    data-toggle="dropdown"
+                                    data-offset="-1, 0"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                >
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right m-0 p-0 mt-2"
+                                     style="min-width: auto; background-color: unset; border: unset; box-shadow: unset;">
+                                    <a
+                                        href="/admin/images/${imageResponse.id}/edit"
+                                       class="dropdown-item text-center m-0 p-0"
+                                       style="background-color: unset; border: unset"
+                                    >
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form action="/admin/images/${imageResponse.id}" method="POST"
+                                          class="dropdown-item text-center m-0 p-0 mt-2">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class=" btn-delete text-center p-0">
+                                             <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    `);
                 }
             }
 
