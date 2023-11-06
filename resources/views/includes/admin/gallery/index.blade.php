@@ -369,114 +369,114 @@
                     const albumBlock = document.getElementById('images');
 
                     const imageResponse = JSON.parse(response.image);
+                    const containerDiv = document.createElement('div');
+                    containerDiv.classList.add('col-sm-6', 'col-md-4', 'mb-3', 'image_from_all_heaps');
 
-                    const newImageBlock = document.createElement('div');
-                    newImageBlock.classList.add('col-lg-2', 'col-md-4', 'col-sm-6', 'mb-4');
+                    const checkboxDiv = document.createElement('div');
+                    checkboxDiv.classList.add('checkbox', 'icheck-success');
+                    checkboxDiv.style.position = 'absolute';
+                    checkboxDiv.style.top = '5px';
+                    checkboxDiv.style.left = '18px';
 
-                    const cardDiv = document.createElement('div');
-                    cardDiv.classList.add('card');
+                    const checkboxInput = document.createElement('input');
+                    checkboxInput.type = 'checkbox';
+                    checkboxInput.classList.add('image-checkbox');
+                    checkboxInput.dataset.imageId = imageResponse.id;
+                    checkboxInput.id = `imgSelector${imageResponse.id}`;
+                    checkboxInput.name = `success${imageResponse.id}`;
 
-                    const checkbox = document.createElement('input');
-                    checkbox.type = "checkbox";
-                    checkbox.classList.add('image-checkbox');
-                    checkbox.dataset.imageId = imageResponse.id;
-                    checkbox.style.position = "absolute";
-                    checkbox.style.top = "5px";
-                    checkbox.style.left = "5px";
-                    cardDiv.appendChild(checkbox);
+                    const checkboxLabel = document.createElement('label');
+                    checkboxLabel.htmlFor = `imgSelector${imageResponse.id}`;
 
-                    const imgTag = document.createElement('img');
-                    imgTag.src = imageResponse.file_url;
-                    imgTag.alt = imageResponse.alt_text;
-                    imgTag.title = imageResponse.title;
-                    imgTag.classList.add('card-img-top');
-                    cardDiv.appendChild(imgTag);
+                    checkboxDiv.appendChild(checkboxInput);
+                    checkboxDiv.appendChild(checkboxLabel);
 
-                    const imageControlsDiv = document.createElement('div');
-                    imageControlsDiv.classList.add('image-controls');
-                    imageControlsDiv.style.position = "absolute";
-                    imageControlsDiv.style.top = "5px";
-                    imageControlsDiv.style.right = "5px";
+                    const anchorElement = document.createElement('a');
+                    anchorElement.href = imageResponse.file_url;
+                    anchorElement.setAttribute('data-lightbox', 'all-images');
+                    anchorElement.setAttribute('data-title', 'Best title ever');
 
-                    const editBtn = document.createElement('a');
-                    editBtn.href = `/admin/images/${imageResponse.id}/edit`;
-                    editBtn.classList.add('btn', 'btn-sm', 'btn-warning', 'mr-1');
-                    editBtn.textContent = 'Edit';
-                    imageControlsDiv.appendChild(editBtn);
+                    const imgElement = document.createElement('img');
+                    imgElement.src = imageResponse.file_url;
+                    imgElement.classList.add('fluid', 'img-thumbnail');
+                    imgElement.alt = imageResponse.alt_text;
+                    imgElement.title = imageResponse.title;
+
+                    anchorElement.appendChild(imgElement);
+
+                    const controlsDiv = document.createElement('div');
+                    controlsDiv.classList.add('btn-group', 'image-controls');
+
+                    const controlsButton = document.createElement('button');
+                    controlsButton.type = 'button';
+                    controlsButton.classList.add('btn', 'btn-sm', 'btn-outline-warning', 'p-0');
+                    controlsButton.setAttribute('data-toggle', 'dropdown');
+                    controlsButton.setAttribute('data-offset', '-1, 0');
+                    controlsButton.setAttribute('aria-haspopup', 'true');
+                    controlsButton.setAttribute('aria-expanded', 'false');
+
+                    const controlsIcon = document.createElement('i');
+                    controlsIcon.classList.add('fas', 'fa-ellipsis-h');
+
+                    controlsButton.appendChild(controlsIcon);
+
+                    const dropdownMenu = document.createElement('div');
+                    dropdownMenu.classList.add('dropdown-menu', 'dropdown-menu-right', 'm-0', 'p-0', 'mt-2');
+                    dropdownMenu.style.minWidth = 'auto';
+                    dropdownMenu.style.backgroundColor = 'unset';
+                    dropdownMenu.style.border = 'unset';
+                    dropdownMenu.style.boxShadow = 'unset';
+
+                    const editLink = document.createElement('a');
+                    editLink.href = `/admin/images/${imageResponse.id}/edit`;
+                    editLink.classList.add('dropdown-item', 'text-center', 'm-0', 'p-0');
+                    editLink.style.backgroundColor = 'unset';
+                    editLink.style.border = 'unset';
+
+                    const editIcon = document.createElement('i');
+                    editIcon.classList.add('fas', 'fa-edit');
+
+                    editLink.appendChild(editIcon);
 
                     const deleteForm = document.createElement('form');
                     deleteForm.action = `/admin/images/${imageResponse.id}`;
-                    deleteForm.method = "POST";
-                    deleteForm.classList.add('d-inline-block');
+                    deleteForm.method = 'POST';
+                    deleteForm.classList.add('dropdown-item', 'text-center', 'm-0', 'p-0', 'mt-2');
 
-                    const csrfInput = document.createElement('input');
-                    csrfInput.type = "hidden";
-                    csrfInput.name = "_token";
-                    csrfInput.value = "{{ csrf_token() }}";
-                    deleteForm.appendChild(csrfInput);
+                    const csrfToken = document.createElement('input');
+                    csrfToken.type = 'hidden';
+                    csrfToken.name = '_token';
+                    csrfToken.value = '{{ csrf_token() }}'; // Replace with the actual CSRF token
 
                     const deleteMethodInput = document.createElement('input');
                     deleteMethodInput.type = "hidden";
                     deleteMethodInput.name = "_method";
                     deleteMethodInput.value = "DELETE";
+
+                    const deleteButton = document.createElement('button');
+                    deleteButton.type = 'submit';
+                    deleteButton.classList.add('btn-delete', 'text-center', 'p-0');
+
+                    const deleteIcon = document.createElement('i');
+                    deleteIcon.classList.add('fas', 'fa-trash-alt');
+
+                    deleteButton.appendChild(deleteIcon);
+
+                    deleteForm.appendChild(csrfToken);
                     deleteForm.appendChild(deleteMethodInput);
+                    deleteForm.appendChild(deleteButton);
 
-                    const deleteBtn = document.createElement('button');
-                    deleteBtn.type = "submit";
-                    deleteBtn.classList.add('btn', 'btn-sm', 'btn-danger');
-                    deleteBtn.textContent = 'Delete';
-                    deleteForm.appendChild(deleteBtn);
+                    dropdownMenu.appendChild(editLink);
+                    dropdownMenu.appendChild(deleteForm);
 
-                    // imageControlsDiv.appendChild(deleteForm);
-                    // cardDiv.appendChild(imageControlsDiv);
-                    //
-                    // newImageBlock.appendChild(cardDiv);
-                    // albumBlock.appendChild(newImageBlock);
+                    controlsDiv.appendChild(controlsButton);
+                    controlsDiv.appendChild(dropdownMenu);
 
-                    albumBlock.insertAdjacentHTML('beforeend', `
-                        <div class="col-sm-6 col-md-4 mb-3 image_from_all_heaps">
-                            <div class="checkbox icheck-success" style="position: absolute; top: 5px; left: 18px;">
-                                <input type="checkbox" class="image-checkbox" data-image-id="${imageResponse.id}" id="imgSelector${imageResponse.id}" name="success${imageResponse.id}">
-                                <label for="imgSelector${imageResponse.id}"></label>
-                            </div>
-                            <a href="${imageResponse.file_url}" data-lightbox="all-images"
-                               data-title="Best title ever">
-                                <img src="${imageResponse.file_url}" class="fluid img-thumbnail"
-                                     alt="${imageResponse.alt_text}" title="${imageResponse.title}">
-                            </a>
-                            <!-- Controls -->
-                            <div class="btn-group image-controls">
-                                <button
-                                    type="button"
-                                    class="btn btn-sm btn-outline-warning p-0"
-                                    data-toggle="dropdown"
-                                    data-offset="-1, 0"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                >
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right m-0 p-0 mt-2"
-                                     style="min-width: auto; background-color: unset; border: unset; box-shadow: unset;">
-                                    <a
-                                        href="/admin/images/${imageResponse.id}/edit"
-                                       class="dropdown-item text-center m-0 p-0"
-                                       style="background-color: unset; border: unset"
-                                    >
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <form action="/admin/images/${imageResponse.id}" method="POST"
-                                          class="dropdown-item text-center m-0 p-0 mt-2">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class=" btn-delete text-center p-0">
-                                             <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    `);
+                    containerDiv.appendChild(checkboxDiv);
+                    containerDiv.appendChild(anchorElement);
+                    containerDiv.appendChild(controlsDiv);
+
+                    albumBlock.appendChild(containerDiv);
                 }
             }
 
