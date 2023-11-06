@@ -1,15 +1,17 @@
-{{--<template>--}}
+
+{{----}}
+
 <div class="col-12">
-    <div class="meta-tag-item row">
+    <div class="meta-tag-item border border-warning border-1 mb-2 p-2 row">
         <input value="{{ $meta_tag->id }}"
                name="metaData[{{count($meta_tags) }}][teg_id]"
                type="hidden">
-        <div class="col-2 mb-2">
-            <label for=`typeSelect-{{ count($meta_tags) }}`>Meta type:</label>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-2">
+            <label for="typeSelect-{{ count($meta_tags) }}">Meta type:</label>
             <select
                 disabled
-                name=`metaData[{{ count($meta_tags) }}][type_id]`
-                id=`typeSelect-{{ count($meta_tags) }}`
+                name="metaData[{{ count($meta_tags) }}][type_id]"
+                id="typeSelect-{{ count($meta_tags) }}"
                 class="typeSelect form-control {{$meta_tag->type->type ? 'is-valid' : ''}}">
                 <option>Select type</option>
                 @if($metaTagTypes)
@@ -28,10 +30,8 @@
             @endif
         </div>
 
-        <div class="col-3 mb-2">
-            <label for="valueSelect-{{ count($meta_tags) }}">
-                Meta value:
-            </label>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2">
+            <label for="valueSelect-{{ count($meta_tags) }}">Meta value:</label>
             <select
                 name="metaData[{{ count($meta_tags) }}][value]"
                 id="valueSelect-{{ count($meta_tags) }}"
@@ -42,7 +42,6 @@
                 @endphp
                 @foreach($selectOptions as $selectOption)
                     <option
-                        {{--                            data-type="{{ $selectOption[$meta_tag->type->type] }}"--}}
                         @if($meta_tag->type)
                             {{ $selectOption[$meta_tag->type->type] == $meta_tag->value ? 'selected' : ''}}
                         @endif
@@ -58,7 +57,7 @@
             @endif
         </div>
 
-        <div class="col-6 mb-2">
+        <div class="col-12 col-md-8 col-lg-6 mb-2">
             <label for="content-{{ count($meta_tags) }}">Meta content:</label>
             <input
                 class="form-control"
@@ -67,7 +66,7 @@
                 placeholder="input content here!"
                 type="text">
         </div>
-        <div class="col-1 mb-2 d-flex align-items-end justify-content-center">
+        <div class="col-12 col-md-4 col-lg-1 mb-2 d-flex align-items-end justify-content-center">
             <button
                 onclick="event.preventDefault()"
                 id="deleteNewMetaRow"
@@ -79,4 +78,3 @@
         </div>
     </div>
 </div>
-{{--</template>--}}

@@ -21,7 +21,6 @@ export function formValidation(form) {
         }
 
         if (this.tagName === "SELECT" && !this.value) {
-            console.log('select')
             isValid = false;
             $(this).addClass('is-invalid');
         }
@@ -64,7 +63,6 @@ export function clearFormContainer() {
  export  function addDetailFields() {
      const componentDetailsContainer = document.getElementById('component-details');
      let detailCount = counter();
-     console.log(detailCount)
      const newDetailDiv = document.createElement('div');
      newDetailDiv.className = 'component-detail';
 

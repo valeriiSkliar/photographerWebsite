@@ -64,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 });
                 $(form).off('change input').on('change input', ':input', function({target} ) {
-                    console.log(target)
                     $(target).removeClass('is-invalid');
                     $(target).addClass('is-valid');
 
@@ -93,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const serializedData = $(form).serialize();
             if (!result.isConfirmed || result.isConfirmed) {
-                console.log('cansel')
                 const metaTagsContainer = $(popup).find('#meta-tags-container');
                 updatedMarkup = metaTagsContainer.html();
             }
