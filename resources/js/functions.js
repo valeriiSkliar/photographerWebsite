@@ -1,5 +1,16 @@
 import Swal from "sweetalert2";
 
+export function isFormValid(form) {
+    let allFilled = true;
+    $(form).find(':input').each(function() {
+        if ($(this).val() === "" && $(this).attr('type') !== 'hidden') {
+            allFilled = false;
+            return false;
+        }
+    });
+    return allFilled;
+}
+
 export function formValidation(form) {
     let isValid = true;
 
@@ -10,19 +21,21 @@ export function formValidation(form) {
         }
 
         if (this.tagName === "SELECT" && !this.value) {
+            console.log('select')
             isValid = false;
             $(this).addClass('is-invalid');
         }
     });
 
-    return isValid;}
+    return isValid;
+}
 export function getMetaListMarkUp (page_id) {
     return $.ajax({
         url: '/api/get-meta-list-markup',
         type: 'POST',
         data: {page_id},
         success: function(response) {
-            console.log(response)
+            // console.log(response)
         },
         error: function(xhr, status, error) {
             console.log(error)

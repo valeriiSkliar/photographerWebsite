@@ -10,7 +10,7 @@
                 disabled
                 name=`metaData[{{ count($meta_tags) }}][type_id]`
                 id=`typeSelect-{{ count($meta_tags) }}`
-                class="typeSelect form-control">
+                class="typeSelect form-control {{$meta_tag->type->type ? 'is-valid' : ''}}">
                 <option>Select type</option>
                 @if($metaTagTypes)
                     @foreach($metaTagTypes as $metaTagType)

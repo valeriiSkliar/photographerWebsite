@@ -17,7 +17,7 @@
                         disabled
                         name="metaData[{{ $loop->index }}][type_id]"
                         id="typeSelect-{{ $loop->index }}"
-                        class="typeSelect form-control">
+                        class="typeSelect form-control {{$meta_tag->type->type ? 'is-valid' : ''}}">
                         <option>Select type</option>
                         @if(isset($metaTagTypes))
                             @foreach($metaTagTypes as $metaTagType)
@@ -50,8 +50,8 @@
                         {{$meta_tag->value ? 'disabled' : ''}}
                         name="metaData[{{$loop->index}}][value]"
                         id="valueSelect-{{ $loop->index }}"
-                        class="valueSelect form-control">
-                        <option>Select value</option>
+                        class="valueSelect form-control {{$meta_tag->value ? 'is-valid' : ''}}">
+                        <option value="" >Select value</option>
                         @foreach($selectOptions as $selectOption)
                             <option
                                 {{--                            data-type="{{ $selectOption[$meta_tag->type->type] }}"--}}
@@ -77,7 +77,7 @@
                         Meta content:
                     </label>
                     <input value="{{ $meta_tag->content }}"
-                           class="form-control"
+                           class="form-control {{$meta_tag->content ? 'is-valid' : ''}}"
                            id="content-{{ $loop->index }}"
                            name="metaData[{{$loop->index}}][content]"
                            placeholder="Input content here!"

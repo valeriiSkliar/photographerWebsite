@@ -10,8 +10,10 @@ import {
     afterModalCloseCheck,
     getMetaListMarkUp,
     formValidation,
+    isFormValid,
 
 } from './functions.js'
+import Swal from "sweetalert2";
 
 
 let updatedMarkup = null;
@@ -43,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 Swal.showLoading();
                 updatedMarkup = await getMetaListMarkUp($('#showMetaTagsForm').data('page'));
                 const metaTagsContainer = $(popup).find('#meta-tags-container');
+                const form = $(popup).find('form');
                 $(metaTagsContainer).html(updatedMarkup.markup);
                 metaTagsContainer.css('display', 'block');
                 Swal.hideLoading();
@@ -52,11 +55,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     deleteMetaTag( event, function (htmlContent) {
                         if (htmlContent) {
                             updatedMarkup = htmlContent;
+                            Swal.showValidationMessage('Meta teg delete successfully!');
+                            setTimeout(() => {
+                                Swal.resetValidationMessage();
+                            }, 2000)
                         }
                     });
 
                 });
+                $(form).off('change input').on('change input', ':input', function({target} ) {
+                    console.log(target)
+                    $(target).removeClass('is-invalid');
+                    $(target).addClass('is-valid');
 
+                    const validation = formValidation(form)
+                    if (validation) {
+                        Swal.resetValidationMessage();
+                    }
+                    // console.dir(form[0].elements)
+                    // console.dir(form[0].form)
+                    // if (isFormValid(form)) {
+                    //     $('#submitBtn').prop('disabled', false);
+                    // } else {
+                    //     $('#submitBtn').prop('disabled', true);
+                    // }
+                });
             },
             willClose:function (popup) {
                 $('#add-meta-tag').off('click')
