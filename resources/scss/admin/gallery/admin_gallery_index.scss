@@ -1,3 +1,124 @@
+/* dropZone */
+.dropzone .dz-preview.dz-image-preview {
+    background: unset;
+}
+
+.fileuploader {
+    position: relative;
+    height: 200px;
+    border: 4px dashed #54b98f;
+    background: #f6f6f6;
+}
+
+.fileuploader #upload-label{
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer;
+}
+.fileuploader.active{
+    background: #fff;
+}
+
+.fileuploader.active #upload-label{
+    color: #e7615c;
+}
+
+.fileuploader #upload-label{
+    pointer-events: none;
+    color: #444;
+}
+
+.fileuploader #upload-label span.title{
+    font-size: 1em;
+    font-weight: bolder;
+    display: block;
+}
+
+span.tittle {
+    position: relative;
+    top: 75px;
+    color: #bdbdbd;
+}
+
+.fileuploader #upload-label i{
+    text-align: center;
+    display: block;
+    font-size: 5rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transition: 0.5s;
+}
+
+.fileuploader:hover #upload-label{
+    color: #e7615c;
+    transition: 0.5s;
+}
+///** Preview of collections of uploaded documents **/
+//.preview-container{
+//    position: relative;
+//    bottom: 0px;
+//    width: 35%;
+//    margin: auto;
+//    top: 25px;
+//    visibility: hidden;
+//}
+//.preview-container #previews{
+//    max-height: 400px;
+//    overflow: auto;
+//}
+//.preview-container #previews .zdrop-info{
+//    width: 88%;
+//    margin-right: 2%;
+//}
+//.preview-container #previews.collection{
+//    margin: 0;
+//    box-shadow: none;
+//}
+//
+//.preview-container #previews.collection .collection-item {
+//    background-color: #e0e0e0;
+//}
+//
+//.preview-container #previews.collection .actions a{
+//    width: 1.5em;
+//    height: 1.5em;
+//    line-height: 1;
+//}
+//.preview-container #previews.collection .actions a i{
+//    font-size: 1em;
+//    line-height: 1.6;
+//}
+//.preview-container #previews.collection .dz-error-message{
+//    font-size: 0.8em;
+//    margin-top: -12px;
+//    color: #F44336;
+//}
+//
+//.dropzone .dz-preview.dz-image-preview {
+//    background-color: unset;
+//}
+//
+//
+///*media queries*/
+//
+//@media only screen and (max-width: 601px){
+//    .fileuploader {
+//        width: 100%;
+//    }
+//
+//    .preview-container {
+//        width: 100%;
+//    }
+//}
+/* end dropZone */
+
+
 .img-thumbnail{
     width: 100%;
 }
