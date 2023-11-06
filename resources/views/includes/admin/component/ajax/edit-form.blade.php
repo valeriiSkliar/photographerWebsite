@@ -16,7 +16,9 @@
         </div>
 
         <h5 class="my-1">Component Details</h5>
-        <div id="component-details row">
+        <div
+            class="row"
+            id="component-details">
             @foreach($component->details as $detail)
                 <div
                     class="col-8"
