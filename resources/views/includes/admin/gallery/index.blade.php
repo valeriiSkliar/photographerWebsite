@@ -7,16 +7,6 @@
 @pushonce('iframe.script')
     <script src="{{ asset('AdminLTE/plugins/lightbox2/js/lightbox.min.js') }}"></script>
     @vite(['resources/js/admin/gallery/admin_gallery_index.js'])
-    @if(session('success_message'))
-        <script>
-            Swal.fire(sweetAlertConfigs.success("{{ session('success_message') }}"));
-        </script>
-    @endif
-    @if(session('error_message'))
-        <script>
-            Swal.fire(sweetAlertConfigs.error("{{ session('error_message') }}"));
-        </script>
-    @endif
 @endpushonce
 @section('admin.content')
     <div class="container-fluid">

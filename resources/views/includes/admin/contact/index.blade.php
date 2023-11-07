@@ -1,18 +1,4 @@
 @extends('layouts.iframe')
-@pushonce('iframe.script')
-    @if(session('success_message'))
-        <script>
-            Swal.fire(sweetAlertConfigs.success("{{ session('success_message') }}"));
-        </script>
-    @endif
-
-    @if(session('error_message'))
-        <script>
-            Swal.fire(sweetAlertConfigs.error("{{ session('error_message') }}"));
-        </script>
-    @endif
-@endpushonce
-
 @section('admin.content')
     <div class="container-fluid">
         <div class="row justify-content-center">

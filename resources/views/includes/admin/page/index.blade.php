@@ -36,8 +36,13 @@
                                             <div class="mt-5">
                                                 <a href="{{ route('admin.pages.edit', $page->id) }}"
                                                    class="btn btn-info mb-md-2 mb-lg-auto mr-1" role="button">Page <i class="fas fa-edit"></i></a>
-                                                <a href="{{ route('admin.pages.edit', $page->id) }}"
-                                                   class="btn btn-warning mb-md-2 mb-lg-auto" role="button">MetaTags <i class="fas fa-edit"></i></a>
+                                                <button
+                                                   class="btn btn-warning mb-md-2 mb-lg-auto"
+                                                   data-page="{{$page->id}}"
+                                                   id="showMetaTagsForm"
+                                                   onclick="event.preventDefault()"
+                                                >MetaTags <i class="fas fa-edit"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
