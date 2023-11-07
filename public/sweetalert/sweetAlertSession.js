@@ -59,3 +59,19 @@ const sweetAlertConfigs = {
         }
     }
 };
+
+const metaTag = document.querySelector('meta[name="session-message"]');
+
+(function showSessionMessage() {
+    if (metaTag && metaTag.dataset.status === 'success') {
+        switch (metaTag.dataset.status) {
+            case "success": {
+                Swal.fire(sweetAlertConfigs.success(metaTag.content));
+                break;
+            }
+            case "error": {
+                Swal.fire(sweetAlertConfigs.error(metaTag.content));
+            }
+        }
+    }
+})();

@@ -6,7 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    {{--    <title>{{ app()->config('app.name') . ' ' . 'admin panel'}}</title>--}}
+
+    @if(session('success_message'))
+        <meta name="session-message" data-status="success" content="{{ session('success_message') }}">
+    @endif
+    @if(session('error_message'))
+        <meta name="session-message" data-status="error" content="{{ session('success_error') }}">
+    @endif
+
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="{{asset('AdminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
     <link rel="stylesheet" href="{{asset('AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
@@ -50,12 +57,9 @@
     <script src={{asset("AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
     <!-- AdminLTE App -->
     <script src={{asset("AdminLTE/dist/js/adminlte.js")}}></script>
-{{--    <script src={{asset("AdminLTE/plugins/dropzone/dropzone.js")}}></script>--}}
-    <!-- AdminLTE for demo purposes -->
-{{--    <script src={{asset("AdminLTE/dist/js/demo.js")}}></script>--}}
-{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.js"></script>--}}
-    <script src="{{ asset('sweetalert/configs.js') }}"></script>
+    <!-- SweetAlert2 -->
     <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('sweetalert/sweetAlertSession.js') }}"></script>
     @stack('iframe.script')
 
 </body>
