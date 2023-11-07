@@ -1,7 +1,7 @@
 import {stat, readdir, writeFile} from 'fs/promises';
 import path from "path";
 import {defaultDirScss, defaultDirJs } from "./env.js";
-import { validateScssFile } from './validators/scssValidator.js';
+import {getScssImports} from './validators/scssValidator.js';
 import {getJsImports} from "./validators/jsValidator.js";
 /**
  * Recursively retrieves all file paths with a given extension in a directory.
@@ -48,9 +48,9 @@ async function generateFilePaths() {
 
     // Validate each SCSS file, and add valid ones to the excludedScssFiles array.
     for (const filePath of scssFilePaths) {
-        if (await validateScssFile(filePath)) {
-            excludedScssFiles.push(filePath);
-        }
+        const path = filePath.slice(1, filePath.length - 1);
+        const res = await getScssImports(path);
+        excludedScssFiles.push(...res);
     }
 
     // Validate each JS file, and add valid ones to the excludedJsFiles array.
