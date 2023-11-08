@@ -12,4 +12,7 @@
             </p>
         @endforeach
     </div>
+    <div class="href_application">
+        <x-button-work></x-button-work>
+    </div>
 </div>
