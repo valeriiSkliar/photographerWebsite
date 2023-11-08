@@ -1,73 +1,112 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
+    <section class="min-h-screen flex items-center justify-center text-black">
+        <div class="bg-gray-100 p-5 flex rounded-2xl shadow-lg max-w-3xl">
+            <div class="md:w-100 px-5">
+                <h2 class="text-2xl font-bold text-[#002D74]">{{ __('Login') }}</h2>
+                <p class="text-sm mt-4 text-[#002D74]">If you have an account, please log in</p>
+                <form class="mt-6" action="{{ route('login') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="email" class="block text-gray-700">{{ __('Email Address') }}</label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none @error('email') is-invalid @enderror"
+                            value="{{ old('email') }}"
+                            required
+                            autocomplete="email"
+                            autofocus
+                            placeholder="Enter Email Address"
+                        >
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
-                            </div>
-                        </div>
+                        @enderror
+                    </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                    <div class="mt-4">
+                        <label class="block text-gray-700" for="password">Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="Enter Password"
+                            minlength="6"
+                            class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+                             focus:bg-white focus:outline-none
+                             @error('password') is-invalid @enderror"
+                            required
+                            autocomplete="current-password"
+                        >
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                        @enderror
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 offset-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="remember"
+                                       id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                <label class="form-check-label" for="remember">
+                                    {{ __('Remember Me') }}
+                                </label>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                    <div class="text-right mt-2">
+                        <a href="#" class="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700">
+                            Forgot Password?
+                        </a>
+                    </div>
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                    <button type="submit" class="w-full block bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-semibold rounded-lg
+                px-4 py-3 mt-6">
+                        Log In
+                    </button>
+                </form>
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+                <div class="mt-7 grid grid-cols-3 items-center text-gray-500">
+                    <hr class="border-gray-500"/>
+                    <p class="text-center text-sm">OR</p>
+                    <hr class="border-gray-500"/>
+                </div>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+{{--                <button--}}
+{{--                    class="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 ">--}}
+{{--                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="w-6 h-6"--}}
+{{--                         viewBox="0 0 48 48">--}}
+{{--                        <defs>--}}
+{{--                            <path id="a"--}}
+{{--                                  d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/>--}}
+{{--                        </defs>--}}
+{{--                        <clipPath id="b">--}}
+{{--                            <use xlink:href="#a" overflow="visible"/>--}}
+{{--                        </clipPath>--}}
+{{--                        <path clip-path="url(#b)" fill="#FBBC05" d="M0 37V11l17 13z"/>--}}
+{{--                        <path clip-path="url(#b)" fill="#EA4335" d="M0 11l17 13 7-6.1L48 14V0H0z"/>--}}
+{{--                        <path clip-path="url(#b)" fill="#34A853" d="M0 37l30-23 7.9 1L48 0v48H0z"/>--}}
+{{--                        <path clip-path="url(#b)" fill="#4285F4" d="M48 48L17 24l-4-3 35-10z"/>--}}
+{{--                    </svg>--}}
+{{--                    <span class="ml-4">Login with Google</span>--}}
+{{--                </button>--}}
+
+                <div class="text-sm flex justify-between items-center mt-3">
+                    <p>If you don't have an account...</p>
+                    <button
+                        class="py-2 px-5 ml-3 bg-white border rounded-xl hover:scale-110 duration-300 border-blue-400  ">
+                        Register
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
 @endsection
