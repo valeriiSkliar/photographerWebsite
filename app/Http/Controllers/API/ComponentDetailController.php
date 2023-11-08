@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 
 class ComponentDetailController extends Controller
 {
+    public function getDetailRowTemplate(): \Illuminate\Http\JsonResponse
+    {
+        $markup = view('includes.admin.component.ajax.new-detail-row')->render();
+        return response()->json([
+            'success' => true,
+            'markup' => $markup,
+            'message' => 'Component album disconnected successfully'
+        ]);
+    }
     public function album_disconnect($component_id)
     {
         $component = Component::findOrFail($component_id);

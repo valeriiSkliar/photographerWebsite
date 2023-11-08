@@ -241,11 +241,43 @@ function fieldsCounter() {
 
 const counter = fieldsCounter();
 
-export function addDetailFields() {
+async function getDetailRowTemplate() {
+    const result = document.createElement('div');
+    await $.ajax({
+        url: `/api/get-detail-row-template`,
+        type: 'GET',
+        success: function (response) {
+            if (response.success) {
+                return $(result).html(response.markup);
+            }
+        },
+        error: function (response) {
+            if (response.error) {
+                Swal.fire({
+                    position: 'bottom-end',
+                    icon: 'error',
+                    title: 'Error',
+                    text: response.message,
+                    showConfirmButton: false,
+                    timer: 5000,
+                    toast: true,
+                    background: 'rgba(0,0,0,0)',
+                    padding: '0.5rem',
+                    width: 400,
+                    height: 200
+                });
+            }
+        }
+    });
+    return result;
+}
+
+export async function addDetailFields() {
     const container = document.getElementById('component-details');
     let detailIndex = container.children.length;
-    const newDetail = replaceNameDataInNewDetailElement({
-        newDetail: container.firstElementChild.cloneNode(true),
+    const template = container.firstElementChild?.cloneNode(true)
+    const newDetail = await replaceNameDataInNewDetailElement({
+        newDetail: template || await getDetailRowTemplate(),
         detailIndex: detailIndex
     });
 
