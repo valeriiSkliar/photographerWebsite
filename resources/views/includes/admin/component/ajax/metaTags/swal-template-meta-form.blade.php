@@ -5,7 +5,9 @@
         Edit / Delete / Add meta tags!
     </swal-title>
     <swal-html>
-        <form method="POST">
+        <form
+            style="min-height: 8rem"
+            method="POST">
             <input
                     id="currentPageId"
                     type="hidden" name="page_id" value="{{ $page->id }}">

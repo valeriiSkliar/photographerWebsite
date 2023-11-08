@@ -19,10 +19,14 @@ class ComponentDetailController extends Controller
     }
     public function destroy($id)
     {
+//        dd($id);
         $detail = ComponentDetail::findOrFail($id);
         $detail->delete();
 
-        return response()->json(['message' => 'Component detail deleted successfully']);
+        return response()->json([
+            'success' => true,
+            'message' => 'Component detail deleted successfully'
+        ]);
     }
 
     public function change_album(Request $request)

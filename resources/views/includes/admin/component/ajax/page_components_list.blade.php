@@ -9,7 +9,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Album</th>
-                    <th>Actions</th>
+{{--                    <th>Actions</th>--}}
                 </tr>
                 </thead>
                 <tbody id="component_list_table_body">
@@ -20,14 +20,14 @@
                             data-componentId="{{ $component->id }}">
                             <td>{{ $component->name }}</td>
                             <td>{{ $component->album ? $component->album->title : ' - ' }}</td>
-                            <td>
-                                <form method="POST" action="{{ route('components.destroy', $component) }}" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="page_id" value="{{ $page->id }}">
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
-                            </td>
+{{--                            <td>--}}
+{{--                                <form method="POST" action="{{ route('components.destroy', $component) }}" class="d-inline">--}}
+{{--                                    @csrf--}}
+{{--                                    @method('DELETE')--}}
+{{--                                    <input type="hidden" name="page_id" value="{{ $page->id }}">--}}
+{{--                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>--}}
+{{--                                </form>--}}
+{{--                            </td>--}}
                         </tr>
                     @endforeach
                 @endif
