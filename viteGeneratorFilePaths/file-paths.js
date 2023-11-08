@@ -1,4 +1,5 @@
 export default [
+"resources/scss/admin/dropzone/dropzoneTheme.scss",
 "resources/scss/admin/gallery/admin_gallery_index.scss",
 "resources/scss/admin/page/admin_page_index.scss",
 "resources/scss/app.scss",
