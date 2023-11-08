@@ -16,6 +16,10 @@
 //    font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1100 - 320)));
 //}
 
+html {
+     scroll-behavior: smooth;
+}
+
 body {
     background-color: #0a0e14;
     color: white;

@@ -7,51 +7,40 @@
                 @include('sectionComponents.frontend.'.$name)
 @endforeach
 <div id="application_form">
-    <div class="title_form">
-
+    <div id="title_form" class="align_center">
+        Please, complete your application
     </div>
     <div class="main_inputs">
-        <div class="main_inputs_details">
+        <div class="input_flex">
             <div class="title_input">service:</div>
-            <select class="var_input">
-                <option value="wedding">wedding</option>
-                <option value="session">session</option>
-                <option value="event">event</option>
-                <option value="albums">albums</option>
-            </select>
+            <div id="var_input_1">
+                <select id="var_input_6">
+                    <option value="wedding">wedding</option>
+                    <option value="session">session</option>
+                    <option value="event">event</option>
+                    <option value="albums">albums</option>
+                </select>
+            </div>
         </div>
-        <div class="main_inputs_details">
+        <div class="input_flex">
             <div class="title_input">name:</div>
-            <input type="text" class="var_input">
+            <input type="text" id="var_input_2">
         </div>
-        <div class="main_inputs_details">
+        <div class="input_flex">
             <div class="title_input">surname:</div>
-            <input type="text" class="var_input">
+            <input type="text" id="var_input_3">
         </div>
-        <div class="main_inputs_details">
+        <div class="input_flex">
             <div class="title_input">phone:</div>
-            <input type="text" class="var_input">
+            <input type="text" id="var_input_4">
+        </div>
+        <div class="input_flex">
+            <div class="title_input">date:</div>
+            <input type="date" id="var_input_5">
         </div>
     </div>
-    <div title_inputs_date>
-
-    </div>
-    <div class="inputs_dates_form">
-        <div class="inputs_date">
-            <div>day</div>
-            <input type="text">
-        </div>
-        <div class="inputs_date">
-            <div>month</div>
-            <input type="text">
-        </div>
-        <div class="inputs_date">
-            <div>year</div>
-            <input type="text">
-        </div>
-    </div>
-    <div class="submit">
-        <button>Send</button>
+    <div class="submit align_center">
+        <button id="button_send">Send</button>
     </div>
 </div>
 @endsection
