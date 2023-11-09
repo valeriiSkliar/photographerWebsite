@@ -1,15 +1,23 @@
 @extends('layouts.app')
 
+@pushonce('custom-style')
+    <style>
+        .formLoginAndReg {
+            height: calc(100vh - var(--navbar-height) - 150px);
+        }
+    </style>
+@endpushonce
+
 @section('content')
-    <section class="min-h-screen flex items-center justify-center text-black">
+    <section class="formLoginAndReg flex items-center justify-center text-black">
         <div class="bg-gray-100 p-5 flex rounded-2xl shadow-lg max-w-3xl">
             <div class="md:w-100 px-5">
-                <h2 class="text-2xl font-bold text-[#002D74]">{{ __('Login') }}</h2>
-                <p class="text-sm mt-4 text-[#002D74]">If you have an account, please log in</p>
+                <h2 class="text-2xl font-bold text-[#002D74]">{{ __('reg&log.login') }}</h2>
+                <p class="text-sm mt-4 text-[#002D74]">{{ __('reg&log.haveAccount') }}</p>
                 <form class="mt-6" action="{{ route('login') }}" method="POST">
                     @csrf
                     <div>
-                        <label for="email" class="block text-gray-700">{{ __('Email Address') }}</label>
+                        <label for="email" class="block text-gray-700">{{ __('reg&log.email') }}</label>
                         <input
                             type="email"
                             name="email"
@@ -19,7 +27,7 @@
                             required
                             autocomplete="email"
                             autofocus
-                            placeholder="Enter Email Address"
+                            placeholder="{{ __('reg&log.emailPlaceholder') }}"
                         >
                         @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -29,12 +37,12 @@
                     </div>
 
                     <div class="mt-4">
-                        <label class="block text-gray-700" for="password">Password</label>
+                        <label class="block text-gray-700" for="password">{{ __('reg&log.password') }}</label>
                         <input
                             type="password"
                             name="password"
                             id="password"
-                            placeholder="Enter Password"
+                            placeholder="{{ __('reg&log.passwordPlaceholder') }}"
                             minlength="6"
                             class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
                              focus:bg-white focus:outline-none
@@ -56,7 +64,7 @@
                                        id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                 <label class="form-check-label" for="remember">
-                                    {{ __('Remember Me') }}
+                                    {{ __('reg&log.loginRememberMe') }}
                                 </label>
                             </div>
                         </div>
@@ -64,19 +72,19 @@
 
                     <div class="text-right mt-2">
                         <a href="#" class="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700">
-                            Forgot Password?
+                            {{ __('reg&log.forgotPassword') }}
                         </a>
                     </div>
 
                     <button type="submit" class="w-full block bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-semibold rounded-lg
                 px-4 py-3 mt-6">
-                        Log In
+                        {{__('reg&log.btnLogIn')}}
                     </button>
                 </form>
 
                 <div class="mt-7 grid grid-cols-3 items-center text-gray-500">
                     <hr class="border-gray-500"/>
-                    <p class="text-center text-sm">OR</p>
+                    <p class="text-center text-sm">{{__('reg&log.or')}}</p>
                     <hr class="border-gray-500"/>
                 </div>
 
@@ -100,11 +108,11 @@
 {{--                </button>--}}
 
                 <div class="text-sm flex justify-between items-center mt-3">
-                    <p>If you don't have an account...</p>
-                    <button
+                    <p>{{ __('reg&log.existAccount') }}</p>
+                    <a href="{{ route('register') }}"
                         class="py-2 px-5 ml-3 bg-white border rounded-xl hover:scale-110 duration-300 border-blue-400  ">
-                        Register
-                    </button>
+                        {{ __('reg&log.registration') }}
+                    </a>
                 </div>
             </div>
         </div>
