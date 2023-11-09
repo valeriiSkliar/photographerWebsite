@@ -1,3 +1,5 @@
+import {showMetaTagSwalModal} from "@/functions.js";
+
 const deleteButtons = document.querySelectorAll('.btn-delete');
 
 deleteButtons.forEach(button => {
@@ -36,5 +38,7 @@ function confirmDelete (form) {
                 form.submit();
             }
         });
-
 }
+
+$('#showMetaTagsForm').on('click', showMetaTagSwalModal)
+

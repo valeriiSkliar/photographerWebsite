@@ -18,6 +18,7 @@
                     <div class="row">
 
                         @foreach($pages as $key => $page)
+                            @include('includes.admin.component.ajax.metaTags.swal-template-meta-form')
                             <div class="col-md-4 position-relative">
                                     <form
                                         class="btn-delete position-absolute"
@@ -40,7 +41,7 @@
                                                    class="btn btn-warning mb-md-2 mb-lg-auto"
                                                    data-page="{{$page->id}}"
                                                    id="showMetaTagsForm"
-                                                   onclick="event.preventDefault()"
+                                                   onclick="event.stopPropagation()"
                                                 >MetaTags <i class="fas fa-edit"></i>
                                                 </button>
                                             </div>

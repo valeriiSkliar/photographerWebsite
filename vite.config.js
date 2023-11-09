@@ -1,23 +1,13 @@
 import {defineConfig} from 'vite';
 import laravel from 'laravel-vite-plugin';
-import arr from "./viteGeneratorFilePaths/file-paths.js";
-// console.log(arr);
-// import inject from "@rollup/plugin-inject"
+import filesForBuild from "./viteGeneratorFilePaths/file-paths.js";
 import { esbuildCommonjs } from '@originjs/vite-plugin-commonjs'
 
 export default defineConfig({
     plugins: [
-        // inject({
-        //     $: 'jquery',
-        //     jQuery: 'jquery',
-        // }),
         laravel({
             input: [
-                // 'resources/scss/app.scss',
-                // 'resources/scss/swiper-thumbs.scss',
-                // 'resources/js/app.js',
-                // 'resources/js/admin_gallery.js',
-                ...arr,
+                ...filesForBuild,
             ],
             refresh: ['resources/views/**', "resources/scss/**", "resources/js/**"],
         }),
