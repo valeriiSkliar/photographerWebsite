@@ -6,6 +6,7 @@ export function updateComponentOrder(newOrder) {
     return $.ajax({
         url: '/api/update-components-list/order',
         type: 'POST',
+
         data: {
             order: newOrder,
             page_id: getPageID(),

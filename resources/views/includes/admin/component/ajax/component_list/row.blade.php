@@ -1,20 +1,18 @@
 @if($component)
     <tr
-    data-componentId="{{ $component->id }}"
-    class="componentRow"
+        id="sortable"
+        data-componentId="{{ $component->id }}"
+        class="componentRow"
     >
-        <td>{{ $component->name }}</td>
-        <td>{{ $component->album ? $component->album->title : ' - ' }}</td>
-{{--        <td>--}}
-{{--            <form method="POST" action="{{ route('components.destroy', $component) }}" class="d-inline">--}}
-{{--                @csrf--}}
-{{--                @method('DELETE')--}}
-{{--                <input type="hidden" name="page_id" value="{{ $page->id }}">--}}
-{{--                <button--}}
-{{--                    onclick="event.stopPropagation()"--}}
-{{--                    type="submit" class="btn btn-danger btn-sm">Delete</button>--}}
-{{--            </form>--}}
-{{--        </td>--}}
+        <td>
+            <i class="fa-solid fa-arrows-up-down-left-right" style="color: #f7f7f7;"></i>
+            {{ $component->name }}
+        </td>
+        <td
+            id="connected-album-name-{{$component->album ? $component->album->id : ''}}"
+        >
+            {{ $component->album ? $component->album->title : ' - ' }}
+        </td>
     </tr>
 @endif
 

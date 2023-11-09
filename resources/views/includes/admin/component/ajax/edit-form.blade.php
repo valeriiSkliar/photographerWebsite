@@ -136,6 +136,7 @@
                                     <h6 class="m-2">Album</h6>
                                     <button
                                         style="display: {{ $component->album ? 'flex' : 'none' }}"
+                                        data-album_id="{{$component->album->id}}"
                                         id="disconnect_btn"
                                         onclick="event.preventDefault()"
                                         class="btn btn-outline-danger"
@@ -149,7 +150,7 @@
                             </div>
                             <div class="row" id="imageContainer">
                                 @foreach ($component->album->images as $image)
-                                    <div class="col-2 mx-2 image-tile"
+                                    <div class="col-2 mr-2 mb-2 image-tile"
                                          style="background-image: url('{{ asset($image->file_url) }}');">
                                     </div>
                                 @endforeach
