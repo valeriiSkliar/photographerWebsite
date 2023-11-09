@@ -1,4 +1,4 @@
-import 'jquery-ui-dist/jquery-ui.css';
+import 'jquery-ui-dist/jquery-ui.js';
 import {getCsrfToken} from "@/helpers/getCsrfToken.js";
 import {getPageID} from "@/helpers/getPageID.js";
 
