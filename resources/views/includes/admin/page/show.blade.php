@@ -1,7 +1,7 @@
 @extends('layouts.iframe')
 @section('admin.content')
 @push('iframe.style')
-    @vite('resources/scss/admin/page/sortable_components_list.scss')
+    @vite('resources/scss/admin/page/admin_page_show.scss')
 @endpush
     @include('includes.admin.component.ajax.metaTags.swal-template-meta-form')
     <div class="container-fluid mt-4 position-relative">
