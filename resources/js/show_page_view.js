@@ -1,21 +1,14 @@
 import {
     loadAddComponentInterface,
-    submitComponentForm,
     addDetailFields,
     clearFormContainer,
     initialListenersTbody,
     submitForm,
-    addMetaTagRow,
-    deleteMetaTag,
-    afterModalCloseCheck,
-    getMetaListMarkUp,
-    formValidation,
-    isFormValid,
-    updatedMarkup,
     showMetaTagSwalModal
 
 } from './functions.js'
 
+import './admin/page/components_sortable_list.js'
 
 
 document.addEventListener('DOMContentLoaded', () => {

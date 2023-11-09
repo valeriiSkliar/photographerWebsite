@@ -6,10 +6,51 @@ use App\Http\Controllers\Controller;
 use App\Models\Album;
 use App\Models\Component\Component;
 use App\Models\ComponentDetail\ComponentDetail;
+use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ComponentDetailController extends Controller
 {
+    public function updateOrder(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $pageId = $request->page_id;
+        $newOrder = $request->order;
+
+        try {
+            DB::beginTransaction();
+
+            $page = Page::findOrFail($pageId);
+
+            foreach ($newOrder as $data) {
+                $componentId = $data['id'];
+                $componentOrder = $data['order'];
+
+                if ($page->components()->find($componentId)) {
+                    $page->components()->updateExistingPivot($componentId, ['order' => $componentOrder]);
+                }
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Order updated successfully.'
+            ]);
+
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            Log::error('Order update failed: ' . $e->getMessage());
+
+            return response()->json([
+                'message' => 'An error occurred while updating the order.' . $e->getMessage(),
+                'error' => true
+            ],
+                500);
+        }
+    }
+
     public function getDetailRowTemplate(): \Illuminate\Http\JsonResponse
     {
         $markup = view('includes.admin.component.ajax.new-detail-row')->render();

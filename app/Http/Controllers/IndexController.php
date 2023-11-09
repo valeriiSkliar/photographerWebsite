@@ -18,7 +18,9 @@ class IndexController extends Controller
 
         }
 
-        $page = Page::with('components.album.images')
+        $page = Page::with(['components' => function ($query) {
+            $query->orderBy('order');
+        }, 'components.album.images'])
             ->where('slug', $pageSlug)
             ->first();
 
