@@ -19,7 +19,6 @@
                 id="delete[0]"
                 onclick="event.preventDefault()"
                 href="javascript:void(0);"
-                {{--                                    class="btn btn-danger w-100"--}}
                 class="btn btn-outline-danger w-100"
         >
             <svg xmlns="http://www.w3.org/2000/svg"

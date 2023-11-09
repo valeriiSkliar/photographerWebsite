@@ -269,7 +269,7 @@ async function getDetailRowTemplate() {
             }
         }
     });
-    return result;
+    return result.firstElementChild;
 }
 
 export async function addDetailFields() {
@@ -280,11 +280,12 @@ export async function addDetailFields() {
         newDetail: template || await getDetailRowTemplate(),
         detailIndex: detailIndex
     });
-
     addListenerToDetail({
         detailElement: newDetail,
         detailIndex: detailIndex
     });
+
+    // newDetail.classList.add('col-md-12');
     container.appendChild(newDetail);
     detailIndex++;
 }
