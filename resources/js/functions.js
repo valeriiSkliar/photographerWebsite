@@ -215,13 +215,16 @@ export function getMetaListMarkUp(page_id) {
 }
 
 export function loadAddComponentInterface({target}) {
+    $('#spinner').show();
     $.ajax({
         url: `/get-component-form/${$(target).data('page')}`,
         type: 'GET',
         success: function (response) {
+            $('#spinner').hide();
             $('#formContainer').html(response.markup);
         },
         error: function (response) {
+            $('#spinner').hide();
             console.log(response)
         }
     });
@@ -331,10 +334,12 @@ export function getEditComponentForm({target}) {
     const formContainer = $('#formContainer');
 
     if (component_id) {
+        $('#spinner').show();
         $.ajax({
             url: `/components/${component_id}/edit`,
             type: 'GET',
             success: function (response) {
+                $('#spinner').hide();
                 $(formContainer).html(response.markup);
 
                 $(formContainer).off('click', '#canselAddComponentButton').on('click', '#canselAddComponentButton', clearFormContainer);
@@ -354,6 +359,9 @@ export function getEditComponentForm({target}) {
                     disconnectAlbum({component_id, albumId});
                 });
             },
+            error: function () {
+                $('#spinner').hide();
+            }
         });
     }
 
