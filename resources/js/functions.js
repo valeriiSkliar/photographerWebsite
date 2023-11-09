@@ -215,13 +215,17 @@ export function getMetaListMarkUp(page_id) {
 }
 
 export function loadAddComponentInterface({target}) {
+    clearFormContainer()
+    $('#spinner').show();
     $.ajax({
         url: `/get-component-form/${$(target).data('page')}`,
         type: 'GET',
         success: function (response) {
+            $('#spinner').hide();
             $('#formContainer').html(response.markup);
         },
         error: function (response) {
+            $('#spinner').hide();
             console.log(response)
         }
     });
@@ -327,14 +331,17 @@ export function addListenerToLastChildOfTbody() {
 }
 
 export function getEditComponentForm({target}) {
-    const id = $(target.closest('tr')).data('componentid')
+    clearFormContainer();
+    const component_id = $(target.closest('tr')).data('componentid')
     const formContainer = $('#formContainer');
 
-    if (id) {
+    if (component_id) {
+        $('#spinner').show();
         $.ajax({
-            url: `/components/${id}/edit`,
+            url: `/components/${component_id}/edit`,
             type: 'GET',
             success: function (response) {
+                $('#spinner').hide();
                 $(formContainer).html(response.markup);
 
                 $(formContainer).off('click', '#canselAddComponentButton').on('click', '#canselAddComponentButton', clearFormContainer);
@@ -345,20 +352,24 @@ export function getEditComponentForm({target}) {
 
                 $(formContainer).off('submit', '#updateComponentForm').on('submit', '#updateComponentForm', function (e) {
                     e.preventDefault();
-                    submitUpdateComponentForm(id);
+                    submitUpdateComponentForm(component_id);
                 });
 
 
                 $('#disconnect_btn').off('click').on('click', function () {
-                    disconnectAlbum(id);
+                    const albumId = $(this).data('album_id');
+                    disconnectAlbum({component_id, albumId});
                 });
             },
+            error: function () {
+                $('#spinner').hide();
+            }
         });
     }
 
 }
 
-export function disconnectAlbum(component_id) {
+export function disconnectAlbum({component_id, albumId}) {
     $.ajax({
         url: `/api/component-album-disconnect/${component_id}`,
         method: 'POST',
@@ -371,6 +382,8 @@ export function disconnectAlbum(component_id) {
             $('#imageContainer').html('')
             $('#connectedAlbumContainer').remove();
             $('#albumsSelect').css('display', 'block');
+            // console.log($(`#connected-album-name-${albumId}`))
+            $(`#connected-album-name-${albumId}`)[0].textContent = ' - ';
         },
     })
 }

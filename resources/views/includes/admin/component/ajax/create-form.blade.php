@@ -64,7 +64,7 @@
                         </div>
                 </div>
                 @if(isset($albums))
-                    <div class="col-3 form-group">
+                    <div class="col-12 col-md-6 col-lg-3 form-group">
                         <label for="album_id">Connect Album:</label>
                         <select class="form-control" id="album_id" name="album_id">
                             <option value="">Select Album</option>
