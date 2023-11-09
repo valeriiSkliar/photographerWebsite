@@ -1,4 +1,4 @@
-import {showMetaTagSwalModal} from "../../functions.js";
+import {showMetaTagSwalModal} from "@/functions.js";
 
 const deleteButtons = document.querySelectorAll('.btn-delete');
 

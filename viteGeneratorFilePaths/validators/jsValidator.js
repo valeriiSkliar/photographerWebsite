@@ -1,4 +1,5 @@
 import {readFile} from 'fs/promises';
+import {defaultDirJs} from "../env.js";
 
 /**
  * Resolves the directory path of the provided file path.
@@ -37,13 +38,16 @@ export async function getJsImports(filePath) {
             return importMatches.map((match) => {
                 let file = match.split(/['"]/)[1].replace(/^\.\//g, '').replace(/\.js/, '');
                 let resultPath = currentDir;
-
+                // Resolve aliases paths.
+                if (/^@\//.test(file)) {
+                    resultPath = file.replace(/^@/, defaultDirJs);
+                    return `"${resultPath}.js"`
+                }
                 // Resolve relative paths.
                 while (/^\.\.\//.test(file)) {
                     file = file.replace(/^\.\.\//, '');
                     resultPath = resultPath.replace(/\/[^/]+$/, '');
                 }
-
                 return `"${resultPath}/${file}.js"`;
             });
         }
