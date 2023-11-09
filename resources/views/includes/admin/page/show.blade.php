@@ -1,18 +1,17 @@
 @extends('layouts.iframe')
 @section('admin.content')
-
+@push('iframe.style')
+    @vite('resources/scss/admin/page/sortable_components_list.scss')
+@endpush
     @include('includes.admin.component.ajax.metaTags.swal-template-meta-form')
-
-    <style>
-        .meta-tags-container {
-            margin: auto;
-            width: 95%;
-            padding: 10px;
-        }
-    </style>
     <div class="container-fluid mt-4 position-relative">
+        <input
+            id="getPageID"
+            value="{{$page->id}}"
+            type="hidden"
+            name="">
         <div class="row">
-            <div class="col-12 col-md-12 col-lg-4 ml-auto position-relative mt-4 mt-md-4" >
+            <div class="col-12 col-md-12 col-lg-4 ml-auto position-relative mt-4 mt-md-4">
                 <div class="row px-3">
                     <div class="col-12 main-buttons">
                         <div class="row mb-3">
@@ -39,7 +38,7 @@
                         </div>
                     </div>
                     <div class="col-6 col-md-12 d-none d-lg-block alert alert-info alert-dismissible"
-                        style="padding-right: 2rem"
+                         style="padding-right: 2rem"
                     >
                         <div class="row">
                             <div class="col-md-8">

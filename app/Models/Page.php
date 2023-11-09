@@ -15,8 +15,9 @@ class Page extends Model
 
     public function components()
     {
-        return $this->belongsToMany(Component::class);
-    }
+        return $this->belongsToMany(Component::class, 'component_page')
+            ->withPivot('order')
+            ->orderBy('pivot_order');    }
 
     public function meta_tags()
     {

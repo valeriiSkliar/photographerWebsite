@@ -1,0 +1,33 @@
+.meta-tags-container {
+    margin: auto;
+    width: 95%;
+    padding: 10px;
+}
+#sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 60%;
+}
+
+#sortable td {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1.5em;
+    font-size: 0.9em;
+    height: 1.8rem;
+}
+
+#sortable td span {
+    position: absolute;
+    margin-left: -1.3em;
+    color:white;
+}
+@keyframes highlight {
+    0% { background-color: #ffff99; }
+    100% { background-color: transparent; }
+}
+
+.highlight-animation {
+    animation: highlight 1.5s;
+}

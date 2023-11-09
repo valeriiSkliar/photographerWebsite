@@ -31,4 +31,5 @@ Route::group([], function () {
     Route::post('/component-form/{id}', [App\Http\Controllers\API\ComponentDetailController::class, 'attach_form']);
     Route::post('/component-album/{id}', [App\Http\Controllers\API\ComponentDetailController::class, 'change_album']);
     Route::post('/component-album-disconnect/{id}', [App\Http\Controllers\API\ComponentDetailController::class, 'album_disconnect']);
+    Route::post('/update-components-list/order', [App\Http\Controllers\API\ComponentDetailController::class, 'updateOrder']);
 });
