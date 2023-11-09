@@ -75,9 +75,10 @@
                 <div class="row px-3">
                     <div id="formContainer"
                          class="col-md-12 p-3 bg-secondary mt-4 mt-md-4">
-                        <div id="spinner" style="display: none;">
-                            Loading...
-                        </div>
+                    </div>
+                    <div class="col-md-12 bg-secondary"
+                        id="spinner" style="display: none;">
+                        Loading...
                     </div>
                 </div>
             </div>

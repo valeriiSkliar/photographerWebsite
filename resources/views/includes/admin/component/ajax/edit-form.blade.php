@@ -102,7 +102,7 @@
                         style="display: {{ $component->album_id ? 'none' : ''}}"
                     >
                         @if(isset($albums))
-                            <div class="pl-0 col-3 form-group">
+                            <div class="pl-0 col-12 col-md-6 col-lg-3 form-group">
                                 <label for="album_id">Existing Albums:</label>
                                 <select class="form-control" id="album_id" name="album_id">
                                     <option value="">Select another album</option>

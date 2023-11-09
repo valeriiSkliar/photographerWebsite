@@ -215,6 +215,7 @@ export function getMetaListMarkUp(page_id) {
 }
 
 export function loadAddComponentInterface({target}) {
+    clearFormContainer()
     $('#spinner').show();
     $.ajax({
         url: `/get-component-form/${$(target).data('page')}`,
@@ -330,6 +331,7 @@ export function addListenerToLastChildOfTbody() {
 }
 
 export function getEditComponentForm({target}) {
+    clearFormContainer();
     const component_id = $(target.closest('tr')).data('componentid')
     const formContainer = $('#formContainer');
 
