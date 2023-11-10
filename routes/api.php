@@ -26,7 +26,7 @@ Route::post('/meta-tags-group', [MetaTagController::class, 'updateMetaTagsGroup'
 Route::post('/meta-tags-add-{type}', [MetaTagController::class, 'addNewRow']);
 
 Route::group([], function () {
-    Route::delete('/un-pin/{image}', [\App\Http\Controllers\Admin\AlbumsController::class, 'unPinImage']);
+    Route::delete('/un-pin', [\App\Http\Controllers\Admin\AlbumsController::class, 'unPinImage']);
     Route::delete('/component-detail/{id}', [App\Http\Controllers\API\ComponentDetailController::class, 'destroy']);
     Route::get('/get-detail-row-template', [App\Http\Controllers\API\ComponentDetailController::class, 'getDetailRowTemplate']);
     Route::post('/component-form/{id}', [App\Http\Controllers\API\ComponentDetailController::class, 'attach_form']);

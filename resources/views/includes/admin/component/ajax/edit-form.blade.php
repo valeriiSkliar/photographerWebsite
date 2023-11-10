@@ -136,6 +136,11 @@
                                 @foreach ($component->album->images as $image)
                                     <div class="col-2 mr-2 mb-2 image-tile"
                                          style="background-image: url('{{ asset($image->file_url) }}');">
+                                        <button class="mt-2 btn btn-outline-danger unpin-btn btn-sm"
+                                                data-image_id="{{ $image->id }}"
+                                                onclick="event.preventDefault()">
+                                            <i class="fa-solid fa-link-slash"></i>
+                                        </button>
                                     </div>
                                 @endforeach
                             </div>
