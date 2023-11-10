@@ -20,19 +20,24 @@
     color: inherit;
 }
 
-.image-controls .btn-delete,
-.album-controls .album-delete{
+.image-controls .btn-delete {
     background: unset;
     border: unset;
     color: inherit;
 }
 
 .image-controls .btn-delete:hover,
-.image-controls .dropdown-menu form.dropdown-item:hover,
-.album-controls .album-delete:hover,
-.album-controls .dropdown-menu form.dropdown-item:hover {
+.image-controls .dropdown-menu form.dropdown-item:hover{
     background: unset;
     color: #dc1e1e;
+}
+
+.album-card {
+    transition: transform 0.5s;
+}
+
+.album-card:hover {
+    transform: scale(1.05);
 }
 
 .album-title {
@@ -40,5 +45,8 @@
     width: 100%;
     bottom: 0;
     left: 0;
+    color: white;
     background: linear-gradient(0deg, #24262a, rgba(52, 58, 64, 0.2)) repeat-x;
+    transition: 0.5s;
 }
+
