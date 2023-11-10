@@ -24,6 +24,23 @@ export function updateComponentOrder(newOrder) {
 }
 
 $("#component_list_table_body").sortable({
+    handle: ".drag-handle",
+    // placeholder: "placeholder",
+    //     helper: "clone",
+    // items: "> tr",
+    helper: function(event, ui) {
+        // ui.css('opacity', '0')
+        const sortableItem = document.createElement("div");
+        sortableItem.classList.add('sortableItem');
+        sortableItem.textContent = ui.clone().data('component_name');
+        return sortableItem;
+
+        // const $clone = ui.clone();
+        // $clone.children('td').each(function(index){
+        //     $(this).width(ui.children('td').eq(index).width());
+        // });
+        // return $clone;
+    },
     update:async function(event, ui) {
         const sortedItems = [];
         $(".componentRow").each(function(index) {

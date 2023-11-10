@@ -1,28 +1,38 @@
+
 .meta-tags-container {
     margin: auto;
     width: 95%;
     padding: 10px;
 }
-#sortable {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 60%;
+
+.sortableItem {
+    background: rgba(104, 174, 246, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
-#sortable td {
-    margin: 0 3px 3px 3px;
-    padding: 0.4em;
-    padding-left: 1.5em;
-    font-size: 0.9em;
-    height: 1.8rem;
+.componentRow {
+    transition: all .3s;
+}
+.componentRow .drag-handle{
+    cursor: grab;
 }
 
-#sortable td span {
-    position: absolute;
-    margin-left: -1.3em;
-    color:white;
+
+.drag-handle {
+    cursor: grab;
 }
+
+.componentRow:hover {
+    transform: scale(1.025);
+}
+
+.componentRow:active {
+    cursor: grabbing;
+}
+
 @keyframes highlight {
     0% { background-color: #ffff99; }
     100% { background-color: transparent; }
