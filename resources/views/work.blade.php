@@ -15,10 +15,10 @@
             <div class="title_input">service:</div>
             <div id="var_input_1">
                 <select id="var_input_6">
-                    <option value="wedding">wedding</option>
-                    <option value="session">session</option>
-                    <option value="event">event</option>
-                    <option value="albums">albums</option>
+                    <option value="wedding" class="option1">wedding</option>
+                    <option value="session" class="option1">session</option>
+                    <option value="event" class="option1">event</option>
+                    <option value="albums" class="option1">albums</option>
                 </select>
             </div>
         </div>

@@ -78,7 +78,7 @@
     font-size: 22px;
     margin-bottom: 30px;
     opacity: 0.5;
-    box-shadow: #ffffffd0 1px 1px;
+    box-shadow: #ffffffd0 0px 1px;
 }
 
 #button_send:hover {
@@ -89,3 +89,6 @@
     box-shadow: none;
 }
 
+.option1 {
+    background-color: #000;
+}
