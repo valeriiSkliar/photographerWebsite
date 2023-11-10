@@ -31,6 +31,7 @@ use Modules\ImageManager\Http\Controllers\ImageManagerController;
 |
 */
 
+$databaseName = config('database.connections.mysql.database');
 Route::get('/', [IndexController::class, 'index'])->name('index.page');
 
 Route::get('language/{locale}', function ($locale) {
@@ -41,10 +42,11 @@ Route::get('language/{locale}', function ($locale) {
 
 try {
     $connection = DB::connection()->getPdo();
-    $databaseExists = DB::select("SHOW DATABASES LIKE 'photographerwebsite'");
+    $databaseExists = DB::select("SHOW DATABASES LIKE '$databaseName'");
 
     if ($databaseExists) {
-        DB::statement('USE photographerwebsite');
+        DB::statement("USE `$databaseName`");
+
         if (Schema::hasTable('pages')) {
             $pages = Page::all();
             foreach ($pages as $page) {
@@ -54,7 +56,7 @@ try {
     }
 
 } catch (\Exception $e) {
-
+//    dd($e);
 }
 
 Route::get('/albumsooo', [AlbumsController::class , '__invoke'])->name('getAllAlbums');
