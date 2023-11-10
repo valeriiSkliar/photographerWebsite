@@ -82,12 +82,12 @@
                     </button>
                 </form>
 
-                <div class="mt-7 grid grid-cols-3 items-center text-gray-500">
-                    <hr class="border-gray-500"/>
-                    <p class="text-center text-sm">{{__('reg&log.or')}}</p>
-                    <hr class="border-gray-500"/>
-                </div>
-
+{{--                <div class="mt-7 grid grid-cols-3 items-center text-gray-500">--}}
+{{--                    <hr class="border-gray-500"/>--}}
+{{--                    <p class="text-center text-sm">{{__('reg&log.or')}}</p>--}}
+{{--                    <hr class="border-gray-500"/>--}}
+{{--                </div>--}}
+{{--                    Log in through google                    --}}
 {{--                <button--}}
 {{--                    class="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 ">--}}
 {{--                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="w-6 h-6"--}}
@@ -107,13 +107,14 @@
 {{--                    <span class="ml-4">Login with Google</span>--}}
 {{--                </button>--}}
 
-                <div class="text-sm flex justify-between items-center mt-3">
-                    <p>{{ __('reg&log.existAccount') }}</p>
-                    <a href="{{ route('register') }}"
-                        class="py-2 px-5 ml-3 bg-white border rounded-xl hover:scale-110 duration-300 border-blue-400  ">
-                        {{ __('reg&log.registration') }}
-                    </a>
-                </div>
+{{--                    Registration button                    --}}
+{{--                <div class="text-sm flex justify-between items-center mt-3">--}}
+{{--                    <p>{{ __('reg&log.existAccount') }}</p>--}}
+{{--                    <a href="{{ route('register') }}"--}}
+{{--                        class="py-2 px-5 ml-3 bg-white border rounded-xl hover:scale-110 duration-300 border-blue-400  ">--}}
+{{--                        {{ __('reg&log.registration') }}--}}
+{{--                    </a>--}}
+{{--                </div>--}}
             </div>
         </div>
     </section>
