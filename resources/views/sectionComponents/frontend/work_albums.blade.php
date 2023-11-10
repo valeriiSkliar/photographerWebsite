@@ -10,5 +10,7 @@
                 {{$text->value}}
             </p>
         @endforeach
+        <br>
+        <x-button-work></x-button-work>
     </div>
 </div>

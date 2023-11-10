@@ -50,17 +50,27 @@
                 <h4 class="my-4">Albums</h4>
                 <div class="row position-relative">
                     @foreach($albums as $album)
-                        <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
-                            <div class="card">
-                                @if($album->images->first())
-                                    <img src="{{ asset($album->images->first()->file_url) ?? '' }}"
-                                         alt="{{ $album->title }}"
-                                         title="{{ $album->title }}" class="card-img-top">
-                                @endif
-                                <div class="card-img-overlay d-flex justify-content-center align-items-center">
-                                    <a href="{{ route('albums.edit', $album) }}" class="btn btn-primary">
-                                        Edit
-                                    </a>
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="card album-card">
+                                <a href="{{ route('albums.edit', $album->id) }}">
+                                    @if($album->images->first())
+                                        <img src="{{ asset($album->images->first()->file_url) ?? '' }}"
+                                             alt="{{ $album->title }}"
+                                             title="{{ $album->title }}" class="card-img-top">
+                                    @endif
+                                    <div class="album-title d-flex justify-content-center align-items-center">
+                                        <h3 class="text-center">{{ $album->title }}</h3>
+                                    </div>
+                                </a>
+                                <div class="btn-group album-controls">
+                                    <form action="{{ route('albums.destroy', $album->id) }}" method="POST"
+                                          class="text-center m-0 p-0 mt-2">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class=" album-delete btn btn-sm btn-danger text-center">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

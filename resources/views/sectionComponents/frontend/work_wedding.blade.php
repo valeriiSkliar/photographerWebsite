@@ -11,8 +11,7 @@
                 {{$text->value}}
             </p>
         @endforeach
-    </div>
-    <div class="href_application">
+        <br>
         <x-button-work></x-button-work>
     </div>
 </div>
