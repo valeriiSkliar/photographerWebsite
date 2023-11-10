@@ -1,17 +1,19 @@
 @if($component)
     <tr
-        id="sortable"
+        class="componentRow border-0"
         data-componentId="{{ $component->id }}"
-        class="componentRow"
+        data-component_name="{{ $component->name }}"
     >
-        <td>
-            <i class="fa-solid fa-arrows-up-down-left-right" style="color: #f7f7f7;"></i>
+        <td
+            class="border-0"
+        >
+            <i class="drag-handle fa-solid fa-arrows-up-down pr-3" style="color: #f7f7f7;"></i>
             {{ $component->name }}
         </td>
-        <td
-            id="connected-album-name-{{$component->album ? $component->album->id : ''}}"
-        >
+        <td class="border-0 d-flex justify-content-between"
+            id="connected-album-name-{{$component->album ? $component->album->id : ''}}">
             {{ $component->album ? $component->album->title : ' - ' }}
+            <i class="px-3 fa-regular fa-pen-to-square" style="color: #f7f7f7;cursor: pointer"></i>
         </td>
     </tr>
 @endif

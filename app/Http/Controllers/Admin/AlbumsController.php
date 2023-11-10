@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Session;
 
 class AlbumsController extends Controller
 {
+
+    public function unPinImage(Request $request)
+    {
+        dd($request);
+    }
+
     public function index()
     {
         $albums = Album::all();
