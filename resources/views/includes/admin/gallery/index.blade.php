@@ -57,11 +57,31 @@
                                          alt="{{ $album->title }}"
                                          title="{{ $album->title }}" class="card-img-top">
                                 @endif
-                                <div class="card-img-overlay d-flex justify-content-center align-items-center">
-                                    <a href="{{ route('albums.edit', $album) }}" class="btn btn-primary">
-                                        Edit
-                                    </a>
+                                <div class="album-title d-flex justify-content-center align-items-center">
+                                    <h3 class="text-center">{{ $album->title }}</h3>
                                 </div>
+                                    <div class="btn-group album-controls">
+                                        <button type="button" class="btn btn-sm btn-outline-warning p-0" data-toggle="dropdown"
+                                                data-offset="-1, 0" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right m-0 p-0 mt-2"
+                                             style="min-width: auto; background-color: unset; border: unset; box-shadow: unset;">
+                                            <a href="{{ route('albums.edit', $album) }}"
+                                               class="dropdown-item text-center m-0 p-0"
+                                               style="background-color: unset; border: unset">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form action="{{ route('albums.destroy', $album->id) }}" method="POST"
+                                                  class="dropdown-item text-center m-0 p-0 mt-2">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class=" album-delete text-center p-0">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                     @endforeach
