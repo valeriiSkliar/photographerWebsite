@@ -215,13 +215,17 @@ export function getMetaListMarkUp(page_id) {
 }
 
 export function loadAddComponentInterface({target}) {
+    clearFormContainer()
+    $('#spinner').show();
     $.ajax({
         url: `/get-component-form/${$(target).data('page')}`,
         type: 'GET',
         success: function (response) {
+            $('#spinner').hide();
             $('#formContainer').html(response.markup);
         },
         error: function (response) {
+            $('#spinner').hide();
             console.log(response)
         }
     });
@@ -327,38 +331,96 @@ export function addListenerToLastChildOfTbody() {
 }
 
 export function getEditComponentForm({target}) {
-    const id = $(target.closest('tr')).data('componentid')
+    clearFormContainer();
+    const component_id = $(target.closest('tr')).data('componentid')
     const formContainer = $('#formContainer');
 
-    if (id) {
+    if (component_id) {
+        $('#spinner').show();
         $.ajax({
-            url: `/components/${id}/edit`,
+            url: `/components/${component_id}/edit`,
             type: 'GET',
             success: function (response) {
+                $('#spinner').hide();
                 $(formContainer).html(response.markup);
 
+                const disconnect_btn = $('#disconnect_btn');
+                const albumId = $(disconnect_btn).data('album_id');
+
                 $(formContainer).off('click', '#canselAddComponentButton').on('click', '#canselAddComponentButton', clearFormContainer);
+
                 const componentDetails = $(formContainer).find('#component-details');
+
                 const deleteButtons = $(componentDetails).find('button')
+
                 $(deleteButtons).off('click').on('click', deleteExistComponentDetail)
+
                 $(formContainer).off('click', '#addComponentDetail').on('click', '#addComponentDetail', addDetailFields);
 
                 $(formContainer).off('submit', '#updateComponentForm').on('submit', '#updateComponentForm', function (e) {
                     e.preventDefault();
-                    submitUpdateComponentForm(id);
+                    submitUpdateComponentForm(component_id);
                 });
 
+                $(disconnect_btn).off('click').on('click', function () {
+                    disconnectAlbum({component_id, albumId});
 
-                $('#disconnect_btn').off('click').on('click', function () {
-                    disconnectAlbum(id);
                 });
+                // add listeners to each image
+                $('.unpin-btn').off('click').on('click', async function ({target}) {
+
+                    await unpinImageFromAlbum({target, albumId});
+                });
+
             },
+            error: function () {
+                $('#spinner').hide();
+            }
         });
     }
 
+
 }
 
-export function disconnectAlbum(component_id) {
+export async function unpinImageFromAlbum({target, albumId}) {
+    const image = target.closest('button').offsetParent;
+    const image_id = $(target.closest('button')).data('image_id');
+    $.ajax({
+        url: `/api/un-pin/`,
+        type: 'DELETE',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': `${getCsrfToken()}`,
+        },
+        data: {
+            album_id: albumId,
+            image_id: image_id,
+        },
+        success: function (response) {
+            image.remove();
+            if (response.success) {
+                Swal.fire({
+                    position: 'bottom-end',
+                    icon: 'success',
+                    title: 'Success',
+                    text: response.message,
+                    showConfirmButton: false,
+                    timer: 5000,
+                    toast: true,
+                    background: 'rgba(0,0,0,.8)',
+                    padding: '0.5rem',
+                    width: 400,
+                    height: 200
+                })
+            }
+        },
+        error: function (response) {
+            console.log(response)
+        }
+    });
+}
+
+export function disconnectAlbum({component_id, albumId}) {
     $.ajax({
         url: `/api/component-album-disconnect/${component_id}`,
         method: 'POST',
@@ -371,6 +433,8 @@ export function disconnectAlbum(component_id) {
             $('#imageContainer').html('')
             $('#connectedAlbumContainer').remove();
             $('#albumsSelect').css('display', 'block');
+            // console.log($(`#connected-album-name-${albumId}`))
+            $(`#connected-album-name-${albumId}`)[0].textContent = ' - ';
         },
     })
 }
@@ -486,37 +550,3 @@ export function afterModalCloseCheck(form) {
     // console.log(form)
 }
 
-{
-    // <div class="form-group col-md-3">
-    //     <label for="details[${detailIndex}][key]">Key:</label>
-    //     <input
-    //         class="form-control"
-    //         type="text"
-    //         id="details[${detailIndex}][key]"
-    //         name="details[${detailIndex}][key]"
-    //         required
-    //     >
-    // </div>
-    // <div class="form-group col-md-8">
-    //     <label for="details[${detailIndex}][value]">Value:</label>
-    //     <input
-    //         type="text"
-    //         class="form-control"
-    //         id="details[${detailIndex}][value]"
-    //         name="details[${detailIndex}][value]"
-    //         required>
-    // </div>
-    // <div class= "form-group col-md-1">
-    //     <label for="delete[${detailIndex}]" >Delete:</label>
-    //     <button
-    //         id="delete[${detailIndex}]"
-    //         onclick="event.preventDefault()"
-    //         href="javascript:void(0);"
-    //         class="btn btn-outline-danger w-100"
-    //     >
-    //         <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
-    //             <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/>
-    //         </svg>
-    //     </button>
-    // </div>
-}

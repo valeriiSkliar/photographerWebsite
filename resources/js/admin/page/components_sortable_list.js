@@ -1,4 +1,4 @@
-import 'jquery-ui-dist/jquery-ui.css';
+import 'jquery-ui-dist/jquery-ui.js';
 import {getCsrfToken} from "@/helpers/getCsrfToken.js";
 import {getPageID} from "@/helpers/getPageID.js";
 
@@ -6,6 +6,7 @@ export function updateComponentOrder(newOrder) {
     return $.ajax({
         url: '/api/update-components-list/order',
         type: 'POST',
+
         data: {
             order: newOrder,
             page_id: getPageID(),
@@ -22,7 +23,20 @@ export function updateComponentOrder(newOrder) {
     });
 }
 
+
+
 $("#component_list_table_body").sortable({
+    handle: ".drag-handle",
+    // placeholder: "placeholder",
+    //     helper: "clone",
+    // items: "> tr",
+    helper: function(event, ui) {
+        // ui.css('opacity', '0')
+        const sortableItem = document.createElement("div");
+        sortableItem.classList.add('sortableItem');
+        sortableItem.textContent = ui.clone().data('component_name');
+        return sortableItem;
+    },
     update:async function(event, ui) {
         const sortedItems = [];
         $(".componentRow").each(function(index) {

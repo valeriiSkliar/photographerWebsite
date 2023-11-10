@@ -1,0 +1,49 @@
+
+.meta-tags-container {
+    margin: auto;
+    width: 95%;
+    padding: 10px;
+}
+
+.sortableItem {
+    background: rgba(104, 174, 246, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.componentRow {
+    transition: all .3s;
+}
+.componentRow .drag-handle{
+    cursor: grab;
+}
+
+
+.drag-handle {
+    cursor: grab;
+}
+
+.componentRow:hover {
+    transform: scale(1.025);
+}
+
+.componentRow:active {
+    cursor: grabbing;
+}
+
+@keyframes highlight {
+    0% { background-color: #ffff99; }
+    100% { background-color: transparent; }
+}
+
+.highlight-animation {
+    animation: highlight 1.5s;
+}
+.image-tile {
+    background-size: cover;
+    background-position: center;
+    height: 100px;
+    width: 200px;
+}

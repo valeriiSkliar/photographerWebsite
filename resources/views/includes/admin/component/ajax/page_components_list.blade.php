@@ -15,19 +15,20 @@
                 @if($page->components)
                     @foreach($page->components as $index => $component)
                         <tr
-                            id="sortable"
-                            class="componentRow"
+                            class="componentRow border-0"
                             data-componentId="{{ $component->id }}"
-                            data-list_order="{{ $index }}"
+                            data-component_name="{{ $component->name }}"
                         >
-                            <td>
-                                <svg class="pr-2" xmlns="http://www.w3.org/2000/svg" fill="white" height="1em" viewBox="0 0 320 512">
-                                   <path d="M182.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L128 109.3V402.7L86.6 361.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 402.7V109.3l41.4 41.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-96-96z"/>
-                                </svg>
+                            <td
+                                class="border-0"
+                            >
+                                <i class="drag-handle fa-solid fa-arrows-up-down pr-3" style="color: #f7f7f7;"></i>
                                 {{ $component->name }}
                             </td>
-                            <td>
+                            <td class="border-0 d-flex justify-content-between"
+                                id="connected-album-name-{{$component->album ? $component->album->id : ''}}">
                                 {{ $component->album ? $component->album->title : ' - ' }}
+                                <i class="px-3 fa-regular fa-pen-to-square" style="color: #f7f7f7;cursor: pointer"></i>
                             </td>
                         </tr>
                     @endforeach

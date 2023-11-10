@@ -10,6 +10,28 @@ use Illuminate\Support\Facades\Session;
 
 class AlbumsController extends Controller
 {
+
+    public function unPinImage(Request $request)
+    {
+        $albumId = $request['album_id'];
+        $imageId = $request['image_id'];
+        $album = Album::findOrFail($albumId);
+
+        if ($album->images()->find($imageId)) {
+            $album->images()->detach($imageId);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Image successfully removed from the album.'
+            ], 200);
+        } else {
+            return response()->json([
+                'error' => true,
+                'message' => 'Image not found in the specified album.'
+            ], 404);
+        }
+    }
+
     public function index()
     {
         $albums = Album::all();

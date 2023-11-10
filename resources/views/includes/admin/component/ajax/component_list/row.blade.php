@@ -1,20 +1,20 @@
 @if($component)
     <tr
-    data-componentId="{{ $component->id }}"
-    class="componentRow"
+        class="componentRow border-0"
+        data-componentId="{{ $component->id }}"
+        data-component_name="{{ $component->name }}"
     >
-        <td>{{ $component->name }}</td>
-        <td>{{ $component->album ? $component->album->title : ' - ' }}</td>
-{{--        <td>--}}
-{{--            <form method="POST" action="{{ route('components.destroy', $component) }}" class="d-inline">--}}
-{{--                @csrf--}}
-{{--                @method('DELETE')--}}
-{{--                <input type="hidden" name="page_id" value="{{ $page->id }}">--}}
-{{--                <button--}}
-{{--                    onclick="event.stopPropagation()"--}}
-{{--                    type="submit" class="btn btn-danger btn-sm">Delete</button>--}}
-{{--            </form>--}}
-{{--        </td>--}}
+        <td
+            class="border-0"
+        >
+            <i class="drag-handle fa-solid fa-arrows-up-down pr-3" style="color: #f7f7f7;"></i>
+            {{ $component->name }}
+        </td>
+        <td class="border-0 d-flex justify-content-between"
+            id="connected-album-name-{{$component->album ? $component->album->id : ''}}">
+            {{ $component->album ? $component->album->title : ' - ' }}
+            <i class="px-3 fa-regular fa-pen-to-square" style="color: #f7f7f7;cursor: pointer"></i>
+        </td>
     </tr>
 @endif
 
