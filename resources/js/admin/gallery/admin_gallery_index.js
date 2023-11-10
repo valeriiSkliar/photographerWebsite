@@ -1,23 +1,14 @@
 import {getCsrfToken} from "../../helpers/getCsrfToken.js";
+import Swal from "sweetalert2";
 
-let albumId = null;
 const upload_label = document.getElementById('upload-label');
+let albumId = null;
 
-document.getElementById('selectAll')
-    .addEventListener('change', selectAllImages);
-document.getElementById('btnDeleteSelectedImages')
-    .addEventListener('click', deleteSelectedImages);
-document.getElementById('btnAddToAlbum')
-    .addEventListener('click', addToAlbum);
-document.getElementById('createNewAlbum')
-    .addEventListener('click', createNewAlbum);
+async function confirmDelete() {
+    const result = await Swal.fire(sweetAlertConfigs.modalConfirm());
+    return result.isConfirmed;
+}
 
-document.getElementById('zdrop').addEventListener('dragenter', () => {
-    upload_label.style.color = '#e7615c';
-});
-document.getElementById('zdrop').addEventListener('dragleave', () => {
-    upload_label.style = null;
-});
 function selectAllImages() {
     const allImages = document.querySelectorAll('.image-checkbox');
     const selectAllCheckbox = document.getElementById('selectAll');
@@ -177,6 +168,40 @@ function createNewAlbum(e) {
             }
         });
 }
+
+document.getElementById('selectAll')
+    .addEventListener('change', selectAllImages);
+
+document.getElementById('btnDeleteSelectedImages')
+    .addEventListener('click', deleteSelectedImages);
+
+document.getElementById('btnAddToAlbum')
+    .addEventListener('click', addToAlbum);
+
+document.getElementById('createNewAlbum')
+    .addEventListener('click', createNewAlbum);
+
+const albums =  document.querySelectorAll('.album-delete');
+
+if (albums.length) {
+ albums.forEach((album) => {
+     album.addEventListener('click', async function ( e) {
+         e.preventDefault();
+         const willAlbumDelete = await confirmDelete();
+         if (willAlbumDelete) {
+             const form = this.closest('.album-controls form');
+             form.submit();
+         }
+     });
+ });
+}
+
+document.getElementById('zdrop').addEventListener('dragenter', () => {
+    upload_label.style.color = '#e7615c';
+});
+document.getElementById('zdrop').addEventListener('dragleave', () => {
+    upload_label.style = null;
+});
 
 Dropzone.autoDiscover = false;
 
