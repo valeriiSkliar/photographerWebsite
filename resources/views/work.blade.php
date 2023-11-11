@@ -19,15 +19,15 @@
             </div>
             <div class="input_flex">
                 <div class="title_input">name:</div>
-                <input type="text" id="var_input_2">
+                <input type="text" placeholder="Emmanuel" id="var_input_2">
             </div>
             <div class="input_flex">
                 <div class="title_input">surname:</div>
-                <input type="text" id="var_input_3">
+                <input type="text" placeholder="Kant" id="var_input_3">
             </div>
             <div class="input_flex">
                 <div class="title_input">phone:</div>
-                <input type="text" id="var_input_4">
+                <input type="text" placeholder="+4911111111111" id="var_input_4">
             </div>
             <div class="input_flex">
                 <div class="title_input">date:</div>
@@ -39,3 +39,7 @@
         </div>
     </div>
 @endsection
+@push('custom-script')
+    @vite(['resources\js\front\work_page.js'])
+@endPush
+

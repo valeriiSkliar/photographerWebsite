@@ -305,7 +305,7 @@ export function submitComponentForm() {
     let formData = $('#addComponentForm').serialize();
 
     $.ajax({
-        url: '/components',
+        url: '/admin/components',
         type: 'POST',
         data: formData,
         success: function (response) {
