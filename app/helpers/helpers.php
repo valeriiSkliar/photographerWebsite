@@ -22,10 +22,11 @@ function slugify($text) {
     return $text;
 }
 
-function current_user()
+function current_user(): ?\Illuminate\Contracts\Auth\Authenticatable
 {
     return auth()->user();
 }
-function normalizePath($path) {
+function normalizePath($path): array|string
+{
     return str_replace('\\', '/', $path);
 }
