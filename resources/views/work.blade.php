@@ -1,40 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<<<<<<< HEAD
-    @foreach($page->components as ['name'=>$name, 'album'=>$album, 'details'=>$details])
-                @include('sectionComponents.frontend.'.$name)
-@endforeach
-<div id="application_form">
-    <div id="title_form" class="align_center">
-        Please, complete your application
-    </div>
-    <div class="main_inputs">
-        <div class="input_flex">
-            <div class="title_input">service:</div>
-            <div id="var_input_1">
-                <select id="var_input_6">
-                    @foreach($page->components as ['name'=>$name, 'album'=>$album, 'details'=>$details])
-                        <option value="service" class="option1">{{$details[0]->value}}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="input_flex">
-            <div class="title_input">name:</div>
-            <input type="text" placeholder="Emmanuel" id="var_input_2">
-        </div>
-        <div class="input_flex">
-            <div class="title_input">surname:</div>
-            <input type="text" placeholder="Kant" id="var_input_3">
-        </div>
-        <div class="input_flex">
-            <div class="title_input">phone:</div>
-            <input type="text" placeholder="+4915111111111" id="var_input_4">
-        </div>
-        <div class="input_flex">
-            <div class="title_input">date:</div>
-            <input type="date" id="var_input_5">
-=======
     @include('layouts.componentsFromDb')
     <div id="application_form">
         <div id="title_form" class="align_center">
@@ -71,7 +36,6 @@
         </div>
         <div class="submit align_center">
             <button id="button_send">Send</button>
->>>>>>> 83218b3fbb8f72b8566ed2e99c1f2963ed6e6441
         </div>
     </div>
 @endsection
