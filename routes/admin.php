@@ -29,6 +29,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/pages/{page}/edit', [PageController::class, 'edit'])->name('admin.pages.edit');
     Route::patch('/pages/{page}', [PageController::class, 'update'])->name('admin.pages.update');
     Route::delete('/pages/{page}', [PageController::class, 'destroy'])->name('admin.pages.destroy');
-    Route::post('/application-submit', ApplicationSubmitController::class, 'submit');
+    Route::post('/application-submit', [ApplicationSubmitController::class, 'submit']);
 
 });
