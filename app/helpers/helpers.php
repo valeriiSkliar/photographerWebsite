@@ -21,3 +21,7 @@ function slugify($text) {
 
     return $text;
 }
+
+function normalizePath($path) {
+    return str_replace('\\', '/', $path);
+}
