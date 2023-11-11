@@ -22,11 +22,6 @@ return new class extends Migration
             $table->string('visibility')->nullable();
             $table->softDeletes();
 
-//            $table->string('page_id')->nullable();
-//            $table->string('section_id')->nullable();
-//            $table->string('component_id')->nullable();
-//            $table->string('component_id')->nullable();
-
             $table->timestamps();
         });
 
