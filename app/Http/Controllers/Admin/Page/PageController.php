@@ -36,34 +36,34 @@ class PageController extends Controller
                 'name' => 'required|string|max:255',
                 'slug' => 'required|string|max:255|unique:pages',
                 'title' => 'required|string|max:255',
-                'meta_data' => 'required|string|max:255',
-                'metaData' => 'nullable|array',
-                'metaData.*.type_id' => 'required|exists:meta_teg_types,id',
-                'metaData.*.value' => 'required|string|max:255',
-                'metaData.*.content' => 'required|string|max:255',
+//                'meta_data' => 'required|string|max:255',
+//                'metaData' => 'nullable|array',
+//                'metaData.*.type_id' => 'required|exists:meta_teg_types,id',
+//                'metaData.*.value' => 'required|string|max:255',
+//                'metaData.*.content' => 'required|string|max:255',
             ]);
             $page = Page::create([
                 'name' => $validatedData['name'],
                 'slug' => $validatedData['slug'],
                 'title' => $validatedData['title'],
-                'meta_data' => $validatedData['meta_data'],
+//                'meta_data' => $validatedData['meta_data'],
             ]);
 
-            if (isset($validatedData['metaData'])) {
-                foreach ($validatedData['metaData'] as $meta) {
-                    MetaTags::create([
-                        'page_id' => $page->id,
-                        'type_id' => $meta['type_id'],
-                        'value' => $meta['value'],
-                        'content' => $meta['content']
-                    ]);
-                }
-            }
-
-            if (isset($validatedData['sectionData'])) {
-                $validatedData['sectionData'][0]['page_id'] = $page->id;
-                app(SectionController::class)->createSection($validatedData['sectionData']);
-            }
+//            if (isset($validatedData['metaData'])) {
+//                foreach ($validatedData['metaData'] as $meta) {
+//                    MetaTags::create([
+//                        'page_id' => $page->id,
+//                        'type_id' => $meta['type_id'],
+//                        'value' => $meta['value'],
+//                        'content' => $meta['content']
+//                    ]);
+//                }
+//            }
+//
+//            if (isset($validatedData['sectionData'])) {
+//                $validatedData['sectionData'][0]['page_id'] = $page->id;
+//                app(SectionController::class)->createSection($validatedData['sectionData']);
+//            }
 
             DB::commit();
 

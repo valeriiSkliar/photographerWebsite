@@ -100,7 +100,7 @@ class ImageUploadController extends Controller
             $image = ImageIntervention::make($file)
                 ->encode('webp', 75);
             $image->save(public_path($filePath));
-            $imageModel  = Image::create(['file_url' => $filePath]);
+            $imageModel  = Image::create(['file_url' => normalizePath(public_path() . '/' . $filePath)]);
 
             $pendingAlbumId = session('pending_album_id', null);
             if($pendingAlbumId) {

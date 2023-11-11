@@ -1,16 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminPanelController;
-use App\Http\Controllers\Admin\AlbumsController;
 use App\Http\Controllers\Admin\Component\ComponentController;
-use App\Http\Controllers\Admin\Page\PageController;
-use App\Http\Controllers\Admin\Section\SectionController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\FormController;
-use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\IframeController;
-use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +22,7 @@ use Modules\ImageManager\Http\Controllers\ImageManagerController;
 |
 */
 
+$databaseName = config('database.connections.mysql.database');
 Route::get('/', [IndexController::class, 'index'])->name('index.page');
 
 Route::get('language/{locale}', function ($locale) {
@@ -41,10 +33,11 @@ Route::get('language/{locale}', function ($locale) {
 
 try {
     $connection = DB::connection()->getPdo();
-    $databaseExists = DB::select("SHOW DATABASES LIKE 'photographerwebsite'");
+    $databaseExists = DB::select("SHOW DATABASES LIKE '$databaseName'");
 
     if ($databaseExists) {
-        DB::statement('USE photographerwebsite');
+        DB::statement("USE `$databaseName`");
+
         if (Schema::hasTable('pages')) {
             $pages = Page::all();
             foreach ($pages as $page) {
@@ -53,24 +46,18 @@ try {
         }
     }
 
-} catch (\Exception $e) {
-
+} catch (Exception $e) {
+//    dd($e);
 }
 
-Route::get('/albumsooo', [AlbumsController::class , '__invoke'])->name('getAllAlbums');
-Route::get('/albums/{id}', [AlbumsController::class , 'show_album'])->name('show_album');
-Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+
+//Route::get('/albums/{id}', [AlbumsController::class, 'show_album'])->name('show_album');
+//Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
 
 Route::post('/upload', [ImageUploadController::class, 'uploadMethod']);
 Route::post('/create-album', [ImageUploadController::class, 'createAlbum']);
 Route::post('/delete-selected-images', [ImageUploadController::class, 'deleteSelectedImages']);
 Route::post('/add-selected-images', [ImageUploadController::class, 'addSelectedImagesToAlbum']);
-
-Route::get('/test', [\App\Http\Controllers\TestController::class, '__invoke'])->name('test');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -78,40 +65,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('/contacts', ContactController::class);
-Route::resource('/sections', SectionController::class);
+//Route::resource('/sections', SectionController::class);
 //Components
-Route::resource('/components', ComponentController::class);
+//Route::resource('/components', ComponentController::class);
 Route::get('/get-component-form/{id}', [ComponentController::class, 'getFormMarkup']);
 Route::post('/components/{id}/update', [ComponentController::class, 'update']);
 Route::post('/components/{id}/destroy', [ComponentController::class, 'destroy']);
 
 
-Route::group(['prefix' => 'admin', 'middleware'=> 'auth'],function () {
-
-    Route::resource('forms', FormController::class);
-
-    Route::get('/iframe-content', [IframeController::class , 'show'])->name('iframe.content');
-
-    Route::get('/', [AdminPanelController::class, '__invoke'])->name('index.dashboard');
-    Route::get('/dashboard', [AdminPanelController::class, '__invoke'])->name('index.dashboard');
-
-
-
-    Route::resource('/albums', AlbumsController::class);
-    Route::resource('/images', ImageController::class);
-
-        Route::get('/pages/', [PageController::class, 'index'])->name('admin.page.index');
-        Route::get('/pages/create', [PageController::class, 'create'])->name('admin.page.create');
-        Route::post('/pages/', [PageController::class, 'store'])->name('admin.page.store');
-        Route::get('/pages/{page}', [PageController::class, 'show'])->name('admin.pages.show');
-        Route::get('/pages/{page}/edit', [PageController::class, 'edit'])->name('admin.pages.edit');
-        Route::patch('/pages/{page}', [PageController::class, 'update'])->name('admin.pages.update');
-        Route::delete('/pages/{page}', [PageController::class, 'destroy'])->name('admin.pages.destroy');
-
-});
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';
 
 Auth::routes();
 

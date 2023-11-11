@@ -21,3 +21,11 @@ function slugify($text) {
 
     return $text;
 }
+
+function current_user()
+{
+    return auth()->user();
+}
+function normalizePath($path) {
+    return str_replace('\\', '/', $path);
+}
