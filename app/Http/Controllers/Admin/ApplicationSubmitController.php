@@ -10,6 +10,7 @@ class ApplicationSubmitController extends Controller
     public function submit(Request $request): \Illuminate\Http\JsonResponse
     {
         $data = $request->all();
+        //
         return response()->json($data);
     }
 }
