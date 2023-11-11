@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminPanelController;
 use App\Http\Controllers\Admin\AlbumsController;
+use App\Http\Controllers\Admin\ApplicationSubmitController;
 use App\Http\Controllers\Admin\Component\ComponentController;
 use App\Http\Controllers\Admin\Page\PageController;
 use App\Http\Controllers\ContactController;
@@ -28,5 +29,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/pages/{page}/edit', [PageController::class, 'edit'])->name('admin.pages.edit');
     Route::patch('/pages/{page}', [PageController::class, 'update'])->name('admin.pages.update');
     Route::delete('/pages/{page}', [PageController::class, 'destroy'])->name('admin.pages.destroy');
+    Route::post('/application-submit', ApplicationSubmitController::class, 'submit');
 
 });
