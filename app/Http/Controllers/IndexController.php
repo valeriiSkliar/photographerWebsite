@@ -25,9 +25,8 @@ class IndexController extends Controller
             ->where('slug', $pageSlug)
             ->first();
         if (!$page) {
-            abort(404, 'Page not found');
+            abort(404);
         }
-
         $meta_tags = MetaTags::where('page_id', '=', $page->id)->get();
 
         return view($pageSlug, compact('page', 'meta_tags'));
