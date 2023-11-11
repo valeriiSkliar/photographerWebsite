@@ -26,7 +26,7 @@
     };
 </style>
 
-<a id="button_work" href="#application_form">
+<a id="button_work" class="buttonWork" href="#application_form">
    to Order form...
 </a>
 
