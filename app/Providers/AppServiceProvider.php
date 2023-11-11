@@ -9,6 +9,7 @@ use App\Models\MetaData\MetaTagsPropertyVariants;
 use App\Models\MetaData\MetaTegType;
 use App\Models\Page;
 use App\Services\SessionMessageService;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Schema::defaultStringLength(191);
+
         $this->app->singleton(SessionMessageService::class, function ($app) {
             return new SessionMessageService();
         });

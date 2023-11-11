@@ -338,7 +338,7 @@ export function getEditComponentForm({target}) {
     if (component_id) {
         $('#spinner').show();
         $.ajax({
-            url: `/components/${component_id}/edit`,
+            url: `/admin/components/${component_id}/edit`,
             type: 'GET',
             success: function (response) {
                 $('#spinner').hide();
