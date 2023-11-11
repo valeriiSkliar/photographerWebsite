@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Component\Component;
+use App\Models\MetaData\MetaTags;
 use App\Models\Page;
 use Illuminate\Http\Request;
 
@@ -23,12 +24,12 @@ class IndexController extends Controller
         }, 'components.album.images'])
             ->where('slug', $pageSlug)
             ->first();
-
-//        dd($page);
         if (!$page) {
             abort(404, 'Page not found');
         }
 
-        return view($pageSlug, compact('page'));
+        $meta_tags = MetaTags::where('page_id', '=', $page->id)->get();
+
+        return view($pageSlug, compact('page', 'meta_tags'));
     }
 }
