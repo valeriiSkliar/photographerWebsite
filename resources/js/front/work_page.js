@@ -1,3 +1,4 @@
+import {getCsrfToken} from "../helpers/getCsrfToken.js"
 
 function preventDefaultA () {
 
@@ -38,7 +39,23 @@ function trueInput (examElement) {
 }
 
 function sendMessage (service, name, surname, phone, date) {
-
+    const messageToAdmin = {
+        service,
+        name,
+        surname,
+        phone,
+        date
+    };
+    const message = JSON.stringify(messageToAdmin);
+    fetch ('admin/application-submit',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-TOKEN': `${getCsrfToken()}`
+        },
+        body: message
+      }).then(data=>data.json()).then(data=>console.log(data))
 }
 
 document.getElementById('button_send').addEventListener('click',() => {
