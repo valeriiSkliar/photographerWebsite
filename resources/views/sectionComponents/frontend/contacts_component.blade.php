@@ -1,9 +1,11 @@
 <div class="contacts_name_page">CONTACTS</div>
 <div class="container_contacts">
    <div class="container_back">
+         @if(isset($contact['name']) && isset($contact['surname']))
         <div class="contacts_name">
-            {{$details[0]->value}}
+            {{$contact['name'].' '.$contact['surname']}}
         </div>
+        @endif
         <div class="contacts_half_opacity">
             Address
         </div>
@@ -18,17 +20,25 @@
         </div>
    </div>
    <div class="container_front">
+        @if(isset($contact['city']) && isset($contact['address']))
         <div class="contacts_front">
-            {{$details[1]->value}}
+            {{$contact['city'].', '.$contact['address']}}
         </div>
+        @endif
+        @if(isset($contact['phone']))
         <div class="contacts_front contacts_align_right_front">
-            {{$details[2]->value}}
+            {{$contact['phone']}}
         </div>
+        @endif
+        @if(isset($contact['email']))
         <div class="contacts_front">
-            {{$details[3]->value}}
+            {{$contact['email']}}
         </div>
+        @endif
+        @if(isset($contact['telegram']))
         <div class="contacts_front contacts_align_right_front">
-            {{$details[4]->value}}
+            {{$contact['telegram']}}
         </div>
+        @endif
    </div>
 </div>
