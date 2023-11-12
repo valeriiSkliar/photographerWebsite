@@ -40,5 +40,4 @@ function confirmDelete (form) {
         });
 }
 
-$('#showMetaTagsForm').on('click', showMetaTagSwalModal)
-
+$('.showMetaTagsForm').on('click', showMetaTagSwalModal)

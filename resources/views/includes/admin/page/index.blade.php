@@ -40,7 +40,7 @@
                                                 <a href="{{ route('admin.pages.edit', $page->id) }}"
                                                    class="btn btn-info mb-md-2 mb-lg-auto mr-1" role="button">Page <i class="fas fa-edit"></i></a>
                                                 <button
-                                                   class="btn btn-warning mb-md-2 mb-lg-auto"
+                                                   class="btn btn-warning mb-md-2 mb-lg-auto showMetaTagsForm"
                                                    data-page="{{$page->id}}"
                                                    id="showMetaTagsForm"
                                                    onclick="event.stopPropagation()"

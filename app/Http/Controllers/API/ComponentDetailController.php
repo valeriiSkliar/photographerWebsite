@@ -50,7 +50,6 @@ class ComponentDetailController extends Controller
                 500);
         }
     }
-
     public function getDetailRowTemplate(): \Illuminate\Http\JsonResponse
     {
         $markup = view('includes.admin.component.ajax.new-detail-row')->render();
@@ -78,7 +77,6 @@ class ComponentDetailController extends Controller
             'message' => 'Component detail deleted successfully'
         ]);
     }
-
     public function change_album(Request $request)
     {
 
@@ -95,7 +93,6 @@ class ComponentDetailController extends Controller
             ]);
         }
     }
-
     public function attach_form(Request $request)
     {
         dd($request);

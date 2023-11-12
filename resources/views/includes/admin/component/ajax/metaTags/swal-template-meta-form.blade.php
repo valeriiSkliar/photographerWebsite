@@ -1,8 +1,17 @@
+<style>
+
+    .meta-tags-container {
+        margin: auto;
+        width: 95%;
+        padding: 10px;
+    }
+
+</style>
 <template
         style="min-width: 1200px"
-        id="my-template">
+        id="modal-template-{{$page->id}}">
     <swal-title>
-        Edit / Delete / Add meta tags!
+        Manage meta tags for Page: {{ $page->name }}
     </swal-title>
     <swal-html>
         <form

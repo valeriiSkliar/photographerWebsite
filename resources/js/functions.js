@@ -51,7 +51,8 @@ export function deleteExistComponentDetail({target}) {
     })
 }
 
-export function showMetaTagSwalModal() {
+export function showMetaTagSwalModal({target}) {
+    const page_id = $(target).data('page');
     Swal.fire({
         showCloseButton: false,
         showCancelButton: false,
@@ -68,17 +69,19 @@ export function showMetaTagSwalModal() {
                 return false;
             }
         },
-        template: '#my-template',
+        template: `#modal-template-${page_id}`,
         width: '90%',
         didOpen: async function (popup) {
             Swal.showLoading();
-            updatedMarkup = await getMetaListMarkUp($('#showMetaTagsForm').data('page'));
+            updatedMarkup = await getMetaListMarkUp(page_id);
             const metaTagsContainer = $(popup).find('#meta-tags-container');
             const form = $(popup).find('form');
             $(metaTagsContainer).html(updatedMarkup.markup);
             metaTagsContainer.css('display', 'block');
             Swal.hideLoading();
-            $('.add-meta-tags-row').off('click').on('click', addMetaTagRow)
+            $('.add-meta-tags-row').off('click').on('click', function (event) {
+                addMetaTagRow({event, page_id});
+            });
 
             $(document).off('click').on('click', '.delete-meta-tag', function (event) {
                 deleteMetaTag(event, function (htmlContent) {
@@ -525,14 +528,14 @@ export function deleteMetaTag({target}, callback) {
     });
 }
 
-export function addMetaTagRow({target}) {
+export function addMetaTagRow({event: {target}, page_id}) {
     $.ajax({
         url: `/api/meta-tags-add-${target.dataset.action}`,
         type: 'POST',
         data: {
             type_id: target.dataset.type_id,
             type: target.dataset.action,
-            page_id: $('#currentPageId')[0].value
+            page_id: page_id
         },
         success: function (response) {
             $('#meta-tags-container').append(response.markup);

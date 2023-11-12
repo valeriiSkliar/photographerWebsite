@@ -150,11 +150,8 @@ class MetaTagController extends Controller
 
     public function getMarkUp(Request $request)
     {
-//
         $pageId = $request['page_id'];
-//        dd($pageId);
         $updatedMetaTags = MetaTags::where('page_id', $pageId)->get();
-
         try {
             $markup = view(
                 'includes.admin.component.ajax.metaTags.edit-meta-form',

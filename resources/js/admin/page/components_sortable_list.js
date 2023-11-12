@@ -27,11 +27,7 @@ export function updateComponentOrder(newOrder) {
 
 $("#component_list_table_body").sortable({
     handle: ".drag-handle",
-    // placeholder: "placeholder",
-    //     helper: "clone",
-    // items: "> tr",
     helper: function(event, ui) {
-        // ui.css('opacity', '0')
         const sortableItem = document.createElement("div");
         sortableItem.classList.add('sortableItem');
         sortableItem.textContent = ui.clone().data('component_name');
