@@ -55,7 +55,7 @@ class AlbumsController extends Controller
         $album = Album::find($pendingAlbumId);
         if (!$album->images->count()) {
             Session::flash('error_message','Album creating canceled!.');
-            $album->delete();
+            $album->forceDelete();
 
             return redirect()->route('gallery.index');
         } else {
@@ -90,8 +90,14 @@ class AlbumsController extends Controller
 
     public function destroy(Album $album)
     {
-        $album->delete();
-        Session::flash('success_message','Album successfully delete!.');
+        try {
+            $album->forceDelete();
+            Session::flash('success_message','Album successfully delete!.');
+
+        }catch (\Exception $e) {
+            Session::flash('error_message','Error during delete' . $e->getMessage());
+
+        }
         return redirect()->route('albums.index');
     }
 

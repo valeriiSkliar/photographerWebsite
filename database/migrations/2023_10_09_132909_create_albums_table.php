@@ -16,9 +16,7 @@ return new class extends Migration
             $table->string('title')->default('New album');
             $table->string('sub_text')->default('Add your sub text!');
             $table->text('description')->nullable();
-
             $table->softDeletes();
-
             $table->timestamps();
         });
     }
