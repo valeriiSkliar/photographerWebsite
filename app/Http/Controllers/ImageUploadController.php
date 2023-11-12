@@ -94,13 +94,13 @@ class ImageUploadController extends Controller
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $filename = time() . '.' . $file->getFilename() . '.webp';
+            $filename = time() . '.' . $file->getClientOriginalExtension() . '.webp';
             $filePath = 'uploads/' . $filename;
 
             $image = ImageIntervention::make($file)
                 ->encode('webp', 75);
             $image->save(public_path($filePath));
-            $imageModel  = Image::create(['file_url' => normalizePath(public_path() . '/' . $filePath)]);
+            $imageModel  = Image::create(['file_url' => asset($filePath)]);
 
             $pendingAlbumId = session('pending_album_id', null);
             if($pendingAlbumId) {

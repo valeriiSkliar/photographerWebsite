@@ -14,7 +14,7 @@
             <!-- Slides -->
             @foreach($album->images as $image)
                 <div class="swiper-slide">
-                    <img src="{{ asset($image->file_url) }}" alt="">
+                    <img src="{{ $image->file_url }}" alt="">
                 </div>
             @endforeach
         </div>
@@ -34,7 +34,7 @@
         <div class="swiper-wrapper">
             @foreach($album->images as $image)
                 <div class="swiper-slide">
-                    <img src="{{ asset($image->file_url) }}" alt="">
+                    <img src="{{ $image->file_url }}" alt="">
                 </div>
             @endforeach
         </div>
