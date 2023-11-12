@@ -105,7 +105,7 @@
                                 <label for="imgSelector{{ $image->id }}"></label>
                             </div>
                             <a href="{{ asset($image->file_url) }}" data-lightbox="all-images"
-                               data-title="Best title ever">
+                               data-title="{{ $image->tilte }}">
                                 <img src="{{ asset($image->file_url) }}" class="fluid img-thumbnail"
                                      alt="{{ $image->alt_text }}"
                                      title="{{ $image->title }}">

@@ -1,53 +1,127 @@
 @extends('layouts.iframe')
 @section('admin.content')
+    @pushonce('iframe.style')
+        <style>
+            .copy-success {
+                animation: copySuccess 0.5s ease-in-out forwards;
+                transform-origin: center;
+                transform: rotate(360deg);
+            }
+
+            .pe-none {
+                pointer-events: none;
+            }
+
+            @keyframes copySuccess {
+                0% {
+                    color: #28a745;
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    color: #28a745;
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    @endpushonce
     <div class="container mt-4">
         <div class="row">
-            <div class="col-12">
+            <div class="col-lg-10 p-4 p-md-0 m-auto">
                 <h3>Edit Image</h3>
-                {{ $image }}
                 <form action="{{ route('images.update', $image) }}" method="POST">
                     @csrf
                     @method('PUT')
 
-                    <div class="mb-3">
-                        <label for="file_url" class="form-label">File URL</label>
-                        <input type="text" class="form-control" id="file_url" name="file_url" value="{{ $image->file_url }}" required>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="file_url" class="col-form-label">File URL</label>
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="file_url"
+                                    name="file_url"
+                                    style="font-size: 12px"
+                                    value="{{ str_contains($image->file_url, config('app.url'))
+                                              ?
+                                              $image->file_url
+                                              :
+                                              config('app.url') . $image->file_url
+                                           }}"
+                                >
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button"
+                                            onclick="copyToClipboard(event)">
+                                        <i class="fas fa-copy pe-none"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="title" class="col-form-label">Name</label>
+                            <input type="text" class="form-control" id="title" name="title" value="{{ $image->title }}">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="rank" class="col-form-label">Rank</label>
+                            <input type="number" class="form-control" id="rank" name="rank" value="{{ $image->rank }}">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="alt_text" class="col-form-label">Alt Text</label>
+                            <input type="text" class="form-control" id="alt_text" name="alt_text"
+                                   value="{{ $image->alt_text }}">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="status" class="col-form-label">Status</label>
+                            <input type="text" class="form-control" id="status" name="status"
+                                   value="{{ $image->status }}">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="visibility" class="col-form-label">Visibility</label>
+                            <input type="text" class="form-control" id="visibility" name="visibility"
+                                   value="{{ $image->visibility }}">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="metadata" class="col-form-label">Metadata</label>
+                            <textarea class="form-control" id="metadata" name="metadata"
+                                      rows="4">{{ $image->metadata }}</textarea>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="rank" class="form-label">Rank</label>
-                        <input type="number" class="form-control" id="rank" name="rank" value="{{ $image->rank }}">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <a href="{{ route('gallery.index') }}" class="btn btn-secondary">
+                            Back to Gallery
+                        </a>
                     </div>
-
-                    <div class="mb-3">
-                        <label for="title" class="form-label">Title</label>
-                        <input type="text" class="form-control" id="title" name="title" value="{{ $image->title }}">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="alt_text" class="form-label">Alt Text</label>
-                        <input type="text" class="form-control" id="alt_text" name="alt_text" value="{{ $image->alt_text }}">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="metadata" class="form-label">Metadata</label>
-                        <textarea class="form-control" id="metadata" name="metadata" rows="4">{{ $image->metadata }}</textarea>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="status" class="form-label">Status</label>
-                        <input type="text" class="form-control" id="status" name="status" value="{{ $image->status }}">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="visibility" class="form-label">Visibility</label>
-                        <input type="text" class="form-control" id="visibility" name="visibility" value="{{ $image->visibility }}">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{ route('images.index') }}" class="btn btn-secondary">Back to Images</a>
                 </form>
             </div>
         </div>
     </div>
+
+    @pushonce('iframe.script')
+        <script>
+            function copyToClipboard(event) {
+                event.target.disabled = true;
+                /* Get the text field */
+                const copyText = document.getElementById('file_url').value;
+                /* Copy the text inside the text field */
+                navigator.clipboard.writeText(copyText);
+
+                event.target.classList.add('copy-success');
+                event.target.classList.add('btn-outline-success');
+
+                setTimeout(() => {
+                    event.target.classList.remove('copy-success');
+                    event.target.disabled = false;
+                }, 1000);
+            }
+        </script>
+    @endpushonce
 @endsection
