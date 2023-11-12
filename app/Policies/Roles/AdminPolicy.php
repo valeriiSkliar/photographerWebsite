@@ -5,11 +5,20 @@ namespace App\Policies\Roles;
 use Illuminate\Auth\Access\Response;
 use App\Models\User;
 
-class Admin
+class AdminPolicy
 {
+    public function before(User $user)
+    {
+        if ($user->role === 'super admin')  return true;
+    }
     /**
      * Determine whether the user can view any models.
      */
+
+    public function  superAdminAccess(User $user)
+    {
+        return $user->role === 'super admin';
+    }
     public function viewAny(User $user): bool
     {
         //
@@ -20,7 +29,7 @@ class Admin
      */
     public function view(User $user, User $model): bool
     {
-        //
+        return $model->role === 'admin';
     }
 
     /**

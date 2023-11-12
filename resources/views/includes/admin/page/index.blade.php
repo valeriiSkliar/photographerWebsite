@@ -20,6 +20,7 @@
                         @foreach($pages as $key => $page)
                             @include('includes.admin.component.ajax.metaTags.swal-template-meta-form')
                             <div class="col-md-4 position-relative">
+                                @can('superAdminAccess', auth()->user())
                                     <form
                                         class="btn-delete position-absolute"
                                         action="{{ route('admin.pages.destroy', $page->id) }}"
@@ -30,6 +31,7 @@
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </form>
+                                @endcan
                                     <div class="card @if($key % 2 == 0) bg-dark @else bg-secondary @endif text-light" onclick="location.href='{{route('admin.pages.show', $page->id)}}';" style="cursor:pointer;">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $page->name }}</h5>

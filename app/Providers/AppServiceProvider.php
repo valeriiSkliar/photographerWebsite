@@ -27,7 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Schema::defaultStringLength(191);
 
         $this->app->singleton(SessionMessageService::class, function ($app) {
             return new SessionMessageService();

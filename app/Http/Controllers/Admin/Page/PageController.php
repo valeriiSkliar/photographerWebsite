@@ -14,8 +14,13 @@ use Illuminate\Support\Facades\Log;
 
 class PageController extends Controller
 {
+//    public function __construct()
+//    {
+//    }
+
     public function index()
     {
+        $this->authorize('view', auth()->user());
         return view('includes.admin.page.index');
     }
 
