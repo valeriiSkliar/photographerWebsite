@@ -26,6 +26,10 @@ body {
     color: white;
 }
 
+[x-cloak] {
+    display: none !important;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

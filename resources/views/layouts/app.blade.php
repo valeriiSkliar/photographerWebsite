@@ -27,18 +27,17 @@
     <meta name="application-name" content="OlenaYavorska">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
-
+    @include('includes.page_meta_tags')
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Allison&family=Lora&display=swap" rel="stylesheet">
-
-    @include('includes.page_meta_tags')
     <!-- Scripts -->
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     @stack('custom-style')
 </head>
-<body>
+<body x-data="{ openMenu : false }"
+      :class="openMenu ? 'overflow-hidden' : 'overflow-visible' ">
 <div id="app">
     @include('includes.header')
     <main>
