@@ -39,7 +39,7 @@
         </div>
     </div>
 @endsection
-@push('custom-script')
-    @vite(['resources\js\front\work_page.js'])
-@endPush
+{{--@push('custom-script')--}}
+{{--    @vite(['resources\js\front\work_page.js'])--}}
+{{--@endPush--}}
 
