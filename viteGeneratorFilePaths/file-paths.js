@@ -4,6 +4,7 @@ export default [
 "resources/scss/admin/page/admin_page_index.scss",
 "resources/scss/admin/page/admin_page_show.scss",
 "resources/scss/app.scss",
+"resources/scss/errors/style.scss",
 "resources/scss/swiper-thumbs.scss",
 "resources/js/admin/gallery/admin_gallery_index.js",
 "resources/js/admin/page/admin_page_index.js",
