@@ -10,6 +10,6 @@ export default [
 "resources/js/admin.js",
 "resources/js/admin_gallery.js",
 "resources/js/app.js",
-"resources/js/front/work_page.js",
+"resources/js/front/work_page123.js",
 "resources/js/show_page_view.js"
 ];
