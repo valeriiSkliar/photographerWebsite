@@ -46,6 +46,17 @@
     --swiper-pagination-color: #fff;
 }
 
+.swiper-button-prev,
+.swiper-button-next{
+    opacity: 0.2;
+    transition: 0.5s;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover{
+    opacity: 1;
+}
+
 .gallery-thumbs {
     position: absolute;
     bottom: 0;
