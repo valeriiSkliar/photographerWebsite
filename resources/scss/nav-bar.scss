@@ -48,19 +48,29 @@
 }
 
 .burgerMenuList {
-    top: calc(var(--navbar-height) - 5px);
+    top: calc(var(--navbar-height) - 10px);
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(255, 255, 255, 0.5) 100%);
 }
 
 .burgerMenuItem {
     width: 240px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+    border-radius:  1px 5px 5px 1px;
+    margin-top: 0.2rem;
+    background: #00000000;
     transition: 0.5s;
 }
 
 .burgerMenuItem:hover {
-    transform: scale(1.1);
+    background: #00000070;
 }
 
+.logoPhotographer {
+    font-family: var(--font-allison);
+    color: white;
+    font-size: 45px;
+    white-space: nowrap;
+}
 @media (max-width: 900px) {
 
 }

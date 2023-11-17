@@ -80,23 +80,24 @@
      :class="openMenu ? 'visible' : 'invisible' " x-cloak>
 
     <!-- UL Links -->
-    <ul class="burgerMenuList absolute left-0 py-4 bg-black drop-shadow-2xl z-20 transition-all"
-        :class="openMenu ? 'translate-x-0' : '-translate-x-80'">
+    <div class="burgerMenuList absolute flex flex-col justify-between left-0 drop-shadow-2xl z-20 transition-all"
+         :class="openMenu ? 'translate-x-0' : '-translate-x-80'">
+        <ul>
 
-        @foreach($pages as ['name'=>$name, 'slug'=>$slug])
-            <li class="text-center text-white burgerMenuItem">
-                <a class="block p-4" href="{{  route('page.'.$slug) }}">{{__('nav-bar.links.'.$name)}}</a>
-            </li>
-        @endforeach
-    </ul>
+            @foreach($pages as ['name'=>$name, 'slug'=>$slug])
+                <li class="text-center text-white burgerMenuItem">
+                    <a class="block p-4" href="{{  route('page.'.$slug) }}">{{__('nav-bar.links.'.$name)}}</a>
+                </li>
+            @endforeach
+        </ul>
+        <div class="logoPhotographer px-7">
+            <h3 class="text-start">Olena</h3>
+            <h3 class="text-end">Yavorska</h3>
+        </div>
+    </div>
 
     <!-- Close Button -->
     <button class="absolute top-0 right-0 bottom-0 left-0" @click="openMenu = !openMenu" :aria-expanded="openMenu"
-            aria-controls="mobile-navigation" aria-label="Close Navigation Menu">
-{{--        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 absolute top-3 left-60 z-30 text-white hover:text-red-500 transition-all"--}}
-{{--             stroke="currentColor">--}}
-{{--            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>--}}
-{{--        </svg>--}}
-    </button>
+            aria-controls="mobile-navigation" aria-label="Close Navigation Menu"></button>
 
 </nav>
