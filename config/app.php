@@ -110,7 +110,6 @@ return [
     'available_locales' => [
         'English' => 'en',
         'German' => 'de',
-        'Ukraine' => 'ua',
     ],
 
     /*

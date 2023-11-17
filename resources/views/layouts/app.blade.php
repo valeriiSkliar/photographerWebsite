@@ -36,8 +36,7 @@
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     @stack('custom-style')
 </head>
-<body x-data="{ openMenu : false }"
-      :class="openMenu ? 'overflow-hidden' : 'overflow-visible' ">
+<body x-data="{ openMenu : false }">
 <div id="app">
     @include('includes.header')
     <main>
