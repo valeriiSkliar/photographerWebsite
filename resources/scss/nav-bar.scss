@@ -71,6 +71,15 @@
     font-size: 45px;
     white-space: nowrap;
 }
-@media (max-width: 900px) {
+@media (max-width: 322px) {
+    .nav-logo a {
+        display: flex;
+        height: var(--navbar-height);
+        justify-content: center;
+        align-items: center;
 
+        h1 {
+           font-size: 35px;
+        }
+    }
 }
