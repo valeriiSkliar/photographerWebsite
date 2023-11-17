@@ -47,6 +47,20 @@
     transform: scale(1.2);
 }
 
+.burgerMenuList {
+    top: calc(var(--navbar-height) - 5px);
+}
+
+.burgerMenuItem {
+    width: 240px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+    transition: 0.5s;
+}
+
+.burgerMenuItem:hover {
+    transform: scale(1.1);
+}
+
 @media (max-width: 900px) {
 
 }
