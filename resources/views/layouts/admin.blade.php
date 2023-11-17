@@ -4,7 +4,7 @@
 <body class="hold-transition sidebar-mini layout-fixed dark-mode" data-panel-auto-height-mode="height">
 <div class="wrapper">
     <!-- Navbar -->
-    @include('includes.admin.navbar')
+{{--    @include('includes.admin.navbar')--}}
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->

@@ -16,7 +16,7 @@
             @endforeach
         </div>
 
-        <div class="navbar__links__list gap-5 md:gap-0 items-center w-full md:w-auto md:justify-evenly flex">
+        <div class="navbar__links__list gap-x-7 md:gap-0 items-center w-full md:w-auto md:justify-evenly flex">
             <!-- Hamburger -->
             <!-- Mobile Menu Toggle -->
             <button class="flex justify-center md:hidden flex-col items-center" @click="openMenu = !openMenu"
