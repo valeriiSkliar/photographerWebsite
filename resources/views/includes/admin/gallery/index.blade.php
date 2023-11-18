@@ -106,42 +106,45 @@
                         <label for="selectAll" class="user-select-none">Select All</label>
                     </div>
                     @foreach($images as $image)
-                        <div class="col-sm-6 col-md-4 mb-3 image_from_all_heaps">
-                            <div class="checkbox icheck-success"
-                                 style="position: absolute; top: 5px; left: 18px;">
-                                <input type="checkbox" class="image-checkbox" data-image-id="{{ $image->id }}"
-                                       id="imgSelector{{ $image->id }}" name="success{{ $image->id }}">
-                                <label for="imgSelector{{ $image->id }}"></label>
-                            </div>
-                            <a href="{{ asset($image->file_url) }}" data-lightbox="all-images"
-                               data-title="{{ $image->tilte }}">
-                                <img src="{{ asset($image->file_url) }}" class="fluid img-thumbnail"
-                                     alt="{{ $image->alt_text }}"
-                                     title="{{ $image->title }}">
-                            </a>
-                            <div class="btn-group image-controls">
-                                <button type="button" class="btn btn-sm btn-outline-warning p-0" data-toggle="dropdown"
-                                        data-offset="-1, 0" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right m-0 p-0 mt-2"
-                                     style="min-width: auto; background-color: unset; border: unset; box-shadow: unset;">
-                                    <a href="{{ route('images.edit', $image) }}"
-                                       class="dropdown-item text-center m-0 p-0"
-                                       style="background-color: unset; border: unset">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <form action="{{ route('images.destroy', $image) }}" method="POST"
-                                          class="dropdown-item text-center m-0 p-0 mt-2">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class=" btn-delete text-center p-0">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
+                        @if(!optional($image->albums->first())->service)
+                            <div class="col-sm-6 col-md-4 mb-3 image_from_all_heaps">
+                                <div class="checkbox icheck-success"
+                                     style="position: absolute; top: 5px; left: 18px;">
+                                    <input type="checkbox" class="image-checkbox" data-image-id="{{ $image->id }}"
+                                           id="imgSelector{{ $image->id }}" name="success{{ $image->id }}">
+                                    <label for="imgSelector{{ $image->id }}"></label>
+                                </div>
+                                <a href="{{ asset($image->file_url) }}" data-lightbox="all-images"
+                                   data-title="{{ $image->tilte }}">
+                                    <img src="{{ asset($image->file_url) }}" class="fluid img-thumbnail"
+                                         alt="{{ $image->alt_text }}"
+                                         title="{{ $image->title }}">
+                                </a>
+                                <div class="btn-group image-controls">
+                                    <button type="button" class="btn btn-sm btn-outline-warning p-0"
+                                            data-toggle="dropdown"
+                                            data-offset="-1, 0" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right m-0 p-0 mt-2"
+                                         style="min-width: auto; background-color: unset; border: unset; box-shadow: unset;">
+                                        <a href="{{ route('images.edit', $image) }}"
+                                           class="dropdown-item text-center m-0 p-0"
+                                           style="background-color: unset; border: unset">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('images.destroy', $image) }}" method="POST"
+                                              class="dropdown-item text-center m-0 p-0 mt-2">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class=" btn-delete text-center p-0">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     @endforeach
                 </div>
             </div>

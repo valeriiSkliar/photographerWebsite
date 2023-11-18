@@ -43,12 +43,13 @@
                                     id="file_url"
                                     name="file_url"
                                     style="font-size: 12px"
-                                    value="{{ str_contains($image->file_url, config('app.url'))
-                                              ?
-                                              $image->file_url
-                                              :
-                                              config('app.url') . $image->file_url
-                                           }}"
+{{--                                    value="{{ str_contains($image->file_url, config('app.url'))--}}
+{{--                                              ?--}}
+{{--                                              $image->file_url--}}
+{{--                                              :--}}
+{{--                                              config('app.url') . $image->file_url--}}
+{{--                                           }}"--}}
+                                    value="{{ $image->file_url }}"
                                 >
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" type="button"
