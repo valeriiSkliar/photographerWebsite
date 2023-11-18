@@ -8,9 +8,9 @@
 
     <div class="data_footer">
         @if(isset($contact['name']) && isset($contact['surname']))
-        <div class="text_footer name_footer">
+        <a href="{{ url('/') }}" class="text_footer name_footer">
             {{$contact['name'].' '.$contact['surname']}}
-        </div>
+        </a>
         @endif
         @if(isset($contact['phone']))
         <div class="text_footer phone_mail">
@@ -19,9 +19,9 @@
         @endif
     </div>
     <div class="logo_footer">
-        <a href="{{ url('/') }}" class="link_logo">
+        {{-- <a href="{{ url('/') }}" class="link_logo">
             <img src="assets/logo/logo_nav.svg" width="100%" height="100%" alt="site name" title="site name">
-        </a>
+        </a> --}}
     </div>
     <div class="data_footer">
         @if(isset($contact['city']) && isset($contact['address']))
