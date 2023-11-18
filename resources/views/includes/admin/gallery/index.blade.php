@@ -37,6 +37,12 @@
                                         <label>Album Description:</label>
                                         <textarea name="description" class="form-control"></textarea>
                                     </div>
+                                    @can('superAdminAccess', auth()->user())
+                                        <div class="form-group">
+                                            <label for="service">Is Album for service:</label>
+                                            <input type="checkbox" id="service" name="service" class="form-control"/>
+                                        </div>
+                                    @endcan
                                     <button type="submit" class="btn btn-primary">Save</button>
                                     <button type="submit" class="btn btn-warning">Cancel</button>
                                 </div>
@@ -50,30 +56,33 @@
                 <h4 class="my-4">Albums</h4>
                 <div class="row position-relative">
                     @foreach($albums as $album)
-                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                            <div class="card album-card">
-                                <a href="{{ route('albums.edit', $album->id) }}">
-                                    @if($album->images->first())
-                                        <img src="{{ asset($album->images->first()->file_url) ?? '' }}"
-                                             alt="{{ $album->title }}"
-                                             title="{{ $album->title }}" class="card-img-top">
-                                    @endif
-                                    <div class="album-title d-flex justify-content-center align-items-center">
-                                        <h3 class="text-center">{{ $album->title }}</h3>
+                        @can('superAdminAlbumAccess', $album)
+                            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                <div class="card album-card @if($album->service) border border-danger @endif">
+                                    <a href="{{ route('albums.edit', $album->id) }}">
+                                        @if($album->images->first())
+                                            <img src="{{ asset($album->images->first()->file_url) ?? '' }}"
+                                                 alt="{{ $album->title }}"
+                                                 title="{{ $album->title }}" class="card-img-top">
+                                        @endif
+                                        <div class="album-title d-flex justify-content-center align-items-center">
+                                            <h3 class="text-center">{{ $album->title }}</h3>
+                                        </div>
+                                    </a>
+                                    <div class="btn-group album-controls">
+                                        <form action="{{ route('albums.destroy', $album->id) }}" method="POST"
+                                              class="text-center m-0 p-0 mt-2">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                    class=" album-delete btn btn-sm btn-danger text-center">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
                                     </div>
-                                </a>
-                                <div class="btn-group album-controls">
-                                    <form action="{{ route('albums.destroy', $album->id) }}" method="POST"
-                                          class="text-center m-0 p-0 mt-2">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class=" album-delete btn btn-sm btn-danger text-center">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
                                 </div>
                             </div>
-                        </div>
+                        @endcan
                     @endforeach
                 </div>
                 <div class="row m-4">

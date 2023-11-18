@@ -2,6 +2,7 @@
 
 namespace App\Policies\Roles;
 
+use App\Models\Album;
 use Illuminate\Auth\Access\Response;
 use App\Models\User;
 

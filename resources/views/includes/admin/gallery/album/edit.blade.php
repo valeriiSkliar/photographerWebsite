@@ -26,6 +26,17 @@
             <textarea class="form-control" id="description" name="description">{{ $album->description }}</textarea>
             {{-- Edit button for description --}}
         </div>
+        @can('superAdminAccess', auth()->user())
+            <div class="form-group">
+                <label for="service">Is Album for service:</label>
+                <input
+                    @if($album->service) {{'checked'}} @endif
+                    type="checkbox"
+                    id="service"
+                    name="service"
+                    class="form-control"/>
+            </div>
+        @endcan
         <div class="form-group">
             {{--        <label>--}}
             {{--            Album Cover: <input type="file" name="new_album_cover" accept="image/*">--}}

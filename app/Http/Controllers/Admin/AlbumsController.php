@@ -60,7 +60,7 @@ class AlbumsController extends Controller
             return redirect()->route('gallery.index');
         } else {
             $request->session()->forget('pending_album_id');
-            $album->update($request->only(['title', 'sub_text', 'description']));
+            $album->update($request->only(['title', 'sub_text', 'description', 'service']));
             Session::flash('success_message','Album creating complete successfully!.');
         }
 //        $album = null;
@@ -82,8 +82,10 @@ class AlbumsController extends Controller
 
     public function update(Request $request, Album $album)
     {
-        $album->update($request->only(['title', 'sub_text', 'description']));
+        $data = $request->only(['title', 'sub_text', 'description']);
+        $data['service'] = $request->has('service');
 
+        $album->update($data);
 
         return redirect()->route('albums.index')->with('success', 'Album updated successfully.');
     }
