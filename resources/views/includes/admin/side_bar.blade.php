@@ -34,31 +34,6 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-                     with font-awesome or any other icon font library -->
-                {{--                <li class="nav-item">--}}
-                {{--                    <a href="#" class="nav-link">--}}
-                {{--                        <i class="nav-icon fas fa-edit"></i>--}}
-                {{--                        <p>--}}
-                {{--                            Forms--}}
-                {{--                            <i class="fas fa-angle-left right"></i>--}}
-                {{--                        </p>--}}
-                {{--                    </a>--}}
-                {{--                    <ul class="nav nav-treeview">--}}
-                {{--                        <li class="nav-item">--}}
-                {{--                            <a href="{{ route('forms.create') }}" class="nav-link">--}}
-                {{--                                <i class="far fa-circle nav-icon"></i>--}}
-                {{--                                <p>Create new form</p>--}}
-                {{--                            </a>--}}
-                {{--                        </li>--}}
-                {{--                        <li class="nav-item">--}}
-                {{--                            <a href="{{ route('forms.index') }}" class="nav-link">--}}
-                {{--                                <i class="far fa-circle nav-icon"></i>--}}
-                {{--                                <p>All forms</p>--}}
-                {{--                            </a>--}}
-                {{--                        </li>--}}
-                {{--                    </ul>--}}
-                {{--                </li>--}}
                 <li class="nav-item">
                     <a href="{{ route('contacts.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-address-card"></i>
@@ -75,98 +50,31 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-book"></i>
-                        <p>
-                            Pages
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.page.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>All pages</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.page.create') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Create new page</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                {{--                <li class="nav-item">--}}
-                {{--                    <a href="#" class="nav-link">--}}
-                {{--                        <i class="nav-icon fas fa-book"></i>--}}
-                {{--                        <p>--}}
-                {{--                            Sections--}}
-                {{--                            <i class="fas fa-angle-left right"></i>--}}
-                {{--                        </p>--}}
-                {{--                    </a>--}}
-                {{--                    <ul class="nav nav-treeview">--}}
-                {{--                        <li class="nav-item">--}}
-                {{--                            <a href="{{ route('sections.index') }}" class="nav-link">--}}
-                {{--                                <i class="far fa-circle nav-icon"></i>--}}
-                {{--                                <p>All sections</p>--}}
-                {{--                            </a>--}}
-                {{--                        </li>--}}
-                {{--                        <li class="nav-item">--}}
-                {{--                            <a href="{{ route('sections.create') }}" class="nav-link">--}}
-                {{--                                <i class="far fa-circle nav-icon"></i>--}}
-                {{--                                <p>Create new section</p>--}}
-                {{--                            </a>--}}
-                {{--                        </li>--}}
-                {{--                    </ul>--}}
-                {{--                </li>--}}
-                {{--                <li class="nav-item">--}}
-                {{--                    <a href="#" class="nav-link">--}}
-                {{--                        <i class="nav-icon fas fa-book"></i>--}}
-                {{--                        <p>--}}
-                {{--                            Components--}}
-                {{--                            <i class="fas fa-angle-left right"></i>--}}
-                {{--                        </p>--}}
-                {{--                    </a>--}}
-                {{--                    <ul class="nav nav-treeview">--}}
-                {{--                        <li class="nav-item">--}}
-                {{--                            <a href="{{ route('components.index') }}" class="nav-link">--}}
-                {{--                                <i class="far fa-circle nav-icon"></i>--}}
-                {{--                                <p>All components</p>--}}
-                {{--                            </a>--}}
-                {{--                        </li>--}}
-                {{--                        <li class="nav-item">--}}
-                {{--                            <a href="{{ route('components.create') }}" class="nav-link">--}}
-                {{--                                <i class="far fa-circle nav-icon"></i>--}}
-                {{--                                <p>Create new component</p>--}}
-                {{--                            </a>--}}
-                {{--                        </li>--}}
-                {{--                    </ul>--}}
-                {{--                </li>--}}
-                {{--                <li class="nav-item">--}}
-                {{--                    <a href="#" class="nav-link">--}}
-                {{--                        <i class="nav-icon fas fa-book"></i>--}}
-                {{--                        <p>--}}
-                {{--                            SectionComponents--}}
-                {{--                            <i class="fas fa-angle-left right"></i>--}}
-                {{--                        </p>--}}
-                {{--                    </a>--}}
-                {{--                    <ul class="nav nav-treeview">--}}
-                {{--                        <li class="nav-item">--}}
-                {{--                            <a href="{{ route('sections_component.index') }}" class="nav-link">--}}
-                {{--                                <i class="far fa-circle nav-icon"></i>--}}
-                {{--                                <p>All SectionComponents</p>--}}
-                {{--                            </a>--}}
-                {{--                        </li>--}}
-                {{--                        <li class="nav-item">--}}
-                {{--                            <a href="{{ route('components.create') }}" class="nav-link">--}}
-                {{--                                <i class="far fa-circle nav-icon"></i>--}}
-                {{--                                <p>Create new component</p>--}}
-                {{--                            </a>--}}
-                {{--                        </li>--}}
-                {{--                    </ul>--}}
-                {{--                </li>--}}
+                @can('superAdminAccess', auth()->user())
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>
+                                Pages
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.page.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>All pages</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.page.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Create new page</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
