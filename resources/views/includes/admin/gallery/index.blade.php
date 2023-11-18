@@ -106,7 +106,7 @@
                         <label for="selectAll" class="user-select-none">Select All</label>
                     </div>
                     @foreach($images as $image)
-                        @if(!optional($image->albums->first())->service)
+                        @can('superAdminImageAccess', $image)
                             <div class="col-sm-6 col-md-4 mb-3 image_from_all_heaps">
                                 <div class="checkbox icheck-success"
                                      style="position: absolute; top: 5px; left: 18px;">
@@ -144,7 +144,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif
+                        @endcan
                     @endforeach
                 </div>
             </div>
