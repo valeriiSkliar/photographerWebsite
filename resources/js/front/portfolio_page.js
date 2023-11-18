@@ -1,5 +1,6 @@
 import {getCsrfToken} from "../helpers/getCsrfToken.js"
 
+const portfolioTextCollection = document.getElementsByClassName ('portfolio_text');
 const albumCover = document.getElementsByClassName ('portfolio_albums_title');
 
 function selectAlbum (index) {
@@ -21,6 +22,11 @@ function selectAlbum (index) {
     albumCover[activeCover1].classList.remove('album_title_display_none');
     albumCover[activeCover2].classList.remove('album_title_display_none');
     albumCover[activeCover3].classList.remove('album_title_display_none');
+    portfolioTextCollection[index].classList.remove('album_title_display_none');
+    portfolioTextCollection[activeCover1].classList.add('album_title_display_none');
+    portfolioTextCollection[activeCover2].classList.add('album_title_display_none');
+    portfolioTextCollection[activeCover3].classList.add('album_title_display_none');
+
     let activeAlbum = albumArray[index];
     console.log(activeAlbum);
     return activeAlbum;
@@ -32,7 +38,7 @@ export async function getCurrentAlbum(albumName){
         .then(data => console.log(data))
 }
 
-selectAlbum(0);
+await getCurrentAlbum(selectAlbum(0));
 
 albumCover[0].addEventListener('click', async () => {
     await getCurrentAlbum(selectAlbum(0));
