@@ -26,17 +26,23 @@ function selectAlbum (index) {
     return activeAlbum;
 }
 
+export async function getCurrentAlbum(albumName){
+    return fetch(`/api/component-get-current-album/${albumName}`, )
+        .then(data => data.json())
+        .then(data => console.log(data))
+}
+
 selectAlbum(0);
 
-albumCover[0].addEventListener('click', () => {
-    selectAlbum(0);
+albumCover[0].addEventListener('click', async () => {
+    await getCurrentAlbum(selectAlbum(0));
              });
-albumCover[1].addEventListener('click', () => {
-    selectAlbum(1);
+albumCover[1].addEventListener('click', async () => {
+    await getCurrentAlbum(selectAlbum(1));
 });
-albumCover[2].addEventListener('click', () => {
-    selectAlbum(2);
+albumCover[2].addEventListener('click', async () => {
+    await getCurrentAlbum(selectAlbum(2));
 });
-albumCover[3].addEventListener('click', () => {
-    selectAlbum(3);
+albumCover[3].addEventListener('click', async () => {
+    await getCurrentAlbum(selectAlbum(3));
 });
