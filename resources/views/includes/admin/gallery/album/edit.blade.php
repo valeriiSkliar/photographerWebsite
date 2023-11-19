@@ -3,7 +3,7 @@
     @vite('resources/scss/admin/gallery/switcher.scss')
 @endpushonce
 @pushonce('iframe.script')
-
+@vite('resources/js/admin/gallery/admin_gallery_edit_album.js')
 @endpushonce
 @section('admin.content')
     <div class="container-fluid">
@@ -59,11 +59,11 @@
                         </div>
 
                             <h2>Images in album:</h2>
-                            <div class="row">
+                            <div class="row albumImageCards">
                                 @foreach($album->images as $image)
                                     <div class="col-md-2 my-3">
                                         <div class="image-container">
-                                            <a href="{{ asset($image->file_url) }}" data-lightbox="{{ $album->title . ' images' }}"
+                                            <a href="{{ asset($image->file_url) }}" data-lightbox="album images"
                                                data-title="{{ $image->tilte }}">
                                                 <img src="{{ asset($image->file_url) }}" class="fluid img-thumbnail"
                                                      alt="{{ $image->alt_text }}"
@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-center form-group actions mt-4" style="gap: 10px">
-                    <button class="btn btn-primary" id="btnAddToAlbum">Add to this album</button>
+                    <button class="btn btn-primary" id="btnAddToAlbum" data-album-id="{{$album->id}}">Add to this album</button>
                 </div>
                 <div class="row" id="images">
                     <div class="checkbox icheck-success col-12 mb-2">
