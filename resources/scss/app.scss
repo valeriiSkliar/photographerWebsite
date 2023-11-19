@@ -1,5 +1,6 @@
 @use "variables/global";
 @use "normalize";
+@use "aspect-ratio";
 @use "nav-bar";
 @use "Sections/Page 1/thoughts";
 @use "footer";
@@ -11,12 +12,6 @@
 @tailwind components;
 @tailwind utilities;
 
-//.font-sizeScale_f21 {
-//    font-size: calc(21px + (30 - 21) * ((100vw - 320px) / (1100 - 320)));
-//}
-//.font-sizeScale_14 {
-//    font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1100 - 320)));
-//}
 
 html {
      scroll-behavior: smooth;

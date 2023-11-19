@@ -32,7 +32,7 @@
                 <form action="{{ route('images.update', $image) }}" method="POST">
                     @csrf
                     @method('PUT')
-
+                    {{  Form::hidden('url',URL::previous())  }}
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="file_url" class="col-form-label">File URL</label>
@@ -62,6 +62,11 @@
 
                         <div class="form-group col-md-6">
                             <label for="title" class="col-form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ $image->name }}">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="title" class="col-form-label">Title</label>
                             <input type="text" class="form-control" id="title" name="title" value="{{ $image->title }}">
                         </div>
 
@@ -82,17 +87,17 @@
                                    value="{{ $image->status }}">
                         </div>
 
-                        <div class="form-group col-md-6">
-                            <label for="visibility" class="col-form-label">Visibility</label>
-                            <input type="text" class="form-control" id="visibility" name="visibility"
-                                   value="{{ $image->visibility }}">
-                        </div>
+{{--                        <div class="form-group col-md-6">--}}
+{{--                            <label for="visibility" class="col-form-label">Visibility</label>--}}
+{{--                            <input type="text" class="form-control" id="visibility" name="visibility"--}}
+{{--                                   value="{{ $image->visibility }}">--}}
+{{--                        </div>--}}
 
-                        <div class="form-group col-md-6">
-                            <label for="metadata" class="col-form-label">Metadata</label>
-                            <textarea class="form-control" id="metadata" name="metadata"
-                                      rows="4">{{ $image->metadata }}</textarea>
-                        </div>
+{{--                        <div class="form-group col-md-6">--}}
+{{--                            <label for="metadata" class="col-form-label">Metadata</label>--}}
+{{--                            <textarea class="form-control" id="metadata" name="metadata"--}}
+{{--                                      rows="4">{{ $image->metadata }}</textarea>--}}
+{{--                        </div>--}}
                     </div>
 
                     <div class="form-group">

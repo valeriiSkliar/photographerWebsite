@@ -14,6 +14,8 @@ class ImageUploadController extends Controller
 {
     public function addSelectedImagesToAlbum(Request $request)
     {
+        $images_arr = [];
+
         $imageIds = $request->input('images');
 
         if (!$imageIds || !is_array($imageIds)) {
@@ -31,13 +33,14 @@ class ImageUploadController extends Controller
                 'album_id' => $albumId,
                 'image_id' => $imageId
             ]);
+            array_push($images_arr, Image::find($imageId));
         }
 //        Session::flash('success_message','Images added to album ' . $album->title);
 //        return redirect()->route('albums.index');
         return response()->json([
             'success' => true,
-            'message' => 'Images added to album ' . $album->title
-
+            'message' => 'Images added to album ' . $album->title,
+            'images' => json_encode($images_arr),
         ]);
     }
     public function deleteSelectedImages(Request $request)

@@ -1,117 +1,10 @@
-import {getCsrfToken} from "../../helpers/getCsrfToken.js";
+import {getCsrfToken} from "@/helpers/getCsrfToken.js";
 import Swal from "sweetalert2";
+import { confirmDelete, addToAlbum, deleteSelectedImages, selectAllImages } from "@/admin/gallery/function.js";
 
 const upload_label = document.getElementById('upload-label');
 let albumId = null;
 
-async function confirmDelete() {
-    const result = await Swal.fire(sweetAlertConfigs.modalConfirm());
-    return result.isConfirmed;
-}
-
-function selectAllImages() {
-    const allImages = document.querySelectorAll('.image-checkbox');
-    const selectAllCheckbox = document.getElementById('selectAll');
-    allImages.forEach(checkbox => checkbox.checked = selectAllCheckbox.checked);
-}
-
-function deleteSelectedImages() {
-    const selectedImageCheckboxes = [...document.querySelectorAll('.image-checkbox:checked')];
-
-    const selectedImages = [...document.querySelectorAll('.image-checkbox:checked')].map(checkbox => checkbox.dataset.imageId);
-    if (selectedImages.length) {
-        fetch('/delete-selected-images', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': getCsrfToken(),
-            },
-            body: JSON.stringify({images: selectedImages})
-        })
-            .then(response => response.json())
-            .then(response => {
-                if (response.success) {
-                    Swal.fire({
-                        position: 'bottom-end',
-                        icon: 'success',
-                        title: 'Success',
-                        text: response.message,
-                        showConfirmButton: false,
-                        timer: 3000,
-                        toast: true,
-                        background: '#151515',
-                        padding: '0.5rem',
-                    });
-
-                    selectedImageCheckboxes.forEach(checkbox => {
-                        const parentCard = checkbox.closest('.image_from_all_heaps');
-                        if (parentCard) {
-                            parentCard.remove();
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        position: 'bottom-end',
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Failed to delete selected images',
-                        showConfirmButton: false,
-                        timer: 3000,
-                        toast: true,
-                        background: '#151515',
-                        padding: '0.5rem',
-                    });
-                }
-            });
-    }
-}
-
-function addToAlbum() {
-    const albumSelect = document.getElementById('albumSelect');
-    const selectedImages = [...document.querySelectorAll('.image-checkbox:checked')].map(checkbox => checkbox.dataset.imageId);
-    if (selectedImages.length) {
-        fetch('/add-selected-images', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': getCsrfToken(),
-            },
-            body: JSON.stringify({
-                images: selectedImages,
-                album_id: albumSelect.value
-            })
-        })
-            .then(response => response.json())
-            .then(response => {
-                if (response.success) {
-                    Swal.fire({
-                        position: 'bottom-end',
-                        icon: 'success',
-                        title: 'Success',
-                        text: response.message,
-                        showConfirmButton: false,
-                        timer: 3000,
-                        toast: true,
-                        background: '#151515',
-                        padding: '0.5rem',
-                    });
-
-                } else {
-                    Swal.fire({
-                        position: 'bottom-end',
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Failed add images to album',
-                        showConfirmButton: false,
-                        timer: 3000,
-                        toast: true,
-                        background: '#151515',
-                        padding: '0.5rem',
-                    });
-                }
-            })
-    }
-}
 
 function createNewAlbum(e) {
     e.preventDefault();
@@ -128,7 +21,6 @@ function createNewAlbum(e) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data.album_id)
             if (data.success && data.album_id) {
                 const hiddenInput = document.createElement('input');
                 hiddenInput.type = 'hidden';
@@ -141,30 +33,10 @@ function createNewAlbum(e) {
                 document.getElementById('newAlbumFields').style.display = 'block';
             }
             if (data.success) {
-                Swal.fire({
-                    position: 'bottom-end',
-                    icon: 'success',
-                    title: 'Success',
-                    text: data.message,
-                    showConfirmButton: false,
-                    timer: 3000,
-                    toast: true,
-                    background: 'rgba(0,0,0,1)',
-                    padding: '0.5rem',
-                });
+                Swal.fire(sweetAlertConfigs.success(data.message));
 
             } else {
-                Swal.fire({
-                    position: 'bottom-end',
-                    icon: 'error',
-                    title: 'Error',
-                    text: data.message ?? 'Failed to create album',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    toast: true,
-                    background: '#151515',
-                    padding: '0.5rem',
-                });
+                Swal.fire(sweetAlertConfigs.error(data.message ?? 'Failed to create album'));
             }
         });
 }
@@ -176,7 +48,10 @@ document.getElementById('btnDeleteSelectedImages')
     .addEventListener('click', deleteSelectedImages);
 
 document.getElementById('btnAddToAlbum')
-    .addEventListener('click', addToAlbum);
+    .addEventListener('click', function addImagesToAlbum () {
+        const albumSelect = document.getElementById('albumSelect');
+        addToAlbum(albumSelect.value);
+    });
 
 document.getElementById('createNewAlbum')
     .addEventListener('click', createNewAlbum);

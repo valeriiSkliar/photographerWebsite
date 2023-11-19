@@ -1,0 +1,113 @@
+.knobs,
+.layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.button {
+    position: relative;
+    width: 74px;
+    height: 36px;
+    overflow: hidden;
+}
+
+.button.b2 {
+    border-radius: 2px;
+}
+
+.checkbox-switcher {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.knobs {
+    z-index: 2;
+}
+
+.layer {
+    width: 100%;
+    background-color: #ebf7fc;
+    transition: 0.3s ease all;
+    z-index: 1;
+}
+
+.switcherYesOrNot .knobs:before,
+.switcherYesOrNot .knobs span {
+    content: "YES";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    background-color: #03a9f4;
+    border-radius: 2px;
+}
+
+.switcherYesOrNot .knobs:before {
+    top: 50%;
+    left: 8px;
+    width: 20px;
+    height: 10px;
+    margin-top: -5px;
+    background-color: transparent;
+    z-index: 2;
+}
+
+.switcherYesOrNot .knobs span {
+    width: 28px;
+    height: 28px;
+    padding: 9px 4px;
+    transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+    z-index: 1;
+}
+
+.switcherYesOrNot .checkbox-switcher:active + .knobs:before {
+    left: 10px;
+    width: 46px;
+    height: 4px;
+    color: transparent;
+    margin-top: -2px;
+    background-color: #0095d8;
+    transition: 0.3s ease all;
+    overflow: hidden;
+}
+
+.switcherYesOrNot .checkbox-switcher:active + .knobs span {
+    width: 58px;
+}
+
+.switcherYesOrNot .checkbox-switcher:checked:active + .knobs:before {
+    left: auto;
+    right: 10px;
+    background-color: #d80000;
+}
+
+.switcherYesOrNot .checkbox-switcher:checked:active + .knobs span {
+    margin-left: -38px;
+}
+
+.switcherYesOrNot .checkbox-switcher:checked + .knobs:before {
+    content: "NO";
+    left: 47px;
+}
+
+.switcherYesOrNot .checkbox-switcher:checked + .knobs span {
+    left: 42px;
+    background-color: #f44336;
+}
+
+.switcherYesOrNot .checkbox-switcher:checked ~ .layer {
+    background-color: #fcebeb;
+}
