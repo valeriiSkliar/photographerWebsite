@@ -77,7 +77,8 @@ class AlbumsController extends Controller
 
     public function edit(Album $album)
     {
-        return view('includes.admin.gallery.album.edit', compact('album'));
+        $images = Image::all();
+        return view('includes.admin.gallery.album.edit', compact('album', 'images'));
     }
 
     public function update(Request $request, Album $album)
