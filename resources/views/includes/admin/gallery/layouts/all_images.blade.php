@@ -17,7 +17,7 @@
                 </div>
                 <a href="{{ asset($image->file_url) }}" class="wrapper-for-lazy-image" data-lightbox="all-images"
                    data-title="{{ $image->tilte }}">
-                    <div class="aspect-ratio-16-9"></div>
+                    <div class="aspect-ratio-16-9 rounded"></div>
                     <img src="{{ asset($image->file_url) }}"
                          class="fluid img-thumbnail lazy-image-thumbnail"
                          alt="{{ $image->alt_text }}"
