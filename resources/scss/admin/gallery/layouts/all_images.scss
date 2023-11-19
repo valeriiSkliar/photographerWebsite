@@ -1,7 +1,3 @@
-.img-thumbnail{
-    width: 100%;
-}
-
 .image-controls,
 .album-controls {
     position: absolute;
@@ -10,13 +6,13 @@
 }
 
 .image-controls .btn-outline-warning,
-.album-controls .btn-outline-warning{
+.album-controls .btn-outline-warning {
     padding: 0 3.5px !important;
     border-radius: 0.2rem !important;
 }
 
 .image-controls i,
-.album-controls i{
+.album-controls i {
     color: inherit;
 }
 
@@ -27,7 +23,7 @@
 }
 
 .image-controls .btn-delete:hover,
-.image-controls .dropdown-menu form.dropdown-item:hover{
+.image-controls .dropdown-menu form.dropdown-item:hover {
     background: unset;
     color: #dc1e1e;
 }

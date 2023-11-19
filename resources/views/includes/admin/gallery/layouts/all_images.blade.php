@@ -15,11 +15,15 @@
                            id="imgSelector{{ $image->id }}" name="success{{ $image->id }}">
                     <label for="imgSelector{{ $image->id }}"></label>
                 </div>
-                <a href="{{ asset($image->file_url) }}" data-lightbox="all-images"
+                <a href="{{ asset($image->file_url) }}" class="wrapper-for-lazy-image" data-lightbox="all-images"
                    data-title="{{ $image->tilte }}">
-                    <img src="{{ asset($image->file_url) }}" class="fluid img-thumbnail"
+                    <div class="aspect-ratio-16-9"></div>
+                    <img src="{{ asset($image->file_url) }}"
+                         class="fluid img-thumbnail lazy-image-thumbnail"
                          alt="{{ $image->alt_text }}"
-                         title="{{ $image->title }}">
+                         title="{{ $image->title }}"
+                        loading="lazy"
+                    >
                 </a>
                 <div class="btn-group image-controls">
                     <button type="button" class="btn btn-sm btn-outline-warning p-0"

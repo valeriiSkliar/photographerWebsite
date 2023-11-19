@@ -68,11 +68,15 @@
                         @can('superAdminAlbumAccess', $album)
                             <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                                 <div class="card album-card @if($album->service) border border-danger @endif">
-                                    <a href="{{ route('albums.edit', $album->id) }}">
+                                    <a href="{{ route('albums.edit', $album->id) }}" class="wrapper-for-lazy-image">
                                         @if($album->images->first())
+                                            <div class="aspect-ratio-16-9"></div>
                                             <img src="{{ asset($album->images->first()->file_url) ?? '' }}"
                                                  alt="{{ $album->title }}"
-                                                 title="{{ $album->title }}" class="card-img-top">
+                                                 title="{{ $album->title }}"
+                                                 class="card-img-top lazy-image-thumbnail"
+                                                 loading="lazy"
+                                            >
                                         @endif
                                         <div class="album-title d-flex justify-content-center align-items-center">
                                             <h3 class="text-center">{{ $album->title }}</h3>
