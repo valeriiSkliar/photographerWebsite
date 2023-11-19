@@ -1,6 +1,7 @@
 @extends('layouts.iframe')
 @pushonce('iframe.style')
     @vite(['resources/scss/admin/gallery/admin_gallery_index.scss'])
+    @vite('resources/scss/admin/gallery/switcher.scss')
 @endpushonce
 
 @pushonce('iframe.script')
@@ -37,8 +38,18 @@
                                     </div>
                                     @can('superAdminAccess', auth()->user())
                                         <div class="form-group">
-                                            <label for="service">Is Album for service:</label>
-                                            <input type="checkbox" id="service" name="service" class="form-control"/>
+                                            <label for="service" class="mr-3">Is Album for service:</label>
+                                            <div class="button b2 switcherYesOrNot">
+                                                <input type="checkbox"
+                                                       id="service"
+                                                       name="service"
+                                                       class="checkbox-switcher"
+                                                />
+                                                <div class="knobs">
+                                                    <span></span>
+                                                </div>
+                                                <div class="layer"></div>
+                                            </div>
                                         </div>
                                     @endcan
                                     <button type="submit" class="btn btn-primary">Save</button>
