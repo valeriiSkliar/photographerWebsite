@@ -32,7 +32,7 @@
                 <form action="{{ route('images.update', $image) }}" method="POST">
                     @csrf
                     @method('PUT')
-
+                    {{  Form::hidden('url',URL::previous())  }}
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="file_url" class="col-form-label">File URL</label>

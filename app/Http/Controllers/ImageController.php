@@ -59,15 +59,26 @@ class ImageController extends Controller
             'file_url' => 'required|string',
             'rank' => 'nullable|integer',
             'title' => 'nullable|string',
+            'name' => 'nullable|string',
             'alt_text' => 'nullable|string',
             'metadata' => 'nullable|string',
             'status' => 'nullable|string',
             'visibility' => 'nullable|string',
+            'url' => 'nullable|string',
         ]);
 
-        $image->update($data);
+        $dataWithoutUrl = collect($data)->except('url')->toArray();
 
-        return redirect()->route('gallery.index')->with('success', 'Image updated successfully.');
+        $image->update($dataWithoutUrl);
+
+        $url = $data['url'] ?? null;
+
+        if ($url) {
+            return redirect($url)->with('success', 'Image updated successfully.');
+        } else {
+            // Redirect to a default URL or handle the case where 'url' is not present
+            return redirect()->route('gallery.index')->with('success', 'Image updated successfully.');
+        }
     }
 
     public function destroy(Image $image)
