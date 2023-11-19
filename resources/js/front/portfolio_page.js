@@ -108,3 +108,8 @@ albumCover[3].addEventListener('click', async () => {
 });
 scrollLeft.addEventListener('click', scrollToLeft);
 scrollRight.addEventListener('click', scrollToRight);
+
+window.addEventListener('resize', () => {
+    sliderContainer.style.left = `0px`;
+});
+
