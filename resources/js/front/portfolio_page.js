@@ -3,6 +3,20 @@ import {getCsrfToken} from "../helpers/getCsrfToken.js"
 const portfolioTextCollection = document.getElementsByClassName ('portfolio_text');
 const albumCover = document.getElementsByClassName ('portfolio_albums_title');
 
+function renderGallery (arrayURL) {
+
+    const sliderContainer = document.getElementById('container_for_slider');
+    sliderContainer.innerHTML = '';
+    const numImage = arrayURL.length;
+    arrayURL.forEach((element,index) => {
+        let newImg = document.createElement('img');
+        newImg.classList.add('img_for_slider');
+        newImg.setAttribute('src',element.file_url);
+        sliderContainer.append(newImg);
+    });
+
+}
+
 function selectAlbum (index) {
     const albumArray = ['wedding','session','people','nature'];
     let activeCover1 = index + 1;
@@ -28,14 +42,13 @@ function selectAlbum (index) {
     portfolioTextCollection[activeCover3].classList.add('album_title_display_none');
 
     let activeAlbum = albumArray[index];
-    console.log(activeAlbum);
     return activeAlbum;
 }
 
 export async function getCurrentAlbum(albumName){
     return fetch(`/api/component-get-current-album/${albumName}`, )
         .then(data => data.json())
-        .then(data => console.log(data))
+        .then(data => {console.log(data.data[0].images); renderGallery(data.data[0].images)})
 }
 
 await getCurrentAlbum(selectAlbum(0));
