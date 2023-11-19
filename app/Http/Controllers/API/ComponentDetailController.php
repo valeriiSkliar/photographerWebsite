@@ -97,4 +97,23 @@ class ComponentDetailController extends Controller
     {
         dd($request);
     }
+
+    public function getCurrentAlbum($album_name)
+    {
+        try {
+            $album = Album::where('title', $album_name)->with('images')->get();
+            return response()->json([
+                'success' => true,
+                'data' => $album
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'error' => true,
+                    'data' => 'Error during get album' . $e
+                ]
+            );
+        }
+
+    }
 }
