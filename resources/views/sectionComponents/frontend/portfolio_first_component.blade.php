@@ -4,7 +4,10 @@
             {!!$portfolio_text_for_album!!}
         </div>
     @endforeach
-    <div id="container_for_slider">
+        <div class="main_container_for_slider">
+            <div id="container_for_slider"></div>
+            <div class="button_scroll" id="scroll_left"></div>
+            <div class="button_scroll" id="scroll_right"></div>
+        </div>
 
-    </div>
 

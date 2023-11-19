@@ -7,8 +7,7 @@ function renderGallery (arrayURL) {
 
     const sliderContainer = document.getElementById('container_for_slider');
     sliderContainer.innerHTML = '';
-    const numImage = arrayURL.length;
-    arrayURL.forEach((element,index) => {
+    arrayURL.forEach((element) => {
         let newImg = document.createElement('img');
         newImg.classList.add('img_for_slider');
         newImg.setAttribute('src',element.file_url);
