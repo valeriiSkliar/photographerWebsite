@@ -1,4 +1,4 @@
-import {getCsrfToken} from "../../helpers/getCsrfToken.js";
+import {getCsrfToken} from "@/helpers/getCsrfToken.js";
 import Swal from "sweetalert2";
 
 const upload_label = document.getElementById('upload-label');
@@ -31,17 +31,7 @@ function deleteSelectedImages() {
             .then(response => response.json())
             .then(response => {
                 if (response.success) {
-                    Swal.fire({
-                        position: 'bottom-end',
-                        icon: 'success',
-                        title: 'Success',
-                        text: response.message,
-                        showConfirmButton: false,
-                        timer: 3000,
-                        toast: true,
-                        background: '#151515',
-                        padding: '0.5rem',
-                    });
+                    Swal.fire(sweetAlertConfigs.success(response.message));
 
                     selectedImageCheckboxes.forEach(checkbox => {
                         const parentCard = checkbox.closest('.image_from_all_heaps');
@@ -50,17 +40,7 @@ function deleteSelectedImages() {
                         }
                     });
                 } else {
-                    Swal.fire({
-                        position: 'bottom-end',
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Failed to delete selected images',
-                        showConfirmButton: false,
-                        timer: 3000,
-                        toast: true,
-                        background: '#151515',
-                        padding: '0.5rem',
-                    });
+                    Swal.fire(sweetAlertConfigs.error('Failed to delete selected images'));
                 }
             });
     }
@@ -84,30 +64,10 @@ function addToAlbum() {
             .then(response => response.json())
             .then(response => {
                 if (response.success) {
-                    Swal.fire({
-                        position: 'bottom-end',
-                        icon: 'success',
-                        title: 'Success',
-                        text: response.message,
-                        showConfirmButton: false,
-                        timer: 3000,
-                        toast: true,
-                        background: '#151515',
-                        padding: '0.5rem',
-                    });
+                    Swal.fire(sweetAlertConfigs.success(response.message));
 
                 } else {
-                    Swal.fire({
-                        position: 'bottom-end',
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Failed add images to album',
-                        showConfirmButton: false,
-                        timer: 3000,
-                        toast: true,
-                        background: '#151515',
-                        padding: '0.5rem',
-                    });
+                    Swal.fire(sweetAlertConfigs.error('Failed add images to album'));
                 }
             })
     }
@@ -141,30 +101,10 @@ function createNewAlbum(e) {
                 document.getElementById('newAlbumFields').style.display = 'block';
             }
             if (data.success) {
-                Swal.fire({
-                    position: 'bottom-end',
-                    icon: 'success',
-                    title: 'Success',
-                    text: data.message,
-                    showConfirmButton: false,
-                    timer: 3000,
-                    toast: true,
-                    background: 'rgba(0,0,0,1)',
-                    padding: '0.5rem',
-                });
+                Swal.fire(sweetAlertConfigs.success(data.message));
 
             } else {
-                Swal.fire({
-                    position: 'bottom-end',
-                    icon: 'error',
-                    title: 'Error',
-                    text: data.message ?? 'Failed to create album',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    toast: true,
-                    background: '#151515',
-                    padding: '0.5rem',
-                });
+                Swal.fire(sweetAlertConfigs.error(data.message ?? 'Failed to create album'));
             }
         });
 }
