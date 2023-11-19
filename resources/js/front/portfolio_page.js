@@ -54,26 +54,7 @@ export async function getCurrentAlbum(albumName){
         .then(data => {console.log(data.data[0].images); renderGallery(data.data[0].images)})
 }
 
-function scrollToLeft () {
-
-    const imgCollection = document.getElementsByClassName('img_for_slider');
-    const imgCollectionLength = imgCollection.length;
-   const leftContainer = window.getComputedStyle(sliderContainer).left;
-   const widthContainer = window.getComputedStyle(sliderContainer).width;
-   const numContainer = Number(leftContainer.replace('px', ''));
-   const numContainerWidth = Number(widthContainer.replace('px', ''));
-   console.log(leftContainer)
-   const newLeftContainer = numContainer-numContainerWidth;
-   console.log(newLeftContainer);
-    if (newLeftContainer<((imgCollectionLength-1)*numContainerWidth*Math.sign(-1))) {
-         sliderContainer.style.left = `0px`;
-         return
-    };
-   sliderContainer.style.left = `${newLeftContainer}px`;
-
-}
-
-function scrollToRight () {
+function scrollTo (direction) {
 
     const imgCollection = document.getElementsByClassName('img_for_slider');
     const imgCollectionLength = imgCollection.length;
@@ -81,14 +62,22 @@ function scrollToRight () {
     const widthContainer = window.getComputedStyle(sliderContainer).width;
     const numContainer = Number(leftContainer.replace('px', ''));
     const numContainerWidth = Number(widthContainer.replace('px', ''));
-    console.log(leftContainer);
-    const newLeftContainer = numContainer+numContainerWidth;
-    console.log(newLeftContainer);
-     if (newLeftContainer>0) {
-         sliderContainer.style.left = `${(imgCollectionLength-1)*numContainerWidth*Math.sign(-1)}px`;
-         return
+    let newLeftContainer;
+    if (direction) {
+        newLeftContainer = numContainer+numContainerWidth;
+        if (newLeftContainer>0) {
+            sliderContainer.style.left = `${(imgCollectionLength-1)*numContainerWidth*Math.sign(-1)}px`;
+            return
+        };
+    }
+    else {
+        newLeftContainer = numContainer-numContainerWidth;
+        if (newLeftContainer<((imgCollectionLength-1)*numContainerWidth*Math.sign(-1))) {
+            sliderContainer.style.left = `0px`;
+            return
+        };
     };
-    sliderContainer.style.left = `${newLeftContainer}px`;
+   sliderContainer.style.left = `${newLeftContainer}px`;
 
 }
 
@@ -106,8 +95,12 @@ albumCover[2].addEventListener('click', async () => {
 albumCover[3].addEventListener('click', async () => {
     await getCurrentAlbum(selectAlbum(3));
 });
-scrollLeft.addEventListener('click', scrollToLeft);
-scrollRight.addEventListener('click', scrollToRight);
+scrollLeft.addEventListener('click', () => {
+    scrollTo(0);
+});
+scrollRight.addEventListener('click', () => {
+    scrollTo(1);
+});
 
 window.addEventListener('resize', () => {
     sliderContainer.style.left = `0px`;
