@@ -63,11 +63,17 @@
                                 @foreach($album->images as $image)
                                     <div class="col-md-2 my-3">
                                         <div class="image-container">
-                                            <a href="{{ asset($image->file_url) }}" data-lightbox="album images"
-                                               data-title="{{ $image->tilte }}">
-                                                <img src="{{ asset($image->file_url) }}" class="fluid img-thumbnail"
+                                            <a href="{{ asset($image->file_url) }}"
+                                               data-lightbox="album images"
+                                               data-title="{{ $image->tilte }}"
+                                               class="wrapper-for-lazy-image">
+                                                <div class="aspect-ratio-16-9 rounded"></div>
+                                                <img src="{{ asset($image->file_url) }}"
+                                                     class="fluid img-thumbnail lazy-image-thumbnail"
                                                      alt="{{ $image->alt_text }}"
-                                                     title="{{ $image->title }}">
+                                                     title="{{ $image->title }}"
+                                                     loading="lazy"
+                                                >
                                             </a>
 
                                         </div>
