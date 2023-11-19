@@ -13,7 +13,8 @@
             <!-- Slides -->
             @foreach($album->images as $image)
                 <div class="swiper-slide">
-                    <img src="{{ $image->file_url }}" alt="">
+                    <img loading="lazy" src="{{ $image->file_url }}" alt="{{$image->alt_text}}">
+                    <div class="swiper-lazy-preloader"></div>
                 </div>
             @endforeach
         </div>
