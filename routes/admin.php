@@ -10,6 +10,7 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\IframeController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\ImageOrderController;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', [AdminPanelController::class, '__invoke'])->name('index.dashboard');
@@ -21,6 +22,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('/albums', AlbumsController::class);
     Route::resource('/images', ImageController::class);
     Route::resource('/components', ComponentController::class);
+    Route::post('/image-order/update', [ImageOrderController::class, 'update'])->name('image-order.update');
 
     Route::get('/pages/', [PageController::class, 'index'])->name('admin.page.index');
     Route::get('/pages/create', [PageController::class, 'create'])->name('admin.page.create');

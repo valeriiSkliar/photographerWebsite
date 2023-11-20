@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Component\ComponentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImageOrderController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;

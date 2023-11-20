@@ -388,6 +388,14 @@ export function getEditComponentForm({target}) {
 export async function unpinImageFromAlbum({target, albumId}) {
     const image = target.closest('button').offsetParent;
     const image_id = $(target.closest('button')).data('image_id');
+    await sendUnpinRequest({
+        imageId: image_id,
+        albumId:albumId,
+        target:image
+    })
+}
+
+export async function sendUnpinRequest({albumId, imageId, target}) {
     $.ajax({
         url: `/api/un-pin/`,
         type: 'DELETE',
@@ -397,10 +405,10 @@ export async function unpinImageFromAlbum({target, albumId}) {
         },
         data: {
             album_id: albumId,
-            image_id: image_id,
+            image_id: imageId,
         },
         success: function (response) {
-            image.remove();
+            target.remove()
             if (response.success) {
                 Swal.fire({
                     position: 'bottom-end',
@@ -413,7 +421,6 @@ export async function unpinImageFromAlbum({target, albumId}) {
                     background: 'rgba(0,0,0,.8)',
                     padding: '0.5rem',
                     width: 400,
-                    height: 200
                 })
             }
         },

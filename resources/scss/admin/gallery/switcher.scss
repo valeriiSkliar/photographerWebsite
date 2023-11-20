@@ -42,12 +42,13 @@
 
 .switcherYesOrNot .knobs:before,
 .switcherYesOrNot .knobs span {
-    content: "YES";
+    content: "SHOW";
     position: absolute;
-    top: 4px;
+    top: 50%;
     left: 4px;
+    transform: translate(0, -50%);
     color: #fff;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: bold;
     text-align: center;
     line-height: 1;
@@ -99,7 +100,7 @@
 }
 
 .switcherYesOrNot .checkbox-switcher:checked + .knobs:before {
-    content: "NO";
+    content: "HIDE";
     left: 47px;
 }
 

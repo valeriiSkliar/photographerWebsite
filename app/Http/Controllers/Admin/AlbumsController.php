@@ -78,6 +78,9 @@ class AlbumsController extends Controller
     public function edit(Album $album)
     {
         $images = Image::all();
+        $album->load(['images' => function ($query) {
+            $query->orderBy('image_index', 'asc');
+        }]);
         return view('includes.admin.gallery.album.edit', compact('album', 'images'));
     }
 
@@ -111,7 +114,9 @@ class AlbumsController extends Controller
     }
     public function show_album(Request $request)
     {
-        $images = Image::where('album_id', '=', $request->id)->get();
+        $images = Image::where('album_id', '=', $request->id)
+            ->orderBy('image_index', 'asc')
+            ->get();
         return view('pages.show_album', compact('images'));
     }
 }

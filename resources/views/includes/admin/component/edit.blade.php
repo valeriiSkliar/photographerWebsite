@@ -154,9 +154,6 @@
                         alert(data.message);
                         imageContainer.innerHTML = '';
                         disconnect_btn.disabled = true;
-                        // const componentDetail = document.getElementById(`component-details-${id}`)
-                        // console.log('test')
-                        // componentDetail.remove();
                     }
                 });
         }
