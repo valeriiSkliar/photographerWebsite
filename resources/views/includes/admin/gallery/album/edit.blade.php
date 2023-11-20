@@ -19,13 +19,14 @@
         <div class="row p-2">
             <div class="col-12">
                 <div class="row">
-                    <h1 class="col-3">Edit -> {{ $album->title }}</h1>
+                    <h1 class="col-md-4">Edit
+                        <i class="fa-solid fa-arrow-right fa-2xs" style="color: #ffffff;"></i>                        {{ $album->title }}</h1>
                     <input id="albumId" type="hidden" value="{{ $album->id }}">
                     @can('superAdminAccess', auth()->user())
                         <form
                             action="{{ route('albums.destroy', $album->id) }}"
                             method="POST"
-                            class="col-1">
+                            class="col-md-8 d-flex justify-content-end">
                             @csrf
                             @method('DELETE')
                             <button
@@ -106,9 +107,9 @@
                                 <h5>Images in album:</h5>
                             </div>
                         </div>
-                        <div class="row albumImageCards" id="sortable">
+                        <div class="row albumImageCards bg-gradient-white" id="sortable">
                             @foreach($album->images as $image)
-                                <div class="col-md-2 my-3 selectable-item"
+                                <div class="col-md-4 my-3 selectable-item"
                                      data-image_id="{{$image->id}}"
                                      style="min-width: 8rem;">
                                     <div class="image-container ">
