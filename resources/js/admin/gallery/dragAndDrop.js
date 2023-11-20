@@ -10,14 +10,15 @@ $(function () {
         // axis: 'x',
         scroll:false,
         start: function(event, ui) {
+
             originalOrder = $(this).sortable('toArray', { attribute: 'data-image-id' });
         },
         update: async function () {
+
             $(this).sortable('disable');
             const imageOrder = [];
-            $(".image-container").each(function(index) {
+            $(".selectable-item").each(function(index) {
                 const imageId = $(this).data("image_id");
-
                 imageOrder.push(imageId)
             });
             $.ajax({
@@ -29,6 +30,7 @@ $(function () {
                     _token: getCsrfToken()
                 },
                 success: function(response) {
+                    console.log(response.success);
                     $("#sortable").sortable('enable');
                 },
                 error:function(response) {
