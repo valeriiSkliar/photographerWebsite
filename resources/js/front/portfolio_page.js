@@ -6,6 +6,13 @@ const sliderContainer = document.getElementById('container_for_slider');
 const scrollLeft = document.getElementById('scroll_left');
 const scrollRight = document.getElementById('scroll_right');
 
+const portfolioSlider = {
+    position: 0,
+    width: 0
+}
+
+portfolioSlider.width = Number((window.getComputedStyle(sliderContainer).width).replace('px', ''));
+
 function renderGallery (arrayURL) {
 
     const sliderContainer = document.getElementById('container_for_slider');
@@ -54,31 +61,23 @@ export async function getCurrentAlbum(albumName){
         .then(data => {console.log(data.data[0].images); renderGallery(data.data[0].images)})
 }
 
-function scrollTo (direction) {
+function scrollToX (direction) {
 
     const imgCollection = document.getElementsByClassName('img_for_slider');
     const imgCollectionLength = imgCollection.length;
-    const leftContainer = window.getComputedStyle(sliderContainer).left;
-    const widthContainer = window.getComputedStyle(sliderContainer).width;
-    const numContainer = Number(leftContainer.replace('px', ''));
-    const numContainerWidth = Number(widthContainer.replace('px', ''));
-    let newLeftContainer;
     if (direction) {
-        newLeftContainer = numContainer+numContainerWidth;
-        if (newLeftContainer>0) {
-            sliderContainer.style.left = `${(imgCollectionLength-1)*numContainerWidth*Math.sign(-1)}px`;
-            return
+        portfolioSlider.position += portfolioSlider.width;
+        if (portfolioSlider.position>0) {
+            portfolioSlider.position = (imgCollectionLength-1)*portfolioSlider.width*Math.sign(-1);
         };
     }
     else {
-        newLeftContainer = numContainer-numContainerWidth;
-        if (newLeftContainer<((imgCollectionLength-1)*numContainerWidth*Math.sign(-1))) {
-            sliderContainer.style.left = `0px`;
-            return
+        portfolioSlider.position -= portfolioSlider.width;
+        if (portfolioSlider.position<((imgCollectionLength-1)*portfolioSlider.width*Math.sign(-1))) {
+            portfolioSlider.position = 0;
         };
     };
-   sliderContainer.style.left = `${newLeftContainer}px`;
-
+    sliderContainer.style.left = `${portfolioSlider.position}px`;
 }
 
 await getCurrentAlbum(selectAlbum(0));
@@ -96,13 +95,15 @@ albumCover[3].addEventListener('click', async () => {
     await getCurrentAlbum(selectAlbum(3));
 });
 scrollLeft.addEventListener('click', () => {
-    scrollTo(0);
+    scrollToX(0);
 });
 scrollRight.addEventListener('click', () => {
-    scrollTo(1);
+    scrollToX(1);
 });
 
 window.addEventListener('resize', () => {
+    portfolioSlider.position = 0;
+    portfolioSlider.width = Number((window.getComputedStyle(sliderContainer).width).replace('px', ''));
     sliderContainer.style.left = `0px`;
 });
 

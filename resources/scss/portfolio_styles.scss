@@ -49,6 +49,7 @@
     height: 100%;
     display: flex;
     position: relative;
+    transition: left 0.5s linear;
 }
 
 .img_for_slider {
@@ -60,16 +61,17 @@
     position: absolute;
     z-index: 99;
     width: 5vw;
-    height: 5vw;
-    top: 20vw;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
+    height: 4vw;
+    top: 20.5vw;
+    background-color: rgba(0, 0, 0, 0.3);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
 }
 
 #scroll_left {
-    left: 2vw;
+    left: 1vw;
+    transform: rotateZ(180deg);
 }
 
 #scroll_right {
-    right: 2vw;
+    right: 1vw;
 }
