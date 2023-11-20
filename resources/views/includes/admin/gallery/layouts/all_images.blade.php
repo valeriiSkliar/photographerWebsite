@@ -10,7 +10,7 @@
         @can('superAdminImageAccess', $image)
             <div class="col-sm-6 col-md-4 mb-3 image_from_all_heaps">
                 <div class="checkbox icheck-success"
-                     style="position: absolute; top: 5px; left: 18px;">
+                     style="position: absolute; top: 5px; left: 18px; z-index: 1">
                     <input type="checkbox" class="image-checkbox" data-image-id="{{ $image->id }}"
                            id="imgSelector{{ $image->id }}" name="success{{ $image->id }}">
                     <label for="imgSelector{{ $image->id }}"></label>
