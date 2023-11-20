@@ -74,10 +74,13 @@ export async function addToAlbum(albumId, images = '.image-checkbox:checked') {
         const data = await response.json();
 
         if (data.success) {
-            Swal.fire(sweetAlertConfigs.success(response.message));
-            console.log(data);
+            Swal.fire(sweetAlertConfigs.success(data.message));
             return data.images;
-        } else {
+        } else if(!data.success) {
+            Swal.fire(sweetAlertConfigs.error(data.message));
+            return null;
+        }
+        else {
             Swal.fire(sweetAlertConfigs.error('Failed add images to album'));
             return null;
         }
@@ -156,3 +159,4 @@ export async function makeImagesSortable() {
         $('#contextMenu').hide();
     });
 }
+

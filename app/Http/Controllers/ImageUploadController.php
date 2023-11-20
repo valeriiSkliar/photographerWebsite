@@ -14,8 +14,6 @@ class ImageUploadController extends Controller
 {
     public function addSelectedImagesToAlbum(Request $request)
     {
-        $images_arr = [];
-
         $imageIds = $request->input('images');
 
         if (!$imageIds || !is_array($imageIds)) {
@@ -24,21 +22,44 @@ class ImageUploadController extends Controller
 
         $albumId = $request->input('album_id');
         $album = Album::find($albumId);
-        if (!$albumId) {
-            return response()->json(['error' => 'No album ID provided'], 400);
+
+        if (!$album) {
+            return response()->json(['error' => 'Album not found'], 404);
         }
 
-        foreach ($imageIds as $imageId) {
-            AlbumImage::create([
-                'album_id' => $albumId,
-                'image_id' => $imageId
+        $uniqueImageIds = AlbumImage::where('album_id', $albumId)
+            ->whereIn('image_id', $imageIds)
+            ->pluck('image_id')
+            ->toArray();
+
+        $newImageIds = array_diff($imageIds, $uniqueImageIds);
+        $images = [];
+
+        try {
+            foreach ($newImageIds as $imageId) {
+                $albumImage = AlbumImage::create([
+                    'album_id' => $albumId,
+                    'image_id' => $imageId
+                ]);
+
+                if ($albumImage) {
+                    $images[] = Image::find($imageId);
+                }
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while adding images'], 500);
+        }
+
+        if (count($images) == 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Images no allow to add to this album',
             ]);
-            array_push($images_arr, Image::find($imageId));
         }
         return response()->json([
             'success' => true,
             'message' => 'Images added to album ' . $album->title,
-            'images' => json_encode($images_arr),
+            'images' => $images,
         ]);
     }
     public function deleteSelectedImages(Request $request)

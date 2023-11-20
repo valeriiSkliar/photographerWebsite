@@ -6,7 +6,7 @@ document.getElementById('selectAll')
 
 document.getElementById('btnAddToAlbum')
     .addEventListener('click', async function addImagesToAlbum() {
-        const images = JSON.parse(await addToAlbum(this.dataset.albumId));
+        const images = await addToAlbum(this.dataset.albumId);
         if (images) {
             const albumImageCards = document.querySelector('.albumImageCards');
 
