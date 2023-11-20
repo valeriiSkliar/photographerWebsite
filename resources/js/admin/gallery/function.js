@@ -45,14 +45,18 @@ export function deleteSelectedImages() {
 }
 
 export async function addToAlbum(albumId, images = '.image-checkbox:checked') {
-    if (!albumId) {
-        Swal.fire(sweetAlertConfigs.warning("Can't find this album"));
+    let selectedImages;
+    if (typeof images === 'string') {
+        selectedImages = [...document.querySelectorAll(images)].map(checkbox => {
+            checkbox.checked = false;
+            return checkbox.dataset.imageId;
+        });
+    } else if (Array.isArray(images)) {
+        selectedImages = images;
+    } else {
+        Swal.fire(sweetAlertConfigs.warning("Invalid images argument"));
         return null;
     }
-    const selectedImages = [...document.querySelectorAll(images)].map(checkbox => {
-        checkbox.checked = false;
-        return checkbox.dataset.imageId;
-    });
     if (selectedImages.length) {
         const response = await fetch('/add-selected-images', {
             method: 'POST',
@@ -93,7 +97,6 @@ export async function makeImagesSortable() {
         let originalOrder = [];
         $("#sortable").sortable({
             handle: 'img',
-            // axis: 'x',
             scroll:false,
             start: function(event, ui) {
 
@@ -160,3 +163,20 @@ export async function makeImagesSortable() {
     });
 }
 
+export function appendImagesToAlbum(images) {
+    const albumImageCards = document.querySelector('.albumImageCards');
+    if (!albumImageCards) return;
+
+    images.forEach(image => {
+        albumImageCards.insertAdjacentHTML("beforeend", `
+            <div class="col-md-4 my-3 selectable-item" data-image_id="${image.id}" style="min-width: 8rem;">
+                <div class="image-container">
+                    <a href="${image.file_url}" data-lightbox="album images" data-title="${image.title}" class="wrapper-for-lazy-image">
+                        <div class="aspect-ratio-16-9 rounded"></div>
+                        <img src="${image.file_url}" class="img-thumbnail lazy-image-thumbnail" alt="${image.alt_text}" title="${image.title}" loading="lazy">
+                    </a>
+                </div>
+            </div>
+        `);
+    });
+}

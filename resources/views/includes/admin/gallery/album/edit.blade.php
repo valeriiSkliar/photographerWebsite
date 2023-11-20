@@ -20,7 +20,9 @@
             <div class="col-12">
                 <div class="row">
                     <h1 class="col-md-4">Edit
-                        <i class="fa-solid fa-arrow-right fa-2xs" style="color: #ffffff;"></i>                        {{ $album->title }}</h1>
+                        <i class="fa-solid fa-arrow-right fa-2xs" style="color: #ffffff;"></i>
+                        {{ $album->title }}
+                    </h1>
                     <input id="albumId" type="hidden" value="{{ $album->id }}">
                     @can('superAdminAccess', auth()->user())
                         <form
@@ -78,7 +80,7 @@
                                     <div class="col-4">
                                         @can('superAdminAccess', auth()->user())
                                             <div class="form-group align-items-center">
-{{--                                                <label for="service" class="mr-3">service Album?</label>--}}
+                                                {{--                                                <label for="service" class="mr-3">service Album?</label>--}}
                                                 <div class="button b2 switcherYesOrNot">
                                                     <input type="checkbox"
                                                            @if($album->service)
@@ -107,7 +109,7 @@
                                 <h5>Images in album:</h5>
                             </div>
                         </div>
-                        <div class="row albumImageCards bg-gradient-white" id="sortable">
+                        <div class="row albumImageCards " id="sortable">
                             @foreach($album->images as $image)
                                 <div class="col-md-4 my-3 selectable-item"
                                      data-image_id="{{$image->id}}"
@@ -128,6 +130,15 @@
                                     </div>
                                 </div>
                             @endforeach
+                        </div>
+                        <div class="row">
+                            <div
+                                class="m-auto col-12 bg-gradient-white d-flex justify-content-center align-items-center"
+                                style="min-height: 50px;max-width: 50%"
+                                id="add-to-album"
+                            >
+                                <i class="fa-solid fa-upload fa" style="color: #69b572;"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
