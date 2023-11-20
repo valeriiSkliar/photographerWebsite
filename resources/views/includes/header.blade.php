@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar px-5 md:justify-evenly">
+    <nav class="navbar px-5 md:justify-evenly stroke">
         <div class="hidden md:flex navbar__switcher items-center text-xs">
             @foreach($available_locales as $locale_name => $available_locale)
                 <div class="px-2 first:border-r-2 border-gray-200">
