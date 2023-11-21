@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Modules\ImageManager\Http\Controllers\ImageManagerController;
+use App\Http\Controllers\Admin\ApplicationSubmitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,7 +73,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/get-component-form/{id}', [ComponentController::class, 'getFormMarkup']);
 Route::post('/components/{id}/update', [ComponentController::class, 'update']);
 Route::post('/components/{id}/destroy', [ComponentController::class, 'destroy']);
-
+Route::post('/application-submit', [ApplicationSubmitController::class, 'submit']);
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

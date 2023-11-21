@@ -47,7 +47,7 @@ function sendMessage (service, name, surname, phone, date) {
         date
     };
     const message = JSON.stringify(messageToAdmin);
-    fetch ('admin/application-submit',{
+    fetch ('/application-submit',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
