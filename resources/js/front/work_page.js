@@ -3,10 +3,13 @@ import {getCsrfToken} from "../helpers/getCsrfToken.js"
 function preventDefaultA () {
 
     const collectionA = document.getElementsByClassName('buttonWork');
+    const serviceElement = document.getElementById('var_input_6');
+    const optionsCollection = document.getElementsByClassName('option1');
 
     for (let i = 0; i<collectionA.length; i+=1) {
         collectionA[i].addEventListener('click',(evt) => {
                  evt.preventDefault();
+                 serviceElement.value = optionsCollection[i].textContent;
                  document.getElementById('application_form').scrollIntoView();
         })
     };

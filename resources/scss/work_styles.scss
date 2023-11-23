@@ -93,3 +93,106 @@
     background-color: #000;
 }
 
+.buttonWork {
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    line-height: 1em;
+    color: black;
+    animation-name: button_work_anime;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    font-weight: bold;
+}
+
+@keyframes button_work_anime {
+    0% {
+        color: black;
+    }
+    50% {
+        color: white;
+    }
+    100% {
+        color: black;
+    }
+};
+
+@media (max-width: 725px) {
+
+    .text_4 {
+        bottom: 6vw;
+        right: 8vw;
+    }
+
+    .text_5 {
+        bottom: 6vw;
+        left: 8vw;
+    }
+
+    .buttonWork {
+        font-size: 24px;
+    }
+
+    #var_input_1, #var_input_2, #var_input_3, #var_input_4, #var_input_5  {
+        width: 180px;
+    }
+
+    #title_form {
+        font-size: 28px;
+    }
+
+}
+
+@media (max-width: 500px) {
+    .title_4 {
+        top: 4vw;
+        left: 5vw;
+    }
+
+    .text_4 {
+        bottom: 1vw;
+        right: 5vw;
+    }
+
+    .title_5 {
+        top: 4vw;
+        right: 5vw;
+    }
+
+    .text_5 {
+        bottom: 1vw;
+        left: 5vw;
+    }
+
+    .buttonWork {
+        font-size: 20px;
+    }
+
+    .title_input {
+        font-size: 18px;
+        margin-right: 10px;
+    }
+
+    #var_input_1, #var_input_2, #var_input_3, #var_input_4, #var_input_5  {
+        width: 150px;
+    }
+
+    #title_form {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 320px) {
+    .text_4 {
+        font-size: 10px;
+    }
+
+    .text_5 {
+        font-size: 10px;
+    }
+
+    .buttonWork {
+        font-size: 16px;
+    }
+}
