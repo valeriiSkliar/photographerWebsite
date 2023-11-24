@@ -106,6 +106,7 @@ class ImageUploadController extends Controller
 
     public function uploadMethod(Request $request)
     {
+//
         $albumImage = null;
         $albumId = null;
         if ($request->album_id == 'null') {
@@ -116,13 +117,30 @@ class ImageUploadController extends Controller
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $filename = time() . '.' . $file->getClientOriginalExtension() . '.webp';
-            $filePath = 'uploads/' . $filename;
+            $filenameWithoutExt = time();
+            $extension = '.webp';
 
-            $image = ImageIntervention::make($file)
-                ->encode('webp', 75);
-            $image->save(public_path($filePath));
-            $imageModel  = Image::create(['file_url' => asset($filePath)]);
+            $originalFilePath = 'uploads/origin/' . $filenameWithoutExt . $extension;
+            $image = ImageIntervention::make($file)->encode('webp', 75);
+            $image->save(public_path($originalFilePath));
+            $imageModel  = Image::create(['file_url' => asset($originalFilePath)]);
+
+            $mediumFilePath = 'uploads/medium/' . $filenameWithoutExt . $extension;
+            $mediumImage = clone $image;
+            $mediumImage->resize(800, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $mediumImage->save(public_path($mediumFilePath));
+
+            $smallFilePath = 'uploads/small/' . $filenameWithoutExt . $extension;
+            $smallImage = clone $image;
+            $smallImage->resize(400, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $smallImage->save(public_path($smallFilePath));
+
 
             $pendingAlbumId = session('pending_album_id', null);
             if($pendingAlbumId) {
