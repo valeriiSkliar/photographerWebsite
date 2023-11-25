@@ -186,13 +186,32 @@
 @media (max-width: 320px) {
     .text_4 {
         font-size: 10px;
+        line-height: 1.2em;
     }
 
     .text_5 {
         font-size: 10px;
+        line-height: 1.2em;
+    }
+
+    .title_4 {
+        font-size: 14px;
+    }
+
+    .title_5 {
+        font-size: 14px;
     }
 
     .buttonWork {
-        font-size: 16px;
+        font-size: 14px;
+    }
+
+    .title_input {
+        display: none;
+    }
+
+    #var_input_1, #var_input_2, #var_input_3, #var_input_4, #var_input_5  {
+        margin-left: auto;
+        margin-right: auto;
     }
 }

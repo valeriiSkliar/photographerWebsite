@@ -43,3 +43,63 @@
         }
     }
 }
+
+@media (max-width: 725px) {
+    .contacts_name_page {
+        font-size: 40px;
+    }
+    .container_contacts {
+        .container_back {
+             font-size: 70px;
+             .contacts_half_opacity {
+                height: 110px;
+             }
+        }
+
+        .container_front {
+             font-size: 18px;
+             .contacts_front {
+                height: 110px;
+            }
+        }
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .contacts_name_page {
+        font-size: 36px;
+    }
+    .container_contacts {
+        .container_back {
+             font-size: 60px;
+    }
+
+        .container_front {
+             font-size: 16px;
+             width: 80%;
+             left: 10vw;
+            }
+     }
+}
+
+@media (max-width: 320px) {
+
+    .contacts_name_page {
+        font-size: 30px;
+    }
+    .container_contacts {
+        .container_back {
+             font-size: 50px;
+    }
+
+        .container_front {
+             font-size: 12px;
+             width: 90%;
+             left: 5vw;
+            }
+     }
+}
+
+
