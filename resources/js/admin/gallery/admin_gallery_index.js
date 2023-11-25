@@ -84,11 +84,14 @@ new Dropzone("#zdrop", {
     previewTemplate: document.querySelector('#preview-template').innerHTML,
     url: "/upload",
     maxFiles: 10,
+    acceptedFiles: 'image/*',
+    maxFilesize: 10,
     sending: function (file, xhr, formData) {
-        formData.append("_token", getCsrfToken());
+        // formData.append("_token", getCsrfToken());
         formData.append("album_id", albumId);
     },
     success: function (file, response) {
+        console.log(response)
             Swal.fire(sweetAlertConfigs.success(response.message));
 
         if (response.image) {
@@ -206,6 +209,7 @@ new Dropzone("#zdrop", {
         }
     },
     error: function (file, response) {
+        console.log("Error: ", response);
         Swal.fire(sweetAlertConfigs.error(response.message));
     }
 });

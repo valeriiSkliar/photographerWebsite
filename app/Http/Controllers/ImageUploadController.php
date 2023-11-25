@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image as ImageIntervention;
 use App\Models\Album;
@@ -62,6 +64,7 @@ class ImageUploadController extends Controller
             'images' => $images,
         ]);
     }
+
     public function deleteSelectedImages(Request $request)
     {
         $imageIds = $request->input('images');
@@ -92,6 +95,7 @@ class ImageUploadController extends Controller
             return response()->json(['error' => 'Failed to delete images'], 500);
         }
     }
+
     public function createAlbum(Request $request)
     {
         $album = Album::create();
@@ -106,64 +110,86 @@ class ImageUploadController extends Controller
 
     public function uploadMethod(Request $request)
     {
-//
-        $albumImage = null;
-        $albumId = null;
-        if ($request->album_id == 'null') {
-            $albumId = '1';
-        } else {
-            $albumId = $request->album_id;
-        }
+        $albumId = $request->album_id == 'null' ? '1' : $request->album_id;
 
-        if ($request->hasFile('file')) {
+        try {
+
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $fileType = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file->getPathname());
+
+                if (!in_array($fileType, ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp'])) {
+                    return response()->json([
+                        'error' => true,
+                        'message' => 'Unsupported image type.',
+                    ], 400);
+                }
+
+            }
+            if (!$request->hasFile('file')) {
+                return response()->json([
+                    'requestHasFile' => $request->hasFile('file'),
+                    'error' => true,
+                    'message' => 'No file uploaded!',
+                ], 400);
+            }
+
             $file = $request->file('file');
             $filenameWithoutExt = time();
             $extension = '.webp';
 
-            $originalFilePath = 'uploads/origin/' . $filenameWithoutExt . $extension;
-            $image = ImageIntervention::make($file)->encode('webp', 75);
-            $image->save(public_path($originalFilePath));
-            $imageModel  = Image::create(['file_url' => asset($originalFilePath)]);
+            DB::beginTransaction();
 
-            $mediumFilePath = 'uploads/medium/' . $filenameWithoutExt . $extension;
-            $mediumImage = clone $image;
-            $mediumImage->resize(800, null, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-            $mediumImage->save(public_path($mediumFilePath));
+            $originalFilePath = $this->saveImage($file, 'origin', $filenameWithoutExt, $extension);
 
-            $smallFilePath = 'uploads/small/' . $filenameWithoutExt . $extension;
-            $smallImage = clone $image;
-            $smallImage->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-            $smallImage->save(public_path($smallFilePath));
+            $mediumFilePath = $this->saveImage($file, 'medium', $filenameWithoutExt, $extension, 800);
 
+            $smallFilePath = $this->saveImage($file, 'small', $filenameWithoutExt, $extension, 400);
 
-            $pendingAlbumId = session('pending_album_id', null);
-            if($pendingAlbumId) {
+            $albumId = $request->album_id == 'null' ? '1' : $request->album_id;
+            $imageModel = Image::create(['file_url' => asset($originalFilePath)]);
+
+            $albumExists = Album::find($albumId) !== null;
+            if ($albumExists) {
+                $pendingAlbumId = session('pending_album_id', null) ?: $albumId;
                 AlbumImage::create([
                     'album_id' => $pendingAlbumId,
                     'image_id' => $imageModel->id
                 ]);
-            } else {
-//                AlbumImage::create([
-//                    'album_id' => $albumId,
-//                    'image_id' => $imageModel->id
-//                ]);
             }
+
+
+            DB::commit();
 
             return response()->json([
                 'success' => true,
                 'message' => 'Image uploaded',
-                'image' => json_encode($imageModel)]);
+                'image' => json_encode($imageModel)
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'error' => true,
+                'message' => 'Error uploading file: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    private function saveImage($file, $folder, $filenameWithoutExt, $extension, $resizeWidth = null)
+    {
+        $filePath = "uploads/$folder/" . $filenameWithoutExt . $extension;
+        Log::info('before ImageIntervention');
+        $image = ImageIntervention::make($file)->encode('webp', 75);
+        Log::info('after ImageIntervention');
+
+        if ($resizeWidth) {
+            $image->resize($resizeWidth, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
         }
 
-        return response()->json([
-            'error' => true,
-            'message' => 'No file uploaded',
-            ], 400);
+        $image->save(public_path($filePath));
+        return $filePath;
     }
 }
