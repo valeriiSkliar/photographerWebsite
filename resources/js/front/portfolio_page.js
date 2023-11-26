@@ -80,7 +80,10 @@ function scrollToX (direction) {
     sliderContainer.style.left = `${portfolioSlider.position}px`;
 }
 
-await getCurrentAlbum(selectAlbum(0));
+document.addEventListener('DOMContentLoaded', async () => {
+    await getCurrentAlbum(selectAlbum(0));
+})
+
 
 albumCover[0].addEventListener('click', async () => {
     await getCurrentAlbum(selectAlbum(0));
