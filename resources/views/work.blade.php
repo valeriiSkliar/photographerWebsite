@@ -40,6 +40,6 @@
     </div>
 @endsection
 @push('custom-script')
-    @vite(['resources\js\front\work_page.js'])
+    @vite(['resources\js\front\work_page123.js'])
 @endPush
 
