@@ -51,14 +51,14 @@
     font-size: 9px;
     font-weight: bold;
     text-align: center;
-    line-height: 1;
+    line-height: 2;
     background-color: #03a9f4;
     border-radius: 2px;
 }
 
 .switcherYesOrNot .knobs:before {
-    top: 50%;
-    left: 8px;
+    top: 53%;
+    left: 5.5px;
     width: 20px;
     height: 10px;
     margin-top: -5px;
@@ -101,7 +101,7 @@
 
 .switcherYesOrNot .checkbox-switcher:checked + .knobs:before {
     content: "HIDE";
-    left: 47px;
+    left: 46px;
 }
 
 .switcherYesOrNot .checkbox-switcher:checked + .knobs span {
