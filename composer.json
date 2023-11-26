@@ -6,7 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ext-fileinfo": "*",
         "ext-iconv": "*",
+        "defstudio/telegraph": "^1.38",
         "guzzlehttp/guzzle": "^7.8",
         "intervention/image": "^2.7",
         "kris/laravel-form-builder": "^1.52",
@@ -16,8 +18,7 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
         "nwidart/laravel-modules": "^10.0",
-        "spatie/laravel-html": "^3.3",
-      "ext-fileinfo": "*"
+        "spatie/laravel-html": "^3.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.9",
