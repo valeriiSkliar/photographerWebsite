@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{{ asset("AdminLTE/dist/css/custom.css") }}">
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.css') }}">
-    @vite('resources/scss/aspect-ratio.scss')
+{{--    @vite('resources/scss/aspect-ratio.scss')--}}
     @vite('resources/js/admin.js')
     @stack('iframe.style')
 </head>
