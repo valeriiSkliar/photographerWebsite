@@ -25,16 +25,15 @@ class ApplicationSubmitController extends Controller
         $recipient = $this->getEmail()->email;
         $content = $strData;
         Mail::to($recipient)->send(new TestEmail($content));
-        $this->sendToTelegram($request);
+        $this->sendToTelegram(print_r($data, true));
         return response()->json($data);
     }
 
-    public function sendToTelegram(Request $request)
+    public function sendToTelegram($data)
     {
 
         $activeChat = DB::table('active_chats')->where('is_chat_active', true)->first();
         $adminChat = \DefStudio\Telegraph\Models\TelegraphChat::where('chat_id', $activeChat->chat_id)->first();
-        $data = $request->input('title');
         $adminChat->message($data)->send();
         return response()->json([
             'success' => true,

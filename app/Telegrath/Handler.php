@@ -7,6 +7,7 @@ use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Stringable;
 
 /**
@@ -24,7 +25,12 @@ class Handler extends WebhookHandler
 
     public function conf($inputPassword)
     {
-        $adminChat = DB::table('active_chats')->where('is_chat_active', true)->first();
+        $adminChat = null;
+        try{
+            $adminChat = DB::table('active_chats')->where('is_chat_active', true)->first();
+        }catch (\Exception $e) {
+            $this->reply(print_r('Error: ' . $e->getMessage(), true));
+        }
         $adminPassword = Config::get('telegraph.admin_password', 'default_password');
         $chatId = $this->request->message['from']['id'];
         $this->setTelegraphCurrentChat($chatId);
@@ -32,13 +38,11 @@ class Handler extends WebhookHandler
 
         /** @var TelegraphChat $chat */
         $chat = TelegraphChat::where('chat_id', $chatId)->first();
-        if ($adminChat->chat_id == $chatId) {
-            $this->reply(print_r('$chatId' . $chatId, true));
+        if ($adminChat?->chat_id == $chatId) {
             $this->reply('This chat is already the admin chat.');
             return;
         } else {
             $this->reply('You are not admin of this bot');
-
             try {
                 if (!$chat) {
                     /** @var TelegraphChat $chat */
@@ -46,9 +50,9 @@ class Handler extends WebhookHandler
                         'chat_id' => $chatId,
                         'name' => 'guest',
                     ]);
-                    $this->reply('Create new guest chat: ' . $chat->chat_id);
+//                    $this->reply('Create new guest chat: ' . $chat->chat_id);
                 } else {
-                    $response = $chat->message(__('Please enter your password'))
+                    $response = $chat->message(__('Please enter admin password'))
                         ->send();
 
                 }
@@ -77,13 +81,11 @@ class Handler extends WebhookHandler
     protected function handleChatMessage(Stringable $text): void
     {
         $adminPassword = Config::get('telegraph.admin_password', 'default_password');
-        $this->chat->html("Admin pass: $adminPassword")->send();
         $senderId = $this->message->from()->id();
-        $this->reply('$senderId: ' . $senderId);
 
         if ($text == $adminPassword) {
             $adminPassword = null;
-            $this->reply('handleChatMessage: Correct password. Access allow.');
+            $this->reply('Correct password. Access allow.');
             $this->confirm_change_admin($senderId);
         } else if ($text == 'YES') {
             $this->reply('Chat will be registered as admin.');
@@ -122,8 +124,6 @@ class Handler extends WebhookHandler
 
     public function confirm_change_admin($chatId): void
     {
-        $this->reply('confirm_change_admin');
-
         try {
             $chat = TelegraphChat::where('chat_id', $chatId)->first();
 
@@ -132,7 +132,6 @@ class Handler extends WebhookHandler
         } catch (\Exception $e) {
             $this->reply(print_r('Error: ' . $e->getMessage(), true));
         }
-
     }
 }
 
