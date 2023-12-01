@@ -4,5 +4,5 @@
     @include('layouts.componentsFromDb')
 @endsection
 @push('custom-script')
-    @vite(['resources\js\front\portfolio_page.js'])
+    @vite(['resources/js/front/portfolio_page.js'])
 @endPush
