@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('images', function (Blueprint $table) {
             // Add the name column
-            $table->string('name')->after('file_url')->nullable();
+            $table->string('name')->after('file_url_small')->nullable();
         });
     }
 

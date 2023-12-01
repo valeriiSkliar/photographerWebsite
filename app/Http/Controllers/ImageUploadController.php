@@ -118,7 +118,7 @@ class ImageUploadController extends Controller
                 $file = $request->file('file');
                 $fileType = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file->getPathname());
 
-                if (!in_array($fileType, ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp'])) {
+                if (!in_array($fileType, ['image/jpeg','image/jpg', 'image/png', 'image/gif', 'image/bmp', 'image/webp'])) {
                     return response()->json([
                         'error' => true,
                         'message' => 'Unsupported image type.',
@@ -147,7 +147,11 @@ class ImageUploadController extends Controller
             $smallFilePath = $this->saveImage($file, 'small', $filenameWithoutExt, $extension, 400);
 
             $albumId = $request->album_id == 'null' ? '1' : $request->album_id;
-            $imageModel = Image::create(['file_url' => asset($originalFilePath)]);
+            $imageModel = Image::create([
+                'file_url_origin' => asset($originalFilePath),
+                'file_url_medium' => asset($mediumFilePath),
+                'file_url_small' => asset($smallFilePath),
+            ]);
 
             $albumExists = Album::find($albumId) !== null;
             if ($albumExists) {
