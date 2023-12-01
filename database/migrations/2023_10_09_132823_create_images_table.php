@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('file_url_origin');
+            $table->string('file_url');
             $table->string('file_url_medium');
             $table->string('file_url_small');
             $table->integer('rank')->nullable();
