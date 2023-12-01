@@ -148,7 +148,7 @@ class ImageUploadController extends Controller
 
             $albumId = $request->album_id == 'null' ? '1' : $request->album_id;
             $imageModel = Image::create([
-                'file_url_origin' => asset($originalFilePath),
+                'file_url' => asset($originalFilePath),
                 'file_url_medium' => asset($mediumFilePath),
                 'file_url_small' => asset($smallFilePath),
             ]);
