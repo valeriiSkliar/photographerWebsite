@@ -30,6 +30,8 @@ const portfolioSlider = {
 
 function fillArrayURL (arrayURL) {
     portfolioSlider.activeFrame = 0;
+    scrollLeft.style.display = 'none';
+    scrollRight.style.display = 'block';
     portfolioSlider.arrayWithURL.splice(0, portfolioSlider.arrayWithURL.length);
     arrayURL.forEach((element)=>{
         portfolioSlider.arrayWithURL.push(element)
@@ -38,16 +40,34 @@ function fillArrayURL (arrayURL) {
 }
 
 function slideDirection (direction) {
+    // if (direction) {
+    //     portfolioSlider.activeFrame += 1;
+    //     if (portfolioSlider.activeFrame === portfolioSlider.arrayWithURL.length) {
+    //         portfolioSlider.activeFrame = 0;
+    //     }
+    // }
+    // else {
+    //     portfolioSlider.activeFrame -= 1;
+    //     if (portfolioSlider.activeFrame === -1) {
+    //         portfolioSlider.activeFrame = portfolioSlider.arrayWithURL.length - 1;
+    //     }
+    // }
     if (direction) {
         portfolioSlider.activeFrame += 1;
-        if (portfolioSlider.activeFrame === portfolioSlider.arrayWithURL.length) {
-            portfolioSlider.activeFrame = 0;
+        if (portfolioSlider.activeFrame === portfolioSlider.arrayWithURL.length-1) {
+            scrollRight.style.display = 'none';
+        }
+        if (portfolioSlider.activeFrame === 1) {
+            scrollLeft.style.display = 'block';
         }
     }
     else {
         portfolioSlider.activeFrame -= 1;
-        if (portfolioSlider.activeFrame === -1) {
-            portfolioSlider.activeFrame = portfolioSlider.arrayWithURL.length - 1;
+        if (portfolioSlider.activeFrame === 0) {
+            scrollLeft.style.display = 'none';
+        }
+        if (portfolioSlider.activeFrame === portfolioSlider.arrayWithURL.length-2) {
+            scrollRight.style.display = 'block';
         }
     }
     sliderContainer.style.backgroundImage = `url(${portfolioSlider.arrayWithURL[portfolioSlider.activeFrame].file_url})`
