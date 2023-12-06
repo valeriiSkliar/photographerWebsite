@@ -115,14 +115,20 @@ class ComponentController extends Controller
 
 //        dd($request);
         if (!$component->id) {
-            $component = Component::find($id);
+            $component = Component::findOrFail($id);
         }
         $page = $component->pages->first();
         $componentData = $request->validate([
             'name' => 'string|max:255',
             'album_id' => 'integer|nullable|exists:albums,id',
+            'isVisible' => 'string|nullable',
 //            'page_id' => 'integer|nullable|exists:pages,id',
         ]);
+        if (array_key_exists('isVisible', $componentData)) {
+            $componentData = array_merge($componentData, ['isVisible' => 'off']);
+        } else {
+            $componentData = array_merge($componentData, ['isVisible' => 'on']);
+        }
         $details = $request->get('details');
 
         $existingDetailIds = $component->details->pluck('id')->toArray();

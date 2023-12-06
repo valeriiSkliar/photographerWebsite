@@ -25,6 +25,23 @@
         @csrf
         <input type="hidden" id="component_id" value="{{ $component->id }}">
         <input type="hidden" name="page_id" value="{{ $page->id }}">
+        <div class="form-group align-items-center">
+            <div class="button b2 switcherYesOrNot">
+                <input type="checkbox"
+                       @if($component->isVisible !== 'on')
+                           {{ 'checked' }}
+                       @endif
+                       id="isVisible"
+                       name="isVisible"
+                       class="checkbox-switcher"
+                />
+                <div class="knobs">
+                    <span></span>
+                </div>
+                <div class="layer"></div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
