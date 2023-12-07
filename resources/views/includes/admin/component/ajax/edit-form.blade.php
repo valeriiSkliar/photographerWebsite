@@ -24,7 +24,10 @@
         method="POST" action="{{ route('components.update', $component->id) }}">
         @csrf
         <input type="hidden" id="component_id" value="{{ $component->id }}">
-        <input type="hidden" name="page_id" value="{{ $page->id }}">
+        <input type="hidden" id="page_id" name="page_id" value="{{ $page->id }}">
+        @if(isset($component->album))
+            <input type="hidden" id="album_id" name="album_id" value="{{ $component->album->id }}">
+        @endif
         <div class="form-group align-items-center">
             <div class="button b2 switcherYesOrNot">
                 <input type="checkbox"

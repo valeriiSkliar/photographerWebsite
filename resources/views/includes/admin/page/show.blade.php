@@ -83,6 +83,33 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <h5 class="col-12">
+                All components
+            </h5>
+            <div class="col-8 d-flex flex-column">
+                @if($components)
+                    @foreach($components as $index => $component)
+                        <tr
+                            class="componentRow border-0"
+                            data-componentId="{{ $component->id }}"
+                            data-component_name="{{ $component->name }}"
+                        >
+                            <td
+                                class="border-0"
+                            >
+                                {{ $component->name}}
+                            </td>
+                            <td class="border-0 d-flex justify-content-between"
+                                id="connected-album-name-{{$component->album ? $component->album->id : ''}}">
+                                {{ $component->album ? $component->album->title : ' - ' }}
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+
     </div>
     @push('iframe.script')
         @vite('resources/js/show_page_view.js')

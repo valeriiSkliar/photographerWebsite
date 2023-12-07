@@ -112,10 +112,11 @@ class ComponentController extends Controller
      */
     public function update(Request $request, Component $component, $id)
     {
-
-//        dd($request);
         if (!$component->id) {
             $component = Component::findOrFail($id);
+            if (isset($component->album)) {
+                $request->merge(['album_id' => $component->album->id]);
+            }
         }
         $page = $component->pages->first();
         $componentData = $request->validate([

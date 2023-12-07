@@ -23,7 +23,7 @@
                                 class="border-0"
                             >
                                 <i class="drag-handle fa-solid fa-arrows-up-down pr-3" style="color: #f7f7f7;"></i>
-                                {{ $component->name }}
+                                {{ substr($component->name, 0, 15) . '...' }}
                             </td>
                             <td class="border-0 d-flex justify-content-between"
                                 id="connected-album-name-{{$component->album ? $component->album->id : ''}}">

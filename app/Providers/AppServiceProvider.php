@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Album;
+use App\Models\Component\Component;
 use App\Models\Contact;
 use App\Models\MetaData\MetaTagsNameVariants;
 use App\Models\MetaData\MetaTagsPropertyVariants;
@@ -61,6 +62,12 @@ class AppServiceProvider extends ServiceProvider
             'includes.admin.*'
         ], function ($view){
             $view->with('albums', Album::all());
+        });
+
+        view()->composer([
+            'includes.admin.*'
+        ], function ($view){
+            $view->with('components', Component::all());
         });
 
         view()->composer([
