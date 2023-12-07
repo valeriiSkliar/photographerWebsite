@@ -1,4 +1,12 @@
 :root {
+
+    @font-face {
+        font-family: 'Allison_Script';
+        src:
+          url("../variables/fonts/Allison_Script.otf") format("otf");
+      };
+
+
     --font-allison: 'Allison', cursive;
     --font-lora: 'Lora', serif;
 
