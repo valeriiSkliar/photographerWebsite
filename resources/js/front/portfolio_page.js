@@ -2,31 +2,22 @@ import {getCsrfToken} from "../helpers/getCsrfToken.js"
 
 const portfolioTextCollection = document.getElementsByClassName ('portfolio_text');
 const albumCover = document.getElementsByClassName ('portfolio_albums_title');
+const albumCoverNames = document.getElementsByClassName ('album_cover_name');
 const sliderContainer = document.getElementById('container_for_slider');
 const scrollLeft = document.getElementById('scroll_left');
 const scrollRight = document.getElementById('scroll_right');
 
 const portfolioSlider = {
-    // position: 0,
-    // width: 0,
     activeFrame: 0,
-    arrayWithURL:[]
+    arrayWithURL:[],
+    arrayTitle:[]
 }
 
-// portfolioSlider.width = Number((window.getComputedStyle(sliderContainer).width).replace('px', ''));
-
-// function renderGallery (arrayURL) {
-
-//     const sliderContainer = document.getElementById('container_for_slider');
-//     sliderContainer.innerHTML = '';
-//     arrayURL.forEach((element) => {
-//         let newImg = document.createElement('img');
-//         newImg.classList.add('img_for_slider');
-//         newImg.setAttribute('src',element.file_url);
-//         sliderContainer.append(newImg);
-//     });
-
-// }
+for (let i = 0; i < albumCoverNames.length; i += 1) {
+    const str = albumCoverNames[i].textContent;
+    const strMain = str[0].toLowerCase() + str.slice(1);
+    portfolioSlider.arrayTitle.push(strMain);
+}
 
 function fillArrayURL (arrayURL) {
     portfolioSlider.activeFrame = 0;
@@ -40,18 +31,7 @@ function fillArrayURL (arrayURL) {
 }
 
 function slideDirection (direction) {
-    // if (direction) {
-    //     portfolioSlider.activeFrame += 1;
-    //     if (portfolioSlider.activeFrame === portfolioSlider.arrayWithURL.length) {
-    //         portfolioSlider.activeFrame = 0;
-    //     }
-    // }
-    // else {
-    //     portfolioSlider.activeFrame -= 1;
-    //     if (portfolioSlider.activeFrame === -1) {
-    //         portfolioSlider.activeFrame = portfolioSlider.arrayWithURL.length - 1;
-    //     }
-    // }
+
     if (direction) {
         portfolioSlider.activeFrame += 1;
         if (portfolioSlider.activeFrame === portfolioSlider.arrayWithURL.length-1) {
@@ -74,31 +54,30 @@ function slideDirection (direction) {
 }
 
 function selectAlbum (index) {
-    // sliderContainer.style.left = `0px`;
-    const albumArray = ['wedding','session','people','nature'];
-    let activeCover1 = index + 1;
-    let activeCover2 = index + 2;
-    let activeCover3 = index + 3;
-    function correctIndex (presentIndex) {
-        let newIndex  = presentIndex;
-        if (presentIndex>3) {
-            newIndex = presentIndex - 4;
-        }
-        return newIndex
-    };
-    activeCover1 = correctIndex(activeCover1);
-    activeCover2 = correctIndex(activeCover2);
-    activeCover3 = correctIndex(activeCover3);
-    albumCover[index].classList.add('album_title_display_none');
-    albumCover[activeCover1].classList.remove('album_title_display_none');
-    albumCover[activeCover2].classList.remove('album_title_display_none');
-    albumCover[activeCover3].classList.remove('album_title_display_none');
-    portfolioTextCollection[index].classList.remove('album_title_display_none');
-    portfolioTextCollection[activeCover1].classList.add('album_title_display_none');
-    portfolioTextCollection[activeCover2].classList.add('album_title_display_none');
-    portfolioTextCollection[activeCover3].classList.add('album_title_display_none');
+    const numAlbums = portfolioSlider.arrayTitle.length;
 
-    let activeAlbum = albumArray[index];
+    for (let i = 0; i < numAlbums; i += 1) {
+        if (i === index) {
+            albumCover[i].classList.add('album_title_display_none');
+        }
+        else {
+            albumCover[i].classList.remove('album_title_display_none');
+        }
+    }
+
+    for (let i = 0; i < portfolioTextCollection.length; i += 1) {
+        if (i === index) {
+            portfolioTextCollection[i].classList.remove('album_title_display_none');
+        }
+        else {
+            portfolioTextCollection[i].classList.add('album_title_display_none');
+        }
+    }
+
+    let activeAlbum = portfolioSlider.arrayTitle[index];
+    if (!activeAlbum) {
+        activeAlbum = 'wedding'
+    }
     return activeAlbum;
 }
 
@@ -107,58 +86,23 @@ export async function getCurrentAlbum(albumName){
         .then(data => data.json())
         .then(data => {
             fillArrayURL(data.data[0].images);
-          //  renderGallery(data.data[0].images);
             })
 }
-
-// function scrollToX (direction) {
-
-//     const imgCollection = document.getElementsByClassName('img_for_slider');
-//     const imgCollectionLength = imgCollection.length;
-//     if (direction) {
-//         portfolioSlider.position += portfolioSlider.width;
-//         if (portfolioSlider.position>0) {
-//             portfolioSlider.position = (imgCollectionLength-1)*portfolioSlider.width*Math.sign(-1);
-//         };
-//     }
-//     else {
-//         portfolioSlider.position -= portfolioSlider.width;
-//         if (portfolioSlider.position<((imgCollectionLength-1)*portfolioSlider.width*Math.sign(-1))) {
-//             portfolioSlider.position = 0;
-//         };
-//     };
-//     sliderContainer.style.left = `${portfolioSlider.position}px`;
-// }
 
 document.addEventListener('DOMContentLoaded', async () => {
     await getCurrentAlbum(selectAlbum(0));
 })
 
+for (let i = 0; i < portfolioSlider.arrayTitle.length; i += 1) {
+    albumCover[i].addEventListener('click', async () => {
+        await getCurrentAlbum(selectAlbum(i));
+    });
+}
 
-albumCover[0].addEventListener('click', async () => {
-    await getCurrentAlbum(selectAlbum(0));
-             });
-albumCover[1].addEventListener('click', async () => {
-    await getCurrentAlbum(selectAlbum(1));
-});
-albumCover[2].addEventListener('click', async () => {
-    await getCurrentAlbum(selectAlbum(2));
-});
-albumCover[3].addEventListener('click', async () => {
-    await getCurrentAlbum(selectAlbum(3));
-});
 scrollLeft.addEventListener('click', () => {
-   // scrollToX(0);
     slideDirection(0);
 });
 scrollRight.addEventListener('click', () => {
-   // scrollToX(1);
     slideDirection(1);
 });
-
-// window.addEventListener('resize', () => {
-//     portfolioSlider.position = 0;
-//     portfolioSlider.width = Number((window.getComputedStyle(sliderContainer).width).replace('px', ''));
-//     sliderContainer.style.left = `0px`;
-// });
 
