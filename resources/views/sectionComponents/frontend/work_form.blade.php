@@ -39,6 +39,3 @@
     </div>
 </div>
 
-@push('custom-script')
-    @vite(['resources/js/front/work_page123.js'])
-@endPush
