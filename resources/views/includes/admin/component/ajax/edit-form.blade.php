@@ -101,7 +101,7 @@
                                             <label for="value_de" class="col-sm-2 col-form-label">Value (German)</label>
                                             <div class="col-sm-10">
                                                 <input
-                                                    value="{{$detail->translations->first()->translated_value}}"
+                                                    value="{{$detail->translations->first()?->translated_value}}"
                                                     type="text"
                                                     class="form-control"
                                                     id="value_de"
