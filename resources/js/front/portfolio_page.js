@@ -10,14 +10,15 @@ const scrollRight = document.getElementById('scroll_right');
 const portfolioSlider = {
     activeFrame: 0,
     arrayWithURL:[],
-    arrayTitle:[]
+    arrayTitle:[],
+    fillArrayAlbumsTitle: function (collection) {
+        for (let i = 0; i < collection.length; i += 1) {
+            this.arrayTitle.push(collection[i].textContent);
+        }
+    }
 }
 
-for (let i = 0; i < albumCoverNames.length; i += 1) {
-    const str = albumCoverNames[i].textContent;
-    const strMain = str[0].toLowerCase() + str.slice(1);
-    portfolioSlider.arrayTitle.push(strMain);
-}
+portfolioSlider.fillArrayAlbumsTitle(albumCoverNames);
 
 function fillArrayURL (arrayURL) {
     portfolioSlider.activeFrame = 0;
@@ -76,7 +77,7 @@ function selectAlbum (index) {
 
     let activeAlbum = portfolioSlider.arrayTitle[index];
     if (!activeAlbum) {
-        activeAlbum = 'wedding'
+        activeAlbum = 'Wedding';
     }
     return activeAlbum;
 }

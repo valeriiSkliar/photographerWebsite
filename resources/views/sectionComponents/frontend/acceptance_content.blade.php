@@ -12,6 +12,7 @@
             </p>
         @endforeach
     </div>
+    <div class="defense_copy"></div>
 </div>
 {{-- @push('custom-script')
 <script>
