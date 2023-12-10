@@ -19,46 +19,42 @@
     position: absolute;
     font-size: 46px;
     font-family: var(--navbar-font);
+    text-shadow: black 1px 1px;
 }
 
 .about_text {
     position: absolute;
     font-family: var(--font-allison);
-    font-size: 36px;
+    font-size: 30px;
+    text-shadow: black 1px 1px;
 }
 
 .title_1 {
-    color: #000000d0;
     top: 5vw;
     left: 12vw;
 }
 
 .text_1 {
-    color: #000000d0;
     bottom: 12.5vw;
     right: 15vw;
 }
 
 .title_2 {
-    color: #8e5454;
     bottom: 8vw;
     left: 7vw;
 }
 
 .text_2 {
-    color: #8e5454;
     bottom: 20vw;
     right: 10vw;
 }
 
 .title_3 {
-    color: #ffffffd0;
     top: 7vw;
     left: 17vw;
 }
 
 .text_3 {
-    color: #ffffffd0;
     bottom: 5vw;
     right: 5vw;
 }
@@ -69,7 +65,7 @@
     }
 
     .about_text {
-        font-size: 26px;
+        font-size: 20px;
     }
 
 }
@@ -117,7 +113,7 @@
     }
 
     .about_text {
-        font-size: 20px;
+        font-size: 16px;
     }
 }
 
@@ -164,7 +160,7 @@
     }
 
     .about_text {
-        font-size: 16px;
+        font-size: 12px;
     }
 }
 
@@ -179,7 +175,7 @@
     }
 
     .about_text {
-        font-size: 12px;
+        font-size: 8px;
     }
 
     .title_1 {
