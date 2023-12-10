@@ -29,6 +29,7 @@
     <meta name="format-detection" content="address=no">
     @include('includes.page_meta_tags')
     <!-- Fonts -->
+    <link href="https://fonts.cdnfonts.com/css/allison-script" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Allison&family=Lora&display=swap" rel="stylesheet">

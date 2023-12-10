@@ -16,9 +16,9 @@
             {{$contact['name'].' '.$contact['surname']}}
         </a>
         @endif
-        @if(isset($contact['city']) && isset($contact['address']) && isset($contact['phone']) && isset($contact['email']))
+        @if(isset($contact['address']) && isset($contact['phone']) && isset($contact['email']))
         <div class="address_footer">
-            {{$contact['city'].', '.$contact['address']}}<br>
+            {{$contact['address']}}<br>
             {{'phone: '.$contact['phone']}}<br>
             {{'e-mail: '.$contact['email']}}
         </div>
