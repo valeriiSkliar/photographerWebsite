@@ -41,9 +41,37 @@
                                     required
                                 >
                             </div>
-                            <div class="form-group col-md-8">
-                                <label for="details[0][value]">Value:</label>
-                                <input type="text" class="form-control" id="details[0][value]" name="details[0][value]" required>
+{{--                            <div class="form-group col-md-8">--}}
+{{--                                <label for="details[0][value]">Value:</label>--}}
+{{--                                <input type="text" class="form-control" id="details[0][value]" name="details[0][value]" required>--}}
+{{--                            </div>--}}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label for="value_en" class="col-sm-2 col-form-label">Value (English)</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="value_en"
+                                                name="details[0][value]"
+                                                required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label for="value_de" class="col-sm-2 col-form-label">Value (German)</label>
+                                        <div class="col-sm-10">
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="value_de"
+                                                name="translations[0][de]"
+                                                required>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class= "form-group col-md-1">
                                 <label for="delete[0]" >Delete:</label>

@@ -80,12 +80,44 @@
                                            name="details[{{ $detail->id }}][key]" value="{{ $detail->key }}"
                                            required>
                                 </div>
-                                <div class="form-group col-md-8">
-                                    <label for="details[{{ $detail->id }}][value]">Value:</label>
-                                    <input type="text" class="form-control" id="details[{{ $detail->id }}][value]"
-                                           name="details[{{ $detail->id }}][value]" value="{{ $detail->value }}"
-                                           required>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="details[{{ $detail->id }}][value]" class="col-sm-2 col-form-label">Value
+                                                (English)</label>
+                                            <div class="col-sm-10">
+                                                <input
+                                                    value="{{ $detail->value }}"
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="details[{{ $detail->id }}][value]"
+                                                    name="details[{{ $detail->id }}][value]"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="value_de" class="col-sm-2 col-form-label">Value (German)</label>
+                                            <div class="col-sm-10">
+                                                <input
+                                                    value="{{$detail->translations->first()->translated_value}}"
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="value_de"
+                                                    name="translations[{{$detail->id}}][de]"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
+{{--                                <div class="form-group col-md-8">--}}
+{{--                                    <label for="details[{{ $detail->id }}][value]">Value:</label>--}}
+{{--                                    <input type="text" class="form-control" id="details[{{ $detail->id }}][value]"--}}
+{{--                                           name="details[{{ $detail->id }}][value]" value="{{ $detail->value }}"--}}
+{{--                                           required>--}}
+{{--                                </div>--}}
                                 <div class="form-group col-md-1">
                                     <label for="delete[{{ $detail->id }}]">Delete:</label>
                                     <button

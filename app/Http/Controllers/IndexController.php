@@ -21,7 +21,7 @@ class IndexController extends Controller
 
         $page = Page::with(['components' => function ($query) {
             $query->orderBy('order');
-        }, 'components.album.images'])
+        }, 'components.album.images','components.details.translations',])
             ->where('slug', $pageSlug)
             ->first();
         if (!$page) {

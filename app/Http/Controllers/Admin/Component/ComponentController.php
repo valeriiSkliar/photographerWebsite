@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Component;
 use App\Http\Controllers\Controller;
 use App\Models\Album;
 use App\Models\Component\Component;
+use App\Models\ComponentDetailTranslation;
 use App\Models\Page;
 use App\Models\Section\Section;
 use Illuminate\Http\Request;
@@ -43,12 +44,11 @@ class ComponentController extends Controller
             'name' => 'string|max:255',
             'album_id' => 'integer|nullable|exists:albums,id',
             'page_id' => 'integer|nullable|exists:pages,id',
-//            'title' => 'nullable|string|max:255',
-//            'sub_text' => 'nullable|string|max:255',
-//            'description' => 'nullable|string|max:1000',
+
         ]);
 
         $details = $request->get('details');
+        $translations = $request->get('translations');
         $component = Component::create(Arr::except($componentData, ['page_id', 'title', 'sub_text', 'description']));
 
         if ($component) {
@@ -56,9 +56,25 @@ class ComponentController extends Controller
             $page->components()->attach($component->id);
         }
 
-        foreach ($details as $detail) {
-            $component->details()->create($detail);
+        if(is_array($details) && is_array($translations)) {
+            foreach ($details as $index => $detail) {
+                if (isset($translations[$index])) {
+                    $currentTranslation = $translations[$index];
+                    $componentDetail = $component->details()->create($detail);
+                    foreach ($currentTranslation as $locale => $translated_value) {
+                        $translation = new ComponentDetailTranslation([
+                            'component_detail_id' => $componentDetail->id,
+                            'locale' => $locale ?? null,
+                            'translated_value' => $translated_value ?? null
+                        ]);
+                        $translation->save();
+                    }
+
+                }
+            }
         }
+
+
 
 
         if ($request->ajax()) {
@@ -150,11 +166,34 @@ class ComponentController extends Controller
         }
 
         $component->update($componentData);
+//        /////////////////////////////
+
         $component->details()->delete();
 
-        foreach ($details as $detail) {
-            $component->details()->create($detail);
+        foreach($component->details as $detail) {
+            $detail->translations()->delete();
+            $detail->delete();
         }
+
+        $details = $request->get('details');
+        $translations = $request->get('translations');
+
+        foreach ($details as $index => $detail) {
+            if (isset($translations[$index])) {
+                $currentTranslation = $translations[$index];
+                $componentDetail = $component->details()->create($detail);
+                foreach ($currentTranslation as $locale => $translated_value) {
+                    $translation = new ComponentDetailTranslation([
+                        'component_detail_id' => $componentDetail->id,
+                        'locale' => $locale ?? null,
+                        'translated_value' => $translated_value ?? null
+                    ]);
+                    $translation->save();
+                }
+            }
+        }
+
+//        ////////////////////
 
         if ($request->ajax()) {
             $markup = view(
