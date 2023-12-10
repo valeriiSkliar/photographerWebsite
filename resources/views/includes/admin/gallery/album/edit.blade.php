@@ -4,6 +4,15 @@
     'resources/scss/admin/gallery/switcher.scss',
     'resources/scss/admin/gallery/dragAndDrop.scss',
     ])
+    <style>
+        .albumImgBtnEdit {
+            color: #0c84ff;
+            transition: 0.3s;
+        }
+        .albumImgBtnEdit:hover {
+            transform: scale(1.2);
+        }
+    </style>
 @endpushonce
 @pushonce('iframe.script')
     @vite([
@@ -114,7 +123,7 @@
                                 <div class="col-md-4 my-3 selectable-item"
                                      data-image_id="{{$image->id}}"
                                      style="min-width: 8rem;">
-                                    <div class="image-container ">
+                                    <div class="image-container position-relative">
                                         <a href="{{ asset($image->file_url) }}"
                                            data-lightbox="album images"
                                            data-title="{{ $image->tilte }}"
@@ -127,6 +136,17 @@
                                                  loading="lazy"
                                             >
                                         </a>
+                                        <div class="image-controls albumImgBtnEdit">
+
+                                            <div class="m-0 p-0"
+                                                 style="min-width: auto; background-color: unset; border: unset; box-shadow: unset;">
+                                                <a href="{{ route('images.edit', $image) }}"
+                                                   class="bg-white text-center rounded-sm m-0"
+                                                   style="padding: 2px 4px;">
+                                                    <i class="fas fa-edit text-primary"></i>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
