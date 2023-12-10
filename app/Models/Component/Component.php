@@ -15,9 +15,9 @@ class Component extends Model
 
     protected $guarded = [];
 
-    public function pages()
+    public function pages(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Page::class);
+        return $this->belongsToMany(Page::class)->withPivot('order');
     }
     public function details()
     {

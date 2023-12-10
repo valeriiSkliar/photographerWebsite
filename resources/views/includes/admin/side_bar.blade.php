@@ -52,27 +52,27 @@
                 </li>
                 @can('superAdminAccess', auth()->user())
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-book"></i>
-                            <p>
-                                Pages
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
+{{--                        <a href="#" class="nav-link">--}}
+{{--                            <i class="nav-icon fas fa-book"></i>--}}
+{{--                            <p>--}}
+{{--                                Pages--}}
+{{--                                <i class="fas fa-angle-left right"></i>--}}
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                        <ul class="nav nav-treeview">--}}
+{{--                            <li class="nav-item">--}}
                                 <a href="{{ route('admin.page.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>All pages</p>
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('admin.page.create') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Create new page</p>
-                                </a>
-                            </li>
-                        </ul>
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{ route('admin.page.create') }}" class="nav-link">--}}
+{{--                                    <i class="far fa-circle nav-icon"></i>--}}
+{{--                                    <p>Create new page</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
                     </li>
                 @endcan
             </ul>

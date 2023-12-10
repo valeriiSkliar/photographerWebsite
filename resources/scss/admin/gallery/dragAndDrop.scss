@@ -1,6 +1,6 @@
 
 #sortable .ui-selected {
-    width: 100px!important;
+    //width: 100px!important;
     background: #F39814;
     color: white;
 }
@@ -17,6 +17,5 @@
     min-width: 190px;
 }
 .ui-droppable-active {
-    max-width: 200px;
     opacity: 0.6;
 }

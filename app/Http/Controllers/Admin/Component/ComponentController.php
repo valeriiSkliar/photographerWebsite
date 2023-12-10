@@ -166,7 +166,6 @@ class ComponentController extends Controller
         }
 
         $component->update($componentData);
-//        /////////////////////////////
 
         $component->details()->delete();
 
@@ -192,8 +191,6 @@ class ComponentController extends Controller
                 }
             }
         }
-
-//        ////////////////////
 
         if ($request->ajax()) {
             $markup = view(

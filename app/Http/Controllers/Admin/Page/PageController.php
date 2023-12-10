@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Page;
 
 use App\Http\Controllers\Admin\Section\SectionController;
 use App\Http\Controllers\Controller;
+use App\Models\Component\Component;
 use App\Models\MetaData\MetaTags;
 use App\Models\MetaData\MetaTegType;
 use App\Models\Page;
@@ -135,5 +136,48 @@ class PageController extends Controller
             File::delete($filePath);
         }
 
+    }
+
+    public function attachComponent(Request $request, $pageId): \Illuminate\Http\JsonResponse
+    {
+        $page = Page::find($pageId);
+        $component = Component::find($request->componentId);
+
+        $isComponentAlreadyAddToPage = (
+            $page
+                ->components()
+                ->where('components.id', $component?->id)
+                ->get()
+                ->first()?->id === $component?->id
+        );
+        if ($component) {
+            if (!$isComponentAlreadyAddToPage) {
+                $page->components()->attach($component?->id);
+                $markup = view('includes.admin.component.ajax.component_list.row', compact('component', 'page'))->render();
+                return response()
+                    ->json([
+                        'success' => true,
+                        'message' => 'Component added successfully',
+                        'markup' => $markup
+                    ]);
+            } else {
+                return response()->json(['message' => 'Component is already on this page']);
+            }
+        } else {
+            return response()->json(['error' => 'Invalid component or page id']);
+        }
+    }
+
+    public function detachComponent(Request $request, $pageId): \Illuminate\Http\JsonResponse
+    {
+        $page = Page::find($pageId);
+        $component = Component::find($request->componentId);
+
+        if ($page && $component) {
+            $page->components()->detach($component->id);
+            return response()->json(['message' => 'Component detached successfully']);
+        } else {
+            return response()->json(['error' => 'Invalid component or page id']);
+        }
     }
 }

@@ -1,5 +1,6 @@
 import {getCsrfToken} from "../js/helpers/getCsrfToken.js";
 import Swal from "sweetalert2";
+import {getPageID} from "@/helpers/getPageID.js";
 
 export let updatedMarkup = null;
 
@@ -559,4 +560,50 @@ export function addMetaTagRow({event: {target}, page_id}) {
 export function afterModalCloseCheck(form) {
     // console.log(form)
 }
+
+export function addToCurrentPage({target}) {
+    const pageId = getPageID();
+    const componentId = $(target).data('action')
+    $.ajax({
+        url: `/api/page/${pageId}/addComponent`,
+        method: 'POST',
+        data: {
+            componentId: componentId,
+        },
+        success: function(response) {
+            console.log(response);
+            $('#component_list_table_body').append(response.markup);
+            target.textContent = 'Remove from current page'
+            $(target).off('click', addToCurrentPage ).on('click', removeFromCurrentPage )
+            $(target).removeClass('btn-success').addClass('btn-danger')
+        },
+        error: function(response) {
+            console.log(response);
+        }
+    });
+}
+
+export function removeFromCurrentPage({target}) {
+    const componentId = $(target).data('action')
+    const pageId = getPageID();
+
+    $.ajax({
+        url: `/api/page/${pageId}/removeComponent`,
+        method: 'POST',
+        data: {
+            componentId: componentId,
+        },
+        success: function(response) {
+            target.textContent = 'Add to current page'
+            $(target).off('click', removeFromCurrentPage);
+            $(target).on('click', addToCurrentPage);
+            $(target).removeClass('btn-danger').addClass('btn-success')
+            $(`[data-componentid=${componentId}]`).first().remove();
+        },
+        error: function(response) {
+            console.log(response);
+        }
+    });
+}
+
 

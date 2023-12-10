@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Page\PageController;
 use App\Http\Controllers\API\MetaTagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,4 +35,6 @@ Route::group([], function () {
     Route::post('/component-album-disconnect/{id}', [App\Http\Controllers\API\ComponentDetailController::class, 'album_disconnect']);
     Route::get('/component-get-current-album/{name}', [App\Http\Controllers\API\ComponentDetailController::class, 'getCurrentAlbum']);
     Route::post('/update-components-list/order', [App\Http\Controllers\API\ComponentDetailController::class, 'updateOrder']);
+    Route::post('/page/{pageId}/addComponent', [PageController::class, 'attachComponent']);
+    Route::post('/page/{pageId}/removeComponent', [PageController::class, 'detachComponent']);
 });

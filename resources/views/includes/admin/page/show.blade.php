@@ -82,34 +82,48 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <h5 class="col-12">
+        </div><div class="row mt-3 bg-light pt-3 pb-3 rounded">
+            <h5 class="col-6 text-secondary">
                 All components
             </h5>
-            <div class="col-8 d-flex flex-column">
+            <div class="col-md-10 d-flex flex-column">
                 @if($components)
-                    @foreach($components as $index => $component)
-                        <tr
-                            class="componentRow border-0"
-                            data-componentId="{{ $component->id }}"
-                            data-component_name="{{ $component->name }}"
-                        >
-                            <td
-                                class="border-0"
-                            >
-                                {{ $component->name}}
-                            </td>
-                            <td class="border-0 d-flex justify-content-between"
-                                id="connected-album-name-{{$component->album ? $component->album->id : ''}}">
-                                {{ $component->album ? $component->album->title : ' - ' }}
-                            </td>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Component Name</th>
+                            <th>Action</th>
                         </tr>
-                    @endforeach
+                        </thead>
+                        <tbody>
+                        @foreach($components as $index => $component)
+                            <tr class="componentRow"
+                                data-componentId="{{ $component->id }}"
+                                data-component_name="{{ $component->name }}"
+                            >
+                                <td>{{ $component->name}}</td>
+                                <td class="d-flex justify-content-between">
+                                    @if($component->pages->where('id', $page->id)->first()?->id === $page->id)
+                                        <button
+                                            data-action="{{$component->id}}"
+                                            class="removeComponentAction btn btn-danger btn-sm"
+                                        >Remove from current page
+                                        </button>
+                                    @else
+                                        <button
+                                            data-action="{{$component->id}}"
+                                            class="addComponentAction btn btn-success btn-sm"
+                                        >Add to current page
+                                        </button>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 @endif
             </div>
         </div>
-
     </div>
     @push('iframe.script')
         @vite('resources/js/show_page_view.js')

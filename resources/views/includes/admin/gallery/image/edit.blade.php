@@ -43,12 +43,6 @@
                                     id="file_url"
                                     name="file_url"
                                     style="font-size: 12px"
-{{--                                    value="{{ str_contains($image->file_url, config('app.url'))--}}
-{{--                                              ?--}}
-{{--                                              $image->file_url--}}
-{{--                                              :--}}
-{{--                                              config('app.url') . $image->file_url--}}
-{{--                                           }}"--}}
                                     value="{{ $image->file_url }}"
                                 >
                                 <div class="input-group-append">
@@ -86,24 +80,11 @@
                             <input type="text" class="form-control" id="status" name="status"
                                    value="{{ $image->status }}">
                         </div>
-
-{{--                        <div class="form-group col-md-6">--}}
-{{--                            <label for="visibility" class="col-form-label">Visibility</label>--}}
-{{--                            <input type="text" class="form-control" id="visibility" name="visibility"--}}
-{{--                                   value="{{ $image->visibility }}">--}}
-{{--                        </div>--}}
-
-{{--                        <div class="form-group col-md-6">--}}
-{{--                            <label for="metadata" class="col-form-label">Metadata</label>--}}
-{{--                            <textarea class="form-control" id="metadata" name="metadata"--}}
-{{--                                      rows="4">{{ $image->metadata }}</textarea>--}}
-{{--                        </div>--}}
                     </div>
-
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Update</button>
-                        <a href="{{ route('gallery.index') }}" class="btn btn-secondary">
-                            Back to Gallery
+                        <a href="{{ url()->previous() }}" class="btn btn-secondary">
+                            Back to Previous Page
                         </a>
                     </div>
                 </form>

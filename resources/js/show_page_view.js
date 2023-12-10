@@ -4,7 +4,9 @@ import {
     clearFormContainer,
     initialListenersTbody,
     submitForm,
-    showMetaTagSwalModal
+    showMetaTagSwalModal,
+    addToCurrentPage,
+    removeFromCurrentPage
 
 } from './functions.js'
 
@@ -25,5 +27,9 @@ const formContainer = $('#formContainer');
     });
 
     initialListenersTbody();
+
+    $('.removeComponentAction').on('click', removeFromCurrentPage )
+    $('.addComponentAction').on('click', addToCurrentPage )
+
 });
 
