@@ -25,7 +25,7 @@ use App\Http\Controllers\Admin\ApplicationSubmitController;
 */
 
 $databaseName = config('database.connections.mysql.database');
-Route::get('/', [IndexController::class, 'index'])->name('index.page');
+//Route::get('/', [IndexController::class, 'index'])->name('index.page');
 
 Route::get('language/{locale}', function ($locale) {
     app()->setLocale($locale);
@@ -44,6 +44,7 @@ try {
             $pages = Page::all();
             foreach ($pages as $page) {
                 Route::get($page->slug, [IndexController::class, 'index'])->name('page.' . $page->slug);
+                Route::get($page->slug. '/de', [IndexController::class, 'index'])->name('de.page.' . $page->slug);
             }
         }
     }

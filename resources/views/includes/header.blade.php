@@ -67,9 +67,9 @@
         </div>
 
         <div class="flex align-items-center nav-logo">
-            <a href="{{ route('index.page') }}">
+{{--            <a href="{{ route('index.page') }}">--}}
                 <h1>Olena Yavorska</h1>
-            </a>
+{{--            </a>--}}
         </div>
     </nav>
 

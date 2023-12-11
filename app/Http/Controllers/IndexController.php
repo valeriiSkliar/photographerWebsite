@@ -7,6 +7,7 @@ use App\Models\Component\Component;
 use App\Models\MetaData\MetaTags;
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class IndexController extends Controller
 {
@@ -14,7 +15,13 @@ class IndexController extends Controller
     {
         $pageSlug = $request->route()->uri;
 
-        if ($pageSlug == '/') {
+        $hasDePrefix = Str::endsWith($pageSlug, '/de');
+        if ($hasDePrefix) {
+            app()->setLocale('de');
+            $pageSlug = Str::replaceFirst('/de', '', $pageSlug);
+        }
+        if ($pageSlug == '/' || $pageSlug == '' ) {
+        dd($pageSlug);
             $pageSlug = 'main';
 
         }
