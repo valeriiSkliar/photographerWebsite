@@ -7,35 +7,70 @@ use App\Models\Component\Component;
 use App\Models\MetaData\MetaTags;
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 class IndexController extends Controller
 {
     public function index(Request $request)
     {
-        $pageSlug = $request->route()->uri;
+        $pageSlug = $this->getPageSlug($request);
+        $page = $this->getPageData($pageSlug);
 
-        $hasDePrefix = Str::endsWith($pageSlug, '/de');
-        if ($hasDePrefix) {
-            app()->setLocale('de');
-            $pageSlug = Str::replaceFirst('/de', '', $pageSlug);
+        return view($pageSlug, [
+            'page' => $page,
+            'meta_tags' => $this->getMetaTags($page),
+        ]);
+    }
+
+    private function getPageSlug(Request $request): string {
+        $uri = $request->route()->uri;
+        //        if(Str::endsWith($uri, '/de')) {
+//            App::setLocale('de');
+//            $pageSlug = substr($uri, 3);
+//        }
+//        else {
+//            App::setLocale('en');
+//        }
+
+        return $this->getSlugFromUri($uri);
+    }
+    private function getSlugFromUri(string $uri): string {
+        $pageSlug = '/';
+        if(Str::endsWith($uri, 'de')) {
+            App::setLocale('de');
+            $pageSlug = substr($uri, 0, -3);
+//            $uri = Str::replaceFirst('de', '', $uri);
+            if (!$pageSlug) {
+                $pageSlug = '/';
+            }
+//            dd($pageSlug);
         }
-        if ($pageSlug == '/' || $pageSlug == '' ) {
-        dd($pageSlug);
-            $pageSlug = 'main';
-
+        else {
+            App::setLocale('en');
         }
+        return ($pageSlug === '/' || $pageSlug === 'de') ? 'main' : $pageSlug;
+    }
 
-        $page = Page::with(['components' => function ($query) {
-            $query->orderBy('order');
-        }, 'components.album.images','components.details.translations',])
+    private function getPageData(string $pageSlug): Page {
+        $page = Page::with([
+            'components' => function ($query) {
+                $query->orderBy('order');
+            },
+            'components.album.images',
+            'components.details.translations',
+        ])
             ->where('slug', $pageSlug)
             ->first();
+
         if (!$page) {
             abort(404);
         }
-        $meta_tags = MetaTags::where('page_id', '=', $page->id)->get();
 
-        return view($pageSlug, compact('page', 'meta_tags'));
+        return $page;
+    }
+
+    private function getMetaTags(Page $page) {
+        return MetaTags::where('page_id', '=', $page->id)->get();
     }
 }
