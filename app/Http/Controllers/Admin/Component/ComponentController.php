@@ -41,10 +41,10 @@ class ComponentController extends Controller
     {
         $page = null;
         $componentData = $request->validate([
+            'component_title' => 'string|max:255',
             'name' => 'string|max:255',
             'album_id' => 'integer|nullable|exists:albums,id',
             'page_id' => 'integer|nullable|exists:pages,id',
-
         ]);
 
         $details = $request->get('details');
@@ -136,6 +136,7 @@ class ComponentController extends Controller
         }
         $page = $component->pages->first();
         $componentData = $request->validate([
+            'component_title' => 'string|max:255',
             'name' => 'string|max:255',
             'album_id' => 'integer|nullable|exists:albums,id',
             'isVisible' => 'string|nullable',

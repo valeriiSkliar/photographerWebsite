@@ -10,9 +10,17 @@
                 <div class="col-md-6">
                     <h4 class="mb-2">Create Component</h4>
                 </div>
-                <div class="form-group col-12">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" name="name">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label for="component_title">Component Title:</label>
+                            <input type="text" class="form-control" id="component_title" name="component_title">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="name">Template name:</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group col-md-3">
                     <h5 class="my-1">Details</h5>
@@ -41,10 +49,6 @@
                                     required
                                 >
                             </div>
-{{--                            <div class="form-group col-md-8">--}}
-{{--                                <label for="details[0][value]">Value:</label>--}}
-{{--                                <input type="text" class="form-control" id="details[0][value]" name="details[0][value]" required>--}}
-{{--                            </div>--}}
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group row">
@@ -111,8 +115,5 @@
                     </button>
                 </div>
             </div>
-
-
-
         </form>
     </div>

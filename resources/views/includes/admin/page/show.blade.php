@@ -101,7 +101,7 @@
                                 data-componentId="{{ $component->id }}"
                                 data-component_name="{{ $component->name }}"
                             >
-                                <td>{{ $component->name}}</td>
+                                <td>{{ $component->component_title}}</td>
                                 <td class="d-flex justify-content-between">
                                     @if($component->pages->where('id', $page->id)->first()?->id === $page->id)
                                         <button

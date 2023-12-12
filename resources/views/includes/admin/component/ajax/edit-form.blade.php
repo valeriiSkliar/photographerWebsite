@@ -46,12 +46,32 @@
         </div>
 
         <div class="row">
+
+            <div class="col-12">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="component_title">Component Title:</label>
+                        <input type="text"
+                               class="form-control"
+                               id="component_title"
+                               name="component_title"
+                               value="{{ $component->component_title }}"
+                        >
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="name">Template name:</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ $component->name }}">
+                    </div>
+                </div>
+            </div>
+
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" class="form-control" id="name" name="name" value="{{ $component->name }}">
                 </div>
             </div>
+
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6">

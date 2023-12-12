@@ -31,5 +31,8 @@ const formContainer = $('#formContainer');
     $('.removeComponentAction').on('click', removeFromCurrentPage )
     $('.addComponentAction').on('click', addToCurrentPage )
 
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 });
 

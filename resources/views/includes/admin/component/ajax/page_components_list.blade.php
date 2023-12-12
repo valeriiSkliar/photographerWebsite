@@ -15,19 +15,19 @@
                 @if($page->components)
                     @foreach($page->components as $index => $component)
                         <tr
+                            title="Component: {{ $component->component_title }} Album: {{ $component->album->title }}"
                             class="componentRow border-0"
                             data-componentId="{{ $component->id }}"
                             data-component_name="{{ $component->name }}"
-                        >
-                            <td
+                        ><td
                                 class="border-0"
                             >
                                 <i class="drag-handle fa-solid fa-arrows-up-down pr-3" style="color: #f7f7f7;"></i>
-                                {{ substr($component->name, 0, 15) . '...' }}
+                                {{ substr($component->component_title, 0, 15) . '...' }}
                             </td>
                             <td class="border-0 d-flex justify-content-between"
                                 id="connected-album-name-{{$component->album ? $component->album->id : ''}}">
-                                {{ $component->album ? $component->album->title : ' - ' }}
+                                {{ $component->album ? substr($component->album->title, 0, 10) : ' - ' }}
                                 <i class="px-3 fa-regular fa-pen-to-square" style="color: #f7f7f7;cursor: pointer"></i>
                             </td>
                         </tr>
@@ -37,3 +37,4 @@
             </table>
         </div>
     </div>
+
