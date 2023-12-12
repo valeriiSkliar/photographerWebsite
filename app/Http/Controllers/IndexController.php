@@ -25,30 +25,21 @@ class IndexController extends Controller
 
     private function getPageSlug(Request $request): string {
         $uri = $request->route()->uri;
-        //        if(Str::endsWith($uri, '/de')) {
-//            App::setLocale('de');
-//            $pageSlug = substr($uri, 3);
-//        }
-//        else {
-//            App::setLocale('en');
-//        }
-
         return $this->getSlugFromUri($uri);
     }
     private function getSlugFromUri(string $uri): string {
         $pageSlug = '/';
-        if(Str::endsWith($uri, 'de')) {
+        if(Str::startsWith($uri, 'de')) {
             App::setLocale('de');
-            $pageSlug = substr($uri, 0, -3);
-//            $uri = Str::replaceFirst('de', '', $uri);
+            $pageSlug = Str::replaceFirst('de/', '', $uri);
             if (!$pageSlug) {
                 $pageSlug = '/';
             }
-//            dd($pageSlug);
         }
         else {
             App::setLocale('en');
         }
+
         return ($pageSlug === '/' || $pageSlug === 'de') ? 'main' : $pageSlug;
     }
 
