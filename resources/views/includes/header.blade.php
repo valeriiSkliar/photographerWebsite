@@ -60,16 +60,16 @@
                 @foreach($pages as ['name'=>$name, 'slug'=>$slug])
                     @continue($name === 'Main')
                     <li class="links__list__link">
-                        <a href="{{  route('page.'.$slug) }}">{{__('nav-bar.links.'.$name)}}</a>
+{{--                        <a href="{{  route('page.'.$slug) }}">{{__('nav-bar.links.'.$name)}}</a>--}}
                     </li>
                 @endforeach
             </ul>
         </div>
 
         <div class="flex align-items-center nav-logo">
-            <a href="{{ route('index.page') }}">
+{{--            <a href="{{ route('index.page') }}">--}}
                 <h1>Olena Yavorska</h1>
-            </a>
+{{--            </a>--}}
         </div>
     </nav>
 
@@ -86,7 +86,7 @@
 
             @foreach($pages as ['name'=>$name, 'slug'=>$slug])
                 <li class="text-center text-white burgerMenuItem">
-                    <a class="block p-4" href="{{  route('page.'.$slug) }}">{{__('nav-bar.links.'.$name)}}</a>
+{{--                    <a class="block p-4" href="{{  route('page.'.$slug) }}">{{__('nav-bar.links.'.$name)}}</a>--}}
                 </li>
             @endforeach
         </ul>

@@ -25,9 +25,14 @@ use App\Http\Controllers\Admin\ApplicationSubmitController;
 */
 
 $databaseName = config('database.connections.mysql.database');
-Route::get('/', [IndexController::class, 'index'])->name('index.page');
+$locales = ['en', 'de', ''];
+//Route::get("/", [IndexController::class, 'index'])->name("index.page");
 
-Route::get('language/{locale}', function ($locale) {
+foreach ($locales as $locale) {
+    Route::get("/{$locale}", [IndexController::class, 'index'])->name("{$locale}.index.page");
+}
+
+Route::get('/language/{locale}', function ($locale) {
     app()->setLocale($locale);
     session()->put('locale', $locale);
     return redirect()->back();
@@ -42,8 +47,13 @@ try {
 
         if (Schema::hasTable('pages')) {
             $pages = Page::all();
+
             foreach ($pages as $page) {
-                Route::get($page->slug, [IndexController::class, 'index'])->name('page.' . $page->slug);
+                foreach ($locales as $locale) {
+                    $prefix = $locale ? $locale . "/" : $locale;
+                    Route::get($prefix . $page->slug, [IndexController::class, 'index'])->name($locale . '.page.' . $page->slug);
+
+                }
             }
         }
     }
@@ -52,9 +62,6 @@ try {
 //    dd($e);
 }
 
-
-//Route::get('/albums/{id}', [AlbumsController::class, 'show_album'])->name('show_album');
-//Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
 
 Route::post('/upload', [ImageUploadController::class, 'uploadMethod']);
 Route::post('/create-album', [ImageUploadController::class, 'createAlbum']);
@@ -67,9 +74,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//Route::resource('/sections', SectionController::class);
-//Components
-//Route::resource('/components', ComponentController::class);
 Route::get('/get-component-form/{id}', [ComponentController::class, 'getFormMarkup']);
 Route::post('/components/{id}/update', [ComponentController::class, 'update']);
 Route::post('/components/{id}/destroy', [ComponentController::class, 'destroy']);
