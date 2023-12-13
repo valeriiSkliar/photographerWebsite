@@ -15,7 +15,7 @@
                 @if($page->components)
                     @foreach($page->components as $index => $component)
                         <tr
-                            title="Component: {{ $component->component_title }} Album: {{ $component->album->title }}"
+                            title="Component: {{ $component->component_title }} Album: {{ $component->album ? $component->album->title : ' - ' }}"
                             class="componentRow border-0"
                             data-componentId="{{ $component->id }}"
                             data-component_name="{{ $component->name }}"

@@ -10,6 +10,7 @@ use App\Models\Page;
 use App\Models\Section\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 
 class ComponentController extends Controller
@@ -31,6 +32,8 @@ class ComponentController extends Controller
     {
         $albums = Album::all();
         $sections = Section::all();
+
+
         return view('includes.admin.component.create', compact('sections', 'albums'));
     }
 
@@ -47,6 +50,8 @@ class ComponentController extends Controller
             'page_id' => 'integer|nullable|exists:pages,id',
         ]);
 
+
+
         $details = $request->get('details');
         $translations = $request->get('translations');
         $component = Component::create(Arr::except($componentData, ['page_id', 'title', 'sub_text', 'description']));
@@ -56,7 +61,7 @@ class ComponentController extends Controller
             $page->components()->attach($component->id);
         }
 
-        if(is_array($details) && is_array($translations)) {
+        if (is_array($details) && is_array($translations)) {
             foreach ($details as $index => $detail) {
                 if (isset($translations[$index])) {
                     $currentTranslation = $translations[$index];
@@ -73,8 +78,6 @@ class ComponentController extends Controller
                 }
             }
         }
-
-
 
 
         if ($request->ajax()) {
@@ -109,8 +112,15 @@ class ComponentController extends Controller
         $albums = Album::all();
         $sections = Section::all();
 
+        $directoryPath = resource_path('views/sectionComponents/frontend');
+        $fileList = File::files($directoryPath);
+        $allTemplateFiles = [];
+        foreach ($fileList as $file) {
+            $allTemplateFiles[] = str_replace('.blade.php', '', $file->getFilename());
+        }
+
         if ($request->ajax()) {
-            $markup = view('includes.admin.component.ajax.edit-form', compact('page', 'component'))->render();
+            $markup = view('includes.admin.component.ajax.edit-form', compact('page', 'component', 'allTemplateFiles'))->render();
             return response()->json([
                 'success' => true,
                 'component' => $component,
@@ -170,7 +180,7 @@ class ComponentController extends Controller
 
         $component->details()->delete();
 
-        foreach($component->details as $detail) {
+        foreach ($component->details as $detail) {
             $detail->translations()->delete();
             $detail->delete();
         }
@@ -218,7 +228,8 @@ class ComponentController extends Controller
 //        dd($request);
         $page = Page::with('components')
             ->where('id', $request->page_id)
-            ->first();        $component->details()->delete();
+            ->first();
+        $component->details()->delete();
         $component->delete();
         if ($request->ajax()) {
 //            $markup = view('includes.admin.component.ajax.component_list.row', compact('component'))->render();
@@ -229,19 +240,24 @@ class ComponentController extends Controller
                 'message' => 'Component deleted successfully'
             ], 201);
         } else {
-            Session::flash('success_message','Component deleted successfully.');
+            Session::flash('success_message', 'Component deleted successfully.');
             return redirect()->route('admin.pages.show', ['page' => $page->id]);
         }
     }
 
     public function getFormMarkup($id)
     {
-//        dd($id);
         $albums = Album::all();
         $page = Page::with('components')
             ->where('id', $id)
             ->first();
-        $markup = view('includes.admin.component.ajax.create-form', compact(['albums', 'page']))->render();
+        $directoryPath = resource_path('views/sectionComponents/frontend');
+        $fileList = File::files($directoryPath);
+        $allTemplateFiles = [];
+        foreach ($fileList as $file) {
+            $allTemplateFiles[] = str_replace('.blade.php', '', $file->getFilename());
+        }
+        $markup = view('includes.admin.component.ajax.create-form', compact(['albums', 'page', 'allTemplateFiles']))->render();
         return response()->json(['markup' => $markup]);
     }
 }

@@ -92,7 +92,7 @@ class PageController extends Controller
             ->where('id', $page->id)
             ->first();
 
-        return view('includes.admin.page.show', compact('page'));
+        return view('includes.admin.page.show', compact('page', ));
     }
 
     public function edit(Page $page)

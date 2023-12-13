@@ -1,5 +1,6 @@
 @if($component)
     <tr
+        title="Component: {{ $component->component_title }} Album: {{ $component->album ? $component->album->title : ' - '  }}"
         class="componentRow border-0"
         data-componentId="{{ $component->id }}"
         data-component_name="{{ $component->name }}"
@@ -8,7 +9,7 @@
             class="border-0"
         >
             <i class="drag-handle fa-solid fa-arrows-up-down pr-3" style="color: #f7f7f7;"></i>
-            {{ substr($component->name, 0, 15) }}
+            {{ substr($component->component_title, 0, 15) }}
         </td>
         <td class="border-0 d-flex justify-content-between"
             id="connected-album-name-{{$component->album ? $component->album->id : ''}}">

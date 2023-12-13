@@ -60,15 +60,17 @@
                     </div>
                     <div class="form-group col-6">
                         <label for="name">Template name:</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ $component->name }}">
+                        <select class="form-control"
+                                id="name"
+                                name="name">
+                            @foreach($allTemplateFiles as $templateFile)
+                                <option
+                                    value="{{$templateFile}}" {{ $component->name == $templateFile ? 'selected' : '' }}
+                                >{{ $templateFile }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" name="name" value="{{ $component->name }}">
                 </div>
             </div>
 

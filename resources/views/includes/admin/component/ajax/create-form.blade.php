@@ -18,7 +18,16 @@
                         </div>
                         <div class="form-group col-6">
                             <label for="name">Template name:</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <select class="form-control"
+                                    id="name"
+                                    name="name">
+                                @foreach($allTemplateFiles as $templateFile)
+                                    <option
+                                        value="{{$templateFile}}"
+                                    >{{ $templateFile }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>

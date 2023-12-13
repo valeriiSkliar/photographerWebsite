@@ -54,8 +54,8 @@ class SectionComponentController extends BaseController
         switch ($data['type']) {
             case 'standard':
             {
-                $frontendPath = resource_path("views/sectionComponents/frontend/$componentName.blade.php");
-                $adminPath = resource_path("views/sectionComponents/admin/$componentName.blade.php");
+                $frontendPath = resource_path("views/sectionComponents/frontend/$componentName");
+                $adminPath = resource_path("views/sectionComponents/admin/$componentName");
 
                 File::put($frontendPath, "<h1> Frontend template for $componentName </h1>");
                 File::put($adminPath, "<h1> Admin template for editing $componentName </h1>");
@@ -157,8 +157,8 @@ class SectionComponentController extends BaseController
 
         if ($component->type == 'standard') {
             $componentName = $component->template_name;
-            $frontendPath = resource_path("views/sectionComponents/frontend/$componentName.blade.php");
-            $adminPath = resource_path("views/sectionComponents/admin/$componentName.blade.php");
+            $frontendPath = resource_path("views/sectionComponents/frontend/$componentName");
+            $adminPath = resource_path("views/sectionComponents/admin/$componentName");
 
             // Delete frontend and admin templates
             File::delete([$frontendPath, $adminPath]);
@@ -176,8 +176,8 @@ class SectionComponentController extends BaseController
 
         if ($component->type == 'standard') {
             $componentName = $component->template_name;
-            $frontendPath = resource_path("views/sectionComponents/frontend/$componentName.blade.php");
-            $adminPath = resource_path("views/sectionComponents/admin/$componentName.blade.php");
+            $frontendPath = resource_path("views/sectionComponents/frontend/$componentName");
+            $adminPath = resource_path("views/sectionComponents/admin/$componentName");
 
 
 //            $content = File::get($frontendPath);
