@@ -25,7 +25,8 @@ use App\Http\Controllers\Admin\ApplicationSubmitController;
 */
 
 $databaseName = config('database.connections.mysql.database');
-$locales = ['en', 'de', ''];
+//$locales = ['en', 'de', ''];
+$locales = array_merge(config('app.available_locales'), ['default_routes' => '']);
 //Route::get("/", [IndexController::class, 'index'])->name("index.page");
 
 foreach ($locales as $locale) {
