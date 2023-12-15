@@ -180,4 +180,19 @@ class PageController extends Controller
             return response()->json(['error' => 'Invalid component or page id']);
         }
     }
+
+    public function updateAllComponentsList(Request $request, $pageId)
+    {
+        $page = Page::find($pageId);
+
+        $components = $page->components();
+        $markup = view('includes.admin.component.ajax.all-components-list', compact('components', 'page'))->render();
+        return response()
+            ->json([
+                'success' => true,
+                'message' => 'Component added successfully',
+                'markup' => $markup
+            ]);
+    }
+
 }
