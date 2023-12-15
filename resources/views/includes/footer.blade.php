@@ -1,18 +1,18 @@
 <div class="container_footer">
     <div class="data_footer data_footer_left">
         @if(isset($contact['name']) && isset($contact['surname']))
-        <a href="{{ url('/') }}" class="name_footer">
+        <a href="{{ route(linkByLocale($current_locale)) }}" class="name_footer">
             {{$contact['name']}}
         </a>
         <br>
-        <a href="{{ url('/') }}" class="name_footer">
+        <a href="{{ route(linkByLocale($current_locale)) }}" class="name_footer">
             {{$contact['surname']}}
         </a>
         @endif
     </div>
     <div class="data_footer data_footer_right">
         @if(isset($contact['name']) && isset($contact['surname']))
-        <a href="{{ url('/') }}" class="name_footer name_footer_reserve">
+        <a href="{{ route(linkByLocale($current_locale)) }}" class="name_footer name_footer_reserve">
             {{$contact['name'].' '.$contact['surname']}}
         </a>
         @endif

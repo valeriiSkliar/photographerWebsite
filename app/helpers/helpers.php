@@ -30,3 +30,19 @@ function normalizePath($path): array|string
 {
     return str_replace('\\', '/', $path);
 }
+
+function linkByLocale($current_locale, $slug=null) {
+    if($current_locale !== config('app.defaultLocale')) {
+        if(($slug)){
+            return ($current_locale.'.page.'.$slug);
+        } else {
+            return ($current_locale.'.index.page');
+        }
+    } else {
+        if(($slug)){
+            return('default.page.' . $slug);
+        } else {
+            return ('.index.page');
+        }
+    }
+};

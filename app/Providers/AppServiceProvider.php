@@ -10,7 +10,6 @@ use App\Models\MetaData\MetaTagsPropertyVariants;
 use App\Models\MetaData\MetaTegType;
 use App\Models\Page;
 use App\Services\SessionMessageService;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $current_locale = app()->getLocale();
+        view()->share('current_locale', $current_locale);
 
         $this->app->singleton(SessionMessageService::class, function ($app) {
             return new SessionMessageService();
@@ -37,18 +38,11 @@ class AppServiceProvider extends ServiceProvider
             $contact = Contact::find(1);
 
             if ($contact) {
-                $excludedFields = ['id', 'created_at', 'updated_at'];
-
-                $filteredFields = array_filter($contact->toArray(), function ($value, $key) use ($excludedFields) {
-                    return $value !== null && !in_array($key, $excludedFields);
-                }, ARRAY_FILTER_USE_BOTH);
-
                 $view->with('contact', $contact);
             } else {
                 $view->with('contact', []);
             }
         });
-
 
         view()->composer([
             'includes.header',
@@ -79,7 +73,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         view()->composer(['includes.header'], function ($view) {
-            $view->with('current_locale', app()->getLocale());
             $view->with('available_locales', config('app.available_locales'));
         });
     }

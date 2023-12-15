@@ -5,16 +5,19 @@
                 <div class="px-2 first:border-r-2 border-gray-200">
                     @if($available_locale === $current_locale)
                         <span
-                            class="navbar__switcher__currentLocale active__link select-none">{{ __( 'lang-switcher.'.$locale_name) }}
-                        </span>
+                            class="navbar__switcher__currentLocale active__link select-none">{{ __( 'lang-switcher.'.$locale_name) }}</span>
                     @else
-                        <a class="block navbar__switcher__availableLocale" href="language/{{ $available_locale }}">
+                        <a
+                            class="block navbar__switcher__availableLocale"
+                            href="{{($available_locale === config('app.defaultLocale')) ? '/' : '/' . $available_locale}}"
+                        >
                             <span>{{ __( 'lang-switcher.'.$locale_name) }}</span>
                         </a>
                     @endif
                 </div>
             @endforeach
         </div>
+
 
         <div class="navbar__links__list gap-x-7 md:gap-0 items-center w-full md:w-auto md:justify-evenly flex">
             <!-- Hamburger -->
@@ -34,21 +37,22 @@
                         @if($available_locale === $current_locale)
                             <span
                                 class="
-                                        {{ $loop->iteration === 1 ? 'mb-1' : 'mt-1' }}
-                                        block
-                                        navbar__switcher__currentLocale
-                                        active__link select-none
-                                        "
+                                {{ $loop->iteration === 1 ? 'mb-1' : 'mt-1' }}
+                                block
+                                navbar__switcher__currentLocale
+                                active__link select-none
+                                "
                             >
                                     {{ __( 'lang-switcher.'.$locale_name) }}
                             </span>
                         @else
                             <a class="
-                                    {{ $loop->iteration === 1 ? 'mb-1' : 'mt-1' }}
-                                    block
-                                    navbar__switcher__availableLocale
-                                    "
-                               href="language/{{ $available_locale }}">
+                                {{ $loop->iteration === 1 ? 'mb-1' : 'mt-1' }}
+                                block
+                                navbar__switcher__availableLocale
+                                "
+                               href="{{ ($available_locale === 'en') ? '/' : '/' . $available_locale }}"
+                            >
                                 <span>{{ __( 'lang-switcher.'.$locale_name) }}</span>
                             </a>
                         @endif
@@ -60,16 +64,18 @@
                 @foreach($pages as ['name'=>$name, 'slug'=>$slug])
                     @continue($name === 'Main')
                     <li class="links__list__link">
-{{--                        <a href="{{  route('page.'.$slug) }}">{{__('nav-bar.links.'.$name)}}</a>--}}
+                        <a href="{{  route(linkByLocale($current_locale, $slug)) }}">
+                            {{__('nav-bar.links.'.$name)}}
+                        </a>
                     </li>
                 @endforeach
             </ul>
         </div>
 
         <div class="flex align-items-center nav-logo">
-{{--            <a href="{{ route('index.page') }}">--}}
+            <a href="{{ route(linkByLocale($current_locale)) }}">
                 <h1>Olena Yavorska</h1>
-{{--            </a>--}}
+            </a>
         </div>
     </nav>
 
@@ -86,7 +92,9 @@
 
             @foreach($pages as ['name'=>$name, 'slug'=>$slug])
                 <li class="text-center text-white burgerMenuItem">
-{{--                    <a class="block p-4" href="{{  route('page.'.$slug) }}">{{__('nav-bar.links.'.$name)}}</a>--}}
+                    <a class="block p-4" href="{{  route(linkByLocale($current_locale, $slug)) }}">
+                        {{__('nav-bar.links.'.$name)}}
+                    </a>
                 </li>
             @endforeach
         </ul>
