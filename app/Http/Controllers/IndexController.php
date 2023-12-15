@@ -8,15 +8,21 @@ use App\Models\MetaData\MetaTags;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 
 class IndexController extends Controller
 {
     public function index(Request $request)
     {
-//        dd($request);
         $pageSlug = $this->getPageSlug($request);
         $page = $this->getPageData($pageSlug);
+
+        $selectedLocation = $request->input('selected_location');
+
+        if (!$request->cookie('selected_location')) {
+            Cookie::queue('selected_location', $selectedLocation, 60*24*365);
+        }
 
         return view($pageSlug, [
             'page' => $page,
