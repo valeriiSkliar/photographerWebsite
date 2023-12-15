@@ -31,7 +31,8 @@ function normalizePath($path): array|string
     return str_replace('\\', '/', $path);
 }
 
-function linkByLocale($current_locale, $slug=null) {
+function linkByLocale($slug=null) {
+    $current_locale = app()->getLocale();
     if($current_locale !== config('app.defaultLocale')) {
         if(($slug)){
             return ($current_locale.'.page.'.$slug);
@@ -40,7 +41,7 @@ function linkByLocale($current_locale, $slug=null) {
         }
     } else {
         if(($slug)){
-            return('default.page.' . $slug);
+            return('.page.' . $slug);
         } else {
             return ('.index.page');
         }

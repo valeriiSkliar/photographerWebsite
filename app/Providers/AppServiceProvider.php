@@ -27,8 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $current_locale = app()->getLocale();
-        view()->share('current_locale', $current_locale);
 
         $this->app->singleton(SessionMessageService::class, function ($app) {
             return new SessionMessageService();

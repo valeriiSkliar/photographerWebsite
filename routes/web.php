@@ -52,8 +52,7 @@ try {
             foreach ($pages as $page) {
                 foreach ($locales as $locale) {
                     $prefix = $locale ? $locale . "/" : $locale;
-                    $index = $locale ?: "default";
-                    Route::get($prefix . $page->slug, [IndexController::class, 'index'])->name($index . '.page.' . $page->slug);
+                    Route::get($prefix . $page->slug, [IndexController::class, 'index'])->name($locale . '.page.' . $page->slug);
 
                 }
             }
