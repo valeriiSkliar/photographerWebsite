@@ -14,6 +14,7 @@ class IndexController extends Controller
 {
     public function index(Request $request)
     {
+//        dd($request);
         $pageSlug = $this->getPageSlug($request);
         $page = $this->getPageData($pageSlug);
 
@@ -31,9 +32,13 @@ class IndexController extends Controller
         $appLocales = config('app.available_locales');
         $pageSlug = null;
         foreach ($appLocales as $lang => $locale) {
+//            dd($uri, $locale);
             if(Str::startsWith($uri, $locale)) {
                 App::setLocale($locale);
                 $pageSlug = Str::replaceFirst($locale . '/', '', $uri);
+                break;
+            } else {
+                $pageSlug = $uri;
                 break;
             }
         }
@@ -41,7 +46,6 @@ class IndexController extends Controller
         if (!$pageSlug) {
             $pageSlug = '/';
         }
-
         return ($pageSlug === '/' || in_array($pageSlug, $appLocales) ) ? 'main' : $pageSlug;
     }
 
