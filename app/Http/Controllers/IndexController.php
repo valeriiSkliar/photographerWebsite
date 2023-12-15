@@ -32,16 +32,15 @@ class IndexController extends Controller
         $appLocales = config('app.available_locales');
         $pageSlug = null;
         foreach ($appLocales as $lang => $locale) {
-//            dd($uri, $locale);
             if(Str::startsWith($uri, $locale)) {
                 App::setLocale($locale);
                 $pageSlug = Str::replaceFirst($locale . '/', '', $uri);
                 break;
             } else {
                 $pageSlug = $uri;
-                break;
             }
         }
+
 
         if (!$pageSlug) {
             $pageSlug = '/';
