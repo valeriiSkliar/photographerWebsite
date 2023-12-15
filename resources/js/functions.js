@@ -315,7 +315,8 @@ export function submitComponentForm() {
         success: function (response) {
             $('#component_list_table_body').append(response.markup);
             clearFormContainer();
-            addListenerToLastChildOfTbody()
+            addListenerToLastChildOfTbody();
+            updateAllComponentsList();
             new Swal(response.message);
         },
         error: function (xhr, status, error) {
@@ -329,11 +330,9 @@ export function submitComponentForm() {
 export function initialListenersTbody() {
     $('#component_list_table_body').off('click').on('click', '.componentRow', getEditComponentForm);
 }
-
 export function addListenerToLastChildOfTbody() {
     $('#component_list_table_body tr:last-child').on('click', getEditComponentForm);
 }
-
 export function getEditComponentForm({target}) {
     clearFormContainer();
     const component_id = $(target.closest('tr')).data('componentid')
@@ -385,7 +384,6 @@ export function getEditComponentForm({target}) {
 
 
 }
-
 export async function unpinImageFromAlbum({target, albumId}) {
     const image = target.closest('button').offsetParent;
     const image_id = $(target.closest('button')).data('image_id');
@@ -395,7 +393,6 @@ export async function unpinImageFromAlbum({target, albumId}) {
         target:image
     })
 }
-
 export async function sendUnpinRequest({albumId, imageId, target}) {
     $.ajax({
         url: `/api/un-pin/`,
@@ -430,7 +427,6 @@ export async function sendUnpinRequest({albumId, imageId, target}) {
         }
     });
 }
-
 export function disconnectAlbum({component_id, albumId}) {
     $.ajax({
         url: `/api/component-album-disconnect/${component_id}`,
@@ -449,7 +445,6 @@ export function disconnectAlbum({component_id, albumId}) {
         },
     })
 }
-
 export function submitUpdateComponentForm(id) {
     let formData = $('#updateComponentForm').serialize();
 
@@ -458,8 +453,9 @@ export function submitUpdateComponentForm(id) {
         type: 'POST',
         data: formData,
         success: function (response) {
-            $(`[data-componentid="${response.component.id}"`).replaceWith(response.markup)
+            $(`[data-componentid="${response.component.id}"`).first().replaceWith(response.markup)
             clearFormContainer();
+            updateAllComponentsList();
             new Swal(response.message);
         },
         error: function (xhr, status, error) {
@@ -468,13 +464,11 @@ export function submitUpdateComponentForm(id) {
         }
     });
 }
-
 export function addListenerToDetail({detailElement, detailIndex}) {
     detailElement.querySelector('button').addEventListener('click', function () {
         deleteComponentDetail(detailIndex);
     });
 }
-
 export function replaceNameDataInNewDetailElement({newDetail, detailIndex}) {
     newDetail.id = 'component-detail-' + detailIndex;
     newDetail.querySelectorAll('label, input').forEach(function (el) {
@@ -488,13 +482,10 @@ export function replaceNameDataInNewDetailElement({newDetail, detailIndex}) {
     });
     return newDetail;
 }
-
-
 export function submitForm(e) {
     e.preventDefault();
     submitComponentForm();
 }
-
 export function deleteMetaTag({target}, callback) {
     const metaTagId = $(target).data('meta_tag_id');
     return $.ajax({
@@ -535,7 +526,6 @@ export function deleteMetaTag({target}, callback) {
         }
     });
 }
-
 export function addMetaTagRow({event: {target}, page_id}) {
     $.ajax({
         url: `/api/meta-tags-add-${target.dataset.action}`,
@@ -556,11 +546,9 @@ export function addMetaTagRow({event: {target}, page_id}) {
     });
 
 }
-
 export function afterModalCloseCheck(form) {
     // console.log(form)
 }
-
 export function addToCurrentPage({target}) {
     const pageId = getPageID();
     const componentId = $(target).data('action')
@@ -571,18 +559,13 @@ export function addToCurrentPage({target}) {
             componentId: componentId,
         },
         success: function(response) {
-            console.log(response);
-            $('#component_list_table_body').append(response.markup);
-            target.textContent = 'Remove from current page'
-            $(target).off('click', addToCurrentPage ).on('click', removeFromCurrentPage )
-            $(target).removeClass('btn-success').addClass('btn-danger')
+            successAddToCurrentPage({target, response});
         },
         error: function(response) {
             console.log(response);
         }
     });
 }
-
 export function removeFromCurrentPage({target}) {
     const componentId = $(target).data('action')
     const pageId = getPageID();
@@ -594,16 +577,44 @@ export function removeFromCurrentPage({target}) {
             componentId: componentId,
         },
         success: function(response) {
-            target.textContent = 'Add to current page'
-            $(target).off('click', removeFromCurrentPage);
-            $(target).on('click', addToCurrentPage);
-            $(target).removeClass('btn-danger').addClass('btn-success')
-            $(`[data-componentid=${componentId}]`).first().remove();
+            successRemoveFromCurrentPage(target);
         },
         error: function(response) {
             console.log(response);
         }
     });
+}
+export function successRemoveFromCurrentPage(target) {
+    const componentId = $(target).data('action')
+
+    target.textContent = 'Add to current page'
+    $(target).off('click', removeFromCurrentPage);
+    $(target).on('click', addToCurrentPage);
+    $(target).removeClass('btn-danger').addClass('btn-success')
+    $(`[data-componentid=${componentId}]`).first().remove();
+}
+export function successAddToCurrentPage({target, response}) {
+
+    $('#component_list_table_body').append(response.markup);
+    target.textContent = 'Remove from current page'
+    $(target).off('click', addToCurrentPage ).on('click', removeFromCurrentPage )
+    $(target).removeClass('btn-success').addClass('btn-danger')
+}
+function updateAllComponentsList() {
+    const pageId = getPageID();
+
+    $.ajax({
+        url: `/api/${pageId}/get-all-components-markup`,
+        method:'GET',
+        success: function (response) {
+            $('#all-components-list').html(response.markup);
+            $('.removeComponentAction').off('click', removeFromCurrentPage).on('click', removeFromCurrentPage )
+            $('.addComponentAction').off('click', addToCurrentPage).on('click', addToCurrentPage )
+        },
+        error: function (xhr, status, error) {
+            console.error('An error occurred:', error);
+        }
+    })
 }
 
 

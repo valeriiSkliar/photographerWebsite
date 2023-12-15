@@ -28,19 +28,21 @@ class IndexController extends Controller
         return $this->getSlugFromUri($uri);
     }
     private function getSlugFromUri(string $uri): string {
-        $pageSlug = '/';
-        if(Str::startsWith($uri, 'de')) {
-            App::setLocale('de');
-            $pageSlug = Str::replaceFirst('de/', '', $uri);
-            if (!$pageSlug) {
-                $pageSlug = '/';
+        $appLocales = config('app.available_locales');
+        $pageSlug = null;
+        foreach ($appLocales as $lang => $locale) {
+            if(Str::startsWith($uri, $locale)) {
+                App::setLocale($locale);
+                $pageSlug = Str::replaceFirst($locale . '/', '', $uri);
+                break;
             }
         }
-        else {
-            App::setLocale('en');
+
+        if (!$pageSlug) {
+            $pageSlug = '/';
         }
 
-        return ($pageSlug === '/' || $pageSlug === 'de') ? 'main' : $pageSlug;
+        return ($pageSlug === '/' || in_array($pageSlug, $appLocales) ) ? 'main' : $pageSlug;
     }
 
     private function getPageData(string $pageSlug): Page {
@@ -50,6 +52,7 @@ class IndexController extends Controller
             },
             'components.album.images',
             'components.details.translations',
+            'meta_tags'
         ])
             ->where('slug', $pageSlug)
             ->first();
@@ -62,6 +65,6 @@ class IndexController extends Controller
     }
 
     private function getMetaTags(Page $page) {
-        return MetaTags::where('page_id', '=', $page->id)->get();
+        return $page->meta_tags;
     }
 }

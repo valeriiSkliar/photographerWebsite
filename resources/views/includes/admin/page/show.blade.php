@@ -1,8 +1,8 @@
 @extends('layouts.iframe')
 @section('admin.content')
-@push('iframe.style')
-    @vite(['resources/scss/admin/page/admin_page_show.scss', 'resources/scss/admin/gallery/switcher.scss'])
-@endpush
+    @push('iframe.style')
+        @vite(['resources/scss/admin/page/admin_page_show.scss', 'resources/scss/admin/gallery/switcher.scss'])
+    @endpush
     @include('includes.admin.component.ajax.metaTags.swal-template-meta-form')
     <div class="container-fluid mt-4 position-relative">
         <input
@@ -77,7 +77,7 @@
                          class="col-md-12 p-3 bg-secondary mt-4 mt-md-4">
                     </div>
                     <div class="col-md-12 bg-secondary"
-                        id="spinner" style="display: none;">
+                         id="spinner" style="display: none;">
                         Loading...
                     </div>
                 </div>
@@ -86,43 +86,7 @@
             <h5 class="col-6 text-secondary">
                 All components
             </h5>
-            <div class="col-md-10 d-flex flex-column">
-                @if($components)
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>Component Name</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($components as $index => $component)
-                            <tr class="componentRow"
-                                data-componentId="{{ $component->id }}"
-                                data-component_name="{{ $component->name }}"
-                            >
-                                <td>{{ $component->component_title}}</td>
-                                <td class="d-flex justify-content-between">
-                                    @if($component->pages->where('id', $page->id)->first()?->id === $page->id)
-                                        <button
-                                            data-action="{{$component->id}}"
-                                            class="removeComponentAction btn btn-danger btn-sm"
-                                        >Remove from current page
-                                        </button>
-                                    @else
-                                        <button
-                                            data-action="{{$component->id}}"
-                                            class="addComponentAction btn btn-success btn-sm"
-                                        >Add to current page
-                                        </button>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                @endif
-            </div>
+            @include('includes.admin.component.ajax.all-components-list')
         </div>
     </div>
     @push('iframe.script')

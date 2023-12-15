@@ -37,4 +37,5 @@ Route::group([], function () {
     Route::post('/update-components-list/order', [App\Http\Controllers\API\ComponentDetailController::class, 'updateOrder']);
     Route::post('/page/{pageId}/addComponent', [PageController::class, 'attachComponent']);
     Route::post('/page/{pageId}/removeComponent', [PageController::class, 'detachComponent']);
+    Route::get('/{pageId}/get-all-components-markup', [PageController::class, 'updateAllComponentsList']);
 });

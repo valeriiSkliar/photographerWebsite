@@ -14,7 +14,7 @@ import './admin/page/components_sortable_list.js'
 
 
 document.addEventListener('DOMContentLoaded', () => {
-const formContainer = $('#formContainer');
+    const formContainer = $('#formContainer');
     const addComponent = document.getElementById('showAddComponentForm');
 
     $('#showMetaTagsForm').on('click', showMetaTagSwalModal)
