@@ -1,4 +1,3 @@
-<div class="contacts_name_page">CONTACTS</div>
 <div class="container_contacts">
    <div class="container_back">
          @if(isset($contact['name']) && isset($contact['surname']))

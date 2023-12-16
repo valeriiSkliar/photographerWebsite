@@ -1,4 +1,3 @@
-<div class="name_page">WORK</div>
 <div class="about_section">
     <img class="w-full h-full object-cover" src="{{ asset($album->images[0]->file_url) }}" alt="Photo">
     <div class="about_title title_4">
