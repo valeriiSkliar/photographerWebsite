@@ -10,12 +10,12 @@
         @continue($loop->first)
             @if ($loop->even)
                 <div class="contacts_half_opacity">
-                    {{$text->value}}
+                    {{$text->getLocalizedTranslation()}}
                 </div>
             @endif
             @if ($loop->odd)
             <div class="contacts_half_opacity contacts_align_right">
-                {{$text->value}}
+                {{$text->getLocalizedTranslation()}}
             </div>
         @endif
     @endforeach
