@@ -8,6 +8,7 @@
             <div id="var_input_1">
                 <select id="var_input_6">
                         @foreach($page->components as ['details'=>$detailsForm, 'isVisible'=>$visibleForm])
+                            @continue($loop->first)
                              @if ($loop->count > $loop->iteration)
                                 @if ($visibleForm === 'on')
                                     <option value="optionValue" class="option1">{{$detailsForm[0]->getLocalizedTranslation()}}</option>

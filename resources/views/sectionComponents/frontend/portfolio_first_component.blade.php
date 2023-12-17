@@ -1,7 +1,9 @@
-    @foreach ($details as ['value'=>$portfolio_text_for_album])
-        <div class="portfolio_text">
-            {!!$portfolio_text_for_album!!}
-        </div>
+    @foreach ($details as $portfolio_text_for_album)
+        @if (!($portfolio_text_for_album->getLocalizedTranslation() === 'not'))
+            <div class="portfolio_text">
+                {!!$portfolio_text_for_album->getLocalizedTranslation()!!}
+            </div>
+        @endif
     @endforeach
         <div class="main_container_for_slider">
             <div id="container_for_slider"></div>
