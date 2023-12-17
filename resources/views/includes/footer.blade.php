@@ -19,7 +19,12 @@
         @if(isset($contact['address']) && isset($contact['phone']) && isset($contact['email']))
         <div class="address_footer">
             {{$contact['address']}}<br>
-            {{'phone: '.$contact['phone']}}<br>
+            @if (app()->getLocale() === 'en')
+                phone:
+            @endif
+            @if (app()->getLocale() === 'de')
+                telefonnummer:
+            @endif{{$contact['phone']}}<br>
             {{'e-mail: '.$contact['email']}}
         </div>
         @endif
