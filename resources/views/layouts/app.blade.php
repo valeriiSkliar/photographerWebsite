@@ -9,7 +9,11 @@
 
     <title>{{ config('app.name') }}</title>
 
-{{--    <link rel="canonical" href="{{config('app.url')}}">--}}
+    <link rel="alternate" hreflang="en" href="{{config('app.url') . 'en'}}">
+    <link rel="alternate" hreflang="de" href="{{config('app.url') . 'de'}}">
+    <link rel="alternate" hreflang="x-default" href="{{config('app.url')}}">
+    <meta name="available-lang" content="{{implode(",", config('app.available_locales'))}}">
+        {{--    <link rel="canonical" href="{{config('app.url')}}">--}}
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/favicons/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/favicons/favicon-32x32.png') }}">

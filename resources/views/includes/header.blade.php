@@ -1,3 +1,6 @@
+@pushonce('custom-script')
+@vite('resources/js/langSwitcher.js');
+@endpushonce
 <header>
     <nav class="navbar px-5 md:justify-evenly stroke">
         <div class="hidden md:flex navbar__switcher items-center text-xs">
@@ -10,6 +13,7 @@
                         <a
                             class="block navbar__switcher__availableLocale"
                             href="{{($available_locale === config('app.defaultLocale')) ? '/' : '/' . $available_locale}}"
+                            data-lang="{{$available_locale}}"
                         >
                             <span>{{ __( 'lang-switcher.'.$locale_name) }}</span>
                         </a>
@@ -46,11 +50,7 @@
                                     {{ __( 'lang-switcher.'.$locale_name) }}
                             </span>
                         @else
-                            <a class="
-                                {{ $loop->iteration === 1 ? 'mb-1' : 'mt-1' }}
-                                block
-                                navbar__switcher__availableLocale
-                                "
+                            <a class="{{ $loop->iteration === 1 ? 'mb-1' : 'mt-1' }} block navbar__switcher__availableLocale" data-lang="{{$available_locale}}"
                                href="{{ ($available_locale === config('app.defaultLocale')) ? '/' : '/' . $available_locale }}"
                             >
                                 <span>{{ __( 'lang-switcher.'.$locale_name) }}</span>
