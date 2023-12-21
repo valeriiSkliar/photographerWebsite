@@ -1,4 +1,3 @@
-<div class="contacts_name_page">CONTACTS</div>
 <div class="container_contacts">
    <div class="container_back">
          @if(isset($contact['name']) && isset($contact['surname']))
@@ -10,12 +9,12 @@
         @continue($loop->first)
             @if ($loop->even)
                 <div class="contacts_half_opacity">
-                    {{$text->value}}
+                    {{$text->getLocalizedTranslation()}}
                 </div>
             @endif
             @if ($loop->odd)
             <div class="contacts_half_opacity contacts_align_right">
-                {{$text->value}}
+                {{$text->getLocalizedTranslation()}}
             </div>
         @endif
     @endforeach

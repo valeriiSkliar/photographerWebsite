@@ -13,7 +13,7 @@ const portfolioSlider = {
     arrayTitle:[],
     fillArrayAlbumsTitle: function (collection) {
         for (let i = 0; i < collection.length; i += 1) {
-            this.arrayTitle.push(collection[i].textContent);
+            this.arrayTitle.push(collection[i].textContent.trim());
         }
     }
 }

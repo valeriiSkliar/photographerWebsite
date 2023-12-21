@@ -38,12 +38,16 @@ $("#component_list_table_body").sortable({
         $(".componentRow").each(function(index) {
             const componentId = $(this).data("componentid");
 
-            sortedItems.push({
-                id: componentId,
-                order: index
-            });
-        });
+            const existingItem = sortedItems.find(item => item.id === componentId);
 
+            if (!existingItem) {
+                sortedItems.push({
+                    id: componentId,
+                    order: index
+                });
+            }
+        });
+        console.log(sortedItems);
         const changeComponentsOrder = await updateComponentOrder(sortedItems);
         if (changeComponentsOrder) {
             ui.item.addClass('highlight-animation').delay(1500).queue(function(next){
