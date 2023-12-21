@@ -92,13 +92,19 @@
 
             @foreach($pages as ['name'=>$name, 'slug'=>$slug])
                 <li class="text-center text-white burgerMenuItem">
-                    <a class="block p-4" href="{{  route(linkByLocale($slug)) }}">
-                        {{__('nav-bar.links.'.$name)}}
-                    </a>
+                    @if($slug === 'main')
+                        <a class="block p-4" href="{{  route(linkByLocale()) }}">
+                            {{__('nav-bar.links.'.$name)}}
+                        </a>
+                    @else
+                        <a class="block p-4" href="{{  route(linkByLocale($slug)) }}">
+                            {{__('nav-bar.links.'.$name)}}
+                        </a>
+                    @endif
                 </li>
             @endforeach
         </ul>
-        <div class="logoPhotographer px-7">
+        <div class="logoPhotographer px-7 pb-20">
             <h3 class="text-start">Olena</h3>
             <h3 class="text-end">Yavorska</h3>
         </div>
