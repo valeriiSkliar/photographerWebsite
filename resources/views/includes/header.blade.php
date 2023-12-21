@@ -1,5 +1,5 @@
 @pushonce('custom-script')
-@vite('resources/js/langSwitcher.js');
+@vite('resources/js/langSwitcher.js')
 @endpushonce
 <header>
     <nav class="navbar px-5 md:justify-evenly stroke">
