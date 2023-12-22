@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Component\Component;
-use App\Models\MetaData\MetaTags;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;

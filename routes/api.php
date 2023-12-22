@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Page\PageController;
+use App\Http\Controllers\API\LangSwitcherController;
 use App\Http\Controllers\API\MetaTagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+Route::post('/set-lang', [LangSwitcherController::class, 'setLangInCookies']);
 
 Route::apiResource('/meta-tags', MetaTagController::class);
 Route::post('/get-meta-list-markup', [MetaTagController::class, 'getMarkUp']);

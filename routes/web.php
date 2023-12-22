@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin\Component\ComponentController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ImageOrderController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
@@ -25,9 +24,8 @@ use App\Http\Controllers\Admin\ApplicationSubmitController;
 */
 
 $databaseName = config('database.connections.mysql.database');
-//$locales = ['en', 'de', ''];
+
 $locales = array_merge(config('app.available_locales'), ['default_routes' => '']);
-//Route::get("/", [IndexController::class, 'index'])->name("index.page");
 
 foreach ($locales as $locale) {
     Route::get("/{$locale}", [IndexController::class, 'index'])->name("{$locale}.index.page");
@@ -60,7 +58,6 @@ try {
     }
 
 } catch (Exception $e) {
-//    dd($e);
 }
 
 

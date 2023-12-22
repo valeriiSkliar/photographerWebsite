@@ -9,7 +9,6 @@ use App\Services\SessionMessageService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
-use mysql_xdevapi\Exception;
 
 class ContactController extends Controller
 {
