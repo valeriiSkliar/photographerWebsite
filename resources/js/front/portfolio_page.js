@@ -22,8 +22,6 @@ portfolioSlider.fillArrayAlbumsTitle(albumCoverNames);
 
 function fillArrayURL (arrayURL) {
     portfolioSlider.activeFrame = 0;
-    scrollLeft.style.display = 'none';
-    scrollRight.style.display = 'block';
     portfolioSlider.arrayWithURL.splice(0, portfolioSlider.arrayWithURL.length);
     arrayURL.forEach((element)=>{
         portfolioSlider.arrayWithURL.push(element)
@@ -35,20 +33,14 @@ function slideDirection (direction) {
 
     if (direction) {
         portfolioSlider.activeFrame += 1;
-        if (portfolioSlider.activeFrame === portfolioSlider.arrayWithURL.length-1) {
-            scrollRight.style.display = 'none';
-        }
-        if (portfolioSlider.activeFrame === 1) {
-            scrollLeft.style.display = 'block';
+        if (portfolioSlider.activeFrame === portfolioSlider.arrayWithURL.length) {
+            portfolioSlider.activeFrame = 0;
         }
     }
     else {
         portfolioSlider.activeFrame -= 1;
-        if (portfolioSlider.activeFrame === 0) {
-            scrollLeft.style.display = 'none';
-        }
-        if (portfolioSlider.activeFrame === portfolioSlider.arrayWithURL.length-2) {
-            scrollRight.style.display = 'block';
+        if (portfolioSlider.activeFrame === -1) {
+            portfolioSlider.activeFrame = portfolioSlider.arrayWithURL.length - 1;
         }
     }
     sliderContainer.style.backgroundImage = `url(${portfolioSlider.arrayWithURL[portfolioSlider.activeFrame].file_url})`
@@ -107,3 +99,4 @@ scrollRight.addEventListener('click', () => {
     slideDirection(1);
 });
 
+const setIntervalGallery = setInterval(() => {slideDirection(1)}, 7000);

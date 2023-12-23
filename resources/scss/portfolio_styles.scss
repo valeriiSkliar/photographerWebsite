@@ -48,10 +48,13 @@
 }
 
 .portfolio_text {
+    width: 70%;
     margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
     font-family: var(--font-allison);
     font-size: 30px;
-    text-align: center;
+    text-align: justify;
 }
 
 .main_container_for_slider {
@@ -89,6 +92,25 @@
     z-index: 98;
 }
 
+.button_scroll_div {
+    position: absolute;
+    z-index: 99;
+    width: 3.6vw;
+    height: 1.2vw;
+    top: 19.0875vw;
+    background-color: yellow;
+    opacity: 0.6;
+}
+
+#button_scroll_div_left {
+    left: 1vw;
+}
+
+#button_scroll_div_right {
+    right: 1vw;
+}
+
+
 .button_scroll {
     position: absolute;
     z-index: 99;
@@ -103,7 +125,7 @@
 
 #scroll_left {
     left: 1vw;
-    display: none;
+    // display: none;
     transform: rotateZ(180deg);
 }
 
