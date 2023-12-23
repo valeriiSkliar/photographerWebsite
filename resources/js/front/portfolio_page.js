@@ -4,6 +4,7 @@ const portfolioTextCollection = document.getElementsByClassName ('portfolio_text
 const albumCover = document.getElementsByClassName ('portfolio_albums_title');
 const albumCoverNames = document.getElementsByClassName ('album_cover_name');
 const sliderContainer = document.getElementById('container_for_slider');
+const swiperPortfolio = document.getElementById('swiper_portfolio');
 const scrollLeft = document.getElementById('scroll_left');
 const scrollRight = document.getElementById('scroll_right');
 
@@ -11,6 +12,7 @@ const portfolioSlider = {
     activeFrame: 0,
     arrayWithURL:[],
     arrayTitle:[],
+    touchStart: 0,
     fillArrayAlbumsTitle: function (collection) {
         for (let i = 0; i < collection.length; i += 1) {
             this.arrayTitle.push(collection[i].textContent.trim());
@@ -99,4 +101,22 @@ scrollRight.addEventListener('click', () => {
     slideDirection(1);
 });
 
+swiperPortfolio.addEventListener('touchstart',(event)=>{
+    event.preventDefault();
+    portfolioSlider.touchStart = event.touches[0].clientX;
+});
+
+swiperPortfolio.addEventListener('touchend', (event)=>{
+    event.preventDefault();
+    const touchEnd = event.changedTouches[0].clientX;
+    const pathX = touchEnd - portfolioSlider.touchStart;
+    if (pathX > 10) {
+        slideDirection(1);
+    };
+    if (pathX < -10) {
+        slideDirection(0);
+    };
+});
+
 const setIntervalGallery = setInterval(() => {slideDirection(1)}, 7000);
+
