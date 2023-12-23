@@ -24,8 +24,7 @@
 
 
         <div class="navbar__links__list gap-x-7 md:gap-0 items-center w-full md:w-auto md:justify-evenly flex">
-            <!-- Hamburger -->
-            <!-- Mobile Menu Toggle -->
+            <!-- Mobile Hamburger Button -->
             <button class="flex justify-center md:hidden flex-col items-center" @click="openMenu = !openMenu"
                     :aria-expanded="openMenu" aria-controls="mobile-navigation" aria-label="Navigation Menu">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -81,7 +80,7 @@
 
 </header>
 
-{{--<!-- Pop Out Navigation -->--}}
+{{--<!-- Mobile Pop Out Navigation -->--}}
 <nav id="mobile-navigation" class="fixed top-0 right-0 bottom-0 left-0 backdrop-blur-sm z-20 text-black transition-all"
      :class="openMenu ? 'visible' : 'invisible' " x-cloak>
 
@@ -104,9 +103,11 @@
                 </li>
             @endforeach
         </ul>
-        <div class="logoPhotographer px-7 pb-20">
+        <div class="logoPhotographer px-7 pb-20 user-select-none">
+            <a href="{{ route(linkByLocale()) }}">
             <h3 class="text-start">Olena</h3>
             <h3 class="text-end">Yavorska</h3>
+            </a>
         </div>
     </div>
 
