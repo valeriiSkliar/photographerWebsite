@@ -8,6 +8,22 @@ const swiperPortfolio = document.getElementById('swiper_portfolio');
 const scrollLeft = document.getElementById('scroll_left');
 const scrollRight = document.getElementById('scroll_right');
 
+function myDevices () {
+
+    const devices = new RegExp('Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini', "i");
+
+    if (devices.test(navigator.userAgent)) {
+     scrollLeft.style.display = 'none';
+     scrollRight.style.display = 'none';
+    }
+    else {
+     scrollLeft.style.display = 'block';
+     scrollRight.style.display = 'block';
+    }
+}
+
+myDevices();
+
 const portfolioSlider = {
     activeFrame: 0,
     arrayWithURL:[],
