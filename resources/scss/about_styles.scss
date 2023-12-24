@@ -24,7 +24,7 @@
 .about_text {
     position: absolute;
     font-family: var(--font-long-text);
-    font-size: 30px;
+    font-size: 40px;
     text-shadow: black 2px 2px;
 }
 
@@ -64,7 +64,7 @@
     }
 
     .about_text {
-        font-size: 20px;
+        font-size: 32px;
     }
 
 }
@@ -73,6 +73,10 @@
 
     .name_page {
         font-size: 36px;
+    }
+
+    .about_text {
+        font-size: 26px;
     }
 
     .title_1 {
@@ -92,6 +96,7 @@
 
     .text_2 {
         right: 7vw;
+        bottom: 20vw;
     }
 
     .title_3 {
@@ -111,7 +116,7 @@
     }
 
     .about_text {
-        font-size: 16px;
+        font-size: 20px;
     }
 }
 
@@ -119,6 +124,10 @@
 
     .name_page {
         font-size: 30px;
+    }
+
+    .about_text {
+        font-size: 17px;
     }
 
     .title_1 {
@@ -138,6 +147,7 @@
 
     .text_2 {
         right: 4vw;
+        bottom: 18vw;
     }
 
     .title_3 {
@@ -157,7 +167,7 @@
     }
 
     .about_text {
-        font-size: 12px;
+        font-size: 15px;
     }
 }
 
@@ -172,7 +182,7 @@
     }
 
     .about_text {
-        font-size: 8px;
+        font-size: 12px;
     }
 
     .title_1 {
@@ -192,6 +202,7 @@
 
     .text_2 {
         right: 2vw;
+        bottom: 13vw;
     }
 
     .title_3 {
@@ -205,5 +216,4 @@
     }
 
 }
-
 
