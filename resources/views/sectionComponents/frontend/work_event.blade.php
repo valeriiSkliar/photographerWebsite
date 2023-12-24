@@ -11,8 +11,9 @@
             </p>
         @endforeach
     </div>
-</div>
-<div class="div_for_button_work">
-    <x-button-work></x-button-work>
+    <div class="defense_copy"></div>
+    <div class="div_for_button_work">
+        <x-button-work></x-button-work>
+    </div>
 </div>
 

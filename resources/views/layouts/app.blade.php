@@ -34,6 +34,8 @@
     @include('includes.page_meta_tags')
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/allison-script" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/night-stalker-2" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/laquentta-morelly" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Allison&family=Lora&display=swap" rel="stylesheet">
