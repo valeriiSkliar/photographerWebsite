@@ -41,9 +41,15 @@
 
 .swiper,
 .swiper-container {
-    width: 100%;
+    width: calc(100vw - 20px);
+    height: calc(56.25vw - 11.25px);
     margin-left: auto;
     margin-right: auto;
+}
+
+.swiper-wrapper {
+    width: 100%;
+    height: 100%;
 }
 
 .swiper-slide {
@@ -52,7 +58,7 @@
 }
 
 .gallery-top {
-    height: calc(100vh - var(--navbar-height));
+    // height: calc(100vh - var(--navbar-height));
     --swiper-navigation-color: #fff;
     --swiper-pagination-color: #fff;
 }

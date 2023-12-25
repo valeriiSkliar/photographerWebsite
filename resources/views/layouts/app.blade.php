@@ -34,10 +34,12 @@
     @include('includes.page_meta_tags')
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/allison-script" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/night-stalker-2" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/quinbery" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/laquentta-morelly" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Tangerine&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Allison&family=Lora&display=swap" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
