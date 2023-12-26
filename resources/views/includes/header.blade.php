@@ -116,3 +116,28 @@
             aria-controls="mobile-navigation" aria-label="Close Navigation Menu"></button>
 
 </nav>
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                    "@id": "{{ route(linkByLocale()) }}",
+                    "name": "{{config('app.name')}}"
+                }
+            } @if($page->slug !== 'main'),
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                    "@id": "{{ route(linkByLocale($page->slug)) }}",
+                    "name": "{{__('nav-bar.links.'.$page->name)}}"
+                }
+            }
+            @endif
+        ]
+    }
+</script>

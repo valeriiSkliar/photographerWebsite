@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
             return new SessionMessageService();
         });
 
-        view()->composer(['includes.footer', 'sectionComponents.frontend.contacts_component'], function ($view) {
+        view()->composer(['includes.footer', 'sectionComponents.frontend.contacts_component', 'layouts.app'], function ($view) {
             $contact = Contact::find(1);
 
             if ($contact) {
