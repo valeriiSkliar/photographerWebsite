@@ -128,7 +128,7 @@
                     "@id": "{{ route(linkByLocale()) }}",
                     "name": "{{config('app.name')}}"
                 }
-            } @if($page->slug !== 'main'),
+            } @if(isset($page) && $page->slug !== 'main'),
             {
                 "@type": "ListItem",
                 "position": 2,
