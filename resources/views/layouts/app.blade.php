@@ -8,10 +8,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name') }}</title>
-
-    <link rel="alternate" hreflang="en" href="{{config('app.url') . 'en'}}">
-    <link rel="alternate" hreflang="de" href="{{config('app.url') . 'de'}}">
-    <link rel="alternate" hreflang="x-default" href="{{config('app.url')}}">
+    @isset($page)
+        @if($page->slug !== 'main')
+            <link rel="alternate" hreflang="de" href="{{config('app.url') . 'de/' . $page->slug}}">
+            <link rel="alternate" hreflang="x-default" href="{{config('app.url'). $page->slug}}">
+        @else
+            <link rel="alternate" hreflang="de" href="{{config('app.url') . 'de/'}}">
+            <link rel="alternate" hreflang="x-default" href="{{config('app.url')}}">
+        @endif
+    @endisset
     <meta name="available-lang" content="{{implode(",", config('app.available_locales'))}}">
     <meta name="robots" content="max-snippet:300, max-image-preview:large, max-video-preview:-1">
     <!-- Favicon -->
