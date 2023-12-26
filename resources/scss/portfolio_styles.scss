@@ -52,8 +52,8 @@
     margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
-    font-family: var(--font-allison);
-    font-size: 30px;
+    font-family: var(--font-long-text);
+    font-size: 40px;
     text-align: justify;
 }
 
@@ -92,25 +92,6 @@
     z-index: 98;
 }
 
-.button_scroll_div {
-    position: absolute;
-    z-index: 99;
-    width: 3.6vw;
-    height: 1.2vw;
-    top: 19.0875vw;
-    background-color: yellow;
-    opacity: 0.6;
-}
-
-#button_scroll_div_left {
-    left: 1vw;
-}
-
-#button_scroll_div_right {
-    right: 1vw;
-}
-
-
 .button_scroll {
     position: absolute;
     z-index: 99;
@@ -118,7 +99,7 @@
     height: 1.2vw;
     top: 19.0875vw;
     background-color: gray;
-    opacity: 0.6;
+    opacity: 0.2;
     clip-path: polygon(0% 0%,10% 5%,20% 10%,30% 15%,40% 20%,50% 25%,60% 30%,70% 35%,80% 40%,90% 45%,100% 50%,
                         90% 55%,80% 60%,70% 65%,60% 70%,50% 75%,40% 80%,30% 85%,20% 90%,10% 95%,0% 100%,10% 50%,0% 0%);
 }
@@ -134,7 +115,7 @@
 }
 
 .button_scroll:hover {
-    opacity: 0.9;
+    opacity: 0.5;
 }
 
 .button_scroll:active {
@@ -223,7 +204,7 @@
     }
 
      .portfolio_text {
-        font-size: 22px;
+        font-size: 32px;
     }
  }
 
@@ -242,7 +223,7 @@
     }
 
     .portfolio_text {
-       font-size: 14px;
+       font-size: 24px;
    }
 }
 
@@ -261,7 +242,7 @@
     }
 
     .portfolio_text {
-       font-size: 12px;
+       font-size: 20px;
    }
 }
 
@@ -280,7 +261,7 @@
     }
 
     .portfolio_text {
-       font-size: 10px;
+       font-size: 16px;
    }
 
    .contacts_name_page {

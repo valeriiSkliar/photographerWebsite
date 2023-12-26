@@ -34,8 +34,12 @@
     @include('includes.page_meta_tags')
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/allison-script" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/quinbery" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/laquentta-morelly" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Tangerine&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Allison&family=Lora&display=swap" rel="stylesheet">
 {{--    @dd($contact)--}}
     <script type="application/ld+json">{"@context":"http://schema.org","@type":"Organization","brand":"{{ucfirst(config('app.name'))}}","logo":"{{asset('/logo/logo-yavorskaphotography.png')}}","name":"{{ucfirst(config('app.name'))}}","url":"{{config('app.url')}}","department":[{"@context":"http://schema.org","@type":"Organization","name":"{{ucfirst(config('app.name'))}}","image":"{{asset('/openGraff/banner-for-social-share.jpg')}}",@if(isset($contact->country) && isset($contact->city) && isset($contact->address)) "address":{"@type":"PostalAddress","addressCountry":"{{ $contact->country }}", "addressLocality":"{{ $contact->city }}","streetAddress": "{{ $contact->address }}"},"location":{"@type":"Place","geo":{"@type": "GeoCoordinates","latitude": "47.72802819483339","longitude": "12.877527818507355"}},@endif @if(isset($contact->email) || isset($contact->phone)) "email":"{{ $contact->email }}","telephone":"{{ $contact->phone }}"@endif}]}</script>
