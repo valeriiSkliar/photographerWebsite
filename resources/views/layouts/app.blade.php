@@ -81,12 +81,12 @@
                 },
                 {
                     "@type": "ImageObject",
-                    "@id": "{{rtrim(route(linkByLocale()))}}/#primaryimage",
+                    "@id": "{{config('app.url')}}#primaryimage",
                     "inLanguage": "en",
                     "url": "{{asset('/openGraff/banner-for-social-share.png')}}",
                     "width": 1200,
                     "height": 630,
-                    "caption": "Portfolio"
+                    "caption": ""
                 },
                 @isset($page)
                 {
@@ -98,7 +98,7 @@
                         "@id": "{{route(linkByLocale())}}#website"
                     },
                     "primaryImageOfPage": {
-                        "@id": "{{asset('/openGraff/banner-for-social-share.png')}}#primaryimage"
+                        "@id": "{{config('app.url')}}#primaryimage"
                     },
                     "datePublished": "2023-12-01T20:09:07+00:00",
                     "dateModified": "2023-12-11T16:48:30+00:00",
