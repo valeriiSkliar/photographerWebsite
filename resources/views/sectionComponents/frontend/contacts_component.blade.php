@@ -23,9 +23,15 @@
         @foreach($details as $text)
             @continue($loop->first)
                 @if ($loop->even)
-                    <div class="contacts_front">
-                        {{$contact[$text->key]}}
-                    </div>
+                    @if ($contact[$text->key] === 'Germany' && app()->getLocale() === 'de')
+                        <div class="contacts_front">
+                            Deutschland
+                        </div>
+                    @else
+                        <div class="contacts_front">
+                            {{$contact[$text->key]}}
+                        </div>
+                    @endif
                 @endif
                 @if ($loop->odd)
                 <div class="contacts_front contacts_align_right_front">
