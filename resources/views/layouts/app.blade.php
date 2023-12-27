@@ -37,6 +37,24 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
     @include('includes.page_meta_tags')
+    <meta property="og:locale" content="{{app()->getLocale()}}"/>
+    <meta property="og:locale:alternate" content="{{app()->getLocale() === 'en' ? 'de' : 'en'}}">
+    @isset($page)
+    <meta property="og:title" content="{{$page->name}}"/>
+    <meta property="og:description" content="{{$meta_tags->firstWhere('value', 'description')?->content}}"/>
+    <meta property="og:url" content="{{route(linkByLocale($page->slug))}}"/>
+    @endisset
+    <meta property="og:site_name" content="{{config('app.name')}}"/>
+    <meta property="og:image" content="{{asset('/openGraff/banner-for-social-share.png')}}"/>
+    <meta property="og:image:secure_url" content="{{asset('/openGraff/banner-for-social-share.png')}}">
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    @isset($page)
+    <meta name="twitter:title" content="{{$page->name}}">
+    @endisset
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="{{asset('/openGraff/banner-for-social-share.png')}}">
+
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/allison-script" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/quinbery" rel="stylesheet">
@@ -47,7 +65,54 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Tangerine&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Allison&family=Lora&display=swap" rel="stylesheet">
 {{--    @dd($contact)--}}
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"Organization","brand":"{{ucfirst(config('app.name'))}}","logo":"{{asset('/logo/logo-yavorskaphotography.png')}}","name":"{{ucfirst(config('app.name'))}}","url":"{{config('app.url')}}","department":[{"@context":"http://schema.org","@type":"Organization","name":"{{ucfirst(config('app.name'))}}","image":"{{asset('/openGraff/banner-for-social-share.jpg')}}",@if(isset($contact->country) && isset($contact->city) && isset($contact->address)) "address":{"@type":"PostalAddress","addressCountry":"{{ $contact->country }}", "addressLocality":"{{ $contact->city }}","streetAddress": "{{ $contact->address }}"},"location":{"@type":"Place","geo":{"@type": "GeoCoordinates","latitude": "47.72802819483339","longitude": "12.877527818507355"}},@endif @if(isset($contact->email) || isset($contact->phone)) "email":"{{ $contact->email }}","telephone":"{{ $contact->phone }}"@endif}]}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"Organization","brand":"{{ucfirst(config('app.name'))}}","logo":"{{asset('/logo/logo-yavorskaphotography.png')}}","name":"{{ucfirst(config('app.name'))}}","url":"{{config('app.url')}}","department":[{"@context":"http://schema.org","@type":"Organization","name":"{{ucfirst(config('app.name'))}}","image":"{{asset('/openGraff/banner-for-social-share.png')}}",@if(isset($contact->country) && isset($contact->city) && isset($contact->address)) "address":{"@type":"PostalAddress","addressCountry":"{{ $contact->country }}", "addressLocality":"{{ $contact->city }}","streetAddress": "{{ $contact->address }}"},"location":{"@type":"Place","geo":{"@type": "GeoCoordinates","latitude": "47.72802819483339","longitude": "12.877527818507355"}},@endif @if(isset($contact->email) || isset($contact->phone)) "email":"{{ $contact->email }}","telephone":"{{ $contact->phone }}"@endif}]}</script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "WebSite",
+                    "@id": "{{rtrim(route(linkByLocale()))}}/#website",
+                    "url": "{{route(linkByLocale())}}",
+                    "name": "{{ucfirst(config('app.name'))}}",
+                    "description": "",
+                    "inLanguage": "{{ app()->getLocale() }}"
+                },
+                {
+                    "@type": "ImageObject",
+                    "@id": "{{rtrim(route(linkByLocale()))}}/#primaryimage",
+                    "inLanguage": "en",
+                    "url": "{{asset('/openGraff/banner-for-social-share.png')}}",
+                    "width": 1200,
+                    "height": 630,
+                    "caption": "Portfolio"
+                },
+                @isset($page)
+                {
+                    "@type": "WebPage",
+                    "@id": "{{rtrim(route(linkByLocale($page->slug)))}}/#webpage",
+                    "url": "{{route(linkByLocale($page->slug))}}",
+                    "name": "{{$page->name}}",
+                    "isPartOf": {
+                        "@id": "{{route(linkByLocale())}}#website"
+                    },
+                    "primaryImageOfPage": {
+                        "@id": "{{asset('/openGraff/banner-for-social-share.png')}}#primaryimage"
+                    },
+                    "datePublished": "2023-12-01T20:09:07+00:00",
+                    "dateModified": "2023-12-11T16:48:30+00:00",
+                    "description": "{{$meta_tags->firstWhere('value', 'description')?->content}}",
+                    "inLanguage": "{{ app()->getLocale() }}",
+                    "potentialAction": [
+                        {
+                            "@type": "ReadAction",
+                            "target": [@if($page->slug === 'main')"{{route(linkByLocale())}}"@else"{{route(linkByLocale($page->slug))}}"@endif]
+                        }
+                    ]
+                }
+           @endisset]
+        }</script>
     <!-- Scripts -->
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     @stack('custom-style')
