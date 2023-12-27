@@ -26,9 +26,14 @@
             {{$contact['name'].' '.$contact['surname']}}
         </a>
         @endif
-        @if(isset($contact['address']) && isset($contact['phone']) && isset($contact['email']))
+        @if(isset($contact['country']) && isset($contact['city']) && isset($contact['phone']) && isset($contact['email']))
         <div class="address_footer">
-            {{$contact['address']}}<br>
+            @if (app()->getLocale() === 'en')
+                {{$contact['country']}},
+            @endif
+            @if (app()->getLocale() === 'de')
+                Deutschland,
+            @endif{{$contact['city']}}<br>
             @if (app()->getLocale() === 'en')
                 phone:
             @endif
