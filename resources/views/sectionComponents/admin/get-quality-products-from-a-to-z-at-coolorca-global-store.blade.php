@@ -1,1 +1,0 @@
-<h1> Admin template for editing get-quality-products-from-a-to-z-at-coolorca-global-store </h1>
