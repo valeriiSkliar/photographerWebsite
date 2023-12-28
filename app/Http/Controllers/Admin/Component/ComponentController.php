@@ -79,7 +79,7 @@ class ComponentController extends Controller
             }
         }
 
-
+        $page->touch();
         if ($request->ajax()) {
             $markup = view('includes.admin.component.ajax.component_list.row', compact('component', 'page'))->render();
             return response()->json([
@@ -202,6 +202,7 @@ class ComponentController extends Controller
                 }
             }
         }
+        $page->touch();
 
         if ($request->ajax()) {
             $markup = view(
@@ -231,6 +232,7 @@ class ComponentController extends Controller
             ->first();
         $component->details()->delete();
         $component->delete();
+        $page->touch();
         if ($request->ajax()) {
 //            $markup = view('includes.admin.component.ajax.component_list.row', compact('component'))->render();
             return response()->json([

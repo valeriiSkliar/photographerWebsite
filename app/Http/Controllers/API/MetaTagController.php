@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateMetaTagsRequest;
 use App\Models\MetaData\MetaTagsNameVariants;
 use App\Models\MetaData\MetaTagsPropertyVariants;
 use App\Models\MetaData\MetaTegType;
+use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use function Laravel\Prompts\error;
@@ -105,6 +106,9 @@ class MetaTagController extends Controller
                 compact(
                     'updatedMetaTags'
                 ))->render();
+
+            $page = Page::find($validatedData['page_id']);
+            $page->touch();
             return response()->json([
                 'success' => true,
                 'updatedMetaTags' => $updatedMetaTags,
