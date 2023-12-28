@@ -14,14 +14,18 @@
             @foreach($album->images as $image)
                 <div class="swiper-slide">
                     <div class="imgGlass"></div>
-                    <img loading="lazy" src="{{ $image->file_url }}" alt="{{$image->alt_text}}">
+                    {{--                    @dd($image)--}}
+                        <img loading="lazy"
+                             srcset="{{ $image->file_url_small }} 480w, {{ $image->file_url_medium }} 768w, {{ $image->file_url }} 1024w"
+                             src="{{ $image->file_url_medium }}"
+                             alt="{{$image->alt_text}}">
                     <div class="swiper-lazy-preloader"></div>
                 </div>
             @endforeach
         </div>
 
         <!-- If we need pagination -->
-{{--            <div class="swiper-pagination"></div>--}}
+        {{--            <div class="swiper-pagination"></div>--}}
 
         <!-- If we need navigation buttons -->
         <div class="swiper-button-prev"></div>
@@ -38,7 +42,7 @@
 @endpushonce
 
 @push('custom-script')
-    <script >
+    <script>
         const option = {
             loop: true,
             centeredSlides: true,

@@ -120,6 +120,7 @@
                         </div>
                         <div class="row albumImageCards " id="sortable">
                             @foreach($album->images as $image)
+{{--                                @dd($image)--}}
                                 <div class="col-md-4 my-3 selectable-item"
                                      data-image_id="{{$image->id}}"
                                      style="min-width: 8rem;">
@@ -129,7 +130,7 @@
                                            data-title="{{ $image->tilte }}"
                                            class="wrapper-for-lazy-image">
                                             <div class="aspect-ratio-16-9 rounded"></div>
-                                            <img src="{{ asset($image->file_url) }}"
+                                            <img src="{{ asset($image->file_url_small) }}"
                                                  class=" img-thumbnail lazy-image-thumbnail"
                                                  alt="{{ $image->alt_text }}"
                                                  title="{{ $image->title }}"

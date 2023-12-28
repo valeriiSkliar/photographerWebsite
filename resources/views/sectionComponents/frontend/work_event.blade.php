@@ -1,5 +1,8 @@
 <div class="about_section">
-    <img class="w-full h-full object-cover" src="{{ asset($album->images[0]->file_url) }}" alt="Photo">
+    <img class="w-full h-full object-cover"
+         srcset="{{ $album->images[0]->file_url_small }} 480w, {{ $album->images[0]->file_url_medium }} 768w, {{ $album->images[0]->file_url }} 1024w"
+         src="{{ $album->images[0]->file_url_medium }}"
+         alt="Photo">
     <div class="about_title title_4">
         {{$details[0]->getLocalizedTranslation()}}
     </div>
