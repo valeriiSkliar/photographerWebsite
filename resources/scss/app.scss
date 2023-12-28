@@ -1,12 +1,8 @@
 @use "variables/global";
 @use "normalize";
 @use "nav-bar";
-@use "Sections/Page 1/thoughts";
 @use "footer";
 @use "about_styles";
-@use "work_styles";
-@use "contacts_styles";
-@use "portfolio_styles";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -1,5 +1,3 @@
-import {getCsrfToken} from "../helpers/getCsrfToken.js"
-
 const portfolioTextCollection = document.getElementsByClassName ('portfolio_text');
 const albumCover = document.getElementsByClassName ('portfolio_albums_title');
 const albumCoverNames = document.getElementsByClassName ('album_cover_name');

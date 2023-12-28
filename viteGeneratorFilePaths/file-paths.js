@@ -8,8 +8,11 @@ export default [
 "resources/scss/admin/page/admin_page_show.scss",
 "resources/scss/app.scss",
 "resources/scss/aspect-ratio.scss",
+"resources/scss/contacts_styles.scss",
 "resources/scss/errors/style.scss",
+"resources/scss/portfolio_styles.scss",
 "resources/scss/swiper-thumbs.scss",
+"resources/scss/work_styles.scss",
 "resources/js/admin/gallery/admin_gallery_edit_album.js",
 "resources/js/admin/gallery/admin_gallery_index.js",
 "resources/js/admin/gallery/dragAndDrop.js",
@@ -19,5 +22,6 @@ export default [
 "resources/js/app.js",
 "resources/js/front/portfolio_page.js",
 "resources/js/front/work_page123.js",
+"resources/js/langSwitcher.js",
 "resources/js/show_page_view.js"
 ];
