@@ -64,7 +64,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Tangerine&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Allison&family=Lora&display=swap" rel="stylesheet">
-{{--    @dd($contact)--}}
     <script type="application/ld+json">{"@context":"http://schema.org","@type":"Organization","brand":"{{ucfirst(config('app.name'))}}","logo":"{{asset('/logo/logo-yavorskaphotography.png')}}","name":"{{ucfirst(config('app.name'))}}","url":"{{config('app.url')}}","department":[{"@context":"http://schema.org","@type":"Organization","name":"{{ucfirst(config('app.name'))}}","image":"{{asset('/openGraff/banner-for-social-share.png')}}",@if(isset($contact->country) && isset($contact->city) && isset($contact->address)) "address":{"@type":"PostalAddress","addressCountry":"{{ $contact->country }}", "addressLocality":"{{ $contact->city }}","streetAddress": "{{ $contact->address }}"},"location":{"@type":"Place","geo":{"@type": "GeoCoordinates","latitude": "47.72802819483339","longitude": "12.877527818507355"}},@endif @if(isset($contact->email) || isset($contact->phone)) "email":"{{ $contact->email }}","telephone":"{{ $contact->phone }}"@endif}]}</script>
 
     <script type="application/ld+json">
@@ -100,8 +99,8 @@
                     "primaryImageOfPage": {
                         "@id": "{{config('app.url')}}#primaryimage"
                     },
-                    "datePublished": "2023-12-01T20:09:07+00:00",
-                    "dateModified": "2023-12-11T16:48:30+00:00",
+                    "datePublished": "{{$getSeoDate($page->created_at)}}",
+                    "dateModified": "{{$getSeoDate($page->updated_at)}}",
                     "description": "{{$meta_tags->firstWhere('value', 'description')?->content}}",
                     "inLanguage": "{{ app()->getLocale() }}",
                     "potentialAction": [
