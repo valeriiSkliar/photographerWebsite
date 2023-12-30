@@ -10,7 +10,7 @@
         @foreach($pages as $page)
             @if($imageMap->has($page->name))
                 <div class="{{ $page->name === 'Portfolio' ? 'grid_container row-span-2' : 'grid_container'}}">
-                    <a class="relative" href="{{route(linkByLocale($page->slug))}}">
+                    <a class="relative block" href="{{route(linkByLocale($page->slug))}}">
                         <img class="w-full h-full object-cover" loading="lazy"
                              srcset="{{ $imageMap[$page->name]->file_url_small }} 900w, {{ $imageMap[$page->name]->file_url_medium }} 1024w"
                              src="{{ $imageMap[$page->name]->file_url_medium }}"
