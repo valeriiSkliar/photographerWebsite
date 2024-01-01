@@ -25,7 +25,9 @@
     position: absolute;
     font-family: var(--font-long-text);
     font-size: 40px;
-    text-shadow: black 2px 2px;
+    text-shadow: black 1px 1px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .title_1 {
