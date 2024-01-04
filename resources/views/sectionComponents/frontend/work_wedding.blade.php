@@ -6,7 +6,7 @@
     <div class="about_title title_4">
         {{$details[0]->getLocalizedTranslation()}}
     </div>
-    <div class="about_text text_4">
+    <div class="about_text text_3">
         @foreach($details as $text)
             @continue($loop->first)
             <p>
